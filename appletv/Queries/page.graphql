@@ -1,0 +1,6 @@
+query GetPage {
+    page(code: "frontpage") {
+        title
+        description
+    }
+}
