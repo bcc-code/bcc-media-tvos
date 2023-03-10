@@ -15,20 +15,21 @@ struct SectionItemView: View {
     }
 
     var body: some View {
-
         Button(
                 action: {},
-        label: {
-            VStack(spacing: 4) {
-                AsyncImage(url: URL(string: item.image!)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                }.scaledToFill().frame(width: 320, height: 180).clipped()
-                Text(item.title).font(.subheadline).padding(.vertical)
-            }
-        }
-        ).buttonStyle(.card)
+                label: {
+                    VStack(spacing: 4) {
+                        AsyncImage(url: URL(string: item.image!)) { image in
+                            image.resizable()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                                .scaledToFill().frame(width: 320, height: 180).clipped()
+                        Text(item.title).font(.body).padding(.vertical)
+                    }
+                }
+        )
+                .buttonStyle(.card)
     }
 }
 
@@ -49,7 +50,8 @@ struct ItemSectionView: View {
                     ForEach(section.items.items, id: \.id) { item in
                         SectionItemView(item: item)
                     }
-                }.padding(2).clipped()
+                }
+                        .padding(2).clipped()
             }
         }
     }

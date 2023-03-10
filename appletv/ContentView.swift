@@ -16,13 +16,13 @@ struct ContentView: View {
     var authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: "HgmQSt1W0Is0zrQgWFw6J8AHE0PyjMRt", scope: "profile email", audience: "dev-api.bcc.no", domain: "bcc-sso-dev.eu.auth0.com"))
 
     var body: some View {
-        VStack {
+        NavigationView {
             if let p = page {
                 List(p.sections.items, id: \.id) { section in
                     if let s = section.asItemSection {
                         ItemSectionView(section: s)
                     }
-                }
+                }.navigationTitle(p.title)
             }
         }
         .task {
