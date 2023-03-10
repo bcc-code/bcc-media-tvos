@@ -2,22 +2,37 @@
 // Created by Fredrik Vedvik on 09/03/2023.
 //
 
-import Foundation
 import Auth0
+import Foundation
 
 private struct tokenRequestBody: Codable {
-    var client_id: String
+    var clientId: String
     var scope: String
     var audience: String
+
+    enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
+        case scope = "scope"
+        case audience = "audience"
+    }
 }
 
 struct DeviceTokenRequestResponse: Codable {
-    var device_code: String
-    var user_code: String
-    var verification_uri: String
-    var expires_in: Int
+    var deviceCode: String
+    var userCode: String
+    var verificationUri: String
+    var expiresIn: Int
     var interval: Double
-    var verification_uri_complete: String
+    var verificationUriComplete: String
+
+    enum CodingKeys: String, CodingKey {
+        case deviceCode = "device_code"
+        case userCode = "user_code"
+        case verificationUri = "verification_uri"
+        case expiresIn = "expires_in"
+        case interval = "interval"
+        case verificationUriComplete = "verification_uri_complete"
+    }
 }
 
 struct AuthenticationProviderOptions {
@@ -28,9 +43,15 @@ struct AuthenticationProviderOptions {
 }
 
 struct GetTokenRequest: Codable {
-    var grant_type = "urn:ietf:params:oauth:grant-type:device_code"
-    var device_code: String
-    var client_id: String
+    var grantType = "urn:ietf:params:oauth:grant-type:device_code"
+    var deviceCode: String
+    var clientId: String
+
+    enum CodingKeys: String, CodingKey {
+        case grantType = "grant_type"
+        case deviceCode = "device_code"
+        case clientId = "client_id"
+    }
 }
 
 struct FailedTokenRetrieval: Codable {
@@ -57,36 +78,36 @@ struct AuthenticationProvider {
 
         let deviceCode = try! await fetchDeviceCode()
 
-        codeCallback(deviceCode.device_code)
+        codeCallback(deviceCode.deviceCode)
 
         let result = try! await listenToResolve(deviceToken: deviceCode)
 
         let stored = credentialsManager.store(credentials: result)
-        if (!stored) {
+        if !stored {
             print("couldn't store credentials")
         }
         return result.accessToken
     }
 
-    func login(codeCallback: (String) -> Void) async throws -> Void {
+    func login(codeCallback: (String) -> Void) async throws {
         let deviceCode = try! await fetchDeviceCode()
 
-        codeCallback(deviceCode.user_code)
+        codeCallback(deviceCode.userCode)
 
         let result = try! await listenToResolve(deviceToken: deviceCode)
 
         let stored = credentialsManager.store(credentials: result)
-        if (!stored) {
+        if !stored {
             print("couldn't store credentials")
         }
     }
 
     func fetchDeviceCode() async throws -> DeviceTokenRequestResponse {
-        let tokenRequest = tokenRequestBody(client_id: options.client_id, scope: options.scope, audience: options.audience)
+        let tokenRequest = tokenRequestBody(clientId: options.client_id, scope: options.scope, audience: options.audience)
 
         var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/device/code")!,
-                cachePolicy: .useProtocolCachePolicy,
-                timeoutInterval: 10.0)
+                                 cachePolicy: .useProtocolCachePolicy,
+                                 timeoutInterval: 10.0)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.httpBody = try? JSONEncoder().encode(tokenRequest)
@@ -104,11 +125,11 @@ struct AuthenticationProvider {
     }
 
     func listenToResolve(deviceToken: DeviceTokenRequestResponse) async throws -> Credentials {
-        let tokenRequest = GetTokenRequest(device_code: deviceToken.device_code, client_id: options.client_id)
+        let tokenRequest = GetTokenRequest(deviceCode: deviceToken.deviceCode, clientId: options.client_id)
 
         var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/token")!,
-                cachePolicy: .reloadIgnoringCacheData,
-                timeoutInterval: 10.0)
+                                 cachePolicy: .reloadIgnoringCacheData,
+                                 timeoutInterval: 10.0)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         request.httpBody = try? JSONEncoder().encode(tokenRequest)

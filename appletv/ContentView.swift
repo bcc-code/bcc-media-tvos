@@ -11,38 +11,34 @@ import SwiftUI
 struct ContentView: View {
     @State var token = ""
 
+    @State var page: API.GetPageQuery.Data.Page? = nil
+
     var authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: "HgmQSt1W0Is0zrQgWFw6J8AHE0PyjMRt", scope: "profile email", audience: "dev-api.bcc.no", domain: "bcc-sso-dev.eu.auth0.com"))
 
     var body: some View {
-        HStack {
-            VStack {
-                Text("Test")
-            }
-            VStack {
-                Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                Text("Hello, world!").font(.title)
-                Text("Subtitle").font(.subheadline)
-                Text(token).font(.title3)
-            }
-        }
-                .padding()
-                .task {
-                    apolloClient.fetch(query: API.GetPageQuery) { result in
-
+        VStack {
+            if let p = page {
+                List(p.sections.items, id: \.id) { section in
+                    if let s = section.asItemSection {
+                        ItemSectionView(section: s)
                     }
                 }
-//                .task {
-//                    do {
-//                        try await authenticationProvider.login(codeCallback: { result in
-//                            token = result
-//                        })
-//                        print("LOGGED IN!")
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
+            }
+        }
+        .task {
+            apolloClient.fetch(query: API.GetPageQuery()) { result in
+                switch result {
+                case let .success(res):
+                    if let p = res.data {
+                        page = p.page
+                    }
+                case .failure:
+                    print("FAILED")
+                }
+
+                print("OK")
+            }
+        }
     }
 }
 

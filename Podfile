@@ -13,3 +13,7 @@ target 'appletv' do
 
   pod 'Auth0'
 end
+
+pod 'SwiftLint'
+
+pod 'SwiftFormat/CLI'

@@ -2,5 +2,20 @@ query GetPage {
     page(code: "frontpage") {
         title
         description
+        sections(first: 100) {
+            items {
+                id
+                ... on ItemSection {
+                    title
+                    items {
+                        items {
+                            id
+                            title
+                            image
+                        }
+                    }
+                }
+            }
+        }
     }
 }
