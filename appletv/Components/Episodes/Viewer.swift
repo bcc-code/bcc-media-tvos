@@ -41,7 +41,17 @@ struct EpisodeViewer: View {
                 switch result{
                 case let .success(res):
                     if let streams = res.data?.episode.streams {
-                        if let stream = streams.first(where: { $0.type == API.StreamType.hlsCmaf }) {
+                        let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs]
+                        var index = 0
+                        var stream = streams.first(where: { $0.type == types[index] })
+                        while stream == nil && (types.count - 1) > index {
+                            index += 1
+                            stream = streams.first(where: { $0.type == types[index]})
+                        }
+                        if stream == nil {
+                            stream = streams.first
+                        }
+                        if let stream = stream {
                             playerUrl = URL(string: stream.url)
                         }
                     }
