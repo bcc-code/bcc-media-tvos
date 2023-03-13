@@ -63,6 +63,8 @@ public extension API {
       case "PageDetailsSection": return API.Objects.PageDetailsSection
       case "WebSection": return API.Objects.WebSection
       case "SectionItem": return API.Objects.SectionItem
+      case "Episode": return API.Objects.Episode
+      case "Stream": return API.Objects.Stream
       default: return nil
       }
     }

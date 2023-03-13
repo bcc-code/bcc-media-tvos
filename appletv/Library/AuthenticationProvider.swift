@@ -114,10 +114,10 @@ struct AuthenticationProvider {
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-        var str = String(data: data, encoding: .utf8)
+        let str = String(data: data, encoding: .utf8)
 
         if let httpResponse = response as? HTTPURLResponse {
-            print(str)
+            print(str as Any)
             print(httpResponse.statusCode)
         }
 

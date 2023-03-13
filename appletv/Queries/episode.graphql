@@ -1,0 +1,9 @@
+query GetEpisode($id: ID!) {
+    episode(id: $id) {
+        title
+        streams {
+            url
+            type
+        }
+    }
+}
