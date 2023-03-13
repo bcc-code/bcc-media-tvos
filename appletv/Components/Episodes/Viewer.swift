@@ -22,7 +22,8 @@ struct PlayerViewController: UIViewControllerRepresentable {
         return controller
     }
 
-    func updateUIViewController(_ playerController: AVPlayerViewController, context: Context) {}
+    func updateUIViewController(_ playerController: AVPlayerViewController, context: Context) {
+    }
 }
 
 struct EpisodeViewer: View {
@@ -36,31 +37,32 @@ struct EpisodeViewer: View {
             } else {
                 ProgressView()
             }
-        }.task {
-            apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
-                switch result{
-                case let .success(res):
-                    if let streams = res.data?.episode.streams {
-                        let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs]
-                        var index = 0
-                        var stream = streams.first(where: { $0.type == types[index] })
-                        while stream == nil && (types.count - 1) > index {
-                            index += 1
-                            stream = streams.first(where: { $0.type == types[index]})
-                        }
-                        if stream == nil {
-                            stream = streams.first
-                        }
-                        if let stream = stream {
-                            playerUrl = URL(string: stream.url)
+        }
+                .task {
+                    apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
+                        switch result {
+                        case let .success(res):
+                            if let streams = res.data?.episode.streams {
+                                let types = [API.StreamType.hlsTs, API.StreamType.hlsCmaf, API.StreamType.dash]
+                                var index = 0
+                                var stream = streams.first(where: { $0.type == types[index] })
+                                while stream == nil && (types.count - 1) > index {
+                                    index += 1
+                                    stream = streams.first(where: { $0.type == types[index] })
+                                }
+                                if stream == nil {
+                                    stream = streams.first
+                                }
+                                if let stream = stream {
+                                    playerUrl = URL(string: stream.url)
+                                }
+                            }
+                        case .failure:
+                            print("FAILURE")
+
                         }
                     }
-                case .failure:
-                    print("FAILURE")
-
                 }
-            }
-        }
     }
 }
 

@@ -12,7 +12,7 @@ import SwiftUI
 struct appletvApp: App {
     var body: some Scene {
         WindowGroup {
-            EpisodeViewer(episodeId: "1768")
+            ContentView()
         }
     }
 }
