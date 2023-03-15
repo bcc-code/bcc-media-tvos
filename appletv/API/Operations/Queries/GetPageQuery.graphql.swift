@@ -9,8 +9,8 @@ public extension API {
     public static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query GetPage {
-          page(code: "frontpage") {
+        query GetPage($id: ID!) {
+          page(id: $id) {
             __typename
             title
             description
@@ -38,7 +38,13 @@ public extension API {
         """#
       ))
 
-    public init() {}
+    public var id: ID
+
+    public init(id: ID) {
+      self.id = id
+    }
+
+    public var __variables: Variables? { ["id": id] }
 
     public struct Data: API.SelectionSet {
       public let __data: DataDict
@@ -46,7 +52,7 @@ public extension API {
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
-        .field("page", Page.self, arguments: ["code": "frontpage"]),
+        .field("page", Page.self, arguments: ["id": .variable("id")]),
       ] }
 
       public var page: Page { __data["page"] }

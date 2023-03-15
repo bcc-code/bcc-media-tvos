@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09113B0029C081810087B9A2 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09113AFF29C081810087B9A2 /* View.swift */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
 		2D64E0434AEB32333D149D27 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E22A7624A037A3CC6D7B /* Auth0.plist */; };
 		2D64E045323C028845414208 /* SectionItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF085CDBFFDD881A143 /* SectionItem.graphql.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09113AFF29C081810087B9A2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
 		2D64E076365D1E15C0A6F330 /* GetPageQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPageQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64E08F3B497DFD8EDEDE9B /* IconGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconGridSection.graphql.swift; sourceTree = "<group>"; };
@@ -145,9 +147,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09113AFE29C081710087B9A2 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				09113AFF29C081810087B9A2 /* View.swift */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
 		0943E18429BB363F0016348C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				09113AFE29C081710087B9A2 /* Page */,
 				0943E18529BB364B0016348C /* Sections */,
 				2D64EACA7247B2B605E740B3 /* Episodes */,
 			);
@@ -442,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09113B0029C081810087B9A2 /* View.swift in Sources */,
 				2D64E78A38DE97116A7131C3 /* appletvApp.swift in Sources */,
 				2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */,
 				2D64EE239D92660EB7149279 /* AuthenticationProvider.swift in Sources */,

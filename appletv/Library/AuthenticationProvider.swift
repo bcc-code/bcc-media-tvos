@@ -71,22 +71,11 @@ struct AuthenticationProvider {
         credentialsManager.hasValid()
     }
 
-    func getAccessToken(codeCallback: (String) -> Void) async throws -> String {
+    func getAccessToken() async throws -> String? {
         if credentialsManager.hasValid() {
             return try await credentialsManager.credentials().accessToken
         }
-
-        let deviceCode = try! await fetchDeviceCode()
-
-        codeCallback(deviceCode.deviceCode)
-
-        let result = try! await listenToResolve(deviceToken: deviceCode)
-
-        let stored = credentialsManager.store(credentials: result)
-        if !stored {
-            print("couldn't store credentials")
-        }
-        return result.accessToken
+        return nil
     }
 
     func login(codeCallback: (String) -> Void) async throws {

@@ -13,30 +13,36 @@ struct ContentView: View {
 
     @State var page: API.GetPageQuery.Data.Page? = nil
 
-    var authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: "HgmQSt1W0Is0zrQgWFw6J8AHE0PyjMRt", scope: "profile email", audience: "dev-api.bcc.no", domain: "bcc-sso-dev.eu.auth0.com"))
+    
+    func startSignIn() {
+        Task {
+            do {
+                try await authenticationProvider.login() {(code) -> () in
+                    token = code
+                }
+                print("LOGGED IN")
+            } catch {
+                print(error)
+            }
+        }
+    }
 
     var body: some View {
         NavigationView {
-            if let p = page {
-                List(p.sections.items, id: \.id) { section in
-                    if let s = section.asItemSection {
-                        ItemSectionView(section: s)
+            TabView {
+                PageView(pageId: "29").tabItem { Label("Home", systemImage: "house.fill")}
+                HStack {
+                    if authenticationProvider.isAuthenticated() {
+                        Text("AUTHENTICATED")
+                    } else {
+                        HStack {
+                            Button("Sign in", action: startSignIn)
+                            if token != "" {
+                                Text(token)
+                            }
+                        }
                     }
-                }.navigationTitle(p.title)
-            }
-        }
-        .task {
-            apolloClient.fetch(query: API.GetPageQuery()) { result in
-                switch result {
-                case let .success(res):
-                    if let p = res.data {
-                        page = p.page
-                    }
-                case .failure:
-                    print("FAILED")
-                }
-
-                print("OK")
+                }.tabItem { Label("Settings", systemImage: "gear") }
             }
         }
     }
