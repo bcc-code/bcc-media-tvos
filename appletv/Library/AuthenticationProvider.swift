@@ -78,12 +78,22 @@ struct AuthenticationProvider {
         return nil
     }
 
-    func login(codeCallback: (String) -> Void) async throws {
-        let deviceCode = try! await fetchDeviceCode()
+    func logout() async -> Bool {
+        do {
+            try await credentialsManager.revoke()
+            return true
+        } catch {
+            print(error)
+        }
+        return false
+    }
 
-        codeCallback(deviceCode.userCode)
+    func login(codeCallback: (DeviceTokenRequestResponse) -> Void) async throws {
+        let response = try! await fetchDeviceCode()
 
-        let result = try! await listenToResolve(deviceToken: deviceCode)
+        codeCallback(response)
+
+        let result = try! await listenToResolve(deviceToken: response)
 
         let stored = credentialsManager.store(credentials: result)
         if !stored {

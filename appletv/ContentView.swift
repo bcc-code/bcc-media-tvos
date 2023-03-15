@@ -10,17 +10,27 @@ import SwiftUI
 
 struct ContentView: View {
     @State var token = ""
+    @State var verificationUri = ""
 
     @State var page: API.GetPageQuery.Data.Page? = nil
 
+    @State var authenticated = authenticationProvider.isAuthenticated()
+
+    func logout() {
+        Task {
+            _ = await authenticationProvider.logout()
+            authenticated = false
+        }
+    }
     
     func startSignIn() {
         Task {
             do {
                 try await authenticationProvider.login() {(code) -> () in
-                    token = code
+                    token = code.userCode
+                    verificationUri = code.verificationUri
                 }
-                print("LOGGED IN")
+                authenticated = true
             } catch {
                 print(error)
             }
@@ -32,13 +42,16 @@ struct ContentView: View {
             TabView {
                 PageView(pageId: "29").tabItem { Label("Home", systemImage: "house.fill")}
                 HStack {
-                    if authenticationProvider.isAuthenticated() {
-                        Text("AUTHENTICATED")
+                    if authenticated {
+                        HStack {
+                            Button("Log out", action: logout)
+                        }
                     } else {
                         HStack {
                             Button("Sign in", action: startSignIn)
                             if token != "" {
                                 Text(token)
+                                Text(verificationUri)
                             }
                         }
                     }
