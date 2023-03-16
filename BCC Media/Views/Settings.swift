@@ -11,12 +11,14 @@ struct SettingsView: View {
     @State var token = ""
     @State var verificationUri = ""
     @State var authenticated = authenticationProvider.isAuthenticated()
+    var onSave: () -> Void
 
     func logout() {
         Task {
             _ = await authenticationProvider.logout()
             apolloClient.clearCache()
             authenticated = false
+            onSave()
         }
     }
 
@@ -29,6 +31,7 @@ struct SettingsView: View {
                 }
                 apolloClient.clearCache()
                 authenticated = true
+                onSave()
             } catch {
                 print(error)
             }
@@ -70,6 +73,6 @@ struct SettingsView: View {
 
 struct SettingsView_Preview: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(onSave: {})
     }
 }

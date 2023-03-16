@@ -26,27 +26,32 @@ struct PageView: View {
     init(pageId: String) {
         self.pageId = pageId
     }
+
+    func load() {
+        page = nil
+        apolloClient.fetch(query: API.GetPageQuery(id: pageId)) { result in
+            switch result {
+            case let .success(res):
+                if let p = res.data {
+                    page = p.page
+                }
+            case .failure:
+                print("FAILED")
+            }
+
+            print("OK")
+        }
+    }
     
     var body: some View {
-        if let p = page {
-            PageDisplay(page: p)
-        } else {
-            ProgressView()
-            .task {
-                apolloClient.fetch(query: API.GetPageQuery(id: pageId)) { result in
-                    switch result {
-                    case let .success(res):
-                        if let p = res.data {
-                            page = p.page
-                        }
-                    case .failure:
-                        print("FAILED")
-                    }
-
-                    print("OK")
-                }
+        VStack(alignment: .leading) {
+            Button("Refresh", action: { load() }).buttonStyle(.borderedProminent)
+            if let p = page {
+                PageDisplay(page: p).refreshable { load() }
+            } else {
+                ProgressView()
             }
-        }
+        }.task { load() }
     }
 }
 

@@ -33,9 +33,7 @@ struct LiveView: View {
                 req.setValue("Bearer " + token!, forHTTPHeaderField: "Authorization")
 
                 let (data, _) = try await URLSession.shared.data(for: req)
-
                 let resp = try JSONDecoder().decode(LiveResponse.self, from: data)
-
                 url = resp.url
             }
         }

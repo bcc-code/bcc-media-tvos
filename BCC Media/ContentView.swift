@@ -9,18 +9,28 @@
 import SwiftUI
 
 struct ContentView: View {
-
     @State var page: API.GetPageQuery.Data.Page? = nil
+    @State var authenticated = authenticationProvider.isAuthenticated()
 
     var body: some View {
         NavigationView {
             TabView {
-                PageView(pageId: "29").tabItem { Label("Home", systemImage: "house.fill")}
-                if authenticationProvider.isAuthenticated() {
-                    LiveView().tabItem { Label("Live", systemImage: "video")}
+                PageView(pageId: "29").tabItem {
+                    Label("Home", systemImage: "house.fill")
                 }
-                SearchView().tabItem { Label("Search", systemImage: "magnifyingglass")}
-                SettingsView().tabItem { Label("Settings", systemImage: "gearshape.fill") }
+                if authenticated {
+                    LiveView().tabItem {
+                        Label("Live", systemImage: "video")
+                    }
+                }
+                SearchView().tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+                SettingsView {
+                    authenticated = authenticationProvider.isAuthenticated()
+                }.tabItem {
+                    Label("Settings", systemImage: "gearshape.fill")
+                }
             }
         }
     }
