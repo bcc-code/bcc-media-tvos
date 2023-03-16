@@ -3,18 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		09113B0029C081810087B9A2 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09113AFF29C081810087B9A2 /* View.swift */; };
-		09113B0229C301050087B9A2 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09113B0129C301050087B9A2 /* Search.swift */; };
 		09113B0429C301DE0087B9A2 /* search.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 09113B0329C301DE0087B9A2 /* search.graphql */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
 		2D64E0434AEB32333D149D27 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E22A7624A037A3CC6D7B /* Auth0.plist */; };
 		2D64E045323C028845414208 /* SectionItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF085CDBFFDD881A143 /* SectionItem.graphql.swift */; };
 		2D64E0CB808A3B33129D11B8 /* DefaultGridSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E64E665DB710D94710D7 /* DefaultGridSection.graphql.swift */; };
 		2D64E0E5B226D5F5E41136BE /* AchievementGroupPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EF93E358128E62AB25D3 /* AchievementGroupPagination.graphql.swift */; };
+		2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF03910A399CCB4894D /* Settings.swift */; };
 		2D64E156B01B04327523D542 /* DefaultSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E272F215BDC8C8A489C2 /* DefaultSection.graphql.swift */; };
 		2D64E1B810ADAACBE56AF411 /* Pagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EFF0714F8B6F0EBA2A93 /* Pagination.graphql.swift */; };
 		2D64E1C4B94175BAA320E125 /* GetEpisodeQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EC8EBDE94CB8A96ED824 /* GetEpisodeQuery.graphql.swift */; };
@@ -41,7 +41,7 @@
 		2D64E7180187DCD1F89D95E9 /* SectionItemPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E9D34043CFD26FA98C52 /* SectionItemPagination.graphql.swift */; };
 		2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E460594AD4CC96AE76A4 /* ContentView.swift */; };
 		2D64E77F9416E59DBDD2B692 /* FeaturedSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E6829EBA509CFD1A5090 /* FeaturedSection.graphql.swift */; };
-		2D64E78A38DE97116A7131C3 /* appletvApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E2030CD962DA48716017 /* appletvApp.swift */; };
+		2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E2030CD962DA48716017 /* BCCMediaApp.swift */; };
 		2D64E7BC4182AFDCD55567BF /* Page.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E4F9B40BEE59A3718E1E /* Page.graphql.swift */; };
 		2D64E7F4FC3B3B7DBA035F86 /* AchievementPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EE88F4540A2382068A74 /* AchievementPagination.graphql.swift */; };
 		2D64E80F341585D961122E21 /* Section.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E3D0F93EEDC11E06B053 /* Section.graphql.swift */; };
@@ -65,6 +65,8 @@
 		2D64EC547B4E2C1E4FA25C82 /* AchievementSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E6A117A1739775CFC1D7 /* AchievementSection.graphql.swift */; };
 		2D64EC79A52359FFDE8ECBB8 /* CardSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E9B435B2E865F2F01D4E /* CardSection.graphql.swift */; };
 		2D64EC84B351057A4F8EEC4C /* SeasonSearchItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E09A2D4F2B0B5A3F146B /* SeasonSearchItem.graphql.swift */; };
+		2D64EC85401AF8C1D2388AE7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E8D1544EEBCFE89BE986 /* Search.swift */; };
+		2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ED5CD0F006989283F50E /* ItemList.swift */; };
 		2D64ED2949C6BC23A55B73DA /* ShowSearchItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E555BDFB8ECC7E1C1D1E /* ShowSearchItem.graphql.swift */; };
 		2D64ED9D5B6FC32EC612B7DA /* EpisodePagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECEECE5C44367AD3BDCC /* EpisodePagination.graphql.swift */; };
 		2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E9AA1E75A14695918908 /* Assets.xcassets */; };
@@ -74,14 +76,14 @@
 		2D64EF0AA005222582181513 /* IconGridSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E08F3B497DFD8EDEDE9B /* IconGridSection.graphql.swift */; };
 		2D64EF6DB1074E0B52429125 /* Episode.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E25A3EB6D67367397E9C /* Episode.graphql.swift */; };
 		2D64EFC666A30B806DD180B5 /* SearchResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EDE38675137F06E0A7B3 /* SearchResult.graphql.swift */; };
-		6D27B359A67D60FB98F871F0 /* libPods-appletv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7F655482132C7BFCB1D3BB /* libPods-appletv.a */; };
+		C8E3BB684E0EDF49C0832658 /* libPods-BCC Media.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D58560356A1895FA3D75D7A2 /* libPods-BCC Media.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09113AFF29C081810087B9A2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		09113B0129C301050087B9A2 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		09113B0329C301DE0087B9A2 /* search.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = search.graphql; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
+		21A3292EEAA7F0AA7CEAAF39 /* Pods-BCC Media.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.debug.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.debug.xcconfig"; sourceTree = "<group>"; };
 		2D64E076365D1E15C0A6F330 /* GetPageQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPageQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64E08F3B497DFD8EDEDE9B /* IconGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconGridSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E09A2D4F2B0B5A3F146B /* SeasonSearchItem.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonSearchItem.graphql.swift; sourceTree = "<group>"; };
@@ -89,7 +91,7 @@
 		2D64E12709906FD8A3676A8B /* PosterGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterGridSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E177FC303770A310536C /* page.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = page.graphql; sourceTree = "<group>"; };
 		2D64E1952F4B5F34E394FC23 /* IconSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSection.graphql.swift; sourceTree = "<group>"; };
-		2D64E2030CD962DA48716017 /* appletvApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appletvApp.swift; sourceTree = "<group>"; };
+		2D64E2030CD962DA48716017 /* BCCMediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCMediaApp.swift; sourceTree = "<group>"; };
 		2D64E22A7624A037A3CC6D7B /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Auth0.plist; sourceTree = "<group>"; };
 		2D64E23FC4184C4BB8317277 /* StreamType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamType.graphql.swift; sourceTree = "<group>"; };
 		2D64E25A3EB6D67367397E9C /* Episode.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.graphql.swift; sourceTree = "<group>"; };
@@ -110,7 +112,7 @@
 		2D64E63ED280746A6B82BB54 /* UserCollectionEntryPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionEntryPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E64E665DB710D94710D7 /* DefaultGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGridSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E6829EBA509CFD1A5090 /* FeaturedSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.graphql.swift; sourceTree = "<group>"; };
-		2D64E6994BC94F50D51F9B04 /* appletv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appletv.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D64E6994BC94F50D51F9B04 /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D64E6A117A1739775CFC1D7 /* AchievementSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E72E52A54DE58AACDEFF /* API.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.graphql.swift; sourceTree = "<group>"; };
 		2D64E74691B57D5F5B4F28C9 /* LinkPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkPagination.graphql.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2D64E81528A2E354A4B9ECA2 /* SurveyQuestionPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyQuestionPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E8178E0538A958250372 /* ItemSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemSection.graphql.swift; sourceTree = "<group>"; };
+		2D64E8D1544EEBCFE89BE986 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		2D64E8E9285E1295C3B933DF /* EpisodeSearchItem.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeSearchItem.graphql.swift; sourceTree = "<group>"; };
 		2D64E8EDA3B184D5E267ABEC /* PosterSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E9541A96EAF1B3D09D9A /* FAQCategoryPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQCategoryPagination.graphql.swift; sourceTree = "<group>"; };
@@ -135,7 +138,9 @@
 		2D64EC8EBDE94CB8A96ED824 /* GetEpisodeQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64EC9C7B6B75F89FD9F75B /* LessonPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64ECEECE5C44367AD3BDCC /* EpisodePagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodePagination.graphql.swift; sourceTree = "<group>"; };
+		2D64ECF03910A399CCB4894D /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2D64ECF085CDBFFDD881A143 /* SectionItem.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionItem.graphql.swift; sourceTree = "<group>"; };
+		2D64ED5CD0F006989283F50E /* ItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		2D64EDB7C7CC093B3800C7EB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		2D64EDD584ABC947198AAEEA /* ListSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSection.graphql.swift; sourceTree = "<group>"; };
 		2D64EDE38675137F06E0A7B3 /* SearchResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.graphql.swift; sourceTree = "<group>"; };
@@ -146,9 +151,10 @@
 		2D64EF93E358128E62AB25D3 /* AchievementGroupPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementGroupPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64EFC2F0B6BDFF815A7E94 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		2D64EFF0714F8B6F0EBA2A93 /* Pagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.graphql.swift; sourceTree = "<group>"; };
-		7B7F655482132C7BFCB1D3BB /* libPods-appletv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-appletv.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C27C0DB5C37CE45645B3F3D /* Pods-appletv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appletv.debug.xcconfig"; path = "Target Support Files/Pods-appletv/Pods-appletv.debug.xcconfig"; sourceTree = "<group>"; };
 		813688CB7A184112622820A5 /* Pods-appletv.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appletv.release.xcconfig"; path = "Target Support Files/Pods-appletv/Pods-appletv.release.xcconfig"; sourceTree = "<group>"; };
+		AC0BD6CD2EF761B1DF2AD82D /* Pods-BCC Media.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.release.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.release.xcconfig"; sourceTree = "<group>"; };
+		D58560356A1895FA3D75D7A2 /* libPods-BCC Media.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BCC Media.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,7 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D27B359A67D60FB98F871F0 /* libPods-appletv.a in Frameworks */,
+				C8E3BB684E0EDF49C0832658 /* libPods-BCC Media.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +183,7 @@
 				09113AFE29C081710087B9A2 /* Page */,
 				0943E18529BB364B0016348C /* Sections */,
 				2D64EACA7247B2B605E740B3 /* Episodes */,
+				2D64EAC0EC80770AAA794BC8 /* List */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -194,6 +201,8 @@
 			children = (
 				7C27C0DB5C37CE45645B3F3D /* Pods-appletv.debug.xcconfig */,
 				813688CB7A184112622820A5 /* Pods-appletv.release.xcconfig */,
+				21A3292EEAA7F0AA7CEAAF39 /* Pods-BCC Media.debug.xcconfig */,
+				AC0BD6CD2EF761B1DF2AD82D /* Pods-BCC Media.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -202,12 +211,21 @@
 			isa = PBXGroup;
 			children = (
 				2D64EC473E60AC534AFCE95B /* Products */,
-				2D64EF38E0F7589C8BE0D636 /* appletv */,
+				2D64EF38E0F7589C8BE0D636 /* BCC Media */,
 				2ACB7A53A6D45DE17AB42CCF /* Pods */,
 				3D8794257D2424490E02A5C0 /* Frameworks */,
 				2D64EDB7C7CC093B3800C7EB /* .gitignore */,
 				2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */,
 			);
+			sourceTree = "<group>";
+		};
+		2D64E22E44F7DA7C709CE617 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2D64E8D1544EEBCFE89BE986 /* Search.swift */,
+				2D64ECF03910A399CCB4894D /* Settings.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2D64E2F14C1D8C2161FD53A2 /* Objects */ = {
@@ -292,6 +310,14 @@
 			path = Queries;
 			sourceTree = "<group>";
 		};
+		2D64EAC0EC80770AAA794BC8 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				2D64ED5CD0F006989283F50E /* ItemList.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
 		2D64EACA7247B2B605E740B3 /* Episodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,7 +329,7 @@
 		2D64EC473E60AC534AFCE95B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2D64E6994BC94F50D51F9B04 /* appletv.app */,
+				2D64E6994BC94F50D51F9B04 /* BCC Media.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -358,28 +384,28 @@
 			path = Schema;
 			sourceTree = "<group>";
 		};
-		2D64EF38E0F7589C8BE0D636 /* appletv */ = {
+		2D64EF38E0F7589C8BE0D636 /* BCC Media */ = {
 			isa = PBXGroup;
 			children = (
 				0943E18429BB363F0016348C /* Components */,
 				2D64E9AA1E75A14695918908 /* Assets.xcassets */,
 				2D64EE62F73E14CBF46D77F0 /* Preview Content */,
-				2D64E2030CD962DA48716017 /* appletvApp.swift */,
+				2D64E2030CD962DA48716017 /* BCCMediaApp.swift */,
 				2D64E460594AD4CC96AE76A4 /* ContentView.swift */,
 				2D64E22A7624A037A3CC6D7B /* Auth0.plist */,
 				2D64E3B955C71B7E1F13D210 /* Library */,
 				2D64EAAA48AF493F1F4A89F8 /* Client.swift */,
 				2D64EEC548E99F075F742CFE /* Queries */,
 				2D64E4AB1476BF314B7AEBC9 /* API */,
-				09113B0129C301050087B9A2 /* Search.swift */,
+				2D64E22E44F7DA7C709CE617 /* Views */,
 			);
-			path = appletv;
+			path = "BCC Media";
 			sourceTree = "<group>";
 		};
 		3D8794257D2424490E02A5C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B7F655482132C7BFCB1D3BB /* libPods-appletv.a */,
+				D58560356A1895FA3D75D7A2 /* libPods-BCC Media.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -387,9 +413,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2D64EA587FBE70E8C0392EF8 /* appletv */ = {
+		2D64EA587FBE70E8C0392EF8 /* BCC Media */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "appletv" */;
+			buildConfigurationList = 2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "BCC Media" */;
 			buildPhases = (
 				BC6125E41AB03328D05449CE /* [CP] Check Pods Manifest.lock */,
 				2D64E977F3C74EB889E11FB5 /* Sources */,
@@ -400,9 +426,9 @@
 			);
 			dependencies = (
 			);
-			name = appletv;
+			name = "BCC Media";
 			productName = appletv;
-			productReference = 2D64E6994BC94F50D51F9B04 /* appletv.app */;
+			productReference = 2D64E6994BC94F50D51F9B04 /* BCC Media.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -411,14 +437,9 @@
 		2D64E1D850C94864AD6538E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				TargetAttributes = {
-					2D64EA587FBE70E8C0392EF8 = {
-						DevelopmentTeam = TRTNB29F98;
-					};
-				};
 			};
-			buildConfigurationList = 2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "appletv" */;
-			compatibilityVersion = "Xcode 3.2";
+			buildConfigurationList = 2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "BCC Media" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -430,7 +451,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2D64EA587FBE70E8C0392EF8 /* appletv */,
+				2D64EA587FBE70E8C0392EF8 /* BCC Media */,
 			);
 		};
 /* End PBXProject section */
@@ -469,7 +490,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-appletv-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BCC Media-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -484,7 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09113B0029C081810087B9A2 /* View.swift in Sources */,
-				2D64E78A38DE97116A7131C3 /* appletvApp.swift in Sources */,
+				2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */,
 				2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */,
 				2D64EE239D92660EB7149279 /* AuthenticationProvider.swift in Sources */,
 				2D64E84CE0CC357015E22002 /* Client.swift in Sources */,
@@ -517,7 +538,6 @@
 				2D64EB5A04A2A093FC5A8682 /* FAQCategoryPagination.graphql.swift in Sources */,
 				2D64E7180187DCD1F89D95E9 /* SectionItemPagination.graphql.swift in Sources */,
 				2D64E34D0343B2EEE67528CF /* CollectionItemPagination.graphql.swift in Sources */,
-				09113B0229C301050087B9A2 /* Search.swift in Sources */,
 				2D64E4D4E2231C315CB5D131 /* SurveyQuestionPagination.graphql.swift in Sources */,
 				0943E18729BB36590016348C /* ItemSection.swift in Sources */,
 				2D64E0E5B226D5F5E41136BE /* AchievementGroupPagination.graphql.swift in Sources */,
@@ -542,6 +562,9 @@
 				2D64ED2949C6BC23A55B73DA /* ShowSearchItem.graphql.swift in Sources */,
 				2D64EFC666A30B806DD180B5 /* SearchResult.graphql.swift in Sources */,
 				2D64EC3F3D775CA8A718F9A5 /* SearchQuery.graphql.swift in Sources */,
+				2D64EC85401AF8C1D2388AE7 /* Search.swift in Sources */,
+				2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */,
+				2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,19 +573,23 @@
 /* Begin XCBuildConfiguration section */
 		2D64E048413A976EE07D5D0D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 813688CB7A184112622820A5 /* Pods-appletv.release.xcconfig */;
+			baseConfigurationReference = AC0BD6CD2EF761B1DF2AD82D /* Pods-BCC Media.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"appletv/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"BCC Media/Preview Content\"";
 				DEVELOPMENT_TEAM = TRTNB29F98;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "BCC Media";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = bcc.media.appletv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -618,7 +645,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = appletvos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TVOS_DEPLOYMENT_TARGET = 16.1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -686,19 +714,23 @@
 		};
 		2D64ECAD4394F8639804D737 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C27C0DB5C37CE45645B3F3D /* Pods-appletv.debug.xcconfig */;
+			baseConfigurationReference = 21A3292EEAA7F0AA7CEAAF39 /* Pods-BCC Media.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"appletv/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"BCC Media/Preview Content\"";
 				DEVELOPMENT_TEAM = TRTNB29F98;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "BCC Media";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = bcc.media.appletv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -710,7 +742,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "appletv" */ = {
+		2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "BCC Media" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D64EBBC942D1316DB8AEF69 /* Debug */,
@@ -719,7 +751,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "appletv" */ = {
+		2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "BCC Media" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D64ECAD4394F8639804D737 /* Debug */,
