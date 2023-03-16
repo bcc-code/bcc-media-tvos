@@ -48,6 +48,7 @@
 		2D64E84CE0CC357015E22002 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EAAA48AF493F1F4A89F8 /* Client.swift */; };
 		2D64E862FA888C19CA9A86D4 /* EpisodeSearchItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E8E9285E1295C3B933DF /* EpisodeSearchItem.graphql.swift */; };
 		2D64E8EBFABDD97BBEB41D3F /* WebSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E36E5CD00CE32D047DD9 /* WebSection.graphql.swift */; };
+		2D64E942E241ADF5F1CC8653 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EC95DA7A0E51573DC051 /* Live.swift */; };
 		2D64E9488CB254B9722BBA2D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */; };
 		2D64E9B1E2C9C5E4D82CC686 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D64EF70B7F0E9754C015062 /* Preview Assets.xcassets */; };
 		2D64EA258BF348620092C2F5 /* SeasonPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E6166911FD3ED6DABE5F /* SeasonPagination.graphql.swift */; };
@@ -136,6 +137,7 @@
 		2D64EB857A5BF722714FA2CA /* GridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSection.graphql.swift; sourceTree = "<group>"; };
 		2D64EBC338A1C8BCBE0CBF1A /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
 		2D64EC8EBDE94CB8A96ED824 /* GetEpisodeQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeQuery.graphql.swift; sourceTree = "<group>"; };
+		2D64EC95DA7A0E51573DC051 /* Live.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Live.swift; sourceTree = "<group>"; };
 		2D64EC9C7B6B75F89FD9F75B /* LessonPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64ECEECE5C44367AD3BDCC /* EpisodePagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodePagination.graphql.swift; sourceTree = "<group>"; };
 		2D64ECF03910A399CCB4894D /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			children = (
 				2D64E8D1544EEBCFE89BE986 /* Search.swift */,
 				2D64ECF03910A399CCB4894D /* Settings.swift */,
+				2D64EC95DA7A0E51573DC051 /* Live.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				2D64EC85401AF8C1D2388AE7 /* Search.swift in Sources */,
 				2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */,
 				2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */,
+				2D64E942E241ADF5F1CC8653 /* Live.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

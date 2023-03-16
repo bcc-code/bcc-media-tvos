@@ -49,19 +49,29 @@ struct SearchView: View {
     var body: some View {
         VStack {
             if let i = showResult {
-                ItemListView(title: NSLocalizedString("Shows", comment: ""), items: i.map(mapToItem), emptyListText: Text("No shows with the current filter")) { item in
+                ItemListView(
+                        title: NSLocalizedString("Shows", comment: ""),
+                        items: i.map(mapToItem),
+                        emptyListText: Text("No shows with the current filter")
+                ) { item in
                     EpisodeViewer(episodeId: item.id)
                 }
             }
             if let i = episodeResult {
-                ItemListView(title: NSLocalizedString("Episodes", comment: ""), items: i.map(mapToItem), emptyListText: Text("No episodes with the current filter")) { item in
+                ItemListView(
+                        title: NSLocalizedString("Episodes", comment: ""),
+                        items: i.map(mapToItem),
+                        emptyListText: Text("No episodes with the current filter")
+                ) { item in
                     EpisodeViewer(episodeId: item.id)
                 }
             }
             if showResult == nil || episodeResult == nil {
                 Text("Enter something in the search field to begin searching")
             }
-        }.searchable(text: $queryString).onChange(of: queryString, perform: getResult)
+        }
+                .searchable(text: $queryString)
+                .onChange(of: queryString, perform: getResult)
     }
 }
 
