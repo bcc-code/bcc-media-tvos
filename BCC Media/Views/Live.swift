@@ -18,7 +18,7 @@ struct LivePlayer: View {
     var url: URL
 
     var body: some View {
-        PlayerViewController(videoURL: url).ignoresSafeArea()
+        PlayerViewController(videoURL: url, title: NSLocalizedString("Live", comment: "")).ignoresSafeArea()
     }
 }
 
