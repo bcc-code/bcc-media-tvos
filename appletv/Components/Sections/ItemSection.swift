@@ -27,9 +27,9 @@ struct SectionItemView: View {
                         ProgressView()
                     }
                             .scaledToFill().frame(width: 320, height: 180).clipped()
-                    Text(item.title).font(.body).padding(.vertical)
-                }
-            }
+                    Text(item.title).font(.caption).lineLimit(2)
+                }.frame(width: 320)
+            }.buttonStyle(PlainButtonStyle()).frame(width: 320)
     }
 }
 

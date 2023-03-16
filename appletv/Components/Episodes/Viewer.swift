@@ -16,7 +16,6 @@ struct PlayerViewController: UIViewControllerRepresentable {
         let controller = AVPlayerViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.player = player
-        controller.showsPlaybackControls = true
         controller.player!.play()
 
         return controller
@@ -31,38 +30,35 @@ struct EpisodeViewer: View {
     @State private var playerUrl: URL?
 
     var body: some View {
-        VStack {
-            if let url = playerUrl {
-                PlayerViewController(videoURL: url)
-            } else {
-                ProgressView()
-            }
-        }
-                .task {
-                    apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
-                        switch result {
-                        case let .success(res):
-                            if let streams = res.data?.episode.streams {
-                                let types = [API.StreamType.hlsTs, API.StreamType.hlsCmaf, API.StreamType.dash]
-                                var index = 0
-                                var stream = streams.first(where: { $0.type == types[index] })
-                                while stream == nil && (types.count - 1) > index {
-                                    index += 1
-                                    stream = streams.first(where: { $0.type == types[index] })
-                                }
-                                if stream == nil {
-                                    stream = streams.first
-                                }
-                                if let stream = stream {
-                                    playerUrl = URL(string: stream.url)
-                                }
+        if let url = playerUrl {
+            PlayerViewController(videoURL: url).ignoresSafeArea()
+        } else {
+            ProgressView().task {
+                apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
+                    switch result {
+                    case let .success(res):
+                        if let streams = res.data?.episode.streams {
+                            let types = [API.StreamType.hlsTs, API.StreamType.hlsCmaf, API.StreamType.dash]
+                            var index = 0
+                            var stream = streams.first(where: { $0.type == types[index] })
+                            while stream == nil && (types.count - 1) > index {
+                                index += 1
+                                stream = streams.first(where: { $0.type == types[index] })
                             }
-                        case .failure:
-                            print("FAILURE")
-
+                            if stream == nil {
+                                stream = streams.first
+                            }
+                            if let stream = stream {
+                                playerUrl = URL(string: stream.url)
+                            }
                         }
+                    case .failure:
+                        print("FAILURE")
+
                     }
                 }
+            }
+        }
     }
 }
 

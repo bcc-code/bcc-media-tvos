@@ -41,6 +41,7 @@ struct ContentView: View {
         NavigationView {
             TabView {
                 PageView(pageId: "29").tabItem { Label("Home", systemImage: "house.fill")}
+                SearchView().tabItem { Label("Search", systemImage: "magnifyingglass")}
                 HStack {
                     if authenticated {
                         HStack {
@@ -55,7 +56,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                }.tabItem { Label("Settings", systemImage: "gear") }
+                }.tabItem { Label("Settings", systemImage: "gearshape.fill") }
             }
         }
     }
