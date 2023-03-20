@@ -17,7 +17,7 @@
       }
     },
     "schemaTypes" : {
-      "path" : "./appletv/API",
+      "path" : "./BCC Media/API",
       "moduleType" : {
         "embeddedInTarget" : {
           "name" : "API"

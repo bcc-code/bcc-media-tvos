@@ -36,7 +36,7 @@ struct ItemListView<Destination: View>: View {
                 Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             }
             ScrollView(.horizontal) {
-                LazyHStack {
+                LazyHStack(spacing: 20) {
                     if items.count > 0 {
                         ForEach(items.indices, id: \.self) { index in
                             let i = items[index]

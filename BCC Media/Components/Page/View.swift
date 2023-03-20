@@ -45,7 +45,6 @@ struct PageView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Button("Refresh", action: { load() }).buttonStyle(.borderedProminent)
             if let p = page {
                 PageDisplay(page: p).refreshable { load() }
             } else {

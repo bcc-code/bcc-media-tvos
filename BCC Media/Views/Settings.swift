@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @State var token = ""
     @State var verificationUri = ""
+    @State var verificationUriComplete = ""
     @State var authenticated = authenticationProvider.isAuthenticated()
     var onSave: () -> Void
 
@@ -28,6 +29,8 @@ struct SettingsView: View {
                 try await authenticationProvider.login() { (code) -> () in
                     token = code.userCode
                     verificationUri = code.verificationUri
+                    verificationUriComplete = code.verificationUriComplete
+                    showSignIn = true
                 }
                 apolloClient.clearCache()
                 authenticated = true
@@ -40,31 +43,23 @@ struct SettingsView: View {
 
     @State var language = UserDefaults.standard.string(forKey: "language") ?? "no"
 
+    @State var showSignIn = false
+
     var body: some View {
         NavigationStack {
-            Section {
-                Picker("Language", selection: $language) {
-                    Text("Norwegian").tag("no")
-                    Text("English").tag("en")
-                    Text("Dutch").tag("nl")
-                    Text("German").tag("de")
-                    Text("Spanish").tag("es")
-                    Text("Oko").tag("ok")
-                    Text("poasd").tag("oko")
-                }
-                        .pickerStyle(.navigationLink).onChange(of: language) { val in
-                            UserDefaults.standard.set(language, forKey: "language")
-                        }
-            }
-
-
-            if authenticated {
-                Button("Log out", action: logout)
+            if showSignIn {
+                SignInView(cancel: {
+                    showSignIn = false
+                }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token)
             } else {
-                Button("Sign in", action: startSignIn)
-                if token != "" {
-                    Text(token)
-                    Text(verificationUri)
+                if authenticated {
+                    Button("Log out") {
+                        logout()
+                    }
+                } else {
+                    Button("Sign in") {
+                        startSignIn()
+                    }
                 }
             }
         }

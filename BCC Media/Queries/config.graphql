@@ -1,0 +1,8 @@
+query GetConfig {
+    application {
+        page {
+            code
+        }
+    }
+    languages
+}

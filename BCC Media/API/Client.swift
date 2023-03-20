@@ -5,13 +5,21 @@
 import Apollo
 import Foundation
 
+
 class Network {
     static let shared = Network()
 
+    private func mapLanguageToString(value: String) -> String {
+        if let first = value.split(separator: "-").first {
+            return String(first)
+        }
+        return "en"
+    }
+
     private(set) lazy var apollo: ApolloClient = {
-        let cache = InMemoryNormalizedCache()
-        let store = ApolloStore(cache: cache)
-        let authPayloads = ["x-application": "tvos"]
+        let apolloClientCache = InMemoryNormalizedCache()
+        let store = ApolloStore(cache: apolloClientCache)
+        let authPayloads = ["x-application": "tvos", "accept-language": Locale.preferredLanguages.map(mapLanguageToString).joined(separator: ",")]
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = authPayloads
 
@@ -37,18 +45,16 @@ class NetworkInterceptorProvider: DefaultInterceptorProvider {
 }
 
 class CustomInterceptor: ApolloInterceptor {
+
     func interceptAsync<Operation: GraphQLOperation>(
             chain: RequestChain,
             request: HTTPRequest<Operation>,
             response: HTTPResponse<Operation>?,
             completion: @escaping (Swift.Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-//        request.addHeader(name: "Authorization", value: "Bearer <<TOKEN>>")
-//        request.addHeader(name: "x-application", value: "tvos")
+
         Task {
             do {
-                let code = try await authenticationProvider.getAccessToken()
-
-                if let c = code {
+                if let c = try await authenticationProvider.getAccessToken() {
                     request.addHeader(name: "Authorization", value: "Bearer " + c)
                 }
 
