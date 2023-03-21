@@ -11,6 +11,9 @@
 		09113B0429C301DE0087B9A2 /* search.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 09113B0329C301DE0087B9A2 /* search.graphql */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
 		09E03AD229C887DF009329FF /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E03AD129C887DF009329FF /* SignIn.swift */; };
+		09F2A4DD29C9B25100BA9F28 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F2A4DC29C9B25100BA9F28 /* TVServices.framework */; };
+		09F2A4E029C9B25100BA9F28 /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */; };
+		09F2A4E429C9B25100BA9F28 /* BCC Media Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09F2A4DB29C9B25100BA9F28 /* BCC Media Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2D64E0434AEB32333D149D27 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E22A7624A037A3CC6D7B /* Auth0.plist */; };
 		2D64E045323C028845414208 /* SectionItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF085CDBFFDD881A143 /* SectionItem.graphql.swift */; };
 		2D64E0CB808A3B33129D11B8 /* DefaultGridSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E64E665DB710D94710D7 /* DefaultGridSection.graphql.swift */; };
@@ -22,6 +25,7 @@
 		2D64E1EBD190C23CC2C5E2AB /* page.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E177FC303770A310536C /* page.graphql */; };
 		2D64E216A050FD9063A0261B /* SectionPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E5A8950A5812FD256B57 /* SectionPagination.graphql.swift */; };
 		2D64E267FC015A68C1B39A70 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E25DC70962DAFF7E7B4A /* Client.swift */; };
+		2D64E34771A263A22B5AC55F /* apollo-codegen-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */; };
 		2D64E34D0343B2EEE67528CF /* CollectionItemPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E411188E5294B64B5F3B /* CollectionItemPagination.graphql.swift */; };
 		2D64E3574F8FE9C8259A7BF1 /* GetPageQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E076365D1E15C0A6F330 /* GetPageQuery.graphql.swift */; };
 		2D64E35DD297C5D2FA635267 /* LabelSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E74CAE37E1A1E3AFF8C0 /* LabelSection.graphql.swift */; };
@@ -84,11 +88,39 @@
 		C8E3BB684E0EDF49C0832658 /* libPods-BCC Media.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D58560356A1895FA3D75D7A2 /* libPods-BCC Media.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		09F2A4E229C9B25100BA9F28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D64E1D850C94864AD6538E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09F2A4DA29C9B25100BA9F28;
+			remoteInfo = "BCC Media Top Shelf";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		09F2A4E829C9B25100BA9F28 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				09F2A4E429C9B25100BA9F28 /* BCC Media Top Shelf.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		09113AFF29C081810087B9A2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		09113B0329C301DE0087B9A2 /* search.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = search.graphql; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
 		09E03AD129C887DF009329FF /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		09F2A4DB29C9B25100BA9F28 /* BCC Media Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BCC Media Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09F2A4DC29C9B25100BA9F28 /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
+		09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
+		09F2A4E129C9B25100BA9F28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21A3292EEAA7F0AA7CEAAF39 /* Pods-BCC Media.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.debug.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.debug.xcconfig"; sourceTree = "<group>"; };
 		2D64E076365D1E15C0A6F330 /* GetPageQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPageQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64E08F3B497DFD8EDEDE9B /* IconGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconGridSection.graphql.swift; sourceTree = "<group>"; };
@@ -126,6 +158,7 @@
 		2D64E74691B57D5F5B4F28C9 /* LinkPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E74CAE37E1A1E3AFF8C0 /* LabelSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		2D64E81528A2E354A4B9ECA2 /* SurveyQuestionPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyQuestionPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E8178E0538A958250372 /* ItemSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E8D1544EEBCFE89BE986 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -168,6 +201,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		09F2A4D829C9B25100BA9F28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09F2A4DD29C9B25100BA9F28 /* TVServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D64EFB695C83636A4673F9B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +247,23 @@
 			path = Sections;
 			sourceTree = "<group>";
 		};
+		09F2A4DE29C9B25100BA9F28 /* BCC Media Top Shelf */ = {
+			isa = PBXGroup;
+			children = (
+				09F2A4E929C9BA8E00BA9F28 /* Queries */,
+				09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */,
+				09F2A4E129C9B25100BA9F28 /* Info.plist */,
+			);
+			path = "BCC Media Top Shelf";
+			sourceTree = "<group>";
+		};
+		09F2A4E929C9BA8E00BA9F28 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
 		2ACB7A53A6D45DE17AB42CCF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,12 +278,14 @@
 		2D64E14EBB891DB91B70D985 = {
 			isa = PBXGroup;
 			children = (
-				2D64EC473E60AC534AFCE95B /* Products */,
-				2D64EF38E0F7589C8BE0D636 /* BCC Media */,
-				2ACB7A53A6D45DE17AB42CCF /* Pods */,
-				3D8794257D2424490E02A5C0 /* Frameworks */,
 				2D64EDB7C7CC093B3800C7EB /* .gitignore */,
 				2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */,
+				2D64EF38E0F7589C8BE0D636 /* BCC Media */,
+				09F2A4DE29C9B25100BA9F28 /* BCC Media Top Shelf */,
+				3D8794257D2424490E02A5C0 /* Frameworks */,
+				2ACB7A53A6D45DE17AB42CCF /* Pods */,
+				2D64EC473E60AC534AFCE95B /* Products */,
+				2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */,
 			);
 			sourceTree = "<group>";
 		};
@@ -352,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				2D64E6994BC94F50D51F9B04 /* BCC Media.app */,
+				09F2A4DB29C9B25100BA9F28 /* BCC Media Top Shelf.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -429,6 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				D58560356A1895FA3D75D7A2 /* libPods-BCC Media.a */,
+				09F2A4DC29C9B25100BA9F28 /* TVServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -436,6 +498,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		09F2A4DA29C9B25100BA9F28 /* BCC Media Top Shelf */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09F2A4E529C9B25100BA9F28 /* Build configuration list for PBXNativeTarget "BCC Media Top Shelf" */;
+			buildPhases = (
+				09F2A4D729C9B25100BA9F28 /* Sources */,
+				09F2A4D829C9B25100BA9F28 /* Frameworks */,
+				09F2A4D929C9B25100BA9F28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BCC Media Top Shelf";
+			productName = "BCC Media Top Shelf";
+			productReference = 09F2A4DB29C9B25100BA9F28 /* BCC Media Top Shelf.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		2D64EA587FBE70E8C0392EF8 /* BCC Media */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "BCC Media" */;
@@ -444,10 +523,12 @@
 				2D64E977F3C74EB889E11FB5 /* Sources */,
 				2D64EFB695C83636A4673F9B /* Frameworks */,
 				2D64E40409BAE8F8A7B8325D /* Resources */,
+				09F2A4E829C9B25100BA9F28 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				09F2A4E329C9B25100BA9F28 /* PBXTargetDependency */,
 			);
 			name = "BCC Media";
 			productName = appletv;
@@ -460,6 +541,12 @@
 		2D64E1D850C94864AD6538E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1420;
+				TargetAttributes = {
+					09F2A4DA29C9B25100BA9F28 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
 			};
 			buildConfigurationList = 2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "BCC Media" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -477,11 +564,19 @@
 			projectRoot = "";
 			targets = (
 				2D64EA587FBE70E8C0392EF8 /* BCC Media */,
+				09F2A4DA29C9B25100BA9F28 /* BCC Media Top Shelf */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		09F2A4D929C9B25100BA9F28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D64E40409BAE8F8A7B8325D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -495,6 +590,7 @@
 				2D64E9488CB254B9722BBA2D /* .swiftlint.yml in Resources */,
 				2D64E494E484E870A0F5AC24 /* episode.graphql in Resources */,
 				2D64ED0A368B2131FE1898BB /* config.graphql in Resources */,
+				2D64E34771A263A22B5AC55F /* apollo-codegen-config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +622,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		09F2A4D729C9B25100BA9F28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09F2A4E029C9B25100BA9F28 /* ContentProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D64E977F3C74EB889E11FB5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -600,11 +704,70 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		09F2A4E329C9B25100BA9F28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09F2A4DA29C9B25100BA9F28 /* BCC Media Top Shelf */;
+			targetProxy = 09F2A4E229C9B25100BA9F28 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		09F2A4E629C9B25100BA9F28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TRTNB29F98;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BCC Media Top Shelf/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "BCC Media Top Shelf";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "bcc.media.appletv.BCC-Media-Top-Shelf";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Debug;
+		};
+		09F2A4E729C9B25100BA9F28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TRTNB29F98;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BCC Media Top Shelf/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "BCC Media Top Shelf";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "bcc.media.appletv.BCC-Media-Top-Shelf";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Release;
+		};
 		2D64E048413A976EE07D5D0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AC0BD6CD2EF761B1DF2AD82D /* Pods-BCC Media.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
@@ -754,6 +917,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21A3292EEAA7F0AA7CEAAF39 /* Pods-BCC Media.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
@@ -788,6 +952,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		09F2A4E529C9B25100BA9F28 /* Build configuration list for PBXNativeTarget "BCC Media Top Shelf" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09F2A4E629C9B25100BA9F28 /* Debug */,
+				09F2A4E729C9B25100BA9F28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "BCC Media" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

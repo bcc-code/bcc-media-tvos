@@ -15,15 +15,19 @@ struct SettingsView: View {
     var onSave: () -> Void
 
     @State var cancelTask: (() -> Void)? = nil
+
+    @State var loading = false
     
     func authStateUpdate() {
         apolloClient.clearCache()
         authenticated = authenticationProvider.isAuthenticated()
         showSignIn = false
         onSave()
+        loading = false
     }
 
     func logout() {
+        loading = true
         Task {
             _ = await authenticationProvider.logout()
             authStateUpdate()
@@ -31,6 +35,7 @@ struct SettingsView: View {
     }
 
     func startSignIn() {
+        loading = true
         let task = Task {
             do {
                 try await authenticationProvider.login { (code) -> () in
@@ -47,24 +52,30 @@ struct SettingsView: View {
         cancelTask = task.cancel
     }
 
-    @State var language = UserDefaults.standard.string(forKey: "language") ?? "no"
-
     @State var showSignIn = false
 
     var body: some View {
-        if showSignIn {
-            SignInView(cancel: {
-                cancelTask?()
-                authStateUpdate()
-            }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token)
-        } else {
-            if authenticated {
-                Button("Log out") {
-                    logout()
-                }
+        NavigationStack {
+            if showSignIn {
+                SignInView(cancel: {
+                    cancelTask?()
+                    authStateUpdate()
+                }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token)
             } else {
-                Button("Sign in") {
-                    startSignIn()
+                if authenticated {
+                    Button("Log out") {
+                        logout()
+                    }
+                } else {
+                    Button {
+                        startSignIn()
+                    } label: {
+                        if loading {
+                            ProgressView()
+                        } else {
+                            Text("Sign in")
+                        }
+                    }
                 }
             }
         }
