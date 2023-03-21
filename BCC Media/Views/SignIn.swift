@@ -13,6 +13,12 @@ struct SignInView: View {
     var verificationUri: String
     var verificationUriComplete: String
     var code: String
+
+    func getSimpleUri() -> String {
+        var str = verificationUri
+        str.replace("https://", with: "")
+        return str
+    }
     
     func getQRCodeData(text: String) -> Data? {
         guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
@@ -29,16 +35,31 @@ struct SignInView: View {
         HStack {
             VStack {
                 if let img = getQRCodeData(text: verificationUriComplete) {
-                    Image(uiImage: UIImage(data: img)!).resizable().frame(width: 512, height: 512).shadow(radius:10)
+                    Image(uiImage: UIImage(data: img)!).resizable().frame(width: 512, height: 512).cornerRadius(10)
                 }
-                Text("Or go to: " + verificationUri)
+                Text("Scan this with your phone").foregroundColor(.gray)
             }
+            Spacer().frame(width: 50)
             VStack {
-                Text(code)
-                Button("Back") {
+                
+                Group {
+                    Text("Or go to: ") +
+                    Text(getSimpleUri()).foregroundColor(.blue) +
+                    Text(" and enter this code:")
+                }
+                Spacer().frame(height: 30)
+                Text(code).font(.title)
+                Spacer().frame(height: 100)
+                Button("Cancel") {
                     cancel()
                 }
             }
-        }
+        }.frame(width: 1200, height: 800)
+    }
+}
+
+struct SignInView_Preview: PreviewProvider {
+    static var previews: some View {
+        SignInView(cancel: {}, verificationUri: "https://login.bcc.no/activate", verificationUriComplete: "https://login.bcc.no/asd", code: "1234-1234")
     }
 }

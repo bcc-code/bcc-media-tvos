@@ -47,7 +47,6 @@
 		2D64E7BC4182AFDCD55567BF /* Page.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E4F9B40BEE59A3718E1E /* Page.graphql.swift */; };
 		2D64E7F4FC3B3B7DBA035F86 /* AchievementPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EE88F4540A2382068A74 /* AchievementPagination.graphql.swift */; };
 		2D64E80F341585D961122E21 /* Section.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E3D0F93EEDC11E06B053 /* Section.graphql.swift */; };
-		2D64E84CE0CC357015E22002 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EAAA48AF493F1F4A89F8 /* Client.swift */; };
 		2D64E862FA888C19CA9A86D4 /* EpisodeSearchItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E8E9285E1295C3B933DF /* EpisodeSearchItem.graphql.swift */; };
 		2D64E8EBFABDD97BBEB41D3F /* WebSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E36E5CD00CE32D047DD9 /* WebSection.graphql.swift */; };
 		2D64E942E241ADF5F1CC8653 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EC95DA7A0E51573DC051 /* Live.swift */; };
@@ -141,7 +140,6 @@
 		2D64EA392C7B14552679FE6E /* AuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationProvider.swift; sourceTree = "<group>"; };
 		2D64EA55186CD532816176C8 /* Viewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Viewer.swift; sourceTree = "<group>"; };
 		2D64EA7161E3F24C5400565E /* Stream.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.graphql.swift; sourceTree = "<group>"; };
-		2D64EAAA48AF493F1F4A89F8 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Client.swift; path = API/Client.swift; sourceTree = "<group>"; };
 		2D64EB73D9925331F191E735 /* SearchQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64EB857A5BF722714FA2CA /* GridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSection.graphql.swift; sourceTree = "<group>"; };
 		2D64EBC338A1C8BCBE0CBF1A /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
@@ -413,16 +411,15 @@
 		2D64EF38E0F7589C8BE0D636 /* BCC Media */ = {
 			isa = PBXGroup;
 			children = (
-				0943E18429BB363F0016348C /* Components */,
-				2D64E9AA1E75A14695918908 /* Assets.xcassets */,
-				2D64EE62F73E14CBF46D77F0 /* Preview Content */,
+				2D64E22A7624A037A3CC6D7B /* Auth0.plist */,
 				2D64E2030CD962DA48716017 /* BCCMediaApp.swift */,
 				2D64E460594AD4CC96AE76A4 /* ContentView.swift */,
-				2D64E22A7624A037A3CC6D7B /* Auth0.plist */,
-				2D64E3B955C71B7E1F13D210 /* Library */,
-				2D64EAAA48AF493F1F4A89F8 /* Client.swift */,
-				2D64EEC548E99F075F742CFE /* Queries */,
+				2D64E9AA1E75A14695918908 /* Assets.xcassets */,
 				2D64E4AB1476BF314B7AEBC9 /* API */,
+				0943E18429BB363F0016348C /* Components */,
+				2D64E3B955C71B7E1F13D210 /* Library */,
+				2D64EE62F73E14CBF46D77F0 /* Preview Content */,
+				2D64EEC548E99F075F742CFE /* Queries */,
 				2D64E22E44F7DA7C709CE617 /* Views */,
 			);
 			path = "BCC Media";
@@ -537,7 +534,6 @@
 				2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */,
 				2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */,
 				2D64EE239D92660EB7149279 /* AuthenticationProvider.swift in Sources */,
-				2D64E84CE0CC357015E22002 /* Client.swift in Sources */,
 				2D64E7BC4182AFDCD55567BF /* Page.graphql.swift in Sources */,
 				2D64EB2C0C3B72AD6DE86638 /* QueryRoot.graphql.swift in Sources */,
 				2D64E8EBFABDD97BBEB41D3F /* WebSection.graphql.swift in Sources */,
@@ -624,6 +620,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Apollo\"",
+					"-l\"Auth0\"",
+					"-l\"JWTDecode\"",
+					"-l\"SimpleKeychain\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = bcc.media.appletv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -765,6 +769,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Apollo\"",
+					"-l\"Auth0\"",
+					"-l\"JWTDecode\"",
+					"-l\"SimpleKeychain\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = bcc.media.appletv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

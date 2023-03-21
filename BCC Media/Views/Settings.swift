@@ -14,31 +14,37 @@ struct SettingsView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     var onSave: () -> Void
 
+    @State var cancelTask: (() -> Void)? = nil
+    
+    func authStateUpdate() {
+        apolloClient.clearCache()
+        authenticated = authenticationProvider.isAuthenticated()
+        showSignIn = false
+        onSave()
+    }
+
     func logout() {
         Task {
             _ = await authenticationProvider.logout()
-            apolloClient.clearCache()
-            authenticated = false
-            onSave()
+            authStateUpdate()
         }
     }
 
     func startSignIn() {
-        Task {
+        let task = Task {
             do {
-                try await authenticationProvider.login() { (code) -> () in
+                try await authenticationProvider.login { (code) -> () in
                     token = code.userCode
                     verificationUri = code.verificationUri
                     verificationUriComplete = code.verificationUriComplete
                     showSignIn = true
                 }
-                apolloClient.clearCache()
-                authenticated = true
-                onSave()
+                authStateUpdate()
             } catch {
                 print(error)
             }
         }
+        cancelTask = task.cancel
     }
 
     @State var language = UserDefaults.standard.string(forKey: "language") ?? "no"
@@ -46,20 +52,19 @@ struct SettingsView: View {
     @State var showSignIn = false
 
     var body: some View {
-        NavigationStack {
-            if showSignIn {
-                SignInView(cancel: {
-                    showSignIn = false
-                }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token)
+        if showSignIn {
+            SignInView(cancel: {
+                cancelTask?()
+                authStateUpdate()
+            }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token)
+        } else {
+            if authenticated {
+                Button("Log out") {
+                    logout()
+                }
             } else {
-                if authenticated {
-                    Button("Log out") {
-                        logout()
-                    }
-                } else {
-                    Button("Sign in") {
-                        startSignIn()
-                    }
+                Button("Sign in") {
+                    startSignIn()
                 }
             }
         }

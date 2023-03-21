@@ -93,11 +93,13 @@ struct AuthenticationProvider {
 
         codeCallback(response)
 
-        let result = try! await listenToResolve(deviceToken: response)
+        let result = try await listenToResolve(deviceToken: response)
 
-        let stored = credentialsManager.store(credentials: result)
-        if !stored {
-            print("couldn't store credentials")
+        if let r = result {
+            let stored = credentialsManager.store(credentials: r)
+            if !stored {
+                print("couldn't store credentials")
+            }
         }
     }
 
@@ -123,7 +125,7 @@ struct AuthenticationProvider {
         return try JSONDecoder().decode(DeviceTokenRequestResponse.self, from: data)
     }
 
-    func listenToResolve(deviceToken: DeviceTokenRequestResponse) async throws -> Credentials {
+    func listenToResolve(deviceToken: DeviceTokenRequestResponse) async throws -> Credentials? {
         let tokenRequest = GetTokenRequest(deviceCode: deviceToken.deviceCode, clientId: options.client_id)
 
         var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/token")!,
@@ -135,7 +137,7 @@ struct AuthenticationProvider {
 
         var creds: Credentials? = nil
 
-        while true {
+        while true, !Task.isCancelled {
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse {
                 if httpResponse.statusCode < 200 || httpResponse.statusCode >= 300 {
@@ -153,6 +155,6 @@ struct AuthenticationProvider {
             break
         }
 
-        return creds!
+        return creds
     }
 }
