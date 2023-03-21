@@ -14,7 +14,7 @@ struct ItemImage: View {
     var image: String?
 
     var body: some View {
-        AsyncImage(url: image != nil ? URL(string: image! + "?w=320&h=180") : nil) { image in
+        AsyncImage(url: image != nil ? URL(string: image! + "?w=400&h=225") : nil) { image in
             image.resizable().renderingMode(.original)
         } placeholder: {
             ProgressView()
@@ -26,7 +26,6 @@ struct ItemListView<Destination: View>: View {
     var title: String?
     var items: [Item]
     var emptyListText: Text?
-
 
     var destinationFactory: (Item) -> Destination
 
@@ -67,12 +66,12 @@ struct ItemView<Destination: View>: View {
             NavigationLink {
                 destination
             } label: {
-                ItemImage(image: item.image).frame(width: 320, height: 180)
+                ItemImage(image: item.image).frame(width: 400, height: 225)
             }
                     .buttonStyle(.card)
                     .padding(.zero)
             Text(item.title).padding(.zero).font(.caption)
         }
-                .frame(width: 320)
+                .frame(width: 400)
     }
 }

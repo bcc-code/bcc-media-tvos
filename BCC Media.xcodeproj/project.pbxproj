@@ -250,18 +250,10 @@
 		09F2A4DE29C9B25100BA9F28 /* BCC Media Top Shelf */ = {
 			isa = PBXGroup;
 			children = (
-				09F2A4E929C9BA8E00BA9F28 /* Queries */,
 				09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */,
 				09F2A4E129C9B25100BA9F28 /* Info.plist */,
 			);
 			path = "BCC Media Top Shelf";
-			sourceTree = "<group>";
-		};
-		09F2A4E929C9BA8E00BA9F28 /* Queries */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Queries;
 			sourceTree = "<group>";
 		};
 		2ACB7A53A6D45DE17AB42CCF /* Pods */ = {

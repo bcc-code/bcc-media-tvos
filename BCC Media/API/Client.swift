@@ -7,7 +7,11 @@ import Foundation
 
 
 class Network {
-    static let shared = Network()
+    var authenticationProvider: AuthenticationProvider
+    
+    init(authenticationProvider: AuthenticationProvider) {
+        self.authenticationProvider = authenticationProvider
+    }
 
     private func mapLanguageToString(value: String) -> String {
         if let first = value.split(separator: "-").first {
@@ -24,7 +28,7 @@ class Network {
         configuration.httpAdditionalHeaders = authPayloads
 
         let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
-        let provider = NetworkInterceptorProvider(client: client, shouldInvalidateClientOnDeinit: true, store: store)
+        let provider = NetworkInterceptorProvider(authenticationProvider: authenticationProvider, client: client, store: store)
 
         let url = URL(string: "https://api.brunstad.tv/query")!
 
@@ -37,14 +41,26 @@ class Network {
 }
 
 class NetworkInterceptorProvider: DefaultInterceptorProvider {
+    var authenticationProvider: AuthenticationProvider
+    
+    init(authenticationProvider: AuthenticationProvider, client: URLSessionClient, store: ApolloStore) {
+        self.authenticationProvider = authenticationProvider
+        super.init(client: client, shouldInvalidateClientOnDeinit: true, store: store)
+    }
+    
     override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
         var interceptors = super.interceptors(for: operation)
-        interceptors.insert(CustomInterceptor(), at: 0)
+        interceptors.insert(CustomInterceptor(authenticationProvider: authenticationProvider), at: 0)
         return interceptors
     }
 }
 
 class CustomInterceptor: ApolloInterceptor {
+    var authenticationProvider: AuthenticationProvider
+    
+    init(authenticationProvider: AuthenticationProvider) {
+        self.authenticationProvider = authenticationProvider
+    }
 
     func interceptAsync<Operation: GraphQLOperation>(
             chain: RequestChain,
@@ -68,4 +84,4 @@ class CustomInterceptor: ApolloInterceptor {
     }
 }
 
-let apolloClient = Network.shared.apollo
+let apolloClient = Network.init(authenticationProvider: authenticationProvider).apollo
