@@ -5,16 +5,8 @@ query GetPage($id: ID!) {
         sections(first: 100) {
             items {
                 id
-                ... on ItemSection {
-                    title
-                    items {
-                        items {
-                            id
-                            title
-                            image
-                        }
-                    }
-                }
+                title
+                ...ItemSectionFragment
             }
         }
     }

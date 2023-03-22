@@ -9,11 +9,24 @@ import SwiftUI
 
 struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
+
+    func mapToItem(item: API.ItemSectionFragment.Items.Item) -> Item {
+        Item(id: item.id, title: item.title, image: item.image)
+    }
     
     var body: some View {
         List(page.sections.items, id: \.id) { section in
-            if let s = section.asItemSection {
-                ItemSectionView(section: s)
+            if let itemSection = section.asItemSection {
+                switch section.__typename {
+                case "FeaturedSection":
+                    FeaturedSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                case "DefaultSection":
+                    ItemListView(title: itemSection.title, items: itemSection.items.items.map(mapToItem)) { item in
+                        ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
+                    }
+                default:
+                    EmptyView()
+                }
             }
         }.navigationTitle(page.title)
     }

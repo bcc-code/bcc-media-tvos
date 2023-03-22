@@ -13,21 +13,31 @@ struct Item {
 struct ItemImage: View {
     var image: String?
 
+    private func getImage(_ size: CGSize) -> URL? {
+        image != nil ? URL(string: image! + "?w=\(Int(size.width))&h=\(Int(size.height))&crop=faces&fit=crop") : nil
+    }
+
     var body: some View {
-        AsyncImage(url: image != nil ? URL(string: image! + "?w=400&h=225") : nil) { image in
-            image.resizable().renderingMode(.original)
-        } placeholder: {
-            ProgressView()
+        GeometryReader { proxy in
+            if proxy.size != .zero {
+                VStack {
+                    AsyncImage(url: getImage(proxy.size)) { image in
+                        image.resizable().renderingMode(.original)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                }.frame(width: proxy.size.width, height: proxy.size.height)
+            }
         }
     }
 }
 
-struct ItemListView<Destination: View>: View {
+struct ItemListView<IView: View>: View {
     var title: String?
     var items: [Item]
     var emptyListText: Text?
 
-    var destinationFactory: (Item) -> Destination
+    var view: (Item) -> IView
 
     var body: some View {
         VStack {
@@ -38,16 +48,15 @@ struct ItemListView<Destination: View>: View {
                 LazyHStack(spacing: 20) {
                     if items.count > 0 {
                         ForEach(items.indices, id: \.self) { index in
-                            let i = items[index]
-                            ItemView(item: i, destination: destinationFactory(i))
+                            view(items[index])
                         }
                     } else if let s = emptyListText {
                         s
                     }
                 }
-                        .lineLimit(2).padding(50)
+                        .lineLimit(2).padding(100)
             }
-                    .padding(-50)
+                    .padding(-100)
         }
     }
 }

@@ -7,19 +7,26 @@
 import SwiftUI
 
 struct ItemSectionView: View {
-    var section: API.GetPageQuery.Data.Page.Sections.Item.AsItemSection
+    var __typename: String
+    var title: String?
+    var items: API.ItemSectionFragment.Items
 
-    init(section: API.GetPageQuery.Data.Page.Sections.Item.AsItemSection) {
-        self.section = section
-    }
-
-    func mapToItem(item: API.GetPageQuery.Data.Page.Sections.Item.AsItemSection.Items.Item) -> Item {
+    func mapToItem(item: API.ItemSectionFragment.Items.Item) -> Item {
         Item(id: item.id, title: item.title, image: item.image)
     }
 
+    func getItems() -> [Item] {
+        items.items.map(mapToItem)
+    }
+
     var body: some View {
-        ItemListView(title: section.title, items: section.items.items.map(mapToItem)) { item in
-            EpisodeViewer(episodeId: item.id)
+        switch __typename {
+        case "FeaturedSection":
+            FeaturedSection(title: title, items: getItems())
+        default:
+            ItemListView(title: title, items: getItems()) { item in
+                ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
+            }
         }
     }
 }

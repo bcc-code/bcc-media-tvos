@@ -23,7 +23,6 @@ class ContentProvider: TVTopShelfContentProvider {
             let section = TVTopShelfItemCollection<TVTopShelfSectionedItem>(items: items)
             let sections: [TVTopShelfItemCollection<TVTopShelfSectionedItem>] = [section]
             
-            
             let content = TVTopShelfSectionedContent(sections: sections)
             
             completionHandler(content);

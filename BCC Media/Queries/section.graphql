@@ -1,0 +1,11 @@
+fragment ItemSectionFragment on ItemSection {
+    __typename
+    title
+    items {
+        items {
+            id
+            title
+            image
+        }
+    }
+}
