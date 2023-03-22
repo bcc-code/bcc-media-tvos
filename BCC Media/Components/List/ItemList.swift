@@ -4,29 +4,27 @@
 
 import SwiftUI
 
-struct Item {
+struct Item: Identifiable {
     var id: String
     var title: String
+    var description: String
     var image: String?
 }
 
 struct ItemImage: View {
     var image: String?
 
-    private func getImage(_ size: CGSize) -> URL? {
-        image != nil ? URL(string: image! + "?w=\(Int(size.width))&h=\(Int(size.height))&crop=faces&fit=crop") : nil
-    }
-
     var body: some View {
         GeometryReader { proxy in
-            if proxy.size != .zero {
+            if proxy.size != .zero, let img = image {
                 VStack {
-                    AsyncImage(url: getImage(proxy.size)) { image in
+                    AsyncImage(url: URL(string: img + "?w=\(Int(proxy.size.width))&h=\(Int(proxy.size.height))&crop=faces&fit=crop")) { image in
                         image.resizable().renderingMode(.original)
                     } placeholder: {
                         ProgressView()
                     }
-                }.frame(width: proxy.size.width, height: proxy.size.height)
+                }
+                        .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
     }

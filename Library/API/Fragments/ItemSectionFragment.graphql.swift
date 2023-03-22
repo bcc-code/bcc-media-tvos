@@ -15,6 +15,7 @@ public extension API {
             __typename
             id
             title
+            description
             image
           }
         }
@@ -58,11 +59,13 @@ public extension API {
         public static var __selections: [Apollo.Selection] { [
           .field("id", API.ID.self),
           .field("title", String.self),
+          .field("description", String.self),
           .field("image", String?.self),
         ] }
 
         public var id: API.ID { __data["id"] }
         public var title: String { __data["title"] }
+        public var description: String { __data["description"] }
         public var image: String? { __data["image"] }
       }
     }

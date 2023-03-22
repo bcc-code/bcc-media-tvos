@@ -12,7 +12,7 @@ struct ItemSectionView: View {
     var items: API.ItemSectionFragment.Items
 
     func mapToItem(item: API.ItemSectionFragment.Items.Item) -> Item {
-        Item(id: item.id, title: item.title, image: item.image)
+        Item(id: item.id, title: item.title, description: item.description, image: item.image)
     }
 
     func getItems() -> [Item] {

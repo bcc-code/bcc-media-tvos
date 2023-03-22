@@ -5,6 +5,7 @@ fragment ItemSectionFragment on ItemSection {
         items {
             id
             title
+            description
             image
         }
     }

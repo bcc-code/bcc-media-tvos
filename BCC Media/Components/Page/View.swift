@@ -11,7 +11,7 @@ struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
 
     func mapToItem(item: API.ItemSectionFragment.Items.Item) -> Item {
-        Item(id: item.id, title: item.title, image: item.image)
+        Item(id: item.id, title: item.title, description: item.description, image: item.image)
     }
     
     var body: some View {

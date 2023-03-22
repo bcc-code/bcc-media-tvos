@@ -17,7 +17,7 @@
       }
     },
     "schemaTypes" : {
-      "path" : "./BCC Media/API",
+      "path" : "./Library/API",
       "moduleType" : {
         "embeddedInTarget" : {
           "name" : "API"

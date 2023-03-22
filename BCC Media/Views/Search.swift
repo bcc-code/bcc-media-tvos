@@ -43,7 +43,7 @@ struct SearchView: View {
     }
 
     func mapToItem(r: API.SearchQuery.Data.Search.Result) -> Item {
-        Item(id: r.id, title: r.title, image: r.image)
+        Item(id: r.id, title: r.title, description: r.description ?? "", image: r.image)
     }
 
     var body: some View {
@@ -54,7 +54,7 @@ struct SearchView: View {
                         items: i.map(mapToItem),
                         emptyListText: Text("No shows with the current filter")
                 ) { item in
-                    EpisodeViewer(episodeId: item.id)
+                    ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
                 }
             }
             if let i = episodeResult {
@@ -63,7 +63,7 @@ struct SearchView: View {
                         items: i.map(mapToItem),
                         emptyListText: Text("No episodes with the current filter")
                 ) { item in
-                    EpisodeViewer(episodeId: item.id)
+                    ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
                 }
             }
             if showResult == nil || episodeResult == nil {
