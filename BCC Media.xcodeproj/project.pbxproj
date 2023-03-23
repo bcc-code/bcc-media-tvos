@@ -254,13 +254,13 @@
 			path = Sections;
 			sourceTree = "<group>";
 		};
-		09F2A4DE29C9B25100BA9F28 /* BCC Media Top Shelf */ = {
+		09F2A4DE29C9B25100BA9F28 /* Top Shelf */ = {
 			isa = PBXGroup;
 			children = (
 				09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */,
 				09F2A4E129C9B25100BA9F28 /* Info.plist */,
 			);
-			path = "BCC Media Top Shelf";
+			path = "Top Shelf";
 			sourceTree = "<group>";
 		};
 		2ACB7A53A6D45DE17AB42CCF /* Pods */ = {
@@ -280,8 +280,8 @@
 				2D64EDB7C7CC093B3800C7EB /* .gitignore */,
 				2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */,
 				2D64E3B955C71B7E1F13D210 /* Library */,
-				2D64EF38E0F7589C8BE0D636 /* BCC Media */,
-				09F2A4DE29C9B25100BA9F28 /* BCC Media Top Shelf */,
+				2D64EF38E0F7589C8BE0D636 /* App */,
+				09F2A4DE29C9B25100BA9F28 /* Top Shelf */,
 				3D8794257D2424490E02A5C0 /* Frameworks */,
 				2ACB7A53A6D45DE17AB42CCF /* Pods */,
 				2D64EC473E60AC534AFCE95B /* Products */,
@@ -480,7 +480,7 @@
 			path = Schema;
 			sourceTree = "<group>";
 		};
-		2D64EF38E0F7589C8BE0D636 /* BCC Media */ = {
+		2D64EF38E0F7589C8BE0D636 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				2D64E22A7624A037A3CC6D7B /* Auth0.plist */,
@@ -492,7 +492,7 @@
 				2D64EEC548E99F075F742CFE /* Queries */,
 				2D64E22E44F7DA7C709CE617 /* Views */,
 			);
-			path = "BCC Media";
+			path = App;
 			sourceTree = "<group>";
 		};
 		3D8794257D2424490E02A5C0 /* Frameworks */ = {

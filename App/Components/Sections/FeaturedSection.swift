@@ -4,6 +4,17 @@
 
 import SwiftUI
 
+struct FeaturedButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(.clear)
+            .scaleEffect(configuration.isPressed ? 1.05 : 1)
+            .foregroundColor(.clear)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    }
+}
+
 struct FeaturedSection: View {
     var title: String?
     var items: [Item]
@@ -19,9 +30,12 @@ struct FeaturedSection: View {
                             EpisodeViewer(episodeId: item.id)
                         } label: {
                             ItemImage(image: item.image)
-//                                    .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear]), startPoint: .top, endPoint: .bottom))
+                                .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear]), startPoint: .top, endPoint: .bottom))
+                                .cornerRadius(10)
+                                .padding(0)
                         }
-                                .buttonStyle(.card)
+                                .buttonStyle(FeaturedButton())
+                                .padding(0)
 //                                .overlay(VStack (alignment: .leading){
 //                                    Text(item.title).font(.title3).padding(10)
 ////                                    if item.description != "" {
