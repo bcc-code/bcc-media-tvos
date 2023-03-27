@@ -361,7 +361,7 @@
 				2D64EA392C7B14552679FE6E /* AuthenticationProvider.swift */,
 			);
 			path = Library;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		2D64E4AB1476BF314B7AEBC9 /* API */ = {
 			isa = PBXGroup;
