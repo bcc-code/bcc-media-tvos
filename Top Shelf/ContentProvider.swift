@@ -1,6 +1,6 @@
 //
 //  ContentProvider.swift
-//  BCC Media Top Shelf
+//  Top Shelf
 //
 //  Created by Fredrik Vedvik on 21/03/2023.
 //

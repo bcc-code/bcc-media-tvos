@@ -5,13 +5,42 @@
 import SwiftUI
 
 struct FeaturedButton: ButtonStyle {
+    let focused: Bool
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
-            .background(.clear)
-            .scaleEffect(configuration.isPressed ? 1.05 : 1)
-            .foregroundColor(.clear)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+                .padding()
+                .scaleEffect(configuration.isPressed || focused ? 1.05 : 1)
+                .animation(.easeOut(duration: 0.2), value: (configuration.isPressed || focused))
+    }
+}
+
+struct FeaturedCard: View {
+    var item: Item
+
+    @FocusState var isFocused: Bool
+
+    var body: some View {
+        NavigationLink {
+            EpisodeViewer(episodeId: item.id)
+        } label: {
+            ItemImage(image: item.image)
+                    .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear]), startPoint: .top, endPoint: .bottom))
+                    .cornerRadius(10)
+                    .padding(0)
+                    .overlay(
+                        VStack(alignment: .leading) {
+                            Text(item.title).font(.title3)
+                            if item.description != "" {
+                                Text(item.description).font(.subheadline)
+                            }
+                        }.padding(20)
+
+                            , alignment: .bottomLeading)
+        }
+                .buttonStyle(FeaturedButton(focused: isFocused))
+                .padding(0)
+                .focused($isFocused)
     }
 }
 
@@ -25,25 +54,7 @@ struct FeaturedSection: View {
         HStack {
             TabView(selection: $index) {
                 ForEach(items, id: \.id) { item in
-                    VStack {
-                        NavigationLink {
-                            EpisodeViewer(episodeId: item.id)
-                        } label: {
-                            ItemImage(image: item.image)
-                                .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear]), startPoint: .top, endPoint: .bottom))
-                                .cornerRadius(10)
-                                .padding(0)
-                        }
-                                .buttonStyle(FeaturedButton())
-                                .padding(0)
-//                                .overlay(VStack (alignment: .leading){
-//                                    Text(item.title).font(.title3).padding(10)
-////                                    if item.description != "" {
-////                                        Text(item.description).font(.subheadline).padding(10)
-////                                    }
-//                                }, alignment: .bottomLeading)
-                    }
-                            .padding(100)
+                    FeaturedCard(item: item).padding(100)
                 }
             }
                     .tabViewStyle(.page(indexDisplayMode: .never))

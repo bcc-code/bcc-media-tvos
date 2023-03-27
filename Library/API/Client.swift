@@ -7,18 +7,63 @@ import Foundation
 
 typealias TokenFactory = () async throws -> String?
 
-class ApolloClientFactory {
+private func mapLanguageToString(value: String) -> String {
+    if let first = value.split(separator: "-").first {
+        return String(first)
+    }
+    return "en"
+}
+
+
+private class NetworkInterceptorProvider: DefaultInterceptorProvider {
+    var tokenFactory: TokenFactory
+
+    init(tokenFactory: @escaping TokenFactory, client: URLSessionClient, store: ApolloStore) {
+        self.tokenFactory = tokenFactory
+        super.init(client: client, shouldInvalidateClientOnDeinit: true, store: store)
+    }
+
+    override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        var interceptors = super.interceptors(for: operation)
+        interceptors.insert(CustomInterceptor(tokenFactory: tokenFactory), at: 0)
+        return interceptors
+    }
+}
+
+private class CustomInterceptor: ApolloInterceptor {
     var tokenFactory: TokenFactory
 
     init(tokenFactory: @escaping TokenFactory) {
         self.tokenFactory = tokenFactory
     }
 
-    private func mapLanguageToString(value: String) -> String {
-        if let first = value.split(separator: "-").first {
-            return String(first)
+    func interceptAsync<Operation: GraphQLOperation>(
+            chain: RequestChain,
+            request: HTTPRequest<Operation>,
+            response: HTTPResponse<Operation>?,
+            completion: @escaping (Swift.Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+
+        Task {
+            do {
+                if let c = try await tokenFactory() {
+                    request.addHeader(name: "Authorization", value: "Bearer " + c)
+                }
+
+                chain.proceedAsync(request: request,
+                        response: response,
+                        completion: completion)
+            } catch {
+                print(error)
+            }
         }
-        return "en"
+    }
+}
+
+class ApolloClientFactory {
+    var tokenFactory: TokenFactory
+
+    init(tokenFactory: @escaping TokenFactory) {
+        self.tokenFactory = tokenFactory
     }
 
     public func NewClient() -> ApolloClient {
@@ -40,47 +85,4 @@ class ApolloClientFactory {
                 store: store)
     }
 
-    class NetworkInterceptorProvider: DefaultInterceptorProvider {
-        var tokenFactory: TokenFactory
-
-        init(tokenFactory: @escaping TokenFactory, client: URLSessionClient, store: ApolloStore) {
-            self.tokenFactory = tokenFactory
-            super.init(client: client, shouldInvalidateClientOnDeinit: true, store: store)
-        }
-
-        override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
-            var interceptors = super.interceptors(for: operation)
-            interceptors.insert(CustomInterceptor(tokenFactory: tokenFactory), at: 0)
-            return interceptors
-        }
-
-        class CustomInterceptor: ApolloInterceptor {
-            var tokenFactory: TokenFactory
-
-            init(tokenFactory: @escaping TokenFactory) {
-                self.tokenFactory = tokenFactory
-            }
-
-            func interceptAsync<Operation: GraphQLOperation>(
-                    chain: RequestChain,
-                    request: HTTPRequest<Operation>,
-                    response: HTTPResponse<Operation>?,
-                    completion: @escaping (Swift.Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-
-                Task {
-                    do {
-                        if let c = try await tokenFactory() {
-                            request.addHeader(name: "Authorization", value: "Bearer " + c)
-                        }
-
-                        chain.proceedAsync(request: request,
-                                response: response,
-                                completion: completion)
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-        }
-    }
 }

@@ -5,7 +5,7 @@
 import Auth0
 import Foundation
 
-private struct tokenRequestBody: Codable {
+private struct TokenRequestBody: Codable {
     var clientId: String
     var scope: String
     var audience: String
@@ -15,6 +15,23 @@ private struct tokenRequestBody: Codable {
         case scope = "scope"
         case audience = "audience"
     }
+}
+
+private struct GetTokenRequest: Codable {
+    var grantType = "urn:ietf:params:oauth:grant-type:device_code"
+    var deviceCode: String
+    var clientId: String
+
+    enum CodingKeys: String, CodingKey {
+        case grantType = "grant_type"
+        case deviceCode = "device_code"
+        case clientId = "client_id"
+    }
+}
+
+private struct FailedTokenRetrieval: Codable {
+    var error: String
+    var error_description: String
 }
 
 struct DeviceTokenRequestResponse: Codable {
@@ -42,28 +59,15 @@ struct AuthenticationProviderOptions {
     var domain: String
 }
 
-struct GetTokenRequest: Codable {
-    var grantType = "urn:ietf:params:oauth:grant-type:device_code"
-    var deviceCode: String
-    var clientId: String
-
-    enum CodingKeys: String, CodingKey {
-        case grantType = "grant_type"
-        case deviceCode = "device_code"
-        case clientId = "client_id"
-    }
-}
-
-struct FailedTokenRetrieval: Codable {
-    var error: String
-    var error_description: String
-}
-
 struct AuthenticationProvider {
-    var options: AuthenticationProviderOptions
-    var credentialsManager = Auth0.CredentialsManager(authentication: authentication())
+    private var options: AuthenticationProviderOptions
+    private var credentialsManager = Auth0.CredentialsManager(authentication: authentication())
+    
+    init(options: AuthenticationProviderOptions) {
+        self.options = options
+    }
 
-    enum AuthenticationError: Error {
+    private enum AuthenticationError: Error {
         case emptyResponse
     }
 
@@ -103,8 +107,8 @@ struct AuthenticationProvider {
         }
     }
 
-    func fetchDeviceCode() async throws -> DeviceTokenRequestResponse {
-        let tokenRequest = tokenRequestBody(clientId: options.client_id, scope: options.scope, audience: options.audience)
+    private func fetchDeviceCode() async throws -> DeviceTokenRequestResponse {
+        let tokenRequest = TokenRequestBody(clientId: options.client_id, scope: options.scope, audience: options.audience)
 
         var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/device/code")!,
                                  cachePolicy: .useProtocolCachePolicy,
@@ -125,7 +129,7 @@ struct AuthenticationProvider {
         return try JSONDecoder().decode(DeviceTokenRequestResponse.self, from: data)
     }
 
-    func listenToResolve(deviceToken: DeviceTokenRequestResponse) async throws -> Credentials? {
+    private func listenToResolve(deviceToken: DeviceTokenRequestResponse) async throws -> Credentials? {
         let tokenRequest = GetTokenRequest(deviceCode: deviceToken.deviceCode, clientId: options.client_id)
 
         var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/token")!,

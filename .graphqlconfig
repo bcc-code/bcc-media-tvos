@@ -1,0 +1,12 @@
+{
+  "name": "API",
+  "schemaPath": "./schema.json",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://api.brunstad.tv/query",
+        "introspect": false
+      }
+    }
+  }
+}

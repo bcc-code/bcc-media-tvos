@@ -3,11 +3,11 @@
 
 platform :tvos, '16.1'
 
-target 'BCC Media' do
+target 'App' do
   # Comment the next line if you don't want to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for appletv
+  # Pods for app
 
   pod 'Apollo'
 
