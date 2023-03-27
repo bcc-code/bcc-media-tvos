@@ -3,7 +3,7 @@
 
 platform :tvos, '16.1'
 
-target 'App' do
+target 'BCC Media' do
   # Comment the next line if you don't want to use dynamic frameworks
   # use_frameworks!
 
@@ -13,7 +13,3 @@ target 'App' do
 
   pod 'Auth0'
 end
-
-pod 'SwiftLint'
-
-pod 'SwiftFormat/CLI'

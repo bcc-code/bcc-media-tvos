@@ -8,12 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		09113B0029C081810087B9A2 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09113AFF29C081810087B9A2 /* View.swift */; };
-		09113B0429C301DE0087B9A2 /* search.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 09113B0329C301DE0087B9A2 /* search.graphql */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
-		099457F829CC534700F9C7B2 /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */; };
 		09E03AD229C887DF009329FF /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E03AD129C887DF009329FF /* SignIn.swift */; };
-		09F2A4DD29C9B25100BA9F28 /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F2A4DC29C9B25100BA9F28 /* TVServices.framework */; };
-		09F2A4E429C9B25100BA9F28 /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09F2A4DB29C9B25100BA9F28 /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2D64E0434AEB32333D149D27 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E22A7624A037A3CC6D7B /* Auth0.plist */; };
 		2D64E045323C028845414208 /* SectionItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF085CDBFFDD881A143 /* SectionItem.graphql.swift */; };
 		2D64E0CB808A3B33129D11B8 /* DefaultGridSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E64E665DB710D94710D7 /* DefaultGridSection.graphql.swift */; };
@@ -22,7 +18,6 @@
 		2D64E156B01B04327523D542 /* DefaultSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E272F215BDC8C8A489C2 /* DefaultSection.graphql.swift */; };
 		2D64E1B810ADAACBE56AF411 /* Pagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EFF0714F8B6F0EBA2A93 /* Pagination.graphql.swift */; };
 		2D64E1C4B94175BAA320E125 /* GetEpisodeQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EC8EBDE94CB8A96ED824 /* GetEpisodeQuery.graphql.swift */; };
-		2D64E1EBD190C23CC2C5E2AB /* page.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E177FC303770A310536C /* page.graphql */; };
 		2D64E216A050FD9063A0261B /* SectionPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E5A8950A5812FD256B57 /* SectionPagination.graphql.swift */; };
 		2D64E267FC015A68C1B39A70 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E25DC70962DAFF7E7B4A /* Client.swift */; };
 		2D64E34771A263A22B5AC55F /* apollo-codegen-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */; };
@@ -31,7 +26,6 @@
 		2D64E35DD297C5D2FA635267 /* LabelSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E74CAE37E1A1E3AFF8C0 /* LabelSection.graphql.swift */; };
 		2D64E41D4951DB7EDA606531 /* PosterGridSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E12709906FD8A3676A8B /* PosterGridSection.graphql.swift */; };
 		2D64E46DC1FE0D239FCFE65B /* ItemSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E8178E0538A958250372 /* ItemSection.graphql.swift */; };
-		2D64E494E484E870A0F5AC24 /* episode.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2D64EEFA160F0089442EA6D2 /* episode.graphql */; };
 		2D64E497741B2C4E1AD7216C /* IconSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E1952F4B5F34E394FC23 /* IconSection.graphql.swift */; };
 		2D64E4D212475FFDEC533F65 /* TaskPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E602D9326416E64D1992 /* TaskPagination.graphql.swift */; };
 		2D64E4D4E2231C315CB5D131 /* SurveyQuestionPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E81528A2E354A4B9ECA2 /* SurveyQuestionPagination.graphql.swift */; };
@@ -51,12 +45,10 @@
 		2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E2030CD962DA48716017 /* BCCMediaApp.swift */; };
 		2D64E7BC4182AFDCD55567BF /* Page.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E4F9B40BEE59A3718E1E /* Page.graphql.swift */; };
 		2D64E7F4FC3B3B7DBA035F86 /* AchievementPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EE88F4540A2382068A74 /* AchievementPagination.graphql.swift */; };
-		2D64E7FD3236DBC692334536 /* section.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2D64EA77BDC2274B62B38BEE /* section.graphql */; };
 		2D64E80F341585D961122E21 /* Section.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E3D0F93EEDC11E06B053 /* Section.graphql.swift */; };
 		2D64E862FA888C19CA9A86D4 /* EpisodeSearchItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E8E9285E1295C3B933DF /* EpisodeSearchItem.graphql.swift */; };
 		2D64E8EBFABDD97BBEB41D3F /* WebSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E36E5CD00CE32D047DD9 /* WebSection.graphql.swift */; };
 		2D64E942E241ADF5F1CC8653 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EC95DA7A0E51573DC051 /* Live.swift */; };
-		2D64E9488CB254B9722BBA2D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */; };
 		2D64EA258BF348620092C2F5 /* SeasonPagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E6166911FD3ED6DABE5F /* SeasonPagination.graphql.swift */; };
 		2D64EA29005F0263D6C3B55E /* Viewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EA55186CD532816176C8 /* Viewer.swift */; };
 		2D64EA3F41029110FE6F58B0 /* ListSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EDD584ABC947198AAEEA /* ListSection.graphql.swift */; };
@@ -77,7 +69,6 @@
 		2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ED5CD0F006989283F50E /* ItemList.swift */; };
 		2D64ECB93F166B34429F7189 /* FeaturedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */; };
 		2D64ECD91F1C4D95A8C3820F /* GetConfigQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E69B170928613928A099 /* GetConfigQuery.graphql.swift */; };
-		2D64ED0A368B2131FE1898BB /* config.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2D64EF3A2E4233E08742746D /* config.graphql */; };
 		2D64ED2949C6BC23A55B73DA /* ShowSearchItem.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E555BDFB8ECC7E1C1D1E /* ShowSearchItem.graphql.swift */; };
 		2D64ED9D5B6FC32EC612B7DA /* EpisodePagination.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECEECE5C44367AD3BDCC /* EpisodePagination.graphql.swift */; };
 		2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E9AA1E75A14695918908 /* Assets.xcassets */; };
@@ -87,18 +78,8 @@
 		2D64EF0AA005222582181513 /* IconGridSection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E08F3B497DFD8EDEDE9B /* IconGridSection.graphql.swift */; };
 		2D64EF6DB1074E0B52429125 /* Episode.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E25A3EB6D67367397E9C /* Episode.graphql.swift */; };
 		2D64EFC666A30B806DD180B5 /* SearchResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EDE38675137F06E0A7B3 /* SearchResult.graphql.swift */; };
-		C8E3BB684E0EDF49C0832658 /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D58560356A1895FA3D75D7A2 /* libPods-App.a */; };
+		A5CAEA8D266F03EFB829CB9D /* libPods-BCC Media.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15C9BCB22E28FC82536267 /* libPods-BCC Media.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		09F2A4E229C9B25100BA9F28 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2D64E1D850C94864AD6538E2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 09F2A4DA29C9B25100BA9F28;
-			remoteInfo = "Top Shelf";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		09F2A4E829C9B25100BA9F28 /* Embed Foundation Extensions */ = {
@@ -107,7 +88,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				09F2A4E429C9B25100BA9F28 /* Top Shelf.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,11 +99,8 @@
 		09113B0329C301DE0087B9A2 /* search.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = search.graphql; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
 		09E03AD129C887DF009329FF /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
-		09F2A4DB29C9B25100BA9F28 /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		09F2A4DC29C9B25100BA9F28 /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
-		09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
-		09F2A4E129C9B25100BA9F28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21A3292EEAA7F0AA7CEAAF39 /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
+		268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.debug.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.debug.xcconfig"; sourceTree = "<group>"; };
 		2D64E076365D1E15C0A6F330 /* GetPageQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPageQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64E08F3B497DFD8EDEDE9B /* IconGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconGridSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E09A2D4F2B0B5A3F146B /* SeasonSearchItem.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonSearchItem.graphql.swift; sourceTree = "<group>"; };
@@ -154,14 +131,13 @@
 		2D64E63ED280746A6B82BB54 /* UserCollectionEntryPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionEntryPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E64E665DB710D94710D7 /* DefaultGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGridSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E6829EBA509CFD1A5090 /* FeaturedSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.graphql.swift; sourceTree = "<group>"; };
-		2D64E6994BC94F50D51F9B04 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D64E6994BC94F50D51F9B04 /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D64E69B170928613928A099 /* GetConfigQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetConfigQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64E6A117A1739775CFC1D7 /* AchievementSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E6A3CB798D4782033F09 /* .graphqlconfig */ = {isa = PBXFileReference; lastKnownFileType = file.graphqlconfig; path = .graphqlconfig; sourceTree = "<group>"; };
 		2D64E72E52A54DE58AACDEFF /* API.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.graphql.swift; sourceTree = "<group>"; };
 		2D64E74691B57D5F5B4F28C9 /* LinkPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E74CAE37E1A1E3AFF8C0 /* LabelSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelSection.graphql.swift; sourceTree = "<group>"; };
-		2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		2D64E81528A2E354A4B9ECA2 /* SurveyQuestionPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyQuestionPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E8178E0538A958250372 /* ItemSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemSection.graphql.swift; sourceTree = "<group>"; };
@@ -201,24 +177,17 @@
 		2D64EFF0714F8B6F0EBA2A93 /* Pagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.graphql.swift; sourceTree = "<group>"; };
 		7C27C0DB5C37CE45645B3F3D /* Pods-appletv.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appletv.debug.xcconfig"; path = "Target Support Files/Pods-appletv/Pods-appletv.debug.xcconfig"; sourceTree = "<group>"; };
 		813688CB7A184112622820A5 /* Pods-appletv.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-appletv.release.xcconfig"; path = "Target Support Files/Pods-appletv/Pods-appletv.release.xcconfig"; sourceTree = "<group>"; };
+		8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.release.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.release.xcconfig"; sourceTree = "<group>"; };
+		9D15C9BCB22E28FC82536267 /* libPods-BCC Media.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BCC Media.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC0BD6CD2EF761B1DF2AD82D /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
-		D58560356A1895FA3D75D7A2 /* libPods-App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		09F2A4D829C9B25100BA9F28 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09F2A4DD29C9B25100BA9F28 /* TVServices.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2D64EFB695C83636A4673F9B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8E3BB684E0EDF49C0832658 /* libPods-App.a in Frameworks */,
+				A5CAEA8D266F03EFB829CB9D /* libPods-BCC Media.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,15 +222,6 @@
 			path = Sections;
 			sourceTree = "<group>";
 		};
-		09F2A4DE29C9B25100BA9F28 /* Top Shelf */ = {
-			isa = PBXGroup;
-			children = (
-				09F2A4DF29C9B25100BA9F28 /* ContentProvider.swift */,
-				09F2A4E129C9B25100BA9F28 /* Info.plist */,
-			);
-			path = "Top Shelf";
-			sourceTree = "<group>";
-		};
 		2ACB7A53A6D45DE17AB42CCF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +229,8 @@
 				813688CB7A184112622820A5 /* Pods-appletv.release.xcconfig */,
 				21A3292EEAA7F0AA7CEAAF39 /* Pods-App.debug.xcconfig */,
 				AC0BD6CD2EF761B1DF2AD82D /* Pods-App.release.xcconfig */,
+				268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */,
+				8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -276,14 +238,12 @@
 		2D64E14EBB891DB91B70D985 = {
 			isa = PBXGroup;
 			children = (
-				2D64EDB7C7CC093B3800C7EB /* .gitignore */,
-				2D64E76BCD5BD10A837B20A2 /* .swiftlint.yml */,
+				2D64EF38E0F7589C8BE0D636 /* BCC Media */,
 				2D64E3B955C71B7E1F13D210 /* Library */,
-				2D64EF38E0F7589C8BE0D636 /* App */,
-				09F2A4DE29C9B25100BA9F28 /* Top Shelf */,
 				3D8794257D2424490E02A5C0 /* Frameworks */,
 				2ACB7A53A6D45DE17AB42CCF /* Pods */,
 				2D64EC473E60AC534AFCE95B /* Products */,
+				2D64EDB7C7CC093B3800C7EB /* .gitignore */,
 				2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */,
 				2D64E6A3CB798D4782033F09 /* .graphqlconfig */,
 			);
@@ -357,6 +317,7 @@
 		2D64E3B955C71B7E1F13D210 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				2D64EEC548E99F075F742CFE /* Queries */,
 				2D64E4AB1476BF314B7AEBC9 /* API */,
 				2D64EA392C7B14552679FE6E /* AuthenticationProvider.swift */,
 			);
@@ -368,9 +329,9 @@
 			children = (
 				2D64EF29EB449954600991FA /* Schema */,
 				2D64EEC60ABEC551756CC5C7 /* Operations */,
+				2D64EC3415F07308A79146B4 /* Fragments */,
 				2D64E25DC70962DAFF7E7B4A /* Client.swift */,
 				2D64E72E52A54DE58AACDEFF /* API.graphql.swift */,
-				2D64EC3415F07308A79146B4 /* Fragments */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -421,8 +382,7 @@
 		2D64EC473E60AC534AFCE95B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2D64E6994BC94F50D51F9B04 /* App.app */,
-				09F2A4DB29C9B25100BA9F28 /* Top Shelf.appex */,
+				2D64E6994BC94F50D51F9B04 /* BCC Media.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -448,8 +408,9 @@
 				2D64EF3A2E4233E08742746D /* config.graphql */,
 				2D64EA77BDC2274B62B38BEE /* section.graphql */,
 			);
-			path = Queries;
-			sourceTree = "<group>";
+			name = Queries;
+			path = "BCC Media/Queries";
+			sourceTree = SOURCE_ROOT;
 		};
 		2D64EEC60ABEC551756CC5C7 /* Operations */ = {
 			isa = PBXGroup;
@@ -472,7 +433,7 @@
 			path = Schema;
 			sourceTree = "<group>";
 		};
-		2D64EF38E0F7589C8BE0D636 /* App */ = {
+		2D64EF38E0F7589C8BE0D636 /* BCC Media */ = {
 			isa = PBXGroup;
 			children = (
 				2D64E22A7624A037A3CC6D7B /* Auth0.plist */,
@@ -480,17 +441,15 @@
 				2D64E460594AD4CC96AE76A4 /* ContentView.swift */,
 				2D64E9AA1E75A14695918908 /* Assets.xcassets */,
 				0943E18429BB363F0016348C /* Components */,
-				2D64EEC548E99F075F742CFE /* Queries */,
 				2D64E22E44F7DA7C709CE617 /* Views */,
 			);
-			path = App;
-			sourceTree = "<group>";
+			path = "BCC Media";
+			sourceTree = SOURCE_ROOT;
 		};
 		3D8794257D2424490E02A5C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D58560356A1895FA3D75D7A2 /* libPods-App.a */,
-				09F2A4DC29C9B25100BA9F28 /* TVServices.framework */,
+				9D15C9BCB22E28FC82536267 /* libPods-BCC Media.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -498,26 +457,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		09F2A4DA29C9B25100BA9F28 /* Top Shelf */ = {
+		2D64EA587FBE70E8C0392EF8 /* BCC Media */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 09F2A4E529C9B25100BA9F28 /* Build configuration list for PBXNativeTarget "Top Shelf" */;
-			buildPhases = (
-				09F2A4D729C9B25100BA9F28 /* Sources */,
-				09F2A4D829C9B25100BA9F28 /* Frameworks */,
-				09F2A4D929C9B25100BA9F28 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Top Shelf";
-			productName = "Top Shelf";
-			productReference = 09F2A4DB29C9B25100BA9F28 /* Top Shelf.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		2D64EA587FBE70E8C0392EF8 /* App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "App" */;
+			buildConfigurationList = 2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "BCC Media" */;
 			buildPhases = (
 				BC6125E41AB03328D05449CE /* [CP] Check Pods Manifest.lock */,
 				2D64E977F3C74EB889E11FB5 /* Sources */,
@@ -528,11 +470,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				09F2A4E329C9B25100BA9F28 /* PBXTargetDependency */,
 			);
-			name = App;
+			name = "BCC Media";
 			productName = appletv;
-			productReference = 2D64E6994BC94F50D51F9B04 /* App.app */;
+			productReference = 2D64E6994BC94F50D51F9B04 /* BCC Media.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -542,11 +483,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1420;
-				TargetAttributes = {
-					09F2A4DA29C9B25100BA9F28 = {
-						CreatedOnToolsVersion = 14.2;
-					};
-				};
 			};
 			buildConfigurationList = 2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "BCC Media" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -563,34 +499,20 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2D64EA587FBE70E8C0392EF8 /* App */,
-				09F2A4DA29C9B25100BA9F28 /* Top Shelf */,
+				2D64EA587FBE70E8C0392EF8 /* BCC Media */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		09F2A4D929C9B25100BA9F28 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2D64E40409BAE8F8A7B8325D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */,
-				09113B0429C301DE0087B9A2 /* search.graphql in Resources */,
 				2D64E0434AEB32333D149D27 /* Auth0.plist in Resources */,
 				2D64E647BDA05E0920C7DEC0 /* .gitignore in Resources */,
-				2D64E1EBD190C23CC2C5E2AB /* page.graphql in Resources */,
-				2D64E9488CB254B9722BBA2D /* .swiftlint.yml in Resources */,
-				2D64E494E484E870A0F5AC24 /* episode.graphql in Resources */,
-				2D64ED0A368B2131FE1898BB /* config.graphql in Resources */,
 				2D64E34771A263A22B5AC55F /* apollo-codegen-config.json in Resources */,
-				2D64E7FD3236DBC692334536 /* section.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +534,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-App-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BCC Media-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -622,14 +544,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		09F2A4D729C9B25100BA9F28 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				099457F829CC534700F9C7B2 /* ContentProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2D64E977F3C74EB889E11FB5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -706,70 +620,11 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		09F2A4E329C9B25100BA9F28 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 09F2A4DA29C9B25100BA9F28 /* Top Shelf */;
-			targetProxy = 09F2A4E229C9B25100BA9F28 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		09F2A4E629C9B25100BA9F28 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TRTNB29F98;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Top Shelf/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Top Shelf";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "bcc.media.appletv.BCC-Media-Top-Shelf";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-			};
-			name = Debug;
-		};
-		09F2A4E729C9B25100BA9F28 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TRTNB29F98;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Top Shelf/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Top Shelf";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "bcc.media.appletv.BCC-Media-Top-Shelf";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-			};
-			name = Release;
-		};
 		2D64E048413A976EE07D5D0D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC0BD6CD2EF761B1DF2AD82D /* Pods-App.release.xcconfig */;
+			baseConfigurationReference = 8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
@@ -917,9 +772,8 @@
 		};
 		2D64ECAD4394F8639804D737 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21A3292EEAA7F0AA7CEAAF39 /* Pods-App.debug.xcconfig */;
+			baseConfigurationReference = 268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
@@ -954,15 +808,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		09F2A4E529C9B25100BA9F28 /* Build configuration list for PBXNativeTarget "Top Shelf" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				09F2A4E629C9B25100BA9F28 /* Debug */,
-				09F2A4E729C9B25100BA9F28 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2D64E44954A9332356A1F07B /* Build configuration list for PBXProject "BCC Media" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -972,7 +817,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "App" */ = {
+		2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "BCC Media" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D64ECAD4394F8639804D737 /* Debug */,
