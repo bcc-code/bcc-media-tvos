@@ -96,7 +96,6 @@
 
 /* Begin PBXFileReference section */
 		09113AFF29C081810087B9A2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		09113B0329C301DE0087B9A2 /* search.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = search.graphql; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
 		09E03AD129C887DF009329FF /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		21A3292EEAA7F0AA7CEAAF39 /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,7 +105,6 @@
 		2D64E09A2D4F2B0B5A3F146B /* SeasonSearchItem.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonSearchItem.graphql.swift; sourceTree = "<group>"; };
 		2D64E11438D20749778E19A3 /* CardListSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardListSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E12709906FD8A3676A8B /* PosterGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterGridSection.graphql.swift; sourceTree = "<group>"; };
-		2D64E177FC303770A310536C /* page.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = page.graphql; sourceTree = "<group>"; };
 		2D64E1952F4B5F34E394FC23 /* IconSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E2030CD962DA48716017 /* BCCMediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCMediaApp.swift; sourceTree = "<group>"; };
 		2D64E22A7624A037A3CC6D7B /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Auth0.plist; sourceTree = "<group>"; };
@@ -114,6 +112,7 @@
 		2D64E25A3EB6D67367397E9C /* Episode.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.graphql.swift; sourceTree = "<group>"; };
 		2D64E25DC70962DAFF7E7B4A /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		2D64E272F215BDC8C8A489C2 /* DefaultSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSection.graphql.swift; sourceTree = "<group>"; };
+		2D64E27BFD5171F13EB6CD3C /* episode.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = episode.graphql; sourceTree = "<group>"; };
 		2D64E2BF8AF7509369356176 /* ItemSectionFragment.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemSectionFragment.graphql.swift; sourceTree = "<group>"; };
 		2D64E36E5CD00CE32D047DD9 /* WebSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E3B7076C3EB298868785 /* QueryRoot.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryRoot.graphql.swift; sourceTree = "<group>"; };
@@ -127,6 +126,7 @@
 		2D64E5A8950A5812FD256B57 /* SectionPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E5B555AC03CEA5872EC3 /* MessageSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E602D9326416E64D1992 /* TaskPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPagination.graphql.swift; sourceTree = "<group>"; };
+		2D64E60BE8A8BC49651E1EDB /* page.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = page.graphql; sourceTree = "<group>"; };
 		2D64E6166911FD3ED6DABE5F /* SeasonPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E63ED280746A6B82BB54 /* UserCollectionEntryPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionEntryPagination.graphql.swift; sourceTree = "<group>"; };
 		2D64E64E665DB710D94710D7 /* DefaultGridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGridSection.graphql.swift; sourceTree = "<group>"; };
@@ -146,6 +146,7 @@
 		2D64E8EDA3B184D5E267ABEC /* PosterSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E9439510529DBAC8CD77 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		2D64E9541A96EAF1B3D09D9A /* FAQCategoryPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQCategoryPagination.graphql.swift; sourceTree = "<group>"; };
+		2D64E991397ABFBAA0CCB04B /* search.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = search.graphql; sourceTree = "<group>"; };
 		2D64E9AA1E75A14695918908 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D64E9B435B2E865F2F01D4E /* CardSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSection.graphql.swift; sourceTree = "<group>"; };
 		2D64E9D34043CFD26FA98C52 /* SectionItemPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionItemPagination.graphql.swift; sourceTree = "<group>"; };
@@ -153,9 +154,10 @@
 		2D64EA392C7B14552679FE6E /* AuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationProvider.swift; sourceTree = "<group>"; };
 		2D64EA55186CD532816176C8 /* Viewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Viewer.swift; sourceTree = "<group>"; };
 		2D64EA7161E3F24C5400565E /* Stream.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.graphql.swift; sourceTree = "<group>"; };
-		2D64EA77BDC2274B62B38BEE /* section.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = section.graphql; sourceTree = "<group>"; };
+		2D64EA9233A8B9EF04CD9A0C /* section.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = section.graphql; sourceTree = "<group>"; };
 		2D64EB73D9925331F191E735 /* SearchQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64EB857A5BF722714FA2CA /* GridSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSection.graphql.swift; sourceTree = "<group>"; };
+		2D64EBA328C8295E8DE0B064 /* config.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = config.graphql; sourceTree = "<group>"; };
 		2D64EBC338A1C8BCBE0CBF1A /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
 		2D64EC8EBDE94CB8A96ED824 /* GetEpisodeQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeQuery.graphql.swift; sourceTree = "<group>"; };
 		2D64EC95DA7A0E51573DC051 /* Live.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Live.swift; sourceTree = "<group>"; };
@@ -168,8 +170,6 @@
 		2D64EDD584ABC947198AAEEA /* ListSection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSection.graphql.swift; sourceTree = "<group>"; };
 		2D64EDE38675137F06E0A7B3 /* SearchResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.graphql.swift; sourceTree = "<group>"; };
 		2D64EE88F4540A2382068A74 /* AchievementPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementPagination.graphql.swift; sourceTree = "<group>"; };
-		2D64EEFA160F0089442EA6D2 /* episode.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = episode.graphql; sourceTree = "<group>"; };
-		2D64EF3A2E4233E08742746D /* config.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = config.graphql; sourceTree = "<group>"; };
 		2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.swift; sourceTree = "<group>"; };
 		2D64EF6688301198218E7C68 /* SearchResultItem.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultItem.graphql.swift; sourceTree = "<group>"; };
 		2D64EF93E358128E62AB25D3 /* AchievementGroupPagination.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementGroupPagination.graphql.swift; sourceTree = "<group>"; };
@@ -249,6 +249,18 @@
 			);
 			sourceTree = "<group>";
 		};
+		2D64E19D36A6090129A15393 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				2D64E60BE8A8BC49651E1EDB /* page.graphql */,
+				2D64E27BFD5171F13EB6CD3C /* episode.graphql */,
+				2D64E991397ABFBAA0CCB04B /* search.graphql */,
+				2D64EBA328C8295E8DE0B064 /* config.graphql */,
+				2D64EA9233A8B9EF04CD9A0C /* section.graphql */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
 		2D64E22E44F7DA7C709CE617 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,9 +329,9 @@
 		2D64E3B955C71B7E1F13D210 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				2D64EEC548E99F075F742CFE /* Queries */,
 				2D64E4AB1476BF314B7AEBC9 /* API */,
 				2D64EA392C7B14552679FE6E /* AuthenticationProvider.swift */,
+				2D64E19D36A6090129A15393 /* Queries */,
 			);
 			path = Library;
 			sourceTree = SOURCE_ROOT;
@@ -398,19 +410,6 @@
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
-		};
-		2D64EEC548E99F075F742CFE /* Queries */ = {
-			isa = PBXGroup;
-			children = (
-				2D64E177FC303770A310536C /* page.graphql */,
-				2D64EEFA160F0089442EA6D2 /* episode.graphql */,
-				09113B0329C301DE0087B9A2 /* search.graphql */,
-				2D64EF3A2E4233E08742746D /* config.graphql */,
-				2D64EA77BDC2274B62B38BEE /* section.graphql */,
-			);
-			name = Queries;
-			path = "BCC Media/Queries";
-			sourceTree = SOURCE_ROOT;
 		};
 		2D64EEC60ABEC551756CC5C7 /* Operations */ = {
 			isa = PBXGroup;
