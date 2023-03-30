@@ -72,11 +72,11 @@ struct AuthenticationProvider {
     }
 
     func isAuthenticated() -> Bool {
-        credentialsManager.hasValid()
+        credentialsManager.hasValid() || credentialsManager.canRenew()
     }
 
     func getAccessToken() async throws -> String? {
-        if credentialsManager.hasValid() {
+        if isAuthenticated() {
             return try await credentialsManager.credentials().accessToken
         }
         return nil
