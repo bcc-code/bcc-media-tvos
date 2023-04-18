@@ -32,6 +32,7 @@ public extension API {
     public static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       case "QueryRoot": return API.Objects.QueryRoot
+      case "Application": return API.Objects.Application
       case "Page": return API.Objects.Page
       case "SectionPagination": return API.Objects.SectionPagination
       case "AchievementGroupPagination": return API.Objects.AchievementGroupPagination
@@ -63,13 +64,16 @@ public extension API {
       case "PageDetailsSection": return API.Objects.PageDetailsSection
       case "WebSection": return API.Objects.WebSection
       case "SectionItem": return API.Objects.SectionItem
+      case "Show": return API.Objects.Show
+      case "Season": return API.Objects.Season
+      case "Episode": return API.Objects.Episode
+      case "Link": return API.Objects.Link
+      case "StudyTopic": return API.Objects.StudyTopic
       case "SearchResult": return API.Objects.SearchResult
       case "EpisodeSearchItem": return API.Objects.EpisodeSearchItem
       case "SeasonSearchItem": return API.Objects.SeasonSearchItem
       case "ShowSearchItem": return API.Objects.ShowSearchItem
-      case "Episode": return API.Objects.Episode
       case "Stream": return API.Objects.Stream
-      case "Application": return API.Objects.Application
       default: return nil
       }
     }

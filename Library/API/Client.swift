@@ -69,7 +69,7 @@ class ApolloClientFactory {
     public func NewClient() -> ApolloClient {
         let apolloClientCache = InMemoryNormalizedCache()
         let store = ApolloStore(cache: apolloClientCache)
-        let authPayloads = ["x-application": "tvos", "accept-language": Locale.preferredLanguages.map(mapLanguageToString).joined(separator: ",")]
+        let authPayloads = ["accept-language": Locale.preferredLanguages.map(mapLanguageToString).joined(separator: ",")]
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = authPayloads
 

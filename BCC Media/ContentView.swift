@@ -9,28 +9,50 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var page: API.GetPageQuery.Data.Page? = nil
     @State var authenticated = authenticationProvider.isAuthenticated()
+    @State var pageId = ""
+    
+    @State var loaded = false
+    
+    func load() {
+        apolloClient.fetch(query: API.GetApplicationQuery()) { result in
+            switch result {
+            case .success(let data):
+                self.pageId = data.data?.application.page?.id ?? ""
+            case .failure(let error):
+                print(error)
+            }
+            loaded = true
+        }
+        
+    }
 
     var body: some View {
-        NavigationView {
-            TabView {
-                PageView(pageId: "29").tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
-                if authenticated {
-                    LiveView().tabItem {
-                        Label("Live", systemImage: "video")
+        ZStack {
+            Color.init(red: 13/256, green: 22/256, blue: 35/256).ignoresSafeArea()
+            NavigationView {
+                if loaded {
+                    TabView {
+                        PageView(pageId: pageId).tabItem {
+                            Label("Home", systemImage: "house.fill")
+                        }
+                        if authenticated {
+                            LiveView().tabItem {
+                                Label("Live", systemImage: "video")
+                            }
+                        }
+                        SearchView().tabItem {
+                            Label("Search", systemImage: "magnifyingglass")
+                        }
+                        SettingsView {
+                            authenticated = authenticationProvider.isAuthenticated()
+                        }.tabItem {
+                            Label("Settings", systemImage: "gearshape.fill")
+                        }
                     }
                 }
-                SearchView().tabItem {
-                    Label("Search", systemImage: "magnifyingglass")
-                }
-                SettingsView {
-                    authenticated = authenticationProvider.isAuthenticated()
-                }.tabItem {
-                    Label("Settings", systemImage: "gearshape.fill")
-                }
+            }.task {
+                load()
             }
         }
     }

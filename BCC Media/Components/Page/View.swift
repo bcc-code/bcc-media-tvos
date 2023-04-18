@@ -10,20 +10,18 @@ import SwiftUI
 struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
 
-    func mapToItem(item: API.ItemSectionFragment.Items.Item) -> Item {
-        Item(id: item.id, title: item.title, description: item.description, image: item.image)
-    }
-    
     var body: some View {
         List(page.sections.items, id: \.id) { section in
             if let itemSection = section.asItemSection {
                 switch section.__typename {
+                case "PosterSection":
+                    PosterSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
                 case "FeaturedSection":
                     FeaturedSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
                 case "DefaultSection":
-                    ItemListView(title: itemSection.title, items: itemSection.items.items.map(mapToItem)) { item in
-                        ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
-                    }
+                    DefaultSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                case "IconSection":
+                    IconSection(title: itemSection.title, items: mapToItems(itemSection.items))
                 default:
                     EmptyView()
                 }

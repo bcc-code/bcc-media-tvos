@@ -17,6 +17,15 @@ public extension API {
             title
             description
             image
+            item {
+              __typename
+              ... on Show {
+                defaultEpisode {
+                  __typename
+                  id
+                }
+              }
+            }
           }
         }
       }
@@ -61,12 +70,59 @@ public extension API {
           .field("title", String.self),
           .field("description", String.self),
           .field("image", String?.self),
+          .field("item", Item.self),
         ] }
 
         public var id: API.ID { __data["id"] }
         public var title: String { __data["title"] }
         public var description: String { __data["description"] }
         public var image: String? { __data["image"] }
+        public var item: Item { __data["item"] }
+
+        /// Items.Item.Item
+        ///
+        /// Parent Type: `SectionItemType`
+        public struct Item: API.SelectionSet {
+          public let __data: DataDict
+          public init(data: DataDict) { __data = data }
+
+          public static var __parentType: Apollo.ParentType { API.Unions.SectionItemType }
+          public static var __selections: [Apollo.Selection] { [
+            .inlineFragment(AsShow.self),
+          ] }
+
+          public var asShow: AsShow? { _asInlineFragment() }
+
+          /// Items.Item.Item.AsShow
+          ///
+          /// Parent Type: `Show`
+          public struct AsShow: API.InlineFragment {
+            public let __data: DataDict
+            public init(data: DataDict) { __data = data }
+
+            public static var __parentType: Apollo.ParentType { API.Objects.Show }
+            public static var __selections: [Apollo.Selection] { [
+              .field("defaultEpisode", DefaultEpisode.self),
+            ] }
+
+            public var defaultEpisode: DefaultEpisode { __data["defaultEpisode"] }
+
+            /// Items.Item.Item.AsShow.DefaultEpisode
+            ///
+            /// Parent Type: `Episode`
+            public struct DefaultEpisode: API.SelectionSet {
+              public let __data: DataDict
+              public init(data: DataDict) { __data = data }
+
+              public static var __parentType: Apollo.ParentType { API.Objects.Episode }
+              public static var __selections: [Apollo.Selection] { [
+                .field("id", API.ID.self),
+              ] }
+
+              public var id: API.ID { __data["id"] }
+            }
+          }
+        }
       }
     }
   }

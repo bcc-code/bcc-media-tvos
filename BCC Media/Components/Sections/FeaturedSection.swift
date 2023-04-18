@@ -9,9 +9,9 @@ struct FeaturedButton: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-                .padding()
-                .scaleEffect(configuration.isPressed || focused ? 1.05 : 1)
-                .animation(.easeOut(duration: 0.2), value: (configuration.isPressed || focused))
+            .padding(.zero)
+            .scaleEffect(configuration.isPressed || focused ? 1.05 : 1)
+            .animation(.easeOut(duration: 0.2), value: (configuration.isPressed || focused))
     }
 }
 
@@ -27,7 +27,7 @@ struct FeaturedCard: View {
             ItemImage(image: item.image)
                     .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear]), startPoint: .top, endPoint: .bottom))
                     .cornerRadius(10)
-                    .padding(0)
+                    .padding(.zero)
                     .overlay(
                         VStack(alignment: .leading) {
                             Text(item.title).font(.title3)
@@ -66,8 +66,6 @@ struct FeaturedSection: View {
 
 struct FeaturedSection_Preview: PreviewProvider {
     static var previews: some View {
-        FeaturedSection(title: "Featured", items: [
-            Item(id: "10", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg")
-        ])
+        FeaturedSection(title: "Featured", items: previewItems)
     }
 }

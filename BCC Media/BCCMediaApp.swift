@@ -8,7 +8,15 @@
 
 import SwiftUI
 
-let authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: "rJbKSHYPskua2BgY8mEwOSasK6o6uCRA", scope: "profile email offline_access", audience: "api.bcc.no", domain: "login.bcc.no"))
+struct AuthConfig {
+    var domain: String = "login.bcc.no"
+    var clientId: String = "rJbKSHYPskua2BgY8mEwOSasK6o6uCRA"
+    var audience: String = "api.bcc.no"
+}
+
+let authConfig = AuthConfig()
+
+let authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: authConfig.clientId, scope: "profile email offline_access", audience: authConfig.audience, domain: authConfig.domain))
 
 let apolloClient = ApolloClientFactory(tokenFactory: authenticationProvider.getAccessToken).NewClient()
 

@@ -4,38 +4,35 @@
 
 import SwiftUI
 
-struct Item: Identifiable {
-    var id: String
-    var title: String
-    var description: String
-    var image: String?
-}
-
 struct ItemImage: View {
     var image: String?
+    
+    func getImg(_ img: String, _ size: CGSize) -> URL? {
+        print(img)
+        print(size)
+        return URL(string: img + "?w=\(Int(size.width))&h=\(Int(size.height))&crop=faces&fit=crop")
+    }
 
     var body: some View {
         GeometryReader { proxy in
             if proxy.size != .zero, let img = image {
-                VStack {
-                    AsyncImage(url: URL(string: img + "?w=\(Int(proxy.size.width))&h=\(Int(proxy.size.height))&crop=faces&fit=crop")) { image in
-                        image.resizable().renderingMode(.original)
-                    } placeholder: {
-                        ProgressView()
-                    }
+                AsyncImage(url: getImg(img, proxy.size)) { image in
+                    image.renderingMode(.original)
+                } placeholder: {
+                    ProgressView()
                 }
-                        .frame(width: proxy.size.width, height: proxy.size.height)
+                    .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
     }
 }
 
-struct ItemListView<IView: View>: View {
+struct ItemListView<T, IView: View>: View {
     var title: String?
-    var items: [Item]
+    var items: [T]
     var emptyListText: Text?
 
-    var view: (Item) -> IView
+    var view: (T) -> IView
 
     var body: some View {
         VStack {
@@ -60,11 +57,13 @@ struct ItemListView<IView: View>: View {
 }
 
 struct ItemView<Destination: View>: View {
-    var item: Item
+    var title: String
+    var image: String?
     var destination: Destination
 
-    init(item: Item, destination: Destination) {
-        self.item = item
+    init(_ title: String, _ image: String?, destination: Destination) {
+        self.title = title
+        self.image = image
         self.destination = destination
     }
 
@@ -73,11 +72,11 @@ struct ItemView<Destination: View>: View {
             NavigationLink {
                 destination
             } label: {
-                ItemImage(image: item.image).frame(width: 400, height: 225)
+                ItemImage(image: image).frame(width: 400, height: 225)
             }
                     .buttonStyle(.card)
                     .padding(.zero)
-            Text(item.title).padding(.zero).font(.caption)
+            Text(title).padding(.zero).font(.caption)
         }
                 .frame(width: 400)
     }

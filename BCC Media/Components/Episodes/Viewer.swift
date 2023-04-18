@@ -34,7 +34,7 @@ struct EpisodeViewer: View {
 
     func getPlayerUrl() -> URL? {
         if let streams = episode?.streams {
-            let types = [API.StreamType.hlsTs, API.StreamType.hlsCmaf, API.StreamType.dash]
+            let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
             var index = 0
             var stream = streams.first(where: { $0.type == types[index] })
             while stream == nil && (types.count - 1) > index {

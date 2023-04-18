@@ -1,0 +1,7 @@
+query getApplication {
+    application {
+        page {
+            id
+        }
+    }
+}

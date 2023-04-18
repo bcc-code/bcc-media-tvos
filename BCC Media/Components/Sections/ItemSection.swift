@@ -6,28 +6,61 @@
 
 import SwiftUI
 
-struct ItemSectionView: View {
-    var __typename: String
-    var title: String?
-    var items: API.ItemSectionFragment.Items
+let previewItems: [Item] = [
+    Item(id: "10", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
+    Item(id: "16", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
+    Item(id: "12", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
+    Item(id: "1", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
+    Item(id: "20", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
+    Item(id: "11", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg")
+]
 
-    func mapToItem(item: API.ItemSectionFragment.Items.Item) -> Item {
-        Item(id: item.id, title: item.title, description: item.description, image: item.image)
-    }
+enum ItemType {
+    case episode
+    case show
+    case page
+}
 
-    func getItems() -> [Item] {
-        items.items.map(mapToItem)
-    }
-
+struct Item: Identifiable, View {
+    var id: String
+    var title: String
+    var description: String
+    var image: String?
+    
+    var type: ItemType = .episode
+    var routeId: String = ""
+    
     var body: some View {
-        switch __typename {
-        case "FeaturedSection":
-            FeaturedSection(title: title, items: getItems())
-        default:
-            ItemListView(title: title, items: getItems()) { item in
-                ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
-            }
+        switch type {
+        case .show:
+            EpisodeViewer(episodeId: routeId)
+        case .page:
+            PageView(pageId: id)
+        case .episode:
+            EpisodeViewer(episodeId: id)
         }
     }
 }
 
+func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
+    var t: ItemType
+    var rId: String = ""
+    switch item.item.__typename {
+    case "Show":
+        t = .show
+        rId = item.item.asShow?.defaultEpisode.id ?? ""
+    case "Episode":
+        t = .episode
+    case "Page":
+        t = .page
+    default:
+        t = .episode
+    }
+    return Item(id: item.id, title: item.title, description: item.description, image: item.image, type: t, routeId: rId)
+}
+
+func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {
+    items.items.map { item in
+        return mapToItem(item)
+    }
+}

@@ -7,6 +7,14 @@ fragment ItemSectionFragment on ItemSection {
             title
             description
             image
+            item {
+                __typename
+                ... on Show {
+                    defaultEpisode {
+                        id
+                    }
+                }
+            }
         }
     }
 }

@@ -51,19 +51,19 @@ struct SearchView: View {
             if let i = showResult {
                 ItemListView(
                         title: NSLocalizedString("Shows", comment: ""),
-                        items: i.map(mapToItem),
+                        items: i,
                         emptyListText: Text("No shows with the current filter")
                 ) { item in
-                    ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
+                    ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
                 }
             }
             if let i = episodeResult {
                 ItemListView(
                         title: NSLocalizedString("Episodes", comment: ""),
-                        items: i.map(mapToItem),
+                        items: i,
                         emptyListText: Text("No episodes with the current filter")
                 ) { item in
-                    ItemView(item: item, destination: EpisodeViewer(episodeId: item.id))
+                    ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
                 }
             }
             if showResult == nil || episodeResult == nil {
