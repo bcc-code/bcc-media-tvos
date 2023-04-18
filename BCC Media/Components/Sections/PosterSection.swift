@@ -24,16 +24,13 @@ struct PosterSection: View {
                                 NavigationLink {
                                     item
                                 } label: {
-                                    AsyncImage(url: URL(string: img + "?w=500&h=750&fit=crop&crop=faces")) { image in
-                                        image.renderingMode(.original)
-                                    } placeholder: {
-                                        ProgressView()
-                                    }.frame(width: 500, height: 750).cornerRadius(10)
+                                    ItemImage(item.image)
+                                        .frame(width: 400, height: 600).cornerRadius(10)
                                 }.buttonStyle(.card)
                                 VStack(alignment: .leading) {
                                     Text(item.title)
                                 }
-                            }.frame(width: 500)
+                            }.frame(width: 400)
                         }
                     }
                 }.padding(100)

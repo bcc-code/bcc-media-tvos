@@ -11,22 +11,26 @@ struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
 
     var body: some View {
-        List(page.sections.items, id: \.id) { section in
-            if let itemSection = section.asItemSection {
-                switch section.__typename {
-                case "PosterSection":
-                    PosterSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
-                case "FeaturedSection":
-                    FeaturedSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
-                case "DefaultSection":
-                    DefaultSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
-                case "IconSection":
-                    IconSection(title: itemSection.title, items: mapToItems(itemSection.items))
-                default:
-                    EmptyView()
+        ScrollView {
+            LazyVStack(spacing: 50) {
+                ForEach(page.sections.items, id: \.id) {section in
+                    if let itemSection = section.asItemSection {
+                        switch section.__typename {
+                        case "PosterSection":
+                            PosterSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                        case "FeaturedSection":
+                            FeaturedSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                        case "DefaultSection":
+                            DefaultSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                        case "IconSection":
+                            IconSection(title: itemSection.title, items: mapToItems(itemSection.items))
+                        default:
+                            EmptyView()
+                        }
+                    }
                 }
-            }
-        }.navigationTitle(page.title)
+            }.padding(100)
+        }.navigationTitle(page.title).padding(-100)
     }
 }
 

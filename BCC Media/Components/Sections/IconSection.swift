@@ -23,11 +23,10 @@ struct IconSection: View {
                             NavigationLink {
                                 item
                             } label: {
-                                AsyncImage(url: URL(string: item.image! + "?w=200&h=200&fit=crop&crop=faces")) { image in
-                                    image.renderingMode(.original)
-                                } placeholder: {
-                                    ProgressView()
-                                }.frame(width: 200, height: 200).cornerRadius(10)
+                                ItemImage(item.image)
+                                    .frame(width: 200, height: 200)
+                                    .background(Color.init(red: 29/256, green: 40/256, blue: 56/256))
+                                    .cornerRadius(10)
                             }.buttonStyle(.card)
                             VStack(alignment: .leading) {
                                 Text(item.title)

@@ -7,6 +7,10 @@ import SwiftUI
 struct ItemImage: View {
     var image: String?
     
+    init(_ image: String?) {
+        self.image = image
+    }
+    
     func getImg(_ img: String, _ size: CGSize) -> URL? {
         print(img)
         print(size)
@@ -72,7 +76,7 @@ struct ItemView<Destination: View>: View {
             NavigationLink {
                 destination
             } label: {
-                ItemImage(image: image).frame(width: 400, height: 225)
+                ItemImage(image).frame(width: 400, height: 225)
             }
                     .buttonStyle(.card)
                     .padding(.zero)

@@ -10,7 +10,7 @@ struct FeaturedButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(.zero)
-            .scaleEffect(configuration.isPressed || focused ? 1.05 : 1)
+            .scaleEffect(configuration.isPressed || focused ? 1.02 : 1)
             .animation(.easeOut(duration: 0.2), value: (configuration.isPressed || focused))
     }
 }
@@ -24,7 +24,7 @@ struct FeaturedCard: View {
         NavigationLink {
             EpisodeViewer(episodeId: item.id)
         } label: {
-            ItemImage(image: item.image)
+            ItemImage(item.image)
                     .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear]), startPoint: .top, endPoint: .bottom))
                     .cornerRadius(10)
                     .padding(.zero)
