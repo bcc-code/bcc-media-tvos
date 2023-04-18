@@ -25,16 +25,16 @@ struct FeaturedCard: View {
             EpisodeViewer(episodeId: item.id)
         } label: {
             ItemImage(item.image)
-                    .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .black, .clear]), startPoint: .top, endPoint: .bottom))
+                    .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]), startPoint: .top, endPoint: .bottom))
                     .cornerRadius(10)
                     .padding(.zero)
                     .overlay(
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 20) {
                             Text(item.title).font(.title3)
                             if item.description != "" {
                                 Text(item.description).font(.subheadline)
                             }
-                        }.padding(20)
+                        }.padding(20).frame(maxWidth: 1000)
 
                             , alignment: .bottomLeading)
         }
