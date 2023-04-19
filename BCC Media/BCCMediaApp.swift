@@ -16,7 +16,7 @@ struct AuthConfig {
 
 let authConfig = AuthConfig()
 
-let authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: authConfig.clientId, scope: "profile email offline_access", audience: authConfig.audience, domain: authConfig.domain))
+let authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: authConfig.clientId, scope: "openid profile email offline_access", audience: authConfig.audience, domain: authConfig.domain))
 
 let apolloClient = ApolloClientFactory(tokenFactory: authenticationProvider.getAccessToken).NewClient()
 

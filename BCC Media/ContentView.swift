@@ -8,6 +8,14 @@
 
 import SwiftUI
 
+var backgroundColor: Color {
+    Color.init(red: 13/256, green: 22/256, blue: 35/256)
+}
+
+var cardBackgroundColor: Color {
+    Color.init(red: 29/256, green: 40/256, blue: 56/256)
+}
+
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var pageId = ""
@@ -29,7 +37,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            Color.init(red: 13/256, green: 22/256, blue: 35/256).ignoresSafeArea()
+            backgroundColor.ignoresSafeArea()
             NavigationView {
                 if loaded {
                     TabView {

@@ -3,49 +3,6 @@
 //
 
 import SwiftUI
-import AVKit
-
-struct PlayerViewController: UIViewControllerRepresentable {
-    var videoURL: URL
-    var title: String?
-
-    private var player: AVPlayer {
-        AVPlayer(url: videoURL)
-    }
-    
-    private func createMetadataItem(for identifier: AVMetadataIdentifier,
-                                    value: Any) -> AVMetadataItem {
-        let item = AVMutableMetadataItem()
-        item.identifier = identifier
-        item.value = value as? NSCopying & NSObjectProtocol
-        // Specify "und" to indicate an undefined language.
-        item.extendedLanguageTag = "und"
-        return item.copy() as! AVMetadataItem
-    }
-    
-    func createMetadataItems() -> [AVMetadataItem] {
-        let mapping: [AVMetadataIdentifier: Any] = [
-            .commonIdentifierTitle: title as Any
-        ]
-        
-        return mapping.compactMap { createMetadataItem(for: $0, value: $1)}
-    }
-
-    func makeUIViewController(context: Context) -> AVPlayerViewController {
-        let controller = AVPlayerViewController()
-        controller.title = title
-        controller.modalPresentationStyle = .fullScreen
-        controller.player = player
-        controller.player!.play()
-        
-        player.currentItem?.externalMetadata = createMetadataItems()
-
-        return controller
-    }
-
-    func updateUIViewController(_ playerController: AVPlayerViewController, context: Context) {
-    }
-}
 
 struct EpisodeViewer: View {
     @State var episodeId: String
@@ -72,20 +29,53 @@ struct EpisodeViewer: View {
     }
 
     var body: some View {
-        if let e = episode, let url = getPlayerUrl() {
-            PlayerViewController(videoURL: url, title: e.title).ignoresSafeArea()
-        } else {
-            ProgressView().task {
-                apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
-                    switch result {
-                    case let .success(res):
-                        if let e = res.data?.episode {
-                            episode = e
+        VStack {
+            if let e = episode {
+                ScrollView(.vertical) {
+                    VStack {
+                        VStack {
+                            if let url = getPlayerUrl() {
+                                NavigationLink {
+                                    EpisodePlayer(title: e.title, playerUrl: url)
+                                } label: {
+                                    ItemImage(e.image).frame(width: 800, height: 450)
+                                }.buttonStyle(.card).frame(width: 800, height: 450)
+                            }
+                            Text(e.title).padding(20)
+                        }.background(cardBackgroundColor)
+                        VStack {
+                            Text(e.description)
                         }
-                    case .failure:
-                        print("FAILURE")
-
+                        VStack (alignment: .leading, spacing: 10) {
+                            ForEach(e.season?.episodes.items ?? [], id: \.id) { ep in
+                                NavigationLink {
+                                    EpisodeViewer(episodeId: ep.id)
+                                } label: {
+                                    HStack(alignment: .top, spacing: 0) {
+                                        ItemImage(ep.image).frame(width: 320, height: 180).cornerRadius(10).padding(.zero)
+                                        VStack(alignment: .leading) {
+                                            Text(ep.title).font(.subheadline).foregroundColor(.blue)
+                                            Text(ep.description).font(.body)
+                                        }.padding(20)
+                                        Spacer()
+                                    }.frame(maxWidth: .infinity).background(cardBackgroundColor)
+                                }.buttonStyle(.card).padding(.zero)
+                            }.frame(width: 800, height: 180)
+                        }
+                    }.frame(width: 800).padding(100)
+                }.padding(-100)
+            } else {
+                ProgressView()
+            }
+        }.task {
+            apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
+                switch result {
+                case let .success(res):
+                    if let e = res.data?.episode {
+                        episode = e
                     }
+                case .failure:
+                    print("FAILURE")
                 }
             }
         }

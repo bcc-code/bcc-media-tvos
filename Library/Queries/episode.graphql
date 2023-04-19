@@ -1,9 +1,25 @@
 query GetEpisode($id: ID!) {
     episode(id: $id) {
         title
+        image
+        description
         streams {
             url
             type
+        }
+        season {
+            title
+            show {
+                title
+            }
+            episodes(first: 100) {
+                items {
+                    id
+                    title
+                    description
+                    image
+                }
+            }
         }
     }
 }

@@ -70,6 +70,7 @@
 		091D4F8429EEB5E900B67232 /* GetApplicationQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D4F4929EEB5E900B67232 /* GetApplicationQuery.graphql.swift */; };
 		091D4F8729EEBD1400B67232 /* IconSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D4F8529EEBCA800B67232 /* IconSection.swift */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
+		097D6EBC29F003310007E4FB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EBB29F003310007E4FB /* Player.swift */; };
 		0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998F6F629ED4F2500C74B3F /* PosterSection.swift */; };
 		09E03AD229C887DF009329FF /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E03AD129C887DF009329FF /* SignIn.swift */; };
 		09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F503FA29ED3C2900D09674 /* Auth0.plist */; };
@@ -167,6 +168,7 @@
 		091D4F4929EEB5E900B67232 /* GetApplicationQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetApplicationQuery.graphql.swift; sourceTree = "<group>"; };
 		091D4F8529EEBCA800B67232 /* IconSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSection.swift; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
+		097D6EBB29F003310007E4FB /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0998F6F529ED4CEB00C74B3F /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0998F6F629ED4F2500C74B3F /* PosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
 		09E03AD129C887DF009329FF /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				2D64EA55186CD532816176C8 /* Viewer.swift */,
+				097D6EBB29F003310007E4FB /* Player.swift */,
 			);
 			path = Episodes;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				091D4F7229EEB5E900B67232 /* SeasonSearchItem.graphql.swift in Sources */,
 				091D4F5329EEB5E900B67232 /* TaskPagination.graphql.swift in Sources */,
 				091D4F4B29EEB5E900B67232 /* Language.swift in Sources */,
+				097D6EBC29F003310007E4FB /* Player.swift in Sources */,
 				091D4F8029EEB5E900B67232 /* SearchQuery.graphql.swift in Sources */,
 				091D4F8429EEB5E900B67232 /* GetApplicationQuery.graphql.swift in Sources */,
 				091D4F6E29EEB5E900B67232 /* MessageSection.graphql.swift in Sources */,

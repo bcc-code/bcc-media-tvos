@@ -25,7 +25,7 @@ struct IconSection: View {
                             } label: {
                                 ItemImage(item.image)
                                     .frame(width: 200, height: 200)
-                                    .background(Color.init(red: 29/256, green: 40/256, blue: 56/256))
+                                    .background(cardBackgroundColor)
                                     .cornerRadius(10)
                             }.buttonStyle(.card)
                             VStack {

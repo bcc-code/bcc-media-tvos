@@ -81,15 +81,53 @@ struct AuthenticationProvider {
         }
         return nil
     }
+    
+    public struct Profile: Codable {
+        let name: String?
+    }
+    
+    func userInfo() async -> Profile? {
+        let profileKey = "profile"
+        let profileExpiryKey = "profile_expiry"
+        
+        let ud = UserDefaults.standard
+        
+        if let expiry = ud.object(forKey: profileExpiryKey) as? Date {
+            if expiry > Date.now {
+                if let data = ud.object(forKey: profileKey) as? Data, let profile = try? JSONDecoder().decode(Profile.self, from: data) {
+                      return profile
+                 }
+            }
+        }
+        
+        do {
+            let token = try await getAccessToken()
+            if token == nil {
+                return nil
+            }
+            let userInfo = try await authentication().userInfo(withAccessToken: token!).start()
+            let profile = Profile(
+                name: userInfo.name
+            )
+            if let encoded = try? JSONEncoder().encode(profile) {
+                ud.set(encoded, forKey: profileKey)
+            }
+            ud.setValue(Calendar.current.date(byAdding: .day, value: 1, to: Date.now), forKey: profileExpiryKey)
+        } catch {
+            print("Failed to fetch userinfo")
+            print(error)
+        }
+        return nil
+    }
 
     func logout() async -> Bool {
         do {
             try await credentialsManager.revoke()
-            return true
         } catch {
             print(error)
+            _ = credentialsManager.clear()
         }
-        return false
+        return true
     }
 
     func login(codeCallback: (DeviceTokenRequestResponse) -> Void) async throws {
