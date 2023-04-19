@@ -19,7 +19,7 @@ struct IconSection: View {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 20) {
                     ForEach(items) { item in
-                        VStack(alignment: .leading, spacing: 20) {
+                        VStack(spacing: 10) {
                             NavigationLink {
                                 item
                             } label: {
@@ -28,7 +28,7 @@ struct IconSection: View {
                                     .background(Color.init(red: 29/256, green: 40/256, blue: 56/256))
                                     .cornerRadius(10)
                             }.buttonStyle(.card)
-                            VStack(alignment: .leading) {
+                            VStack {
                                 Text(item.title)
                             }
                         }.frame(width: 200)

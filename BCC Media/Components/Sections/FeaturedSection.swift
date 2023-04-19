@@ -54,13 +54,12 @@ struct FeaturedSection: View {
         HStack {
             TabView(selection: $index) {
                 ForEach(items, id: \.id) { item in
-                    FeaturedCard(item: item).padding(100)
-                }
+                    FeaturedCard(item: item)
+                }.padding(100)
             }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+            .tabViewStyle(.page(indexDisplayMode: .automatic))
         }
-                .padding(-100)
-                .frame(height: 800)
+        .frame(height: 800).padding(-100)
     }
 }
 
