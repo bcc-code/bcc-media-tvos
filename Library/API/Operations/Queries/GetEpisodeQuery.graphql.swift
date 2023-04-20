@@ -12,8 +12,10 @@ public extension API {
         query GetEpisode($id: ID!) {
           episode(id: $id) {
             __typename
+            id
             title
             image
+            ageRating
             description
             streams {
               __typename
@@ -22,21 +24,7 @@ public extension API {
             }
             season {
               __typename
-              title
-              show {
-                __typename
-                title
-              }
-              episodes(first: 100) {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  description
-                  image
-                }
-              }
+              id
             }
           }
         }
@@ -71,15 +59,19 @@ public extension API {
 
         public static var __parentType: Apollo.ParentType { API.Objects.Episode }
         public static var __selections: [Apollo.Selection] { [
+          .field("id", API.ID.self),
           .field("title", String.self),
           .field("image", String?.self),
+          .field("ageRating", String.self),
           .field("description", String.self),
           .field("streams", [Stream].self),
           .field("season", Season?.self),
         ] }
 
+        public var id: API.ID { __data["id"] }
         public var title: String { __data["title"] }
         public var image: String? { __data["image"] }
+        public var ageRating: String { __data["ageRating"] }
         public var description: String { __data["description"] }
         public var streams: [Stream] { __data["streams"] }
         public var season: Season? { __data["season"] }
@@ -110,65 +102,10 @@ public extension API {
 
           public static var __parentType: Apollo.ParentType { API.Objects.Season }
           public static var __selections: [Apollo.Selection] { [
-            .field("title", String.self),
-            .field("show", Show.self),
-            .field("episodes", Episodes.self, arguments: ["first": 100]),
+            .field("id", API.ID.self),
           ] }
 
-          public var title: String { __data["title"] }
-          public var show: Show { __data["show"] }
-          public var episodes: Episodes { __data["episodes"] }
-
-          /// Episode.Season.Show
-          ///
-          /// Parent Type: `Show`
-          public struct Show: API.SelectionSet {
-            public let __data: DataDict
-            public init(data: DataDict) { __data = data }
-
-            public static var __parentType: Apollo.ParentType { API.Objects.Show }
-            public static var __selections: [Apollo.Selection] { [
-              .field("title", String.self),
-            ] }
-
-            public var title: String { __data["title"] }
-          }
-
-          /// Episode.Season.Episodes
-          ///
-          /// Parent Type: `EpisodePagination`
-          public struct Episodes: API.SelectionSet {
-            public let __data: DataDict
-            public init(data: DataDict) { __data = data }
-
-            public static var __parentType: Apollo.ParentType { API.Objects.EpisodePagination }
-            public static var __selections: [Apollo.Selection] { [
-              .field("items", [Item].self),
-            ] }
-
-            public var items: [Item] { __data["items"] }
-
-            /// Episode.Season.Episodes.Item
-            ///
-            /// Parent Type: `Episode`
-            public struct Item: API.SelectionSet {
-              public let __data: DataDict
-              public init(data: DataDict) { __data = data }
-
-              public static var __parentType: Apollo.ParentType { API.Objects.Episode }
-              public static var __selections: [Apollo.Selection] { [
-                .field("id", API.ID.self),
-                .field("title", String.self),
-                .field("description", String.self),
-                .field("image", String?.self),
-              ] }
-
-              public var id: API.ID { __data["id"] }
-              public var title: String { __data["title"] }
-              public var description: String { __data["description"] }
-              public var image: String? { __data["image"] }
-            }
-          }
+          public var id: API.ID { __data["id"] }
         }
       }
     }

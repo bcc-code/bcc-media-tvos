@@ -1,25 +1,43 @@
 query GetEpisode($id: ID!) {
     episode(id: $id) {
+        id
         title
         image
+        ageRating
         description
         streams {
             url
             type
         }
         season {
-            title
-            show {
+            id
+        }
+    }
+}
+
+query GetEpisodeSeason($id: ID!) {
+    season(id: $id) {
+        ...EpisodeSeason
+    }
+}
+
+fragment EpisodeSeason on Season {
+    title
+    show {
+        title
+        seasons(first: 100) {
+            items {
+                id
                 title
             }
-            episodes(first: 100) {
-                items {
-                    id
-                    title
-                    description
-                    image
-                }
-            }
+        }
+    }
+    episodes(first: 100) {
+        items {
+            id
+            title
+            description
+            image
         }
     }
 }

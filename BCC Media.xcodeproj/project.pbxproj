@@ -71,6 +71,9 @@
 		091D4F8729EEBD1400B67232 /* IconSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D4F8529EEBCA800B67232 /* IconSection.swift */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
 		097D6EBC29F003310007E4FB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EBB29F003310007E4FB /* Player.swift */; };
+		097D6EBE29F12C4E0007E4FB /* EpisodeSeason.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EBD29F12C4E0007E4FB /* EpisodeSeason.graphql.swift */; };
+		097D6EC029F12C610007E4FB /* GetEpisodeSeasonQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EBF29F12C610007E4FB /* GetEpisodeSeasonQuery.graphql.swift */; };
+		097D6EC329F1417E0007E4FB /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EC229F1417E0007E4FB /* Languages.swift */; };
 		0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998F6F629ED4F2500C74B3F /* PosterSection.swift */; };
 		09E03AD229C887DF009329FF /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E03AD129C887DF009329FF /* SignIn.swift */; };
 		09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F503FA29ED3C2900D09674 /* Auth0.plist */; };
@@ -169,6 +172,9 @@
 		091D4F8529EEBCA800B67232 /* IconSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSection.swift; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
 		097D6EBB29F003310007E4FB /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		097D6EBD29F12C4E0007E4FB /* EpisodeSeason.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeSeason.graphql.swift; sourceTree = "<group>"; };
+		097D6EBF29F12C610007E4FB /* GetEpisodeSeasonQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeSeasonQuery.graphql.swift; sourceTree = "<group>"; };
+		097D6EC229F1417E0007E4FB /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		0998F6F529ED4CEB00C74B3F /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0998F6F629ED4F2500C74B3F /* PosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
 		09E03AD129C887DF009329FF /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -322,6 +328,7 @@
 		091D4F4129EEB5E900B67232 /* Fragments */ = {
 			isa = PBXGroup;
 			children = (
+				097D6EBD29F12C4E0007E4FB /* EpisodeSeason.graphql.swift */,
 				091D4F4229EEB5E900B67232 /* ItemSectionFragment.graphql.swift */,
 			);
 			name = Fragments;
@@ -340,6 +347,7 @@
 		091D4F4429EEB5E900B67232 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				097D6EBF29F12C610007E4FB /* GetEpisodeSeasonQuery.graphql.swift */,
 				091D4F4529EEB5E900B67232 /* SearchQuery.graphql.swift */,
 				091D4F4629EEB5E900B67232 /* GetEpisodeQuery.graphql.swift */,
 				091D4F4729EEB5E900B67232 /* GetConfigQuery.graphql.swift */,
@@ -370,6 +378,14 @@
 				091D4F8529EEBCA800B67232 /* IconSection.swift */,
 			);
 			path = Sections;
+			sourceTree = "<group>";
+		};
+		097D6EC129F1416F0007E4FB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				097D6EC229F1417E0007E4FB /* Languages.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		2ACB7A53A6D45DE17AB42CCF /* Pods */ = {
@@ -466,6 +482,7 @@
 				2D64E460594AD4CC96AE76A4 /* ContentView.swift */,
 				2D64E9AA1E75A14695918908 /* Assets.xcassets */,
 				0943E18429BB363F0016348C /* Components */,
+				097D6EC129F1416F0007E4FB /* Utils */,
 				2D64E22E44F7DA7C709CE617 /* Views */,
 			);
 			path = "BCC Media";
@@ -616,10 +633,12 @@
 				091D4F5429EEB5E900B67232 /* SeasonPagination.graphql.swift in Sources */,
 				091D4F6029EEB5E900B67232 /* DefaultGridSection.graphql.swift in Sources */,
 				091D4F5229EEB5E900B67232 /* SectionItem.graphql.swift in Sources */,
+				097D6EC329F1417E0007E4FB /* Languages.swift in Sources */,
 				091D4F7729EEB5E900B67232 /* QuestionPagination.graphql.swift in Sources */,
 				091D4F5D29EEB5E900B67232 /* EpisodePagination.graphql.swift in Sources */,
 				091D4F5C29EEB5E900B67232 /* SearchResult.graphql.swift in Sources */,
 				091D4EEB29EE7C7100B67232 /* DefaultSection.swift in Sources */,
+				097D6EBE29F12C4E0007E4FB /* EpisodeSeason.graphql.swift in Sources */,
 				091D4F5029EEB5E900B67232 /* SectionPagination.graphql.swift in Sources */,
 				091D4F5F29EEB5E900B67232 /* UserCollectionEntryPagination.graphql.swift in Sources */,
 				091D4F7A29EEB5E900B67232 /* GridSection.graphql.swift in Sources */,
@@ -642,6 +661,7 @@
 				091D4F5E29EEB5E900B67232 /* IconGridSection.graphql.swift in Sources */,
 				091D4F5A29EEB5E900B67232 /* StudyTopic.graphql.swift in Sources */,
 				091D4F7D29EEB5E900B67232 /* ItemSection.graphql.swift in Sources */,
+				097D6EC029F12C610007E4FB /* GetEpisodeSeasonQuery.graphql.swift in Sources */,
 				0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */,
 				091D4F4D29EEB5E900B67232 /* Show.graphql.swift in Sources */,
 			);

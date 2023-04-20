@@ -79,19 +79,37 @@ struct SettingsView: View {
                     Form {
                         Section(header: Text("Settings")) {
                             Picker("App Language", selection: $appLanguage) {
-                                Text("English").tag("en")
-                                Text("Norsk").tag("no")
-                                Text("Deutsch").tag("de")
+                                ForEach(Language.getAll(), id: \.code) { language in
+                                    HStack {
+                                        Text(language.display)
+                                        if let e = language.english {
+                                            Text(e).foregroundColor(.gray)
+                                            Spacer()
+                                        }
+                                    }.tag(language.code)
+                                }
                             }.pickerStyle(.navigationLink)
                             Picker("Audio Language", selection: $appLanguage) {
-                                Text("English").tag("en")
-                                Text("Norsk").tag("no")
-                                Text("Deutsch").tag("de")
+                                ForEach(Language.getAll(), id: \.code) { language in
+                                    HStack {
+                                        Text(language.display)
+                                        if let e = language.english {
+                                            Text(e).foregroundColor(.gray)
+                                            Spacer()
+                                        }
+                                    }.tag(language.code)
+                                }
                             }.pickerStyle(.navigationLink)
                             Picker("Subtitles", selection: $appLanguage) {
-                                Text("English").tag("en")
-                                Text("Norsk").tag("no")
-                                Text("Deutsch").tag("de")
+                                ForEach(Language.getAll(), id: \.code) { language in
+                                    HStack {
+                                        Text(language.display)
+                                        if let e = language.english {
+                                            Text(e).foregroundColor(.gray)
+                                            Spacer()
+                                        }
+                                    }.tag(language.code)
+                                }
                             }.pickerStyle(.navigationLink)
                         }
                         Section(header: Text("Account")) {

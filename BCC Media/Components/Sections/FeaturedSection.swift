@@ -32,7 +32,7 @@ struct FeaturedCard: View {
                         VStack(alignment: .leading, spacing: 20) {
                             Text(item.title).font(.title3)
                             if item.description != "" {
-                                Text(item.description).font(.subheadline)
+                                Text(item.description).font(.caption2).foregroundColor(.gray)
                             }
                         }.padding(20).frame(maxWidth: 1000)
 

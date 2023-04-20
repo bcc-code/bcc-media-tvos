@@ -7,11 +7,28 @@
 
 import SwiftUI
 
+struct MissingContent: View {
+    var annotation: String
+    
+    init(_ annotation: String) {
+        self.annotation = annotation
+    }
+    
+    var body: some View {
+        Button{
+            print("oopsi")
+        } label: {
+            Text("Oops. Seems there is some missing content here. Work in progress.")
+            Text(annotation).foregroundColor(.gray)
+        }.buttonStyle(.plain)
+    }
+}
+
 struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
 
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             LazyVStack(spacing: 50) {
                 ForEach(page.sections.items, id: \.id) {section in
                     if let itemSection = section.asItemSection {
@@ -26,9 +43,11 @@ struct PageDisplay: View {
                             case "IconSection":
                                 IconSection(title: itemSection.title, items: mapToItems(itemSection.items))
                             default:
-                                EmptyView()
+                                MissingContent(section.__typename)
                             }
                         }
+                    } else {
+                        MissingContent(section.__typename)
                     }
                 }
             }.padding(100)

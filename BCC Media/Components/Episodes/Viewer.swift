@@ -4,79 +4,155 @@
 
 import SwiftUI
 
+internal enum Tab {
+    case season
+    case details
+}
+
+struct EpisodeHeader: View {
+    var episode: API.GetEpisodeQuery.Data.Episode
+    var season: API.GetEpisodeSeasonQuery.Data.Season?
+    
+    func getPlayerUrl() -> URL? {
+        let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
+        var index = 0
+        var stream = episode.streams.first(where: { $0.type == types[index] })
+        while stream == nil && (types.count - 1) > index {
+            index += 1
+            stream = episode.streams.first(where: { $0.type == types[index] })
+        }
+        if stream == nil {
+            stream = episode.streams.first
+        }
+        if let stream = stream {
+            return URL(string: stream.url)
+        }
+        return nil
+    }
+    
+    var body: some View {
+        VStack {
+            if let url = getPlayerUrl() {
+                NavigationLink {
+                    EpisodePlayer(title: episode.title, playerUrl: url)
+                } label: {
+                    ItemImage(episode.image).frame(width: 1280, height: 720)
+                }.buttonStyle(.card).frame(width:1280, height: 720).overlay(
+                    Image(systemName:"play.fill").resizable().frame(width: 100, height: 100)
+                )
+            }
+        }
+        VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading) {
+                Text(episode.title).font(.title3)
+                HStack(spacing: 5) {
+                    Text(episode.ageRating).background(
+                        Rectangle().foregroundColor(cardBackgroundColor)
+                    )
+                    if let s = season {
+                        Text(s.show.title).font(.subheadline).foregroundColor(.blue)
+                    }
+                }
+            }
+            Text(episode.description).font(.caption)
+        }.padding(.vertical, 20)
+    }
+}
+
 struct EpisodeViewer: View {
     @State var episodeId: String
     @State private var playerUrl: URL?
     @State private var episode: API.GetEpisodeQuery.Data.Episode?
+    @State private var season: API.GetEpisodeSeasonQuery.Data.Season?
+    
+    @State private var tab: Tab = .season
+    @State private var seasonId: String = ""
 
-    func getPlayerUrl() -> URL? {
-        if let streams = episode?.streams {
-            let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
-            var index = 0
-            var stream = streams.first(where: { $0.type == types[index] })
-            while stream == nil && (types.count - 1) > index {
-                index += 1
-                stream = streams.first(where: { $0.type == types[index] })
-            }
-            if stream == nil {
-                stream = streams.first
-            }
-            if let stream = stream {
-                return URL(string: stream.url)
+    func loadSeason(id: String) {
+        print("LOADING SEASON")
+        print(id)
+        apolloClient.fetch(query: API.GetEpisodeSeasonQuery(id: id)) { result in
+            switch result {
+            case let .success(res):
+                if let s = res.data?.season {
+                    season = s
+                }
+            case let .failure(error):
+                print(error)
             }
         }
-        return nil
     }
-
+    
+    func load() {
+        if episodeId == episode?.id {
+            return
+        }
+        print("LOADING EPISODE")
+        apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
+            switch result {
+            case let .success(res):
+                if let e = res.data?.episode {
+                    episode = e
+                    seasonId = e.season?.id ?? ""
+                }
+            case .failure:
+                print("FAILURE")
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             if let e = episode {
                 ScrollView(.vertical) {
                     VStack {
-                        VStack {
-                            if let url = getPlayerUrl() {
-                                NavigationLink {
-                                    EpisodePlayer(title: e.title, playerUrl: url)
-                                } label: {
-                                    ItemImage(e.image).frame(width: 800, height: 450)
-                                }.buttonStyle(.card).frame(width: 800, height: 450)
+                        EpisodeHeader(episode: e, season: season)
+                        HStack {
+                            Picker("Tab", selection: $tab) {
+                                Text("Episodes").tag(Tab.season)
+                                Text("Details").tag(Tab.details)
+                            }.pickerStyle(.segmented)
+                        }
+                        switch tab {
+                        case .season:
+                            VStack {
+                                if let s = season {
+                                    Picker("Season", selection: $seasonId) {
+                                        ForEach(s.show.seasons.items, id: \.id) { se in
+                                            Text(se.title).tag(se.id)
+                                        }
+                                    }.pickerStyle(.navigationLink)
+                                    VStack (alignment: .leading, spacing: 10) {
+                                        ForEach(s.episodes.items, id: \.id) { ep in
+                                            NavigationLink {
+                                                EpisodeViewer(episodeId: ep.id)
+                                            } label: {
+                                                HStack(alignment: .top, spacing: 0) {
+                                                    ItemImage(ep.image).frame(width: 320, height: 180).cornerRadius(10).padding(.zero)
+                                                    VStack(alignment: .leading) {
+                                                        Text(ep.title).font(.subheadline)
+                                                        Text(ep.description).font(.caption2).foregroundColor(.gray)
+                                                    }.padding(20)
+                                                    Spacer()
+                                                }.frame(maxWidth: .infinity).background(cardBackgroundColor)
+                                            }.buttonStyle(.card).padding(.zero)
+                                        }.frame(width: 1280, height: 180)
+                                    }
+                                }
                             }
-                            Text(e.title).padding(20)
-                        }.background(cardBackgroundColor)
-                        VStack {
-                            Text(e.description)
+                        case .details:
+                            EmptyView()
                         }
-                        VStack (alignment: .leading, spacing: 10) {
-                            ForEach(e.season?.episodes.items ?? [], id: \.id) { ep in
-                                NavigationLink {
-                                    EpisodeViewer(episodeId: ep.id)
-                                } label: {
-                                    HStack(alignment: .top, spacing: 0) {
-                                        ItemImage(ep.image).frame(width: 320, height: 180).cornerRadius(10).padding(.zero)
-                                        VStack(alignment: .leading) {
-                                            Text(ep.title).font(.subheadline).foregroundColor(.blue)
-                                            Text(ep.description).font(.body)
-                                        }.padding(20)
-                                        Spacer()
-                                    }.frame(maxWidth: .infinity).background(cardBackgroundColor)
-                                }.buttonStyle(.card).padding(.zero)
-                            }.frame(width: 800, height: 180)
-                        }
-                    }.frame(width: 800).padding(100)
+                    }.frame(width: 1280).padding(100)
                 }.padding(-100)
             } else {
                 ProgressView()
             }
         }.task {
-            apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
-                switch result {
-                case let .success(res):
-                    if let e = res.data?.episode {
-                        episode = e
-                    }
-                case .failure:
-                    print("FAILURE")
-                }
+            load()
+        }.onChange(of: seasonId) { id in
+            if !id.isEmpty {
+                loadSeason(id: id)
             }
         }
     }
