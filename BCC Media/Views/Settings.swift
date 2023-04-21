@@ -113,17 +113,6 @@ struct SettingsView: View {
                             }.pickerStyle(.navigationLink)
                         }
                         Section(header: Text("Account")) {
-                            HStack {
-                                if let n = name {
-                                    Text(n)
-                                } else {
-                                    Text("Name")
-                                }
-                                Spacer()
-                                Button("Okay") {
-                                    print("what")
-                                }
-                            }
                             if authenticated {
                                 Button {
                                     logout()

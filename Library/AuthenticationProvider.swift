@@ -75,50 +75,18 @@ struct AuthenticationProvider {
         credentialsManager.hasValid() || credentialsManager.canRenew()
     }
 
-    func getAccessToken() async throws -> String? {
-        if isAuthenticated() {
-            return try await credentialsManager.credentials().accessToken
-        }
-        return nil
-    }
-    
-    public struct Profile: Codable {
-        let name: String?
-    }
-    
-    func userInfo() async -> Profile? {
-        let profileKey = "profile"
-        let profileExpiryKey = "profile_expiry"
-        
-        let ud = UserDefaults.standard
-        
-        if let expiry = ud.object(forKey: profileExpiryKey) as? Date {
-            if expiry > Date.now {
-                if let data = ud.object(forKey: profileKey) as? Data, let profile = try? JSONDecoder().decode(Profile.self, from: data) {
-                      return profile
-                 }
-            }
-        }
-        
+    func getAccessToken() async -> String? {
         do {
-            let token = try await getAccessToken()
-            if token == nil {
-                return nil
+            if isAuthenticated() {
+                return try await credentialsManager.credentials().accessToken
             }
-            let userInfo = try await authentication().userInfo(withAccessToken: token!).start()
-            let profile = Profile(
-                name: userInfo.name
-            )
-            if let encoded = try? JSONEncoder().encode(profile) {
-                ud.set(encoded, forKey: profileKey)
-            }
-            ud.setValue(Calendar.current.date(byAdding: .day, value: 1, to: Date.now), forKey: profileExpiryKey)
         } catch {
-            print("Failed to fetch userinfo")
+            print("Error occured when trying to fetch access token")
             print(error)
         }
         return nil
     }
+    
 
     func logout() async -> Bool {
         do {
@@ -198,5 +166,46 @@ struct AuthenticationProvider {
         }
 
         return creds
+    }
+}
+
+// Profile/UserInfo
+extension AuthenticationProvider {
+    public struct Profile: Codable {
+        let name: String?
+    }
+    
+    func userInfo() async -> Profile? {
+        let profileKey = "profile"
+        let profileExpiryKey = "profile_expiry"
+        
+        let ud = UserDefaults.standard
+        
+        if let expiry = ud.object(forKey: profileExpiryKey) as? Date {
+            if expiry > Date.now {
+                if let data = ud.object(forKey: profileKey) as? Data, let profile = try? JSONDecoder().decode(Profile.self, from: data) {
+                      return profile
+                 }
+            }
+        }
+        
+        do {
+            let token = await getAccessToken()
+            if token == nil {
+                return nil
+            }
+            let userInfo = try await authentication().userInfo(withAccessToken: token!).start()
+            let profile = Profile(
+                name: userInfo.name
+            )
+            if let encoded = try? JSONEncoder().encode(profile) {
+                ud.set(encoded, forKey: profileKey)
+            }
+            ud.setValue(Calendar.current.date(byAdding: .day, value: 1, to: Date.now), forKey: profileExpiryKey)
+        } catch {
+            print("Failed to fetch userinfo")
+            print(error)
+        }
+        return nil
     }
 }

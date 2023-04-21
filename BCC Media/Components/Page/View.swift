@@ -47,7 +47,12 @@ struct PageDisplay: View {
                             }
                         }
                     } else {
-                        MissingContent(section.__typename)
+                        switch section.__typename {
+                        case "MessageSection":
+                            EmptyView()
+                        default:
+                            MissingContent(section.__typename)
+                        }
                     }
                 }
             }.padding(100)

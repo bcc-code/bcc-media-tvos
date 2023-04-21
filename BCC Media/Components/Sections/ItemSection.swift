@@ -42,6 +42,20 @@ struct Item: Identifiable, View {
     }
 }
 
+struct ItemTitle: View {
+    var item: Item
+    
+    init(_ item: Item) {
+        self.item = item
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(item.title).font(.caption2)
+        }
+    }
+}
+
 func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     var t: ItemType
     var rId: String = ""

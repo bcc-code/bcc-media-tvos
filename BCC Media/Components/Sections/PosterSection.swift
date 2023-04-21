@@ -27,9 +27,7 @@ struct PosterSection: View {
                                     ItemImage(item.image)
                                         .frame(width: 400, height: 600).cornerRadius(10)
                                 }.buttonStyle(.card)
-                                VStack(alignment: .leading) {
-                                    Text(item.title)
-                                }
+                                ItemTitle(item)
                             }.frame(width: 400)
                         }
                     }

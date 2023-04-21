@@ -27,9 +27,7 @@ struct DefaultSection: View {
                                     ItemImage(img)
                                         .frame(width: 400, height: 225).cornerRadius(10)
                                 }.buttonStyle(.card)
-                                VStack(alignment: .leading) {
-                                    Text(item.title)
-                                }
+                                ItemTitle(item)
                             }.frame(width: 400)
                         }
                     }
