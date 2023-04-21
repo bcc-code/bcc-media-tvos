@@ -1,11 +1,13 @@
 query GetPage($id: ID!) {
     page(id: $id) {
+        id
         title
         description
         sections(first: 100) {
             items {
                 id
                 title
+                description
                 ...ItemSectionFragment
             }
         }

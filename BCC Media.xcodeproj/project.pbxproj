@@ -87,6 +87,7 @@
 		2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E2030CD962DA48716017 /* BCCMediaApp.swift */; };
 		2D64E942E241ADF5F1CC8653 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EC95DA7A0E51573DC051 /* Live.swift */; };
 		2D64EA29005F0263D6C3B55E /* Viewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EA55186CD532816176C8 /* Viewer.swift */; };
+		2D64EA541B19A003A7D1E461 /* CardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E0F9AF6AA013DAADC415 /* CardSection.swift */; };
 		2D64EB01141BDD3E26A44A52 /* API.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E72E52A54DE58AACDEFF /* API.graphql.swift */; };
 		2D64EC85401AF8C1D2388AE7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E8D1544EEBCFE89BE986 /* Search.swift */; };
 		2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ED5CD0F006989283F50E /* ItemList.swift */; };
@@ -200,6 +201,7 @@
 		09F503FC29ED3CA900D09674 /* application.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = application.graphql; sourceTree = "<group>"; };
 		268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.debug.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.debug.xcconfig"; sourceTree = "<group>"; };
 		2D64E027F4FB0C8D21E74DEA /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile; sourceTree = "<group>"; };
+		2D64E0F9AF6AA013DAADC415 /* CardSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSection.swift; sourceTree = "<group>"; };
 		2D64E2030CD962DA48716017 /* BCCMediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCMediaApp.swift; sourceTree = "<group>"; };
 		2D64E25DC70962DAFF7E7B4A /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		2D64E27BFD5171F13EB6CD3C /* episode.graphql */ = {isa = PBXFileReference; lastKnownFileType = file.graphql; path = episode.graphql; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				0998F6F629ED4F2500C74B3F /* PosterSection.swift */,
 				091D4EEA29EE7C7100B67232 /* DefaultSection.swift */,
 				091D4F8529EEBCA800B67232 /* IconSection.swift */,
+				2D64E0F9AF6AA013DAADC415 /* CardSection.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -706,6 +709,7 @@
 				097D6EC029F12C610007E4FB /* GetEpisodeSeasonQuery.graphql.swift in Sources */,
 				0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */,
 				091D4F4D29EEB5E900B67232 /* Show.graphql.swift in Sources */,
+				2D64EA541B19A003A7D1E461 /* CardSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

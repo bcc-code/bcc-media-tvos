@@ -12,6 +12,7 @@ public extension API {
         query GetPage($id: ID!) {
           page(id: $id) {
             __typename
+            id
             title
             description
             sections(first: 100) {
@@ -20,6 +21,7 @@ public extension API {
                 __typename
                 id
                 title
+                description
                 ...ItemSectionFragment
               }
             }
@@ -57,11 +59,13 @@ public extension API {
 
         public static var __parentType: Apollo.ParentType { API.Objects.Page }
         public static var __selections: [Apollo.Selection] { [
+          .field("id", API.ID.self),
           .field("title", String.self),
           .field("description", String?.self),
           .field("sections", Sections.self, arguments: ["first": 100]),
         ] }
 
+        public var id: API.ID { __data["id"] }
         public var title: String { __data["title"] }
         public var description: String? { __data["description"] }
         public var sections: Sections { __data["sections"] }
@@ -91,11 +95,13 @@ public extension API {
             public static var __selections: [Apollo.Selection] { [
               .field("id", API.ID.self),
               .field("title", String?.self),
+              .field("description", String?.self),
               .inlineFragment(AsItemSection.self),
             ] }
 
             public var id: API.ID { __data["id"] }
             public var title: String? { __data["title"] }
+            public var description: String? { __data["description"] }
 
             public var asItemSection: AsItemSection? { _asInlineFragment() }
 
@@ -113,6 +119,7 @@ public extension API {
 
               public var id: API.ID { __data["id"] }
               public var title: String? { __data["title"] }
+              public var description: String? { __data["description"] }
               public var items: ItemSectionFragment.Items { __data["items"] }
 
               public struct Fragments: FragmentContainer {

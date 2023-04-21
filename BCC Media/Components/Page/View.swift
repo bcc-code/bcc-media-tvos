@@ -24,6 +24,27 @@ struct MissingContent: View {
     }
 }
 
+struct PageDetailsSection: View {
+    var title: String?
+    var description: String?
+    
+    init(_ title: String?, _ description: String?) {
+        self.title = title
+        self.description = description
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            if let t = title {
+                Text(t).font(.title3)
+            }
+            if let d = description {
+                Text(d).font(.caption).foregroundColor(.gray)
+            }
+        }
+    }
+}
+
 struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
 
@@ -42,6 +63,8 @@ struct PageDisplay: View {
                                 DefaultSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
                             case "IconSection":
                                 IconSection(title: itemSection.title, items: mapToItems(itemSection.items))
+                            case "CardSection":
+                                CardSection(itemSection.title, mapToItems(itemSection.items))
                             default:
                                 MissingContent(section.__typename)
                             }
@@ -50,6 +73,8 @@ struct PageDisplay: View {
                         switch section.__typename {
                         case "MessageSection":
                             EmptyView()
+                        case "PageDetailsSection":
+                            PageDetailsSection(section.title, section.description)
                         default:
                             MissingContent(section.__typename)
                         }
@@ -91,12 +116,12 @@ struct PageView: View {
             } else {
                 ProgressView()
             }
-        }.task { load() }
+        }.task { load() }.frame(width: .infinity)
     }
 }
 
 struct PageView_Previews: PreviewProvider {
     static var previews: some View {
-        PageView(pageId: "29")
+        PageView(pageId: "-1")
     }
 }
