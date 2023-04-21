@@ -255,8 +255,7 @@
 				091D4F3A29EEB5E900B67232 /* SchemaMetadata.graphql.swift */,
 				091D4F3B29EEB5E900B67232 /* Interfaces */,
 			);
-			name = Schema;
-			path = API/Schema;
+			path = Schema;
 			sourceTree = "<group>";
 		};
 		091D4F0729EEB5E900B67232 /* Unions */ = {
@@ -351,8 +350,7 @@
 				097D6EBD29F12C4E0007E4FB /* EpisodeSeason.graphql.swift */,
 				091D4F4229EEB5E900B67232 /* ItemSectionFragment.graphql.swift */,
 			);
-			name = Fragments;
-			path = API/Fragments;
+			path = Fragments;
 			sourceTree = "<group>";
 		};
 		091D4F4329EEB5E900B67232 /* Operations */ = {
@@ -360,8 +358,7 @@
 			children = (
 				091D4F4429EEB5E900B67232 /* Queries */,
 			);
-			name = Operations;
-			path = API/Operations;
+			path = Operations;
 			sourceTree = "<group>";
 		};
 		091D4F4429EEB5E900B67232 /* Queries */ = {
@@ -468,9 +465,6 @@
 		2D64E3B955C71B7E1F13D210 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				091D4F4129EEB5E900B67232 /* Fragments */,
-				091D4F4329EEB5E900B67232 /* Operations */,
-				091D4F0629EEB5E900B67232 /* Schema */,
 				2D64E4AB1476BF314B7AEBC9 /* API */,
 				2D64EA392C7B14552679FE6E /* AuthenticationProvider.swift */,
 				2D64E19D36A6090129A15393 /* Queries */,
@@ -481,6 +475,9 @@
 		2D64E4AB1476BF314B7AEBC9 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				091D4F4129EEB5E900B67232 /* Fragments */,
+				091D4F4329EEB5E900B67232 /* Operations */,
+				091D4F0629EEB5E900B67232 /* Schema */,
 				2D64E25DC70962DAFF7E7B4A /* Client.swift */,
 				2D64E72E52A54DE58AACDEFF /* API.graphql.swift */,
 			);
