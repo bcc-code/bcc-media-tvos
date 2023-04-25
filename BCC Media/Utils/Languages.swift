@@ -43,7 +43,7 @@ struct Language {
         let locale: Locale = .current
         let enLocale: Locale = Locale(identifier: "en")
         for code in LanguageCodes.allCases {
-            var display = locale.localizedString(forLanguageCode: code.rawValue)
+            let display = locale.localizedString(forLanguageCode: code.rawValue)
             var lang = Language(code.rawValue, display ?? code.rawValue)
             
             if let english = enLocale.localizedString(forLanguageCode: code.rawValue), english != display {
@@ -54,5 +54,22 @@ struct Language {
         }
         
         return languages
+    }
+    
+    private static var languageDict: [String:String] = [:]
+    
+    static func setLanguage(key: String, code: String) {
+        UserDefaults.standard.set(code, forKey: "language:\(key)")
+        languageDict[key] = code
+    }
+    
+    static func getLanguage(key: String) -> String {
+        if let lang = languageDict[key] {
+            return lang
+        }
+        if let lang = UserDefaults.standard.string(forKey: "language:\(key)") {
+            return lang
+        }
+        return Locale.current.identifier
     }
 }
