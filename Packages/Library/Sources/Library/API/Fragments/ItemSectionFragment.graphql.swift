@@ -32,10 +32,11 @@ public extension API {
       """ }
 
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: Apollo.ParentType { API.Interfaces.ItemSection }
     public static var __selections: [Apollo.Selection] { [
+      .field("__typename", String.self),
       .field("title", String?.self),
       .field("items", Items.self),
     ] }
@@ -48,10 +49,11 @@ public extension API {
     /// Parent Type: `SectionItemPagination`
     public struct Items: API.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { API.Objects.SectionItemPagination }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("items", [Item].self),
       ] }
 
@@ -62,10 +64,11 @@ public extension API {
       /// Parent Type: `SectionItem`
       public struct Item: API.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: Apollo.ParentType { API.Objects.SectionItem }
         public static var __selections: [Apollo.Selection] { [
+          .field("__typename", String.self),
           .field("id", API.ID.self),
           .field("title", String.self),
           .field("description", String.self),
@@ -84,10 +87,11 @@ public extension API {
         /// Parent Type: `SectionItemType`
         public struct Item: API.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: Apollo.ParentType { API.Unions.SectionItemType }
           public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
             .inlineFragment(AsShow.self),
           ] }
 
@@ -98,8 +102,9 @@ public extension API {
           /// Parent Type: `Show`
           public struct AsShow: API.InlineFragment {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
+            public typealias RootEntityType = ItemSectionFragment.Items.Item.Item
             public static var __parentType: Apollo.ParentType { API.Objects.Show }
             public static var __selections: [Apollo.Selection] { [
               .field("defaultEpisode", DefaultEpisode.self),
@@ -112,10 +117,11 @@ public extension API {
             /// Parent Type: `Episode`
             public struct DefaultEpisode: API.SelectionSet {
               public let __data: DataDict
-              public init(data: DataDict) { __data = data }
+              public init(_dataDict: DataDict) { __data = _dataDict }
 
               public static var __parentType: Apollo.ParentType { API.Objects.Episode }
               public static var __selections: [Apollo.Selection] { [
+                .field("__typename", String.self),
                 .field("id", API.ID.self),
               ] }
 

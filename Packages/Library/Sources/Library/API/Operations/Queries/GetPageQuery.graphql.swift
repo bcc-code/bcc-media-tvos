@@ -41,10 +41,11 @@ public extension API {
 
     public struct Data: API.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("page", Page.self, arguments: ["id": .variable("id")]),
       ] }
 
@@ -55,10 +56,11 @@ public extension API {
       /// Parent Type: `Page`
       public struct Page: API.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: Apollo.ParentType { API.Objects.Page }
         public static var __selections: [Apollo.Selection] { [
+          .field("__typename", String.self),
           .field("id", API.ID.self),
           .field("title", String.self),
           .field("description", String?.self),
@@ -75,10 +77,11 @@ public extension API {
         /// Parent Type: `SectionPagination`
         public struct Sections: API.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: Apollo.ParentType { API.Objects.SectionPagination }
           public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
             .field("items", [Item].self),
           ] }
 
@@ -89,10 +92,11 @@ public extension API {
           /// Parent Type: `Section`
           public struct Item: API.SelectionSet {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public static var __parentType: Apollo.ParentType { API.Interfaces.Section }
             public static var __selections: [Apollo.Selection] { [
+              .field("__typename", String.self),
               .field("id", API.ID.self),
               .field("title", String?.self),
               .field("description", String?.self),
@@ -110,8 +114,9 @@ public extension API {
             /// Parent Type: `ItemSection`
             public struct AsItemSection: API.InlineFragment {
               public let __data: DataDict
-              public init(data: DataDict) { __data = data }
+              public init(_dataDict: DataDict) { __data = _dataDict }
 
+              public typealias RootEntityType = Query.Page.Sections.Item
               public static var __parentType: Apollo.ParentType { API.Interfaces.ItemSection }
               public static var __selections: [Apollo.Selection] { [
                 .fragment(ItemSectionFragment.self),
@@ -124,7 +129,7 @@ public extension API {
 
               public struct Fragments: FragmentContainer {
                 public let __data: DataDict
-                public init(data: DataDict) { __data = data }
+                public init(_dataDict: DataDict) { __data = _dataDict }
 
                 public var itemSectionFragment: ItemSectionFragment { _toFragment() }
               }

@@ -29,10 +29,11 @@ public extension API {
 
     public struct Data: API.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("season", Season.self, arguments: ["id": .variable("id")]),
       ] }
 
@@ -43,10 +44,11 @@ public extension API {
       /// Parent Type: `Season`
       public struct Season: API.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: Apollo.ParentType { API.Objects.Season }
         public static var __selections: [Apollo.Selection] { [
+          .field("__typename", String.self),
           .fragment(EpisodeSeason.self),
         ] }
 
@@ -56,7 +58,7 @@ public extension API {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var episodeSeason: EpisodeSeason { _toFragment() }
         }

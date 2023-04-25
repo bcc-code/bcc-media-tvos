@@ -11,13 +11,13 @@ class ContentProvider: TVTopShelfContentProvider {
 
     override func loadTopShelfContent(completionHandler: @escaping (TVTopShelfContent?) -> Void) {
         // Fetch content and call completionHandler
-        
-        let item = TVTopShelfItem(identifier: "one")
+        let item = TVTopShelfCarouselItem(identifier: "one")
         
         item.title = "One"
+        item.contextTitle = "ONe"
         item.setImageURL(URL(string: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"), for: .screenScale2x)
         
-        completionHandler(TVTopShelfInsetContent(items: [item]));
+        completionHandler(TVTopShelfCarouselContent(style: .actions, items: [item]));
     }
 
 }

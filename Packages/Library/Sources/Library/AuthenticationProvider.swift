@@ -52,14 +52,14 @@ struct DeviceTokenRequestResponse: Codable {
     }
 }
 
-struct AuthenticationProviderOptions {
+public struct AuthenticationProviderOptions {
     var client_id: String
     var scope: String
     var audience: String
     var domain: String
 }
 
-struct AuthenticationProvider {
+public struct AuthenticationProvider {
     private var options: AuthenticationProviderOptions
     private var credentialsManager = Auth0.CredentialsManager(authentication: authentication())
     
