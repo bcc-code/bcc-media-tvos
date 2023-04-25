@@ -92,15 +92,15 @@
 		097D6ED729F14B280007E4FB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		097D6ED829F14B360007E4FB /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		097D6ED929F14B3B0007E4FB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0998F6F529ED4CEB00C74B3F /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "BCC Media.app"; path = "/Users/fredrikvedvik/Documents/Development/bcc-code/bccm-tvos/Apps/build/Debug-appletvos/BCC Media.app"; sourceTree = "<absolute>"; };
 		0998F6F629ED4F2500C74B3F /* PosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
-		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; name = "Top Shelf.appex"; path = "/Users/fredrikvedvik/Documents/Development/bcc-code/bccm-tvos/Apps/build/Debug-appletvos/Top Shelf.appex"; sourceTree = "<absolute>"; };
 		09CB211829F7BD9900201AAE /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09E03AD129C887DF009329FF /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		09F503FA29ED3C2900D09674 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
-		09FFC70A29F805D600FFE2FC /* Library */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Library; path = ../Packages/Library; sourceTree = "<group>"; };
+		09FFC70B29F80F6300FFE2FC /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09FFC70C29F80F6300FFE2FC /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09FFC71429F8134300FFE2FC /* Library */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Library; path = ../Packages/Library; sourceTree = "<group>"; };
 		2D64E0F9AF6AA013DAADC415 /* CardSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSection.swift; sourceTree = "<group>"; };
 		2D64E2030CD962DA48716017 /* BCCMediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCMediaApp.swift; sourceTree = "<group>"; };
 		2D64E460594AD4CC96AE76A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -200,10 +200,10 @@
 			path = "Top Shelf";
 			sourceTree = "<group>";
 		};
-		09FFC70929F805D600FFE2FC /* Packages */ = {
+		09FFC71329F8134300FFE2FC /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				09FFC70A29F805D600FFE2FC /* Library */,
+				09FFC71429F8134300FFE2FC /* Library */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -211,10 +211,12 @@
 		2D64E14EBB891DB91B70D985 = {
 			isa = PBXGroup;
 			children = (
-				09FFC70929F805D600FFE2FC /* Packages */,
+				09FFC71329F8134300FFE2FC /* Packages */,
 				2D64EF38E0F7589C8BE0D636 /* BCC Media */,
 				09CB211A29F7BD9900201AAE /* Top Shelf */,
 				09CB211729F7BD9900201AAE /* Frameworks */,
+				09FFC70B29F80F6300FFE2FC /* BCC Media.app */,
+				09FFC70C29F80F6300FFE2FC /* Top Shelf.appex */,
 			);
 			sourceTree = "<group>";
 		};
@@ -278,14 +280,13 @@
 			);
 			name = "Top Shelf";
 			productName = "Top Shelf";
-			productReference = 09CB211629F7BD9900201AAE /* Top Shelf.appex */;
+			productReference = 09FFC70C29F80F6300FFE2FC /* Top Shelf.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		2D64EA587FBE70E8C0392EF8 /* BCC Media */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D64E63D193AD5912C5E7D40 /* Build configuration list for PBXNativeTarget "BCC Media" */;
 			buildPhases = (
-				BC6125E41AB03328D05449CE /* [CP] Check Pods Manifest.lock */,
 				2D64E977F3C74EB889E11FB5 /* Sources */,
 				2D64EFB695C83636A4673F9B /* Frameworks */,
 				2D64E40409BAE8F8A7B8325D /* Resources */,
@@ -302,7 +303,7 @@
 				09FFC70729F800C000FFE2FC /* Apollo */,
 			);
 			productName = appletv;
-			productReference = 0998F6F529ED4CEB00C74B3F /* BCC Media.app */;
+			productReference = 09FFC70B29F80F6300FFE2FC /* BCC Media.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -377,31 +378,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		BC6125E41AB03328D05449CE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BCC Media-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		09CB211229F7BD9900201AAE /* Sources */ = {
