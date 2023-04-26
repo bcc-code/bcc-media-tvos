@@ -9,6 +9,10 @@ fragment ItemSectionFragment on ItemSection {
             image
             item {
                 __typename
+                ... on Episode {
+                    progress
+                    duration
+                }
                 ... on Show {
                     defaultEpisode {
                         id

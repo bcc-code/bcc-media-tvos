@@ -19,6 +19,10 @@ public extension API {
             image
             item {
               __typename
+              ... on Episode {
+                progress
+                duration
+              }
               ... on Show {
                 defaultEpisode {
                   __typename
@@ -88,10 +92,29 @@ public extension API {
 
           public static var __parentType: Apollo.ParentType { API.Unions.SectionItemType }
           public static var __selections: [Apollo.Selection] { [
+            .inlineFragment(AsEpisode.self),
             .inlineFragment(AsShow.self),
           ] }
 
+          public var asEpisode: AsEpisode? { _asInlineFragment() }
           public var asShow: AsShow? { _asInlineFragment() }
+
+          /// Items.Item.Item.AsEpisode
+          ///
+          /// Parent Type: `Episode`
+          public struct AsEpisode: API.InlineFragment {
+            public let __data: DataDict
+            public init(data: DataDict) { __data = data }
+
+            public static var __parentType: Apollo.ParentType { API.Objects.Episode }
+            public static var __selections: [Apollo.Selection] { [
+              .field("progress", Int?.self),
+              .field("duration", Int.self),
+            ] }
+
+            public var progress: Int? { __data["progress"] }
+            public var duration: Int { __data["duration"] }
+          }
 
           /// Items.Item.Item.AsShow
           ///

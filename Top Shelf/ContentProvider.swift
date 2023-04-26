@@ -7,35 +7,54 @@
 
 import TVServices
 
-struct AuthConfig {
-    var domain: String = "login.bcc.no"
-    var clientId: String = "rJbKSHYPskua2BgY8mEwOSasK6o6uCRA"
-    var audience: String = "api.bcc.no"
-}
+let authenticationProvider = AuthenticationProvider(
+    options: AuthenticationProviderOptions(
+        client_id: "rJbKSHYPskua2BgY8mEwOSasK6o6uCRA",
+        scope: "openid profile email offline_access",
+        audience: "api.bcc.no",
+        domain: "login.bcc.no"
+    )
+)
 
-let authConfig = AuthConfig()
-
-let authenticationProvider = AuthenticationProvider(options: AuthenticationProviderOptions(client_id: authConfig.clientId, scope: "openid profile email offline_access", audience: authConfig.audience, domain: authConfig.domain))
+let apolloClient = ApolloClientFactory(tokenFactory: authenticationProvider.getAccessToken).NewClient()
 
 class ContentProvider: TVTopShelfContentProvider {
 
     override func loadTopShelfContent(completionHandler: @escaping (TVTopShelfContent?) -> Void) {
         // Fetch content and call completionHandler
-        Task {
-            if authenticationProvider.isAuthenticated() {
-                let item = TVTopShelfItem(identifier: "one")
-
-                item.title = "One"
-                item.setImageURL(URL(string: "https://brunstadtv.imgix.net/3e058c00-a047-4bfe-aed7-3371021f0cc7.jpg"), for: .screenScale2x)
-
-                completionHandler(TVTopShelfInsetContent(items: [item]));
-            } else {
-                let item = TVTopShelfItem(identifier: "one")
-
-                item.title = "One"
-                item.setImageURL(URL(string: "https://brunstadtv.imgix.net/658d0ad0-5132-4ca0-96e1-6889d902a628.jpg"), for: .screenScale2x)
-
-                completionHandler(TVTopShelfInsetContent(items: [item]));
+        apolloClient.fetch(query: API.GetPageQuery(id: "30")) { result in
+            switch result {
+            case let .success(res):
+                var sections: [TVTopShelfItemCollection<TVTopShelfSectionedItem>] = []
+                if let page = res.data?.page {
+                    for s in page.sections.items {
+                        var items: [TVTopShelfSectionedItem] = []
+                        if let itemSection = s.asItemSection {
+                            for i in itemSection.items.items {
+                                let item = TVTopShelfSectionedItem(identifier: i.id)
+                                item.title = i.title
+                                if let img = i.image {
+                                    item.setImageURL(URL(string: img), for: .screenScale2x)
+                                }
+                                
+                                if i.item.__typename == "Episode",
+                                    let e = i.item.asEpisode,
+                                    let p = e.progress,
+                                    p <= e.duration {
+                                    item.playbackProgress = Double(e.duration) / Double(p)
+                                }
+                                
+                                items.append(item)
+                            }
+                            let col = TVTopShelfItemCollection(items: items)
+                            col.title = s.title
+                            sections.append(col)
+                        }
+                    }
+                }
+                completionHandler(TVTopShelfSectionedContent(sections: sections))
+            case .failure:
+                completionHandler(nil)
             }
         }
     }
