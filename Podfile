@@ -13,3 +13,14 @@ target 'BCC Media' do
 
   pod 'Auth0'
 end
+
+target 'Top Shelf' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for app
+
+  pod 'Apollo', '1.0.7'
+
+  pod 'Auth0'
+end

@@ -15,6 +15,8 @@
 		097D6EC329F1417E0007E4FB /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EC229F1417E0007E4FB /* Languages.swift */; };
 		097D6EC629F149A80007E4FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 097D6EC829F149A80007E4FB /* Localizable.strings */; };
 		0990D32029F924B600B99D35 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D31F29F924B600B99D35 /* Date.swift */; };
+		0990D36629F94AD900B99D35 /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221529F7D82300201AAE /* AuthenticationProvider.swift */; };
+		0990D36829F94E4500B99D35 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0990D36729F94E4500B99D35 /* Auth0.plist */; };
 		0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998F6F629ED4F2500C74B3F /* PosterSection.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -105,6 +107,7 @@
 		2D64ECB93F166B34429F7189 /* FeaturedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */; };
 		2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E9AA1E75A14695918908 /* Assets.xcassets */; };
 		9A6D0722396507E3220811E3 /* libPods-BCC Media.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */; };
+		B37401E591D893C7E48ED976 /* libPods-Top Shelf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92688DA54FBD60E469C5A068 /* libPods-Top Shelf.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +170,10 @@
 		097D6ED829F14B360007E4FB /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		097D6ED929F14B3B0007E4FB /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0990D31F29F924B600B99D35 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0990D36729F94E4500B99D35 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Auth0.plist; path = "Top Shelf/Auth0.plist"; sourceTree = SOURCE_ROOT; };
+		0990D36929F950F700B99D35 /* BCC-Media-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BCC-Media-Info.plist"; sourceTree = SOURCE_ROOT; };
+		0990D36A29F9518400B99D35 /* BCC Media.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BCC Media.entitlements"; sourceTree = "<group>"; };
+		0990D36B29F9519B00B99D35 /* Top Shelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Top Shelf.entitlements"; sourceTree = "<group>"; };
 		0998F6F529ED4CEB00C74B3F /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0998F6F629ED4F2500C74B3F /* PosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,6 +269,9 @@
 		2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.swift; sourceTree = "<group>"; };
 		543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BCC Media.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.release.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.release.xcconfig"; sourceTree = "<group>"; };
+		92688DA54FBD60E469C5A068 /* libPods-Top Shelf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Top Shelf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C378207C865F97E3EFF39A95 /* Pods-Top Shelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Top Shelf.debug.xcconfig"; path = "Target Support Files/Pods-Top Shelf/Pods-Top Shelf.debug.xcconfig"; sourceTree = "<group>"; };
+		EC47F071FDF2F73048259466 /* Pods-Top Shelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Top Shelf.release.xcconfig"; path = "Target Support Files/Pods-Top Shelf/Pods-Top Shelf.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09CB212629F7CC8400201AAE /* TVServices.framework in Frameworks */,
+				B37401E591D893C7E48ED976 /* libPods-Top Shelf.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +349,7 @@
 			children = (
 				09CB211829F7BD9900201AAE /* TVServices.framework */,
 				543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */,
+				92688DA54FBD60E469C5A068 /* libPods-Top Shelf.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -345,6 +357,8 @@
 		09CB211A29F7BD9900201AAE /* Top Shelf */ = {
 			isa = PBXGroup;
 			children = (
+				0990D36B29F9519B00B99D35 /* Top Shelf.entitlements */,
+				0990D36729F94E4500B99D35 /* Auth0.plist */,
 				09CB211B29F7BD9900201AAE /* ContentProvider.swift */,
 				09CB211D29F7BD9900201AAE /* Info.plist */,
 			);
@@ -522,6 +536,8 @@
 			children = (
 				268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */,
 				8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */,
+				C378207C865F97E3EFF39A95 /* Pods-Top Shelf.debug.xcconfig */,
+				EC47F071FDF2F73048259466 /* Pods-Top Shelf.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -574,6 +590,8 @@
 		2D64EF38E0F7589C8BE0D636 /* BCC Media */ = {
 			isa = PBXGroup;
 			children = (
+				0990D36A29F9518400B99D35 /* BCC Media.entitlements */,
+				0990D36929F950F700B99D35 /* BCC-Media-Info.plist */,
 				09F503FA29ED3C2900D09674 /* Auth0.plist */,
 				2D64E2030CD962DA48716017 /* BCCMediaApp.swift */,
 				2D64E460594AD4CC96AE76A4 /* ContentView.swift */,
@@ -592,6 +610,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09CB212329F7BD9900201AAE /* Build configuration list for PBXNativeTarget "Top Shelf" */;
 			buildPhases = (
+				0FACC661FAB990AAA7D4672D /* [CP] Check Pods Manifest.lock */,
 				09CB211229F7BD9900201AAE /* Sources */,
 				09CB211329F7BD9900201AAE /* Frameworks */,
 				09CB211429F7BD9900201AAE /* Resources */,
@@ -680,6 +699,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0990D36829F94E4500B99D35 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,6 +724,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0FACC661FAB990AAA7D4672D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Top Shelf-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BC6125E41AB03328D05449CE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -733,6 +775,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0990D36629F94AD900B99D35 /* AuthenticationProvider.swift in Sources */,
 				09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -866,7 +909,9 @@
 /* Begin XCBuildConfiguration section */
 		09CB212129F7BD9900201AAE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C378207C865F97E3EFF39A95 /* Pods-Top Shelf.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TRTNB29F98;
@@ -879,8 +924,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "bcc.media.top-shelf";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -892,7 +937,9 @@
 		};
 		09CB212229F7BD9900201AAE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC47F071FDF2F73048259466 /* Pods-Top Shelf.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TRTNB29F98;
@@ -905,8 +952,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "bcc.media.top-shelf";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -923,11 +970,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = TRTNB29F98;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BCC-Media-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = App;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -936,7 +985,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -945,7 +994,7 @@
 					"-l\"JWTDecode\"",
 					"-l\"SimpleKeychain\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bcc.media;
+				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1076,11 +1125,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = TRTNB29F98;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BCC-Media-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = App;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1089,7 +1140,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1098,7 +1149,7 @@
 					"-l\"JWTDecode\"",
 					"-l\"SimpleKeychain\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bcc.media;
+				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

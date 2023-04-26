@@ -3,6 +3,7 @@
 //
 
 import Auth0
+import SimpleKeychain
 import Foundation
 
 private struct TokenRequestBody: Codable {
@@ -61,7 +62,7 @@ struct AuthenticationProviderOptions {
 
 struct AuthenticationProvider {
     private var options: AuthenticationProviderOptions
-    private var credentialsManager = Auth0.CredentialsManager(authentication: authentication())
+    private var credentialsManager = Auth0.CredentialsManager(authentication: authentication(), storage: SimpleKeychain(service: "bcc.media", accessGroup: "group.bcc.media"))
     
     init(options: AuthenticationProviderOptions) {
         self.options = options
