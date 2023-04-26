@@ -65,7 +65,7 @@ struct EpisodeViewer: View {
     @State private var episode: API.GetEpisodeQuery.Data.Episode?
     @State private var season: API.GetEpisodeSeasonQuery.Data.Season?
     
-    @State private var tab: Tab = .season
+    @State private var tab: Tab = .details
     @State private var seasonId: String = ""
 
     func loadSeason(id: String) {
@@ -105,7 +105,7 @@ struct EpisodeViewer: View {
         VStack {
             if let e = episode {
                 ScrollView(.vertical) {
-                    VStack {
+                    VStack(alignment: .leading) {
                         EpisodeHeader(episode: e, season: season)
                         HStack {
                             Picker("Tab", selection: $tab) {
@@ -141,7 +141,10 @@ struct EpisodeViewer: View {
                                 }
                             }
                         case .details:
-                            EmptyView()
+                            VStack(alignment: .leading) {
+                                Text("Description").bold().font(.caption)
+                                Text(e.description).font(.caption2)
+                            }
                         }
                     }.frame(width: 1280).padding(100)
                 }.padding(-100)
@@ -160,6 +163,6 @@ struct EpisodeViewer: View {
 
 struct EpisodeViewer_Previews: PreviewProvider {
     static var previews: some View {
-        EpisodeViewer(episodeId: "1768")
+        EpisodeViewer(episodeId: "1838")
     }
 }

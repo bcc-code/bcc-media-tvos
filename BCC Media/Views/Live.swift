@@ -27,7 +27,7 @@ struct LiveView: View {
 
     func load() {
         Task {
-            let token = try await authenticationProvider.getAccessToken()
+            let token = await authenticationProvider.getAccessToken()
             if token != nil {
                 var req = URLRequest(url: URL(string: "https://livestreamfunctions.brunstad.tv/api/urls/live")!)
                 req.setValue("Bearer " + token!, forHTTPHeaderField: "Authorization")

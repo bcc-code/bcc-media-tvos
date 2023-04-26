@@ -24,7 +24,7 @@ struct PosterSection: View {
                                 NavigationLink {
                                     item
                                 } label: {
-                                    ItemImage(item.image)
+                                    ItemImage(img)
                                         .frame(width: 400, height: 600).cornerRadius(10)
                                 }.buttonStyle(.card)
                                 ItemTitle(item)
