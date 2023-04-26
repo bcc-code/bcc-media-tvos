@@ -103,6 +103,7 @@
 		2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ED5CD0F006989283F50E /* ItemList.swift */; };
 		2D64ECB93F166B34429F7189 /* FeaturedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */; };
 		2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E9AA1E75A14695918908 /* Assets.xcassets */; };
+		9A6D0722396507E3220811E3 /* libPods-BCC Media.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +258,7 @@
 		2D64ED5CD0F006989283F50E /* ItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		2D64EDB7C7CC093B3800C7EB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.swift; sourceTree = "<group>"; };
+		543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BCC Media.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.release.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -273,6 +275,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A6D0722396507E3220811E3 /* libPods-BCC Media.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				09CB211829F7BD9900201AAE /* TVServices.framework */,
+				543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
