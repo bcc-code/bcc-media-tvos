@@ -22,6 +22,8 @@
 		09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F503FA29ED3C2900D09674 /* Auth0.plist */; };
 		09FFC70529F800AB00FFE2FC /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 09FFC70429F800AB00FFE2FC /* Auth0 */; };
 		09FFC70829F800C000FFE2FC /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 09FFC70729F800C000FFE2FC /* Apollo */; };
+		09FFC71629F909F000FFE2FC /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 09FFC71529F909F000FFE2FC /* API */; };
+		09FFC71829F909F200FFE2FC /* Authentiaction in Frameworks */ = {isa = PBXBuildFile; productRef = 09FFC71729F909F200FFE2FC /* Authentiaction */; };
 		2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF03910A399CCB4894D /* Settings.swift */; };
 		2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E460594AD4CC96AE76A4 /* ContentView.swift */; };
 		2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E2030CD962DA48716017 /* BCCMediaApp.swift */; };
@@ -126,7 +128,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09FFC71629F909F000FFE2FC /* API in Frameworks */,
 				09FFC70529F800AB00FFE2FC /* Auth0 in Frameworks */,
+				09FFC71829F909F200FFE2FC /* Authentiaction in Frameworks */,
 				09FFC70829F800C000FFE2FC /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +305,8 @@
 			packageProductDependencies = (
 				09FFC70429F800AB00FFE2FC /* Auth0 */,
 				09FFC70729F800C000FFE2FC /* Apollo */,
+				09FFC71529F909F000FFE2FC /* API */,
+				09FFC71729F909F200FFE2FC /* Authentiaction */,
 			);
 			productName = appletv;
 			productReference = 09FFC70B29F80F6300FFE2FC /* BCC Media.app */;
@@ -751,6 +757,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09FFC70629F800C000FFE2FC /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		09FFC71529F909F000FFE2FC /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
+		};
+		09FFC71729F909F200FFE2FC /* Authentiaction */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Authentiaction;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

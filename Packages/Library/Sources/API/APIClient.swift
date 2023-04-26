@@ -5,8 +5,6 @@
 import Apollo
 import Foundation
 
-typealias TokenFactory = () async throws -> String?
-
 private func mapLanguageToString(value: String) -> String {
     if let first = value.split(separator: "-").first {
         return String(first)
@@ -60,10 +58,12 @@ private class CustomInterceptor: ApolloInterceptor {
     }
 }
 
+public typealias TokenFactory = () async throws -> String?
+
 public class ApolloClientFactory {
     var tokenFactory: TokenFactory
 
-    init(tokenFactory: @escaping TokenFactory) {
+    public init(tokenFactory: @escaping TokenFactory) {
         self.tokenFactory = tokenFactory
     }
 

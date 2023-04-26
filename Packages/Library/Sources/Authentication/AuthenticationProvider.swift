@@ -57,13 +57,20 @@ public struct AuthenticationProviderOptions {
     var scope: String
     var audience: String
     var domain: String
+    
+    public init(client_id: String, scope: String, audience: String, domain: String) {
+        self.client_id = client_id
+        self.scope = scope
+        self.audience = audience
+        self.domain = domain
+    }
 }
 
 public struct AuthenticationProvider {
     private var options: AuthenticationProviderOptions
     private var credentialsManager = Auth0.CredentialsManager(authentication: authentication())
     
-    init(options: AuthenticationProviderOptions) {
+    public init(options: AuthenticationProviderOptions) {
         self.options = options
     }
 

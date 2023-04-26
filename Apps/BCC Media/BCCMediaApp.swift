@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Authentication
+import API
 
 struct AuthConfig {
     var domain: String = "login.bcc.no"

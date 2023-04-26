@@ -15,7 +15,7 @@
       }
     },
     "schemaTypes" : {
-      "path" : "./Sources/Library/API",
+      "path" : "./Sources/API/API",
       "moduleType" : {
         "embeddedInTarget" : {
           "name" : "API"
