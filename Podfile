@@ -9,7 +9,7 @@ target 'BCC Media' do
 
   # Pods for app
 
-  pod 'Apollo'
+  pod 'Apollo', '1.0.7'
 
   pod 'Auth0'
 end

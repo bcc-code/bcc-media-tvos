@@ -16,6 +16,7 @@ public extension API {
             title
             image
             ageRating
+            publishDate
             description
             streams {
               __typename
@@ -63,6 +64,7 @@ public extension API {
           .field("title", String.self),
           .field("image", String?.self),
           .field("ageRating", String.self),
+          .field("publishDate", API.Date.self),
           .field("description", String.self),
           .field("streams", [Stream].self),
           .field("season", Season?.self),
@@ -72,6 +74,7 @@ public extension API {
         public var title: String { __data["title"] }
         public var image: String? { __data["image"] }
         public var ageRating: String { __data["ageRating"] }
+        public var publishDate: API.Date { __data["publishDate"] }
         public var description: String { __data["description"] }
         public var streams: [Stream] { __data["streams"] }
         public var season: Season? { __data["season"] }

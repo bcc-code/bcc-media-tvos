@@ -4,6 +4,7 @@ query GetEpisode($id: ID!) {
         title
         image
         ageRating
+        publishDate
         description
         streams {
             url
@@ -25,6 +26,7 @@ fragment EpisodeSeason on Season {
     title
     show {
         title
+        description
         seasons(first: 100) {
             items {
                 id

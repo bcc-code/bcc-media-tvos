@@ -12,6 +12,7 @@ public extension API {
         show {
           __typename
           title
+          description
           seasons(first: 100) {
             __typename
             items {
@@ -58,10 +59,12 @@ public extension API {
       public static var __parentType: Apollo.ParentType { API.Objects.Show }
       public static var __selections: [Apollo.Selection] { [
         .field("title", String.self),
+        .field("description", String.self),
         .field("seasons", Seasons.self, arguments: ["first": 100]),
       ] }
 
       public var title: String { __data["title"] }
+      public var description: String { __data["description"] }
       public var seasons: Seasons { __data["seasons"] }
 
       /// Show.Seasons

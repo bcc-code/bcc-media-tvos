@@ -65,7 +65,7 @@ struct EpisodeViewer: View {
     @State private var episode: API.GetEpisodeQuery.Data.Episode?
     @State private var season: API.GetEpisodeSeasonQuery.Data.Season?
     
-    @State private var tab: Tab = .details
+    @State private var tab: Tab = .season
     @State private var seasonId: String = ""
 
     func loadSeason(id: String) {
@@ -99,6 +99,19 @@ struct EpisodeViewer: View {
                 print("FAILURE")
             }
         }
+    }
+    
+    func toDateString(_ str: String) -> String {
+        let parser = DateFormatter()
+        parser.locale = Locale(identifier: "en_US_POSIX")
+        parser.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let date = parser.date(from: str)!
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, yyyy HH:mm"
+        formatter.locale = .autoupdatingCurrent
+        
+        return formatter.string(from: date)
     }
     
     var body: some View {
@@ -141,9 +154,17 @@ struct EpisodeViewer: View {
                                 }
                             }
                         case .details:
-                            VStack(alignment: .leading) {
-                                Text("Description").bold().font(.caption)
-                                Text(e.description).font(.caption2)
+                            ScrollView(.vertical) {
+                                VStack(alignment: .leading) {
+                                    if let s = season {
+                                        Text("Show description").bold().font(.caption)
+                                        Text(s.show.description).font(.caption2).foregroundColor(.gray)
+                                    }
+                                    Spacer()
+                                    Text("Release date").bold().font(.caption)
+                                    Text(toDateString(e.publishDate)).font(.caption2).foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
                         }
                     }.frame(width: 1280).padding(100)
