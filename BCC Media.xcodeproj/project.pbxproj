@@ -146,8 +146,6 @@
 		0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998F6F629ED4F2500C74B3F /* PosterSection.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		09CB212629F7CC8400201AAE /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CB211829F7BD9900201AAE /* TVServices.framework */; };
-		09CB212729F7CC8400201AAE /* TVServices.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09CB211829F7BD9900201AAE /* TVServices.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CB221629F7D82300201AAE /* application.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 09CB21C629F7D82300201AAE /* application.graphql */; };
 		09CB221729F7D82300201AAE /* page.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 09CB21C729F7D82300201AAE /* page.graphql */; };
 		09CB221829F7D82300201AAE /* search.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 09CB21C829F7D82300201AAE /* search.graphql */; };
@@ -189,7 +187,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				09CB212729F7CC8400201AAE /* TVServices.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,7 +298,6 @@
 		0998F6F529ED4CEB00C74B3F /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0998F6F629ED4F2500C74B3F /* PosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		09CB211829F7BD9900201AAE /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09CB21C629F7D82300201AAE /* application.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = application.graphql; sourceTree = "<group>"; };
@@ -341,7 +337,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09CB212629F7CC8400201AAE /* TVServices.framework in Frameworks */,
 				B37401E591D893C7E48ED976 /* libPods-Top Shelf.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,7 +535,6 @@
 		09CB211729F7BD9900201AAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				09CB211829F7BD9900201AAE /* TVServices.framework */,
 				543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */,
 				92688DA54FBD60E469C5A068 /* libPods-Top Shelf.a */,
 			);
