@@ -10,12 +10,12 @@ import SwiftUI
 struct CardSection: View {
     var title: String?
     var items: [Item]
-    
+
     init(_ title: String?, _ items: [Item]) {
         self.title = title
         self.items = items
     }
-    
+
     var body: some View {
         VStack {
             if let t = title {
@@ -32,7 +32,7 @@ struct CardSection: View {
                                     VStack(alignment: .leading) {
                                         ItemImage(img)
                                             .frame(width: 400, height: 225).cornerRadius(10)
-                                        VStack (alignment: .leading) {
+                                        VStack(alignment: .leading) {
                                             Text(item.title)
                                             Text(item.description).font(.caption2).foregroundColor(.gray)
                                         }.padding(.horizontal, 20).padding(.bottom, 10)

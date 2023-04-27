@@ -6,11 +6,11 @@ import SwiftUI
 
 struct ItemImage: View {
     var image: String?
-    
+
     init(_ image: String?) {
         self.image = image
     }
-    
+
     func getImg(_ img: String, _ size: CGSize) -> URL? {
         URL(string: img + "?w=\(Int(size.width))&h=\(Int(size.height))&fit=crop&crop=faces")
     }
@@ -23,7 +23,7 @@ struct ItemImage: View {
                 } placeholder: {
                     ProgressView()
                 }
-                    .frame(width: proxy.size.width, height: proxy.size.height)
+                .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
     }
@@ -51,9 +51,9 @@ struct ItemListView<T, IView: View>: View {
                         s
                     }
                 }
-                        .lineLimit(2).padding(100)
+                .lineLimit(2).padding(100)
             }
-                    .padding(-100)
+            .padding(-100)
         }
     }
 }
@@ -76,10 +76,10 @@ struct ItemView<Destination: View>: View {
             } label: {
                 ItemImage(image).frame(width: 400, height: 225)
             }
-                    .buttonStyle(.card)
-                    .padding(.zero)
+            .buttonStyle(.card)
+            .padding(.zero)
             Text(title).padding(.zero).font(.caption)
         }
-                .frame(width: 400)
+        .frame(width: 400)
     }
 }

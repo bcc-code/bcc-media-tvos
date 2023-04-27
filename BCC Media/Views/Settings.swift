@@ -13,19 +13,19 @@ struct SettingsView: View {
     @State var verificationUriComplete = ""
     @State var authenticated = authenticationProvider.isAuthenticated()
     var onSave: () -> Void
-    
+
     @State var name: String? = nil
 
     @State var cancelTask: (() -> Void)? = nil
 
     @State var loading = false
-    
-    func reloadUserInfo() async -> Void {
+
+    func reloadUserInfo() async {
         if let info = await authenticationProvider.userInfo() {
             name = info.name
         }
     }
-    
+
     func authStateUpdate() {
         apolloClient.clearCache()
         authenticated = authenticationProvider.isAuthenticated()
@@ -49,7 +49,7 @@ struct SettingsView: View {
         loading = true
         let task = Task {
             do {
-                try await authenticationProvider.login { (code) -> () in
+                try await authenticationProvider.login { code in
                     token = code.userCode
                     verificationUri = code.verificationUri
                     verificationUriComplete = code.verificationUriComplete
@@ -64,7 +64,7 @@ struct SettingsView: View {
     }
 
     @State var showSignIn = false
-    
+
     @State var appLanguage = "en"
 
     var body: some View {

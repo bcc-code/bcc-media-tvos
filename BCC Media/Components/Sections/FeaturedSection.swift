@@ -11,7 +11,7 @@ struct FeaturedButton: ButtonStyle {
         configuration.label
             .padding(.zero)
             .scaleEffect(configuration.isPressed || focused ? 1.02 : 1)
-            .animation(.easeOut(duration: 0.2), value: (configuration.isPressed || focused))
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
     }
 }
 
@@ -25,22 +25,23 @@ struct FeaturedCard: View {
             EpisodeViewer(episodeId: item.id)
         } label: {
             ItemImage(item.image)
-                    .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]), startPoint: .top, endPoint: .bottom))
-                    .cornerRadius(10)
-                    .padding(.zero)
-                    .overlay(
-                        VStack(alignment: .leading, spacing: 20) {
-                            Text(item.title).font(.title3)
-                            if item.description != "" {
-                                Text(item.description).font(.caption2).foregroundColor(.gray)
-                            }
-                        }.padding(20).frame(maxWidth: 1000)
+                .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]), startPoint: .top, endPoint: .bottom))
+                .cornerRadius(10)
+                .padding(.zero)
+                .overlay(
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text(item.title).font(.title3)
+                        if item.description != "" {
+                            Text(item.description).font(.caption2).foregroundColor(.gray)
+                        }
+                    }.padding(20).frame(maxWidth: 1000),
 
-                            , alignment: .bottomLeading)
+                    alignment: .bottomLeading
+                )
         }
-                .buttonStyle(FeaturedButton(focused: isFocused))
-                .padding(0)
-                .focused($isFocused)
+        .buttonStyle(FeaturedButton(focused: isFocused))
+        .padding(0)
+        .focused($isFocused)
     }
 }
 

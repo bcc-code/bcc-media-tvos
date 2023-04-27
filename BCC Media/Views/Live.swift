@@ -2,15 +2,15 @@
 // Created by Fredrik Vedvik on 16/03/2023.
 //
 
+import AVKit
 import Foundation
 import SwiftUI
-import AVKit
 
 struct LiveResponse: Codable {
     var url: String
 
     enum CodingKeys: String, CodingKey {
-        case url = "url"
+        case url
     }
 }
 

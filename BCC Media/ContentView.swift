@@ -9,32 +9,31 @@
 import SwiftUI
 
 var backgroundColor: Color {
-    Color.init(red: 13/256, green: 22/256, blue: 35/256)
+    Color(red: 13 / 256, green: 22 / 256, blue: 35 / 256)
 }
 
 var cardBackgroundColor: Color {
-    Color.init(red: 29/256, green: 40/256, blue: 56/256)
+    Color(red: 29 / 256, green: 40 / 256, blue: 56 / 256)
 }
 
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var pageId = ""
-    
+
     @State var loaded = false
-    
-    @State var path: NavigationPath = NavigationPath()
-    
+
+    @State var path: NavigationPath = .init()
+
     func load() {
         apolloClient.fetch(query: API.GetApplicationQuery()) { result in
             switch result {
-            case .success(let data):
+            case let .success(data):
                 self.pageId = data.data?.application.page?.id ?? ""
-            case .failure(let error):
+            case let .failure(error):
                 print(error)
             }
             loaded = true
         }
-        
     }
 
     var body: some View {
@@ -70,11 +69,11 @@ struct ContentView: View {
             }.task {
                 load()
             }
-            .onOpenURL(perform: {url in
+            .onOpenURL(perform: { url in
                 print(url.absoluteString)
-                
+
                 let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-                
+
                 let parts = components.path.split(separator: "/")
                 if parts.count == 0 {
                     return

@@ -12,7 +12,7 @@ let previewItems: [Item] = [
     Item(id: "12", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
     Item(id: "1", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
     Item(id: "20", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
-    Item(id: "11", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg")
+    Item(id: "11", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
 ]
 
 enum ItemType {
@@ -26,10 +26,10 @@ struct Item: Identifiable, View {
     var title: String
     var description: String
     var image: String?
-    
+
     var type: ItemType = .episode
     var routeId: String = ""
-    
+
     var body: some View {
         switch type {
         case .show:
@@ -44,11 +44,11 @@ struct Item: Identifiable, View {
 
 struct ItemTitle: View {
     var item: Item
-    
+
     init(_ item: Item) {
         self.item = item
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(item.title).font(.caption2)
@@ -58,7 +58,7 @@ struct ItemTitle: View {
 
 func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     var t: ItemType
-    var rId: String = ""
+    var rId = ""
     switch item.item.__typename {
     case "Show":
         t = .show
@@ -75,6 +75,6 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
 
 func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {
     items.items.map { item in
-        return mapToItem(item)
+        mapToItem(item)
     }
 }

@@ -19,7 +19,7 @@ struct SignInView: View {
         str.replace("https://", with: "")
         return str
     }
-    
+
     func getQRCodeData(text: String) -> Data? {
         guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
         let data = text.data(using: .ascii, allowLossyConversion: false)
@@ -30,7 +30,7 @@ struct SignInView: View {
         let uiimage = UIImage(ciImage: scaledCIImage)
         return uiimage.pngData()!
     }
-    
+
     var body: some View {
         HStack {
             VStack {
@@ -41,11 +41,10 @@ struct SignInView: View {
             }
             Spacer().frame(width: 50)
             VStack {
-                
                 Group {
                     Text("Or go to: ") +
-                    Text(getSimpleUri()).foregroundColor(.blue) +
-                    Text(" and enter this code:")
+                        Text(getSimpleUri()).foregroundColor(.blue) +
+                        Text(" and enter this code:")
                 }
                 Spacer().frame(height: 30)
                 Text(code).font(.title)

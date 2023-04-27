@@ -22,21 +22,21 @@ struct SearchView: View {
         }
         apolloClient.fetch(query: API.SearchQuery(query: query, collection: "episode")) { result in
             switch result {
-            case .success(let data):
+            case let .success(data):
                 if let r = data.data?.search.result {
                     self.episodeResult = r
                 }
-            case .failure(let error):
+            case let .failure(error):
                 print(error)
             }
         }
         apolloClient.fetch(query: API.SearchQuery(query: query, collection: "show")) { result in
             switch result {
-            case .success(let data):
+            case let .success(data):
                 if let r = data.data?.search.result {
                     self.showResult = r
                 }
-            case .failure(let error):
+            case let .failure(error):
                 print(error)
             }
         }
@@ -50,18 +50,18 @@ struct SearchView: View {
         VStack {
             if let i = showResult {
                 ItemListView(
-                        title: NSLocalizedString("Shows", comment: ""),
-                        items: i,
-                        emptyListText: Text("No shows with the current filter")
+                    title: NSLocalizedString("Shows", comment: ""),
+                    items: i,
+                    emptyListText: Text("No shows with the current filter")
                 ) { item in
                     ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
                 }
             }
             if let i = episodeResult {
                 ItemListView(
-                        title: NSLocalizedString("Episodes", comment: ""),
-                        items: i,
-                        emptyListText: Text("No episodes with the current filter")
+                    title: NSLocalizedString("Episodes", comment: ""),
+                    items: i,
+                    emptyListText: Text("No episodes with the current filter")
                 ) { item in
                     ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
                 }
@@ -70,8 +70,8 @@ struct SearchView: View {
                 Text("Enter something in the search field to begin searching")
             }
         }
-                .searchable(text: $queryString)
-                .onChange(of: queryString, perform: getResult)
+        .searchable(text: $queryString)
+        .onChange(of: queryString, perform: getResult)
     }
 }
 

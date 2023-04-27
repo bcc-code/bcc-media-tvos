@@ -10,7 +10,7 @@ import SwiftUI
 struct PosterSection: View {
     var title: String?
     var items: [Item]
-    
+
     var body: some View {
         VStack {
             if let t = title {

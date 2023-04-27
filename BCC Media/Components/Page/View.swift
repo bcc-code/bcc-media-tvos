@@ -9,13 +9,13 @@ import SwiftUI
 
 struct MissingContent: View {
     var annotation: String
-    
+
     init(_ annotation: String) {
         self.annotation = annotation
     }
-    
+
     var body: some View {
-        Button{
+        Button {
             print("oopsi")
         } label: {
             Text("Oops. Seems there is some missing content here. Work in progress.")
@@ -27,12 +27,12 @@ struct MissingContent: View {
 struct PageDetailsSection: View {
     var title: String?
     var description: String?
-    
+
     init(_ title: String?, _ description: String?) {
         self.title = title
         self.description = description
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             if let t = title {
@@ -51,7 +51,7 @@ struct PageDisplay: View {
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 50) {
-                ForEach(page.sections.items, id: \.id) {section in
+                ForEach(page.sections.items, id: \.id) { section in
                     if let itemSection = section.asItemSection {
                         if !itemSection.items.items.isEmpty {
                             switch itemSection.__typename {
@@ -88,14 +88,14 @@ struct PageDisplay: View {
 struct PageView: View {
     @State var pageId: String
     @State var page: API.GetPageQuery.Data.Page? = nil
-    
+
     init(pageId: String) {
         self.pageId = pageId
     }
 
     func load() {
         page = nil
-        
+
         apolloClient.fetch(query: API.GetPageQuery(
             id: pageId
         )) { result in
@@ -111,7 +111,7 @@ struct PageView: View {
             print("OK")
         }
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             if let p = page {

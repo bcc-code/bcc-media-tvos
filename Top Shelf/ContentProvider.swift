@@ -19,7 +19,6 @@ let authenticationProvider = AuthenticationProvider(
 let apolloClient = ApolloClientFactory(tokenFactory: authenticationProvider.getAccessToken).NewClient()
 
 class ContentProvider: TVTopShelfContentProvider {
-
     override func loadTopShelfContent(completionHandler: @escaping (TVTopShelfContent?) -> Void) {
         // Fetch content and call completionHandler
         apolloClient.fetch(query: API.GetPageQuery(id: "30")) { result in
@@ -36,11 +35,13 @@ class ContentProvider: TVTopShelfContentProvider {
                                 if let img = i.image {
                                     item.setImageURL(URL(string: img), for: .screenScale2x)
                                 }
-                                
+
                                 if i.item.__typename == "Episode",
-                                    let e = i.item.asEpisode {
+                                   let e = i.item.asEpisode
+                                {
                                     if let p = e.progress,
-                                        p <= e.duration {
+                                       p <= e.duration
+                                    {
                                         item.playbackProgress = Double(e.duration) / Double(p)
                                     }
                                     let action = TVTopShelfAction(url: urlFor(episodeId: i.id))
@@ -61,13 +62,12 @@ class ContentProvider: TVTopShelfContentProvider {
             }
         }
     }
-
 }
 
 func urlFor(episodeId: String) -> URL {
     var components = URLComponents()
     components.scheme = "bcc.media"
     components.path = "episode/\(episodeId)"
-    
+
     return components.url!
 }

@@ -12,7 +12,7 @@ internal enum Tab {
 struct EpisodeHeader: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     var season: API.GetEpisodeSeasonQuery.Data.Season?
-    
+
     func getPlayerUrl() -> URL? {
         let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
         var index = 0
@@ -29,7 +29,7 @@ struct EpisodeHeader: View {
         }
         return nil
     }
-    
+
     var body: some View {
         VStack {
             if let url = getPlayerUrl() {
@@ -37,8 +37,8 @@ struct EpisodeHeader: View {
                     EpisodePlayer(title: episode.title, playerUrl: url)
                 } label: {
                     ItemImage(episode.image).frame(width: 1280, height: 720)
-                }.buttonStyle(.card).frame(width:1280, height: 720).overlay(
-                    Image(systemName:"play.fill").resizable().frame(width: 100, height: 100)
+                }.buttonStyle(.card).frame(width: 1280, height: 720).overlay(
+                    Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
                 )
             }
         }
@@ -64,7 +64,7 @@ struct EpisodeViewer: View {
     @State private var playerUrl: URL?
     @State private var episode: API.GetEpisodeQuery.Data.Episode?
     @State private var season: API.GetEpisodeSeasonQuery.Data.Season?
-    
+
     @State private var tab: Tab = .season
     @State private var seasonId: String = ""
 
@@ -82,7 +82,7 @@ struct EpisodeViewer: View {
             }
         }
     }
-    
+
     func load() {
         if episodeId == episode?.id {
             return
@@ -100,20 +100,20 @@ struct EpisodeViewer: View {
             }
         }
     }
-    
+
     func toDateString(_ str: String) -> String {
         let parser = DateFormatter()
         parser.locale = Locale(identifier: "en_US_POSIX")
         parser.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         let date = parser.date(from: str)!
-        
+
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy HH:mm"
         formatter.locale = .autoupdatingCurrent
-        
+
         return formatter.string(from: date)
     }
-    
+
     var body: some View {
         VStack {
             if let e = episode {
@@ -135,7 +135,7 @@ struct EpisodeViewer: View {
                                             Text(se.title).tag(se.id)
                                         }
                                     }.pickerStyle(.navigationLink)
-                                    VStack (alignment: .leading, spacing: 10) {
+                                    VStack(alignment: .leading, spacing: 10) {
                                         ForEach(s.episodes.items, id: \.id) { ep in
                                             NavigationLink {
                                                 EpisodeViewer(episodeId: ep.id)
@@ -186,9 +186,9 @@ extension EpisodeViewer: Hashable {
     static func == (lhs: EpisodeViewer, rhs: EpisodeViewer) -> Bool {
         lhs.episodeId == rhs.episodeId
     }
-    
+
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.episodeId)
+        hasher.combine(episodeId)
     }
 }
 
