@@ -95,7 +95,10 @@ struct PageView: View {
 
     func load() {
         page = nil
-        apolloClient.fetch(query: API.GetPageQuery(id: pageId)) { result in
+        
+        apolloClient.fetch(query: API.GetPageQuery(
+            id: pageId
+        )) { result in
             switch result {
             case let .success(res):
                 if let p = res.data {

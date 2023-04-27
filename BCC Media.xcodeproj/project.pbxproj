@@ -159,8 +159,6 @@
 		09E03AD229C887DF009329FF /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E03AD129C887DF009329FF /* SignIn.swift */; };
 		09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F503FA29ED3C2900D09674 /* Auth0.plist */; };
 		2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF03910A399CCB4894D /* Settings.swift */; };
-		2D64E34771A263A22B5AC55F /* apollo-codegen-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */; };
-		2D64E647BDA05E0920C7DEC0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 2D64EDB7C7CC093B3800C7EB /* .gitignore */; };
 		2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E460594AD4CC96AE76A4 /* ContentView.swift */; };
 		2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E2030CD962DA48716017 /* BCCMediaApp.swift */; };
 		2D64E942E241ADF5F1CC8653 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EC95DA7A0E51573DC051 /* Live.swift */; };
@@ -612,14 +610,14 @@
 				09CB21C429F7D82300201AAE /* Library */,
 				2D64EF38E0F7589C8BE0D636 /* BCC Media */,
 				2ACB7A53A6D45DE17AB42CCF /* Pods */,
+				09CB211A29F7BD9900201AAE /* Top Shelf */,
+				09CB211729F7BD9900201AAE /* Frameworks */,
 				2D64EDB7C7CC093B3800C7EB /* .gitignore */,
 				2D64E8004FA1585BA12AB539 /* apollo-codegen-config.json */,
 				2D64E6A3CB798D4782033F09 /* .graphqlconfig */,
 				2D64E027F4FB0C8D21E74DEA /* Makefile */,
 				0998F6F529ED4CEB00C74B3F /* BCC Media.app */,
 				09CB211629F7BD9900201AAE /* Top Shelf.appex */,
-				09CB211A29F7BD9900201AAE /* Top Shelf */,
-				09CB211729F7BD9900201AAE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -654,15 +652,15 @@
 		2D64EF38E0F7589C8BE0D636 /* BCC Media */ = {
 			isa = PBXGroup;
 			children = (
+				0943E18429BB363F0016348C /* Components */,
+				097D6EC129F1416F0007E4FB /* Utils */,
+				2D64E22E44F7DA7C709CE617 /* Views */,
 				0990D36A29F9518400B99D35 /* BCC Media.entitlements */,
 				0990D36929F950F700B99D35 /* BCC-Media-Info.plist */,
 				09F503FA29ED3C2900D09674 /* Auth0.plist */,
 				2D64E2030CD962DA48716017 /* BCCMediaApp.swift */,
 				2D64E460594AD4CC96AE76A4 /* ContentView.swift */,
 				2D64E9AA1E75A14695918908 /* Assets.xcassets */,
-				0943E18429BB363F0016348C /* Components */,
-				097D6EC129F1416F0007E4FB /* Utils */,
-				2D64E22E44F7DA7C709CE617 /* Views */,
 			);
 			path = "BCC Media";
 			sourceTree = SOURCE_ROOT;
@@ -777,10 +775,8 @@
 				09CB221A29F7D82300201AAE /* episode.graphql in Resources */,
 				09CB221B29F7D82300201AAE /* config.graphql in Resources */,
 				2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */,
-				2D64E647BDA05E0920C7DEC0 /* .gitignore in Resources */,
 				09CB221729F7D82300201AAE /* page.graphql in Resources */,
 				09CB221929F7D82300201AAE /* section.graphql in Resources */,
-				2D64E34771A263A22B5AC55F /* apollo-codegen-config.json in Resources */,
 				09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1042,7 +1038,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TRTNB29F98;
+				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Top Shelf";
@@ -1052,8 +1048,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos.topshelf;
+				MARKETING_VERSION = 4.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1070,7 +1066,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TRTNB29F98;
+				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Top Shelf";
@@ -1080,8 +1076,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos.topshelf;
+				MARKETING_VERSION = 4.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1101,7 +1097,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = TRTNB29F98;
+				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BCC-Media-Info.plist";
@@ -1113,7 +1109,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 4.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1122,7 +1118,7 @@
 					"-l\"JWTDecode\"",
 					"-l\"SimpleKeychain\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1256,7 +1252,7 @@
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = TRTNB29F98;
+				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BCC-Media-Info.plist";
@@ -1268,7 +1264,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 4.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1277,7 +1273,7 @@
 					"-l\"JWTDecode\"",
 					"-l\"SimpleKeychain\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = media.bcc.tvos;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

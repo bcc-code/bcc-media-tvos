@@ -62,7 +62,7 @@ struct AuthenticationProviderOptions {
 
 struct AuthenticationProvider {
     private var options: AuthenticationProviderOptions
-    private var credentialsManager = Auth0.CredentialsManager(authentication: authentication(), storage: SimpleKeychain(service: "bcc.media", accessGroup: "group.bcc.media"))
+    private var credentialsManager = Auth0.CredentialsManager(authentication: authentication(), storage: SimpleKeychain(service: "bcc.media", accessGroup: "group.tv.brunstad.app"))
     
     init(options: AuthenticationProviderOptions) {
         self.options = options

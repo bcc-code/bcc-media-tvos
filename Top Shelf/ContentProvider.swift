@@ -38,13 +38,16 @@ class ContentProvider: TVTopShelfContentProvider {
                                 }
                                 
                                 if i.item.__typename == "Episode",
-                                    let e = i.item.asEpisode,
-                                    let p = e.progress,
-                                    p <= e.duration {
-                                    item.playbackProgress = Double(e.duration) / Double(p)
+                                    let e = i.item.asEpisode {
+                                    if let p = e.progress,
+                                        p <= e.duration {
+                                        item.playbackProgress = Double(e.duration) / Double(p)
+                                    }
+                                    let action = TVTopShelfAction(url: urlFor(episodeId: i.id))
+                                    item.playAction = action
+                                    item.displayAction = action
+                                    items.append(item)
                                 }
-                                
-                                items.append(item)
                             }
                             let col = TVTopShelfItemCollection(items: items)
                             col.title = s.title
@@ -61,3 +64,10 @@ class ContentProvider: TVTopShelfContentProvider {
 
 }
 
+func urlFor(episodeId: String) -> URL {
+    var components = URLComponents()
+    components.scheme = "bcc.media"
+    components.path = "episode/\(episodeId)"
+    
+    return components.url!
+}

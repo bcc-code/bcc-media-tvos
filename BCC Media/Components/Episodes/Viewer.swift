@@ -182,6 +182,16 @@ struct EpisodeViewer: View {
     }
 }
 
+extension EpisodeViewer: Hashable {
+    static func == (lhs: EpisodeViewer, rhs: EpisodeViewer) -> Bool {
+        lhs.episodeId == rhs.episodeId
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.episodeId)
+    }
+}
+
 struct EpisodeViewer_Previews: PreviewProvider {
     static var previews: some View {
         EpisodeViewer(episodeId: "1838")

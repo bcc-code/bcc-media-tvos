@@ -12,7 +12,7 @@ struct ItemImage: View {
     }
     
     func getImg(_ img: String, _ size: CGSize) -> URL? {
-        return URL(string: img + "?w=\(Int(size.width))&h=\(Int(size.height))&crop=faces&fit=crop")
+        URL(string: img + "?w=\(Int(size.width))&h=\(Int(size.height))&fit=crop&crop=faces")
     }
 
     var body: some View {

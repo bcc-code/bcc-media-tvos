@@ -22,6 +22,8 @@ struct ContentView: View {
     
     @State var loaded = false
     
+    @State var path: NavigationPath = NavigationPath()
+    
     func load() {
         apolloClient.fetch(query: API.GetApplicationQuery()) { result in
             switch result {
@@ -38,7 +40,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             backgroundColor.ignoresSafeArea()
-            NavigationView {
+            NavigationStack(path: $path) {
                 if loaded {
                     TabView {
                         PageView(pageId: pageId).tabItem {
@@ -58,10 +60,32 @@ struct ContentView: View {
                             Label("Settings", systemImage: "gearshape.fill")
                         }
                     }
+                    .navigationDestination(for: EpisodeViewer.self) { episode in
+                        EpisodeViewer(episodeId: episode.episodeId)
+                    }
+//                    .navigationDestination(for: PageView.self) { page in
+//                        PageView(pageId: page.pageId, code: page.code)
+//                    }
                 }
             }.task {
                 load()
             }
+            .onOpenURL(perform: {url in
+                print(url.absoluteString)
+                
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+                
+                let parts = components.path.split(separator: "/")
+                if parts.count == 0 {
+                    return
+                }
+                if parts[0] == "episode" {
+                    if parts[1] != "" {
+                        let str = parts[1]
+                        path.append(EpisodeViewer(episodeId: String(str)))
+                    }
+                }
+            })
         }
     }
 }
