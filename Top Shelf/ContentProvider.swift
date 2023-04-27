@@ -29,6 +29,17 @@ class ContentProvider: TVTopShelfContentProvider {
                     for s in page.sections.items {
                         var items: [TVTopShelfSectionedItem] = []
                         if let itemSection = s.asItemSection {
+                            var imageShape: TVTopShelfSectionedItem.ImageShape
+                            
+                            switch s.__typename {
+                            case "IconSection":
+                                imageShape = .square
+                            case "PosterSection", "PosterGridSection":
+                                imageShape = .poster
+                            default:
+                                imageShape = .hdtv
+                            }
+                            
                             for i in itemSection.items.items {
                                 let item = TVTopShelfSectionedItem(identifier: i.id)
                                 item.title = i.title
@@ -47,6 +58,7 @@ class ContentProvider: TVTopShelfContentProvider {
                                     let action = TVTopShelfAction(url: urlFor(episodeId: i.id))
                                     item.playAction = action
                                     item.displayAction = action
+                                    item.imageShape = imageShape
                                     items.append(item)
                                 }
                             }
@@ -56,7 +68,9 @@ class ContentProvider: TVTopShelfContentProvider {
                         }
                     }
                 }
-                completionHandler(TVTopShelfSectionedContent(sections: sections))
+                let content = TVTopShelfSectionedContent(sections: sections)
+                
+                completionHandler(content)
             case .failure:
                 completionHandler(nil)
             }
