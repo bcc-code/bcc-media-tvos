@@ -31,6 +31,7 @@ struct FeaturedCard: View {
                 .overlay(
                     VStack(alignment: .leading, spacing: 20) {
                         Text(item.title).font(.title3)
+
                         if item.description != "" {
                             Text(item.description).font(.caption2).foregroundColor(.gray)
                         }
@@ -58,7 +59,7 @@ struct FeaturedSection: View {
                     FeaturedCard(item: item)
                 }.padding(100)
             }
-            .tabViewStyle(.page(indexDisplayMode: .automatic))
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
         .frame(height: 800).padding(-100)
     }

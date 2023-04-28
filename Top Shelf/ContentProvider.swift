@@ -30,7 +30,7 @@ class ContentProvider: TVTopShelfContentProvider {
                         var items: [TVTopShelfSectionedItem] = []
                         if let itemSection = s.asItemSection {
                             var imageShape: TVTopShelfSectionedItem.ImageShape
-                            
+
                             switch s.__typename {
                             case "IconSection":
                                 imageShape = .square
@@ -39,7 +39,7 @@ class ContentProvider: TVTopShelfContentProvider {
                             default:
                                 imageShape = .hdtv
                             }
-                            
+
                             for i in itemSection.items.items {
                                 let item = TVTopShelfSectionedItem(identifier: i.id)
                                 item.title = i.title
@@ -69,7 +69,7 @@ class ContentProvider: TVTopShelfContentProvider {
                     }
                 }
                 let content = TVTopShelfSectionedContent(sections: sections)
-                
+
                 completionHandler(content)
             case .failure:
                 completionHandler(nil)

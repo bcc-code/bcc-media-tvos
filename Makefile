@@ -12,4 +12,5 @@ lint:
 	- ./Pods/SwiftLint/swiftlint
 
 format:
-	- ./Pods/SwiftFormat/CommandLineTool/swiftformat .
+	- swiftformat ./BCC\ Media
+	- swiftformat ./Top\ Shelf
