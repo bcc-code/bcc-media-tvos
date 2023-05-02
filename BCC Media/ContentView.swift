@@ -61,9 +61,6 @@ struct ContentView: View {
                     .navigationDestination(for: EpisodeViewer.self) { episode in
                         EpisodeViewer(episodeId: episode.episodeId)
                     }
-//                    .navigationDestination(for: PageView.self) { page in
-//                        PageView(pageId: page.pageId, code: page.code)
-//                    }
                 }
             }.task {
                 load()

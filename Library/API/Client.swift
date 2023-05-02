@@ -49,7 +49,11 @@ private class CustomInterceptor: ApolloInterceptor {
                     request.addHeader(name: "X-Application", value: "tvos")
                     request.addHeader(name: "Authorization", value: "Bearer " + c)
                 }
-
+                
+                if let language = UserDefaults.standard.string(forKey: "appLanguage") {
+                    request.addHeader(name: "Accept-Language", value: language)
+                }
+                
                 chain.proceedAsync(request: request,
                         response: response,
                         completion: completion)
@@ -70,9 +74,7 @@ class ApolloClientFactory {
     public func NewClient() -> ApolloClient {
         let apolloClientCache = InMemoryNormalizedCache()
         let store = ApolloStore(cache: apolloClientCache)
-        let authPayloads = ["accept-language": Locale.preferredLanguages.map(mapLanguageToString).joined(separator: ",")]
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = authPayloads
 
         let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
         let provider = NetworkInterceptorProvider(tokenFactory: tokenFactory, client: client, store: store)

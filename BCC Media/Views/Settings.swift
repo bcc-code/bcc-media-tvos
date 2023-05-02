@@ -63,7 +63,14 @@ struct SettingsView: View {
 
     @State var showSignIn = false
 
-    @State var appLanguage = "en"
+    @State var appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "en";
+    @State var audioLanguage = UserDefaults.standard.string(forKey: "audioLanguage") ?? "en";
+    @State var subtitleLanguage = UserDefaults.standard.string(forKey: "subtitleLanguage") ?? "en";
+    
+    func setLanguage(_ key: String, _ value: String) {
+        UserDefaults.standard.setValue(value, forKey: key)
+        apolloClient.clearCache()
+    }
 
     var body: some View {
         NavigationStack {
@@ -86,8 +93,10 @@ struct SettingsView: View {
                                         }
                                     }.tag(language.code)
                                 }
-                            }.pickerStyle(.navigationLink)
-                            Picker("Audio Language", selection: $appLanguage) {
+                            }.pickerStyle(.navigationLink).onChange(of: appLanguage) {value in
+                                setLanguage("appLanguage", value)
+                            }
+                            Picker("Audio Language", selection: $audioLanguage) {
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
                                         Text(language.display)
@@ -97,8 +106,10 @@ struct SettingsView: View {
                                         }
                                     }.tag(language.code)
                                 }
-                            }.pickerStyle(.navigationLink)
-                            Picker("Subtitles", selection: $appLanguage) {
+                            }.pickerStyle(.navigationLink).onChange(of: audioLanguage) {value in
+                                setLanguage("audioLanguage", value)
+                            }
+                            Picker("Subtitles", selection: $subtitleLanguage) {
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
                                         Text(language.display)
@@ -108,7 +119,9 @@ struct SettingsView: View {
                                         }
                                     }.tag(language.code)
                                 }
-                            }.pickerStyle(.navigationLink)
+                            }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) {value in
+                                setLanguage("subtitleLanguage", value)
+                            }
                         }
                         Section(header: Text("Account")) {
                             if authenticated {
