@@ -115,9 +115,7 @@ struct PageView: View {
     
     var clickItem: ((Item) -> Void)
     
-    init(pageId: String, clickItem: @escaping ((Item) -> Void) = { item in
-        print("")
-    }) {
+    init(pageId: String, clickItem: @escaping ((Item) -> Void)) {
         self.pageId = pageId
         self.clickItem = clickItem
     }
@@ -152,8 +150,20 @@ struct PageView: View {
     }
 }
 
+extension PageView: Hashable {
+    static func == (lhs: PageView, rhs: PageView) -> Bool {
+        lhs.pageId == rhs.pageId
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(pageId)
+    }
+}
+
 struct PageView_Previews: PreviewProvider {
     static var previews: some View {
-        PageView(pageId: "-1")
+        PageView(pageId: "-1") { item in
+            print(item.title)
+        }
     }
 }

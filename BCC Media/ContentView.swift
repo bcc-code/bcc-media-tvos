@@ -16,6 +16,20 @@ var cardBackgroundColor: Color {
     Color(red: 29 / 256, green: 40 / 256, blue: 56 / 256)
 }
 
+struct FrontPage: View {
+    var pageId: String
+    var clickItem: (Item) -> Void
+    
+    init(pageId: String, clickItem: @escaping (Item) -> Void) {
+        self.pageId = pageId
+        self.clickItem = clickItem
+    }
+    
+    var body: some View {
+        PageView(pageId: pageId, clickItem: clickItem)
+    }
+}
+
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var pageId = ""
@@ -47,6 +61,17 @@ struct ContentView: View {
             }
         }
     }
+    
+    func clickItem(item: Item) {
+        switch item.type {
+        case .episode:
+            path.append(EpisodeViewer(episodeId: item.id))
+        case .show:
+            loadShow(item.id)
+        case .page:
+            path.append(PageView(pageId: item.id, clickItem: clickItem))
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -54,16 +79,7 @@ struct ContentView: View {
             NavigationStack(path: $path) {
                 if loaded {
                     TabView {
-                        PageView(pageId: pageId) { item in
-                            switch item.type {
-                            case .episode:
-                                path.append(EpisodeViewer(episodeId: item.id))
-                            case .show:
-                                loadShow(item.id)
-                            default:
-                                print("Missing support")
-                            }
-                        }.tabItem {
+                        FrontPage(pageId: pageId, clickItem: clickItem).tabItem {
                             Label("Home", systemImage: "house.fill")
                         }
                         if authenticated {
@@ -82,6 +98,9 @@ struct ContentView: View {
                     }
                     .navigationDestination(for: EpisodeViewer.self) { episode in
                         EpisodeViewer(episodeId: episode.episodeId)
+                    }
+                    .navigationDestination(for: PageView.self) { page in
+                        PageView(pageId: page.pageId, clickItem: clickItem)
                     }
                 }
             }.task {

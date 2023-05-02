@@ -21,7 +21,7 @@ enum ItemType {
     case page
 }
 
-struct Item: Identifiable, View {
+struct Item: Identifiable {
     var id: String
     var title: String
     var description: String
@@ -29,17 +29,6 @@ struct Item: Identifiable, View {
 
     var type: ItemType = .episode
     var routeId: String = ""
-
-    var body: some View {
-        switch type {
-        case .show:
-            EpisodeViewer(episodeId: routeId)
-        case .page:
-            PageView(pageId: id)
-        case .episode:
-            EpisodeViewer(episodeId: id)
-        }
-    }
 }
 
 struct ItemTitle: View {
