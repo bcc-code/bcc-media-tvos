@@ -13,11 +13,6 @@ fragment ItemSectionFragment on ItemSection {
                     progress
                     duration
                 }
-                ... on Show {
-                    defaultEpisode {
-                        id
-                    }
-                }
             }
         }
     }

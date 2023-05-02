@@ -4,13 +4,13 @@
 @_exported import Apollo
 
 public extension API {
-  class GetDefaultEpisodeIdForShowQuery: GraphQLQuery {
-    public static let operationName: String = "GetDefaultEpisodeIdForShow"
+  class GetDefaultEpisodeIdForSeasonQuery: GraphQLQuery {
+    public static let operationName: String = "GetDefaultEpisodeIdForSeason"
     public static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query GetDefaultEpisodeIdForShow($id: ID!) {
-          show(id: $id) {
+        query GetDefaultEpisodeIdForSeason($id: ID!) {
+          season(id: $id) {
             __typename
             defaultEpisode {
               __typename
@@ -35,19 +35,19 @@ public extension API {
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
-        .field("show", Show.self, arguments: ["id": .variable("id")]),
+        .field("season", Season.self, arguments: ["id": .variable("id")]),
       ] }
 
-      public var show: Show { __data["show"] }
+      public var season: Season { __data["season"] }
 
-      /// Show
+      /// Season
       ///
-      /// Parent Type: `Show`
-      public struct Show: API.SelectionSet {
+      /// Parent Type: `Season`
+      public struct Season: API.SelectionSet {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.Show }
+        public static var __parentType: Apollo.ParentType { API.Objects.Season }
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("defaultEpisode", DefaultEpisode.self),
@@ -57,7 +57,7 @@ public extension API {
         /// Should not be used actively in lists, as it could affect query speeds.
         public var defaultEpisode: DefaultEpisode { __data["defaultEpisode"] }
 
-        /// Show.DefaultEpisode
+        /// Season.DefaultEpisode
         ///
         /// Parent Type: `Episode`
         public struct DefaultEpisode: API.SelectionSet {

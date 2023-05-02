@@ -55,6 +55,41 @@ struct ContentView: View {
             case let .success(data):
                 if let episodeId = data.data?.show.defaultEpisode.id {
                     path.append(EpisodeViewer(episodeId: episodeId))
+                } else if let errs = data.errors {
+                    for err in errs {
+                        print(err.path)
+                        print(err.message)
+                    }
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func loadTopic(_ id: String) {
+        apolloClient.fetch(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)) { result in
+            switch result {
+            case let .success(data):
+                if let episodeId = data.data?.studyTopic.defaultLesson.defaultEpisode?.id {
+                    path.append(EpisodeViewer(episodeId: episodeId))
+                } else if let errs = data.errors {
+                    print(errs)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func loadSeason(_ id: String) {
+        apolloClient.fetch(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) { result in
+            switch result {
+            case let .success(data):
+                if let episodeId = data.data?.season.defaultEpisode.id {
+                    path.append(EpisodeViewer(episodeId: episodeId))
+                } else if let errs = data.errors {
+                    print(errs)
                 }
             case let .failure(error):
                 print(error)
@@ -70,6 +105,10 @@ struct ContentView: View {
             loadShow(item.id)
         case .page:
             path.append(PageView(pageId: item.id, clickItem: clickItem))
+        case .topic:
+            loadTopic(item.id)
+        case .season:
+            loadSeason(item.id)
         }
     }
 

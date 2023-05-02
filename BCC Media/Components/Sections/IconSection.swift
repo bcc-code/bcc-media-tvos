@@ -24,7 +24,7 @@ struct IconSection: View {
                 Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             }
             ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 20) {
+                LazyHStack(alignment: .top, spacing: 40) {
                     ForEach(items) { item in
                         VStack(spacing: 10) {
                             Button {

@@ -128,14 +128,17 @@ struct PageView: View {
         )) { result in
             switch result {
             case let .success(res):
+                print(res)
                 if let p = res.data {
                     page = p.page
+                } else if let errs = res.errors {
+                    print(errs)
                 }
             case .failure:
                 print("FAILED")
             }
 
-            print("OK")
+            print("Page loaded: " + self.pageId)
         }
     }
 

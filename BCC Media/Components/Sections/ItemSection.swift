@@ -19,6 +19,8 @@ enum ItemType {
     case episode
     case show
     case page
+    case topic
+    case season
 }
 
 struct Item: Identifiable {
@@ -28,7 +30,6 @@ struct Item: Identifiable {
     var image: String?
 
     var type: ItemType = .episode
-    var routeId: String = ""
 }
 
 struct ItemTitle: View {
@@ -47,19 +48,21 @@ struct ItemTitle: View {
 
 func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     var t: ItemType
-    var rId = ""
     switch item.item.__typename {
     case "Show":
         t = .show
-        rId = item.item.asShow?.defaultEpisode.id ?? ""
     case "Episode":
         t = .episode
     case "Page":
         t = .page
+    case "Season":
+        t = .season
+    case "StudyTopic":
+        t = .topic
     default:
         t = .episode
     }
-    return Item(id: item.id, title: item.title, description: item.description, image: item.image, type: t, routeId: rId)
+    return Item(id: item.id, title: item.title, description: item.description, image: item.image, type: t)
 }
 
 func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {

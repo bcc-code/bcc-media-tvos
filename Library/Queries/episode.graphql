@@ -51,3 +51,21 @@ query GetDefaultEpisodeIdForShow($id: ID!) {
         }
     }
 }
+
+query GetDefaultEpisodeIdForStudyTopic($id: ID!) {
+    studyTopic(id: $id) {
+        defaultLesson {
+            defaultEpisode {
+                id
+            }
+        }
+    }
+}
+
+query GetDefaultEpisodeIdForSeason($id: ID!) {
+    season(id: $id) {
+        defaultEpisode {
+            id
+        }
+    }
+}
