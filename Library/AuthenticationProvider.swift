@@ -53,19 +53,29 @@ struct DeviceTokenRequestResponse: Codable {
     }
 }
 
-struct AuthenticationProviderOptions {
-    var client_id: String
-    var scope: String
-    var audience: String
-    var domain: String
-}
-
 struct AuthenticationProvider {
-    private var options: AuthenticationProviderOptions
+    private var options = AuthenticationProvider.getConfigFromPlist()
     private var credentialsManager = Auth0.CredentialsManager(authentication: authentication(), storage: SimpleKeychain(service: "bcc.media", accessGroup: "group.tv.brunstad.app"))
     
-    init(options: AuthenticationProviderOptions) {
-        self.options = options
+    private struct Options {
+        var client_id: String
+        var scope: String
+        var audience: String
+        var domain: String
+    }
+    
+    private static func getConfigFromPlist() -> Options {
+        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "Auth0", ofType: "plist")!)
+        let data = try! Data(contentsOf: url)
+        let plist = try! PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [String:String]
+        
+        var domain: String = ""
+        var clientId: String = ""
+        if let properties = plist {
+            clientId = properties["ClientId"]!
+            domain = properties["Domain"]!
+        }
+        return Options(client_id: clientId, scope: "openid profile email offline_access", audience: "api.bcc.no", domain: domain)
     }
 
     private enum AuthenticationError: Error {

@@ -50,17 +50,13 @@ struct FeaturedSection: View {
     var title: String?
     var items: [Item]
 
-    @State private var index = 0
-
     var body: some View {
-        HStack {
-            TabView(selection: $index) {
-                ForEach(items, id: \.id) { item in
-                    FeaturedCard(item: item)
-                }.padding(100)
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
+        TabView {
+            ForEach(items.indices, id: \.self) { index in
+                FeaturedCard(item: items[index])
+            }.padding(100)
         }
+        .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: 800).padding(-100)
     }
 }

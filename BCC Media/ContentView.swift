@@ -21,7 +21,6 @@ struct ContentView: View {
     @State var pageId = ""
 
     @State var loaded = false
-
     @State var path: NavigationPath = .init()
 
     func load() {

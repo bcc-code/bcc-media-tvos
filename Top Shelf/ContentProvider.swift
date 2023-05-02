@@ -7,14 +7,7 @@
 
 import TVServices
 
-let authenticationProvider = AuthenticationProvider(
-    options: AuthenticationProviderOptions(
-        client_id: "rJbKSHYPskua2BgY8mEwOSasK6o6uCRA",
-        scope: "openid profile email offline_access",
-        audience: "api.bcc.no",
-        domain: "login.bcc.no"
-    )
-)
+let authenticationProvider = AuthenticationProvider()
 
 let apolloClient = ApolloClientFactory(tokenFactory: authenticationProvider.getAccessToken).NewClient()
 

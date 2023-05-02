@@ -2,9 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>ClientId</key>
-    <string>HgmQSt1W0Is0zrQgWFw6J8AHE0PyjMRt</string>
-    <key>Domain</key>
-    <string>login.bcc.no</string>
+	<key>ClientId</key>
+	<string>rJbKSHYPskua2BgY8mEwOSasK6o6uCRA</string>
+	<key>Domain</key>
+	<string>login.bcc.no</string>
 </dict>
 </plist>

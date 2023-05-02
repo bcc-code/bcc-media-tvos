@@ -15,9 +15,7 @@ struct SettingsView: View {
     var onSave: () -> Void
 
     @State var name: String? = nil
-
     @State var cancelTask: (() -> Void)? = nil
-
     @State var loading = false
 
     func reloadUserInfo() async {
