@@ -10,10 +10,12 @@ import SwiftUI
 struct IconSection: View {
     var title: String?
     var items: [Item]
+    var clickItem: (Item) -> Void
     
-    init(_ title: String?, _ items: [Item]) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
         self.title = title
         self.items = items
+        self.clickItem = clickItem
     }
 
     var body: some View {
@@ -25,8 +27,8 @@ struct IconSection: View {
                 LazyHStack(alignment: .top, spacing: 20) {
                     ForEach(items) { item in
                         VStack(spacing: 10) {
-                            NavigationLink {
-                                item
+                            Button {
+                                clickItem(item)
                             } label: {
                                 ItemImage(item.image)
                                     .frame(width: 200, height: 200)

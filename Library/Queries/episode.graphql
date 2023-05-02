@@ -43,3 +43,11 @@ fragment EpisodeSeason on Season {
         }
     }
 }
+
+query GetDefaultEpisodeIdForShow($id: ID!) {
+    show(id: $id) {
+        defaultEpisode {
+            id
+        }
+    }
+}

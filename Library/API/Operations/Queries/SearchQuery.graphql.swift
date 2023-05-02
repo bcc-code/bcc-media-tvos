@@ -44,7 +44,7 @@ public extension API {
 
     public struct Data: API.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
@@ -61,10 +61,11 @@ public extension API {
       /// Parent Type: `SearchResult`
       public struct Search: API.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: Apollo.ParentType { API.Objects.SearchResult }
         public static var __selections: [Apollo.Selection] { [
+          .field("__typename", String.self),
           .field("result", [Result].self),
         ] }
 
@@ -75,10 +76,11 @@ public extension API {
         /// Parent Type: `SearchResultItem`
         public struct Result: API.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: Apollo.ParentType { API.Interfaces.SearchResultItem }
           public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
             .field("id", API.ID.self),
             .field("title", String.self),
             .field("description", String?.self),

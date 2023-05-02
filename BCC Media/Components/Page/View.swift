@@ -47,6 +47,8 @@ struct PageDetailsSection: View {
 
 struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
+    
+    var clickItem: ((Item) -> Void)
 
     var body: some View {
         ScrollView(.vertical) {
@@ -54,34 +56,39 @@ struct PageDisplay: View {
                 ForEach(page.sections.items, id: \.id) { section in
                     if let itemSection = section.asItemSection {
                         if !itemSection.items.items.isEmpty {
-                            switch itemSection.__typename {
+                            switch section.__typename! {
                             case "PosterSection":
                                 PosterSection(
                                     itemSection.title,
-                                    mapToItems(itemSection.items)
+                                    mapToItems(itemSection.items),
+                                    clickItem: clickItem
                                 )
                             case "FeaturedSection":
                                 FeaturedSection(
                                     itemSection.title,
-                                    mapToItems(itemSection.items)
+                                    mapToItems(itemSection.items),
+                                    clickItem: clickItem
                                 )
                             case "DefaultSection":
                                 DefaultSection(
                                     itemSection.title,
-                                    mapToItems(itemSection.items)
+                                    mapToItems(itemSection.items),
+                                    clickItem: clickItem
                                 )
                             case "IconSection":
                                 IconSection(
                                     itemSection.title,
-                                    mapToItems(itemSection.items)
+                                    mapToItems(itemSection.items),
+                                    clickItem: clickItem
                                 )
                             case "CardSection":
                                 CardSection(
                                     itemSection.title,
-                                    mapToItems(itemSection.items)
+                                    mapToItems(itemSection.items),
+                                    clickItem: clickItem
                                 )
                             default:
-                                MissingContent(section.__typename)
+                                MissingContent(section.__typename ?? "unknown type")
                             }
                         }
                     } else {
@@ -93,7 +100,7 @@ struct PageDisplay: View {
                         case "AchievementsSection":
                             EmptyView()
                         default:
-                            MissingContent(section.__typename)
+                            MissingContent(section.__typename ?? "unknown type")
                         }
                     }
                 }
@@ -105,9 +112,14 @@ struct PageDisplay: View {
 struct PageView: View {
     @State var pageId: String
     @State var page: API.GetPageQuery.Data.Page? = nil
-
-    init(pageId: String) {
+    
+    var clickItem: ((Item) -> Void)
+    
+    init(pageId: String, clickItem: @escaping ((Item) -> Void) = { item in
+        print("")
+    }) {
         self.pageId = pageId
+        self.clickItem = clickItem
     }
 
     func load() {
@@ -132,7 +144,7 @@ struct PageView: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let p = page {
-                PageDisplay(page: p).refreshable { load() }
+                PageDisplay(page: p, clickItem: clickItem).refreshable { load() }
             } else {
                 ProgressView()
             }

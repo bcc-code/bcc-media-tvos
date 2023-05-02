@@ -9,7 +9,7 @@ target 'BCC Media' do
 
   # Pods for app
 
-  pod 'Apollo', '1.0.7'
+  pod 'Apollo'
 
   pod 'Auth0'
 end
@@ -20,7 +20,7 @@ target 'Top Shelf' do
 
   # Pods for app
 
-  pod 'Apollo', '1.0.7'
+  pod 'Apollo'
 
   pod 'Auth0'
 end

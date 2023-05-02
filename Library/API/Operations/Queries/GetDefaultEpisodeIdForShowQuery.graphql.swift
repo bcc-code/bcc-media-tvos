@@ -4,15 +4,15 @@
 @_exported import Apollo
 
 public extension API {
-  class GetApplicationQuery: GraphQLQuery {
-    public static let operationName: String = "getApplication"
+  class GetDefaultEpisodeIdForShowQuery: GraphQLQuery {
+    public static let operationName: String = "GetDefaultEpisodeIdForShow"
     public static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query getApplication {
-          application {
+        query GetDefaultEpisodeIdForShow($id: ID!) {
+          show(id: $id) {
             __typename
-            page {
+            defaultEpisode {
               __typename
               id
             }
@@ -21,7 +21,13 @@ public extension API {
         """#
       ))
 
-    public init() {}
+    public var id: ID
+
+    public init(id: ID) {
+      self.id = id
+    }
+
+    public var __variables: Variables? { ["id": id] }
 
     public struct Data: API.SelectionSet {
       public let __data: DataDict
@@ -29,34 +35,34 @@ public extension API {
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
-        .field("application", Application.self),
+        .field("show", Show.self, arguments: ["id": .variable("id")]),
       ] }
 
-      public var application: Application { __data["application"] }
+      public var show: Show { __data["show"] }
 
-      /// Application
+      /// Show
       ///
-      /// Parent Type: `Application`
-      public struct Application: API.SelectionSet {
+      /// Parent Type: `Show`
+      public struct Show: API.SelectionSet {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.Application }
+        public static var __parentType: Apollo.ParentType { API.Objects.Show }
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
-          .field("page", Page?.self),
+          .field("defaultEpisode", DefaultEpisode.self),
         ] }
 
-        public var page: Page? { __data["page"] }
+        public var defaultEpisode: DefaultEpisode { __data["defaultEpisode"] }
 
-        /// Application.Page
+        /// Show.DefaultEpisode
         ///
-        /// Parent Type: `Page`
-        public struct Page: API.SelectionSet {
+        /// Parent Type: `Episode`
+        public struct DefaultEpisode: API.SelectionSet {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Page }
+          public static var __parentType: Apollo.ParentType { API.Objects.Episode }
           public static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),

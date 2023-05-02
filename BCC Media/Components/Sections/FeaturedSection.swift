@@ -17,13 +17,12 @@ struct FeaturedButton: ButtonStyle {
 
 struct FeaturedCard: View {
     var item: Item
+    var clicked: () -> Void
 
     @FocusState var isFocused: Bool
 
     var body: some View {
-        NavigationLink {
-            EpisodeViewer(episodeId: item.id)
-        } label: {
+        Button(action: clicked) {
             ItemImage(item.image)
                 .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]), startPoint: .top, endPoint: .bottom))
                 .cornerRadius(10)
@@ -49,16 +48,20 @@ struct FeaturedCard: View {
 struct FeaturedSection: View {
     var title: String?
     var items: [Item]
+    var clickItem: (Item) -> Void
     
-    init(_ title: String?, _ items: [Item]) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
         self.title = title
         self.items = items
+        self.clickItem = clickItem
     }
 
     var body: some View {
         TabView {
             ForEach(items.indices, id: \.self) { index in
-                FeaturedCard(item: items[index])
+                FeaturedCard(item: items[index]) {
+                    clickItem(items[index])
+                }
             }.padding(100)
         }
         .tabViewStyle(.page(indexDisplayMode: .never))

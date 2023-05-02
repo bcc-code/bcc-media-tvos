@@ -10,10 +10,12 @@ import SwiftUI
 struct DefaultSection: View {
     var title: String?
     var items: [Item]
+    var clickItem: (Item) -> Void
     
-    init(_ title: String?, _ items: [Item]) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
         self.title = title
         self.items = items
+        self.clickItem = clickItem
     }
 
     var body: some View {
@@ -26,8 +28,8 @@ struct DefaultSection: View {
                     ForEach(items) { item in
                         if let img = item.image {
                             VStack(alignment: .leading, spacing: 20) {
-                                NavigationLink {
-                                    item
+                                Button {
+                                    clickItem(item)
                                 } label: {
                                     ItemImage(img)
                                         .frame(width: 400, height: 225).cornerRadius(10)

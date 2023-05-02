@@ -34,6 +34,19 @@ struct ContentView: View {
             loaded = true
         }
     }
+    
+    func loadShow(_ id: String) {
+        apolloClient.fetch(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) { result in
+            switch result {
+            case let .success(data):
+                if let episodeId = data.data?.show.defaultEpisode.id {
+                    path.append(EpisodeViewer(episodeId: episodeId))
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -41,7 +54,16 @@ struct ContentView: View {
             NavigationStack(path: $path) {
                 if loaded {
                     TabView {
-                        PageView(pageId: pageId).tabItem {
+                        PageView(pageId: pageId) { item in
+                            switch item.type {
+                            case .episode:
+                                path.append(EpisodeViewer(episodeId: item.id))
+                            case .show:
+                                loadShow(item.id)
+                            default:
+                                print("Missing support")
+                            }
+                        }.tabItem {
                             Label("Home", systemImage: "house.fill")
                         }
                         if authenticated {

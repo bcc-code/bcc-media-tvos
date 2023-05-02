@@ -42,7 +42,7 @@ public extension API {
 
     public struct Data: API.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
@@ -56,10 +56,11 @@ public extension API {
       /// Parent Type: `Episode`
       public struct Episode: API.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: Apollo.ParentType { API.Objects.Episode }
         public static var __selections: [Apollo.Selection] { [
+          .field("__typename", String.self),
           .field("id", API.ID.self),
           .field("title", String.self),
           .field("image", String?.self),
@@ -84,10 +85,11 @@ public extension API {
         /// Parent Type: `Stream`
         public struct Stream: API.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: Apollo.ParentType { API.Objects.Stream }
           public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
             .field("url", String.self),
             .field("type", GraphQLEnum<API.StreamType>.self),
           ] }
@@ -101,10 +103,11 @@ public extension API {
         /// Parent Type: `Season`
         public struct Season: API.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: Apollo.ParentType { API.Objects.Season }
           public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
             .field("id", API.ID.self),
           ] }
 

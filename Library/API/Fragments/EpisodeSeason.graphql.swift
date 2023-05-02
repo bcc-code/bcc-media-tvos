@@ -36,10 +36,11 @@ public extension API {
       """ }
 
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: Apollo.ParentType { API.Objects.Season }
     public static var __selections: [Apollo.Selection] { [
+      .field("__typename", String.self),
       .field("title", String.self),
       .field("show", Show.self),
       .field("episodes", Episodes.self, arguments: ["first": 100]),
@@ -54,10 +55,11 @@ public extension API {
     /// Parent Type: `Show`
     public struct Show: API.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { API.Objects.Show }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("title", String.self),
         .field("description", String.self),
         .field("seasons", Seasons.self, arguments: ["first": 100]),
@@ -72,10 +74,11 @@ public extension API {
       /// Parent Type: `SeasonPagination`
       public struct Seasons: API.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: Apollo.ParentType { API.Objects.SeasonPagination }
         public static var __selections: [Apollo.Selection] { [
+          .field("__typename", String.self),
           .field("items", [Item].self),
         ] }
 
@@ -86,10 +89,11 @@ public extension API {
         /// Parent Type: `Season`
         public struct Item: API.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: Apollo.ParentType { API.Objects.Season }
           public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
             .field("id", API.ID.self),
             .field("title", String.self),
           ] }
@@ -105,10 +109,11 @@ public extension API {
     /// Parent Type: `EpisodePagination`
     public struct Episodes: API.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { API.Objects.EpisodePagination }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("items", [Item].self),
       ] }
 
@@ -119,10 +124,11 @@ public extension API {
       /// Parent Type: `Episode`
       public struct Item: API.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: Apollo.ParentType { API.Objects.Episode }
         public static var __selections: [Apollo.Selection] { [
+          .field("__typename", String.self),
           .field("id", API.ID.self),
           .field("title", String.self),
           .field("description", String.self),

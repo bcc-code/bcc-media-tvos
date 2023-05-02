@@ -5,6 +5,7 @@ query GetPage($id: ID!) {
         description
         sections(first: 100) {
             items {
+                __typename
                 id
                 title
                 description
