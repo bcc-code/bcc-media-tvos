@@ -56,15 +56,30 @@ struct PageDisplay: View {
                         if !itemSection.items.items.isEmpty {
                             switch itemSection.__typename {
                             case "PosterSection":
-                                PosterSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                                PosterSection(
+                                    itemSection.title,
+                                    mapToItems(itemSection.items)
+                                )
                             case "FeaturedSection":
-                                FeaturedSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                                FeaturedSection(
+                                    itemSection.title,
+                                    mapToItems(itemSection.items)
+                                )
                             case "DefaultSection":
-                                DefaultSection(title: itemSection.title, items: itemSection.items.items.map(mapToItem))
+                                DefaultSection(
+                                    itemSection.title,
+                                    mapToItems(itemSection.items)
+                                )
                             case "IconSection":
-                                IconSection(title: itemSection.title, items: mapToItems(itemSection.items))
+                                IconSection(
+                                    itemSection.title,
+                                    mapToItems(itemSection.items)
+                                )
                             case "CardSection":
-                                CardSection(itemSection.title, mapToItems(itemSection.items))
+                                CardSection(
+                                    itemSection.title,
+                                    mapToItems(itemSection.items)
+                                )
                             default:
                                 MissingContent(section.__typename)
                             }
@@ -75,6 +90,8 @@ struct PageDisplay: View {
                             EmptyView()
                         case "PageDetailsSection":
                             PageDetailsSection(section.title, section.description)
+                        case "AchievementsSection":
+                            EmptyView()
                         default:
                             MissingContent(section.__typename)
                         }

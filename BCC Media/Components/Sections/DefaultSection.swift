@@ -10,6 +10,11 @@ import SwiftUI
 struct DefaultSection: View {
     var title: String?
     var items: [Item]
+    
+    init(_ title: String?, _ items: [Item]) {
+        self.title = title
+        self.items = items
+    }
 
     var body: some View {
         VStack {
@@ -34,11 +39,5 @@ struct DefaultSection: View {
                 }.padding(100)
             }.padding(-100)
         }
-    }
-}
-
-struct DefaultSection_Previews: PreviewProvider {
-    static var previews: some View {
-        DefaultSection(items: previewItems)
     }
 }

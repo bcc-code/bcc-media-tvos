@@ -47,9 +47,3 @@ struct CardSection: View {
         }
     }
 }
-
-struct CardSection_Previews: PreviewProvider {
-    static var previews: some View {
-        CardSection(nil, previewItems)
-    }
-}

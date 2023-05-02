@@ -10,6 +10,11 @@ import SwiftUI
 struct IconSection: View {
     var title: String?
     var items: [Item]
+    
+    init(_ title: String?, _ items: [Item]) {
+        self.title = title
+        self.items = items
+    }
 
     var body: some View {
         VStack {

@@ -49,6 +49,11 @@ struct FeaturedCard: View {
 struct FeaturedSection: View {
     var title: String?
     var items: [Item]
+    
+    init(_ title: String?, _ items: [Item]) {
+        self.title = title
+        self.items = items
+    }
 
     var body: some View {
         TabView {
@@ -58,11 +63,5 @@ struct FeaturedSection: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .frame(height: 800).padding(-100)
-    }
-}
-
-struct FeaturedSection_Preview: PreviewProvider {
-    static var previews: some View {
-        FeaturedSection(title: "Featured", items: previewItems)
     }
 }
