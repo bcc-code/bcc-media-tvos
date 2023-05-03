@@ -15,16 +15,8 @@ struct LiveResponse: Codable {
 }
 
 struct LivePlayer: View {
-    var url: URL
-
-    var body: some View {
-        PlayerViewController(videoURL: url, title: NSLocalizedString("Live", comment: ""), startFrom: 0).ignoresSafeArea()
-    }
-}
-
-struct LiveView: View {
-    @State var url: String?
-
+    @State var url: URL?
+    
     func load() {
         Task {
             let token = await authenticationProvider.getAccessToken()
@@ -34,18 +26,30 @@ struct LiveView: View {
 
                 let (data, _) = try await URLSession.shared.data(for: req)
                 let resp = try JSONDecoder().decode(LiveResponse.self, from: data)
-                url = resp.url
+                url = URL(string: resp.url)!
             }
         }
     }
 
     var body: some View {
-        NavigationLink {
-            if let url = url {
-                LivePlayer(url: URL(string: url)!)
+        VStack {
+            if let u = url {
+                PlayerViewController(videoURL: u, title: NSLocalizedString("Live", comment: ""), startFrom: 0).ignoresSafeArea()
+            } else {
+                ProgressView()
             }
+        }.onAppear {
+            load()
+        }.ignoresSafeArea()
+    }
+}
+
+struct LiveView: View {
+    var body: some View {
+        NavigationLink {
+            LivePlayer()
         } label: {
             Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
-        }.buttonStyle(.card).disabled(url == nil).task { load() }
+        }
     }
 }
