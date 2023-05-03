@@ -75,6 +75,12 @@ struct PageDisplay: View {
                                     mapToItems(itemSection.items),
                                     clickItem: clickItem
                                 )
+                            case "DefaultGridSection":
+                                DefaultGridSection(
+                                    itemSection.title,
+                                    mapToItems(itemSection.items),
+                                    clickItem: clickItem
+                                )
                             case "IconSection":
                                 IconSection(
                                     itemSection.title,
@@ -83,6 +89,12 @@ struct PageDisplay: View {
                                 )
                             case "CardSection":
                                 CardSection(
+                                    itemSection.title,
+                                    mapToItems(itemSection.items),
+                                    clickItem: clickItem
+                                )
+                            case "LabelSection":
+                                LabelSection(
                                     itemSection.title,
                                     mapToItems(itemSection.items),
                                     clickItem: clickItem
