@@ -17,7 +17,7 @@ struct EpisodeHeader: View {
         VStack {
             if let url = getPlayerUrl(streams: episode.streams) {
                 NavigationLink {
-                    EpisodePlayer(title: episode.title, playerUrl: url)
+                    EpisodePlayer(title: episode.title, playerUrl: url, startFrom: episode.progress ?? 0)
                 } label: {
                     ItemImage(episode.image).frame(width: 1280, height: 720)
                 }.buttonStyle(.card).frame(width: 1280, height: 720).overlay(
@@ -117,7 +117,7 @@ struct EpisodeViewer: View {
                                         ForEach(s.show.seasons.items, id: \.id) { se in
                                             Text(se.title).tag(se.id)
                                         }
-                                    }.pickerStyle(.navigationLink)
+                                    }.pickerStyle(.navigationLink).disabled(s.show.seasons.items.count <= 1)
                                     VStack(alignment: .leading, spacing: 10) {
                                         ForEach(s.episodes.items, id: \.id) { ep in
                                             NavigationLink {
@@ -147,7 +147,7 @@ struct EpisodeViewer: View {
                                     Text("Release date").bold().font(.caption)
                                     Text(toDateString(e.publishDate)).font(.caption2).foregroundColor(.gray)
                                     Spacer()
-                                }
+                                }.focusable()
                             }
                         }
                     }.frame(width: 1280).padding(100)

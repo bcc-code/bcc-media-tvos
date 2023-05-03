@@ -18,6 +18,7 @@ public extension API {
             ageRating
             publishDate
             description
+            progress
             streams {
               __typename
               url
@@ -67,6 +68,7 @@ public extension API {
           .field("ageRating", String.self),
           .field("publishDate", API.Date.self),
           .field("description", String.self),
+          .field("progress", Int?.self),
           .field("streams", [Stream].self),
           .field("season", Season?.self),
         ] }
@@ -77,6 +79,7 @@ public extension API {
         public var ageRating: String { __data["ageRating"] }
         public var publishDate: API.Date { __data["publishDate"] }
         public var description: String { __data["description"] }
+        public var progress: Int? { __data["progress"] }
         public var streams: [Stream] { __data["streams"] }
         public var season: Season? { __data["season"] }
 

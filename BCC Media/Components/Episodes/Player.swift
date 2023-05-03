@@ -11,6 +11,7 @@ import SwiftUI
 struct PlayerViewController: UIViewControllerRepresentable {
     var videoURL: URL
     var title: String?
+    var startFrom: Int
 
     private var player: AVPlayer {
         AVPlayer(url: videoURL)
@@ -40,6 +41,9 @@ struct PlayerViewController: UIViewControllerRepresentable {
         controller.title = title
         controller.modalPresentationStyle = .fullScreen
         controller.player = player
+        if startFrom != 0 {
+            controller.player!.seek(to: CMTimeMakeWithSeconds(Double(startFrom), preferredTimescale: 100))
+        }
         controller.player!.play()
 
         player.currentItem?.externalMetadata = createMetadataItems()
@@ -54,8 +58,16 @@ struct EpisodePlayer: View {
     var title: String?
     var playerUrl: URL
 
+    var startFrom: Int
+
+    init(title: String?, playerUrl: URL, startFrom: Int = 0) {
+        self.title = title
+        self.playerUrl = playerUrl
+        self.startFrom = startFrom
+    }
+
     var body: some View {
-        PlayerViewController(videoURL: playerUrl, title: title).ignoresSafeArea()
+        PlayerViewController(videoURL: playerUrl, title: title, startFrom: startFrom).ignoresSafeArea()
     }
 }
 

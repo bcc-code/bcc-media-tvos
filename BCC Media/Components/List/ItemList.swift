@@ -29,6 +29,21 @@ struct ItemImage: View {
     }
 }
 
+struct LockView: View {
+    var locked = false
+
+    var body: some View {
+        if locked {
+            ZStack {
+                Color.black.opacity(0.5)
+                Image(systemName: "lock.fill")
+                    .font(.title2)
+                    .foregroundColor(.gray)
+            }
+        }
+    }
+}
+
 struct ItemListView<T, IView: View>: View {
     var title: String?
     var items: [T]

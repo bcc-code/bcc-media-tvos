@@ -37,11 +37,13 @@ struct FeaturedCard: View {
                     }.padding(20).frame(maxWidth: 1000),
 
                     alignment: .bottomLeading
+                ).overlay(
+                    LockView(locked: item.locked)
                 )
         }
-        .buttonStyle(FeaturedButton(focused: isFocused))
-        .padding(0)
-        .focused($isFocused)
+            .buttonStyle(FeaturedButton(focused: isFocused))
+            .padding(0)
+            .focused($isFocused)
     }
 }
 

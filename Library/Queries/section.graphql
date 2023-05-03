@@ -12,6 +12,7 @@ fragment ItemSectionFragment on ItemSection {
                 ... on Episode {
                     progress
                     duration
+                    locked
                 }
             }
         }

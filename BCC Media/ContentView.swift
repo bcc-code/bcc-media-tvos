@@ -100,6 +100,9 @@ struct ContentView: View {
     }
 
     func clickItem(item: Item) {
+        if item.locked {
+            return
+        }
         switch item.type {
         case .episode:
             path.append(EpisodeViewer(episodeId: item.id))
@@ -141,13 +144,22 @@ struct ContentView: View {
                     }
                 }
                 .navigationDestination(for: EpisodeViewer.self) { episode in
-                    EpisodeViewer(episodeId: episode.episodeId)
+                    EpisodeViewer(
+                        episodeId: episode.episodeId
+                    )
                 }
                 .navigationDestination(for: PageView.self) { page in
-                    PageView(pageId: page.pageId, clickItem: clickItem)
+                    PageView(
+                        pageId: page.pageId,
+                        clickItem: clickItem
+                    )
                 }
                 .navigationDestination(for: EpisodePlayer.self) { player in
-                    EpisodePlayer(title: player.title, playerUrl: player.playerUrl).ignoresSafeArea()
+                    EpisodePlayer(
+                        title: player.title,
+                        playerUrl: player.playerUrl,
+                        startFrom: player.startFrom
+                    ).ignoresSafeArea()
                 }
             }.task {
                 load()
@@ -171,7 +183,7 @@ struct ContentView: View {
                                         case let .success(res):
                                             if let streams = res.data?.episode.streams, let playerUrl = getPlayerUrl(streams: streams) {
                                                 print("Adding player to path")
-                                                path.append(EpisodePlayer(title: res.data?.episode.title, playerUrl: playerUrl))
+                                                path.append(EpisodePlayer(title: res.data?.episode.title, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
                                             }
                                         case .failure:
                                             print("Failed to retrieve stream from episode")

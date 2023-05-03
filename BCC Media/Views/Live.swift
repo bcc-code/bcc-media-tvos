@@ -18,7 +18,7 @@ struct LivePlayer: View {
     var url: URL
 
     var body: some View {
-        PlayerViewController(videoURL: url, title: NSLocalizedString("Live", comment: "")).ignoresSafeArea()
+        PlayerViewController(videoURL: url, title: NSLocalizedString("Live", comment: ""), startFrom: 0).ignoresSafeArea()
     }
 }
 
@@ -45,9 +45,7 @@ struct LiveView: View {
                 LivePlayer(url: URL(string: url)!)
             }
         } label: {
-            ItemImage("https://brunstadtv.imgix.net/ba20f24f-a3c1-4587-900c-c90bafe63ea7.jpg").overlay(
-                Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
-            )
+            Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
         }.buttonStyle(.card).disabled(url == nil).task { load() }
     }
 }

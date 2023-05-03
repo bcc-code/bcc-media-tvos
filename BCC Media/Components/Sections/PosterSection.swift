@@ -32,7 +32,9 @@ struct PosterSection: View {
                                     clickItem(item)
                                 } label: {
                                     ItemImage(img)
-                                        .frame(width: 400, height: 600).cornerRadius(10)
+                                        .frame(width: 400, height: 600).cornerRadius(10).overlay(
+                                            LockView(locked: item.locked)
+                                        )
                                 }.buttonStyle(.card)
                                 ItemTitle(item)
                             }.frame(width: 400)

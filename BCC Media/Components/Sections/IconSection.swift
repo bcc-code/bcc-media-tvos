@@ -1,5 +1,5 @@
 //
-//  PosterSection.swift
+//  IconSection.swift
 //  BCC Media
 //
 //  Created by Fredrik Vedvik on 17/04/2023.
@@ -34,7 +34,9 @@ struct IconSection: View {
                                     .frame(width: 180, height: 180)
                                     .cornerRadius(10)
                                     .padding(20)
-                                    .background(cardBackgroundColor)
+                                    .background(cardBackgroundColor).overlay(
+                                        LockView(locked: item.locked)
+                                    )
                             }.buttonStyle(.card)
                             VStack {
                                 Text(item.title)

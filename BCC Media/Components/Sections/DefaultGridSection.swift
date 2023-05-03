@@ -1,5 +1,5 @@
 //
-//  PosterSection.swift
+//  DefaultGridSection.swift
 //  BCC Media
 //
 //  Created by Fredrik Vedvik on 17/04/2023.
@@ -17,7 +17,7 @@ struct DefaultGridSection: View {
         self.items = items
         self.clickItem = clickItem
     }
-    
+
     var columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
@@ -34,7 +34,9 @@ struct DefaultGridSection: View {
                                     clickItem(item)
                                 } label: {
                                     ItemImage(img)
-                                        .frame(width: 400, height: 225).cornerRadius(10)
+                                        .frame(width: 400, height: 225).cornerRadius(10).overlay(
+                                            LockView(locked: item.locked)
+                                        )
                                 }.buttonStyle(.card)
                                 ItemTitle(item)
                             }.frame(width: 400)

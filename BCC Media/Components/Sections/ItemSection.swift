@@ -30,6 +30,8 @@ struct Item: Identifiable {
     var image: String?
 
     var type: ItemType = .episode
+
+    var locked = false
 }
 
 struct ItemTitle: View {
@@ -48,11 +50,15 @@ struct ItemTitle: View {
 
 func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     var t: ItemType
+    var locked = false
     switch item.item.__typename {
     case "Show":
         t = .show
     case "Episode":
         t = .episode
+        if let e = item.item.asEpisode {
+            locked = e.locked
+        }
     case "Page":
         t = .page
     case "Season":
@@ -62,7 +68,7 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     default:
         t = .episode
     }
-    return Item(id: item.id, title: item.title, description: item.description, image: item.image, type: t)
+    return Item(id: item.id, title: item.title, description: item.description, image: item.image, type: t, locked: locked)
 }
 
 func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {

@@ -1,5 +1,5 @@
 //
-//  PosterSection.swift
+//  LabelSection.swift
 //  BCC Media
 //
 //  Created by Fredrik Vedvik on 17/04/2023.
@@ -33,7 +33,9 @@ struct LabelSection: View {
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                                 .background(cardBackgroundColor)
-                                .cornerRadius(10)
+                                .cornerRadius(10).overlay(
+                                    LockView(locked: item.locked)
+                                )
                         }.buttonStyle(.card)
                     }
                 }.padding(100)

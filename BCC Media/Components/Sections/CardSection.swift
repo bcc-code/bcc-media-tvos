@@ -1,5 +1,5 @@
 //
-//  PosterSection.swift
+//  CardSection.swift
 //  BCC Media
 //
 //  Created by Fredrik Vedvik on 17/04/2023.
@@ -39,7 +39,9 @@ struct CardSection: View {
                                             Text(item.description).font(.caption2).foregroundColor(.gray)
                                         }.padding(.horizontal, 20).padding(.bottom, 10)
                                         Spacer()
-                                    }.frame(width: 400).cornerRadius(10)
+                                    }.frame(width: 400).cornerRadius(10).overlay(
+                                        LockView(locked: item.locked)
+                                    )
                                 }.buttonStyle(.card)
                             }.frame(width: 400)
                         }

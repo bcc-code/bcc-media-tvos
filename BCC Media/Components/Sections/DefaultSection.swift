@@ -1,5 +1,5 @@
 //
-//  PosterSection.swift
+//  DefaultSection.swift
 //  BCC Media
 //
 //  Created by Fredrik Vedvik on 17/04/2023.
@@ -32,7 +32,11 @@ struct DefaultSection: View {
                                     clickItem(item)
                                 } label: {
                                     ItemImage(img)
-                                        .frame(width: 400, height: 225).cornerRadius(10)
+                                        .frame(width: 400, height: 225)
+                                        .cornerRadius(10)
+                                        .overlay(
+                                            LockView(locked: item.locked)
+                                        )
                                 }.buttonStyle(.card)
                                 ItemTitle(item)
                             }.frame(width: 400)
@@ -40,6 +44,14 @@ struct DefaultSection: View {
                     }
                 }.padding(100)
             }.padding(-100)
+        }
+    }
+}
+
+struct previews: PreviewProvider {
+    static var previews: some View {
+        DefaultSection("", previewItems) { item in
+            print(item.title)
         }
     }
 }

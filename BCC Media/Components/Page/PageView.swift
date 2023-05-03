@@ -41,7 +41,7 @@ struct PageDetailsSection: View {
             if let d = description {
                 Text(d).font(.caption).foregroundColor(.gray)
             }
-        }
+        }.focusable()
     }
 }
 
@@ -109,7 +109,7 @@ struct PageDisplay: View {
                             EmptyView()
                         case "PageDetailsSection":
                             PageDetailsSection(section.title, section.description)
-                        case "AchievementsSection":
+                        case "AchievementSection":
                             EmptyView()
                         default:
                             MissingContent(section.__typename ?? "unknown type")

@@ -22,6 +22,7 @@ public extension API {
               ... on Episode {
                 progress
                 duration
+                locked
               }
             }
           }
@@ -107,10 +108,12 @@ public extension API {
             public static var __selections: [Apollo.Selection] { [
               .field("progress", Int?.self),
               .field("duration", Int.self),
+              .field("locked", Bool.self),
             ] }
 
             public var progress: Int? { __data["progress"] }
             public var duration: Int { __data["duration"] }
+            public var locked: Bool { __data["locked"] }
           }
         }
       }
