@@ -47,8 +47,8 @@ struct PageDetailsSection: View {
 
 struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
-    
-    var clickItem: ((Item) -> Void)
+
+    var clickItem: (Item) -> Void
 
     var body: some View {
         ScrollView(.vertical) {
@@ -112,9 +112,9 @@ struct PageDisplay: View {
 struct PageView: View {
     @State var pageId: String
     @State var page: API.GetPageQuery.Data.Page? = nil
-    
-    var clickItem: ((Item) -> Void)
-    
+
+    var clickItem: (Item) -> Void
+
     init(pageId: String, clickItem: @escaping ((Item) -> Void)) {
         self.pageId = pageId
         self.clickItem = clickItem
@@ -144,9 +144,9 @@ struct PageView: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let p = page {
-                PageDisplay(page: p, clickItem: clickItem).refreshable { load() }
-            } else {
-                ProgressView()
+                PageDisplay(page: p, clickItem: clickItem)
+                    .refreshable { load() }
+                    .transition(.opacity)
             }
         }.task { load() }.frame(width: .infinity)
     }

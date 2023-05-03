@@ -45,7 +45,7 @@ struct Language {
         for code in LanguageCodes.allCases {
             let display = locale.localizedString(forLanguageCode: code.rawValue)
             var lang = Language(code.rawValue, display ?? code.rawValue)
-            
+
             if lang.code == "nb" {
                 lang.code = "no"
             }

@@ -11,7 +11,7 @@ struct CardSection: View {
     var title: String?
     var items: [Item]
     var clickItem: (Item) -> Void
-    
+
     init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
         self.title = title
         self.items = items

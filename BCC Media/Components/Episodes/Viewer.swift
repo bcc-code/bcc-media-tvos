@@ -13,26 +13,9 @@ struct EpisodeHeader: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     var season: API.GetEpisodeSeasonQuery.Data.Season?
 
-    func getPlayerUrl() -> URL? {
-        let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
-        var index = 0
-        var stream = episode.streams.first(where: { $0.type == types[index] })
-        while stream == nil && (types.count - 1) > index {
-            index += 1
-            stream = episode.streams.first(where: { $0.type == types[index] })
-        }
-        if stream == nil {
-            stream = episode.streams.first
-        }
-        if let stream = stream {
-            return URL(string: stream.url)
-        }
-        return nil
-    }
-
     var body: some View {
         VStack {
-            if let url = getPlayerUrl() {
+            if let url = getPlayerUrl(streams: episode.streams) {
                 NavigationLink {
                     EpisodePlayer(title: episode.title, playerUrl: url)
                 } label: {

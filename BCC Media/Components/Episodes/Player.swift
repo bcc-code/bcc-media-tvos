@@ -58,3 +58,13 @@ struct EpisodePlayer: View {
         PlayerViewController(videoURL: playerUrl, title: title).ignoresSafeArea()
     }
 }
+
+extension EpisodePlayer: Hashable {
+    static func == (lhs: EpisodePlayer, rhs: EpisodePlayer) -> Bool {
+        lhs.playerUrl == rhs.playerUrl
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(playerUrl)
+    }
+}

@@ -63,10 +63,10 @@ struct SettingsView: View {
 
     @State var showSignIn = false
 
-    @State var appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "en";
-    @State var audioLanguage = UserDefaults.standard.string(forKey: "audioLanguage") ?? "en";
-    @State var subtitleLanguage = UserDefaults.standard.string(forKey: "subtitleLanguage") ?? "en";
-    
+    @State var appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "en"
+    @State var audioLanguage = UserDefaults.standard.string(forKey: "audioLanguage") ?? "en"
+    @State var subtitleLanguage = UserDefaults.standard.string(forKey: "subtitleLanguage") ?? "en"
+
     func setLanguage(_ key: String, _ value: String) {
         UserDefaults.standard.setValue(value, forKey: key)
         apolloClient.clearCache()
@@ -93,7 +93,7 @@ struct SettingsView: View {
                                         }
                                     }.tag(language.code)
                                 }
-                            }.pickerStyle(.navigationLink).onChange(of: appLanguage) {value in
+                            }.pickerStyle(.navigationLink).onChange(of: appLanguage) { value in
                                 setLanguage("appLanguage", value)
                             }
                             Picker("Audio Language", selection: $audioLanguage) {
@@ -106,7 +106,7 @@ struct SettingsView: View {
                                         }
                                     }.tag(language.code)
                                 }
-                            }.pickerStyle(.navigationLink).onChange(of: audioLanguage) {value in
+                            }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
                                 setLanguage("audioLanguage", value)
                             }
                             Picker("Subtitles", selection: $subtitleLanguage) {
@@ -119,7 +119,7 @@ struct SettingsView: View {
                                         }
                                     }.tag(language.code)
                                 }
-                            }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) {value in
+                            }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
                                 setLanguage("subtitleLanguage", value)
                             }
                         }

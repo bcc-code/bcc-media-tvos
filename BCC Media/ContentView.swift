@@ -19,12 +19,12 @@ var cardBackgroundColor: Color {
 struct FrontPage: View {
     var pageId: String
     var clickItem: (Item) -> Void
-    
+
     init(pageId: String, clickItem: @escaping (Item) -> Void) {
         self.pageId = pageId
         self.clickItem = clickItem
     }
-    
+
     var body: some View {
         PageView(pageId: pageId, clickItem: clickItem)
     }
@@ -37,6 +37,8 @@ struct ContentView: View {
     @State var loaded = false
     @State var path: NavigationPath = .init()
 
+    @State var loading = false
+
     func load() {
         apolloClient.fetch(query: API.GetApplicationQuery()) { result in
             switch result {
@@ -48,7 +50,7 @@ struct ContentView: View {
             loaded = true
         }
     }
-    
+
     func loadShow(_ id: String) {
         apolloClient.fetch(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) { result in
             switch result {
@@ -57,8 +59,8 @@ struct ContentView: View {
                     path.append(EpisodeViewer(episodeId: episodeId))
                 } else if let errs = data.errors {
                     for err in errs {
-                        print(err.path)
-                        print(err.message)
+                        print(err.path as Any)
+                        print(err.message as Any)
                     }
                 }
             case let .failure(error):
@@ -66,7 +68,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     func loadTopic(_ id: String) {
         apolloClient.fetch(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)) { result in
             switch result {
@@ -81,7 +83,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     func loadSeason(_ id: String) {
         apolloClient.fetch(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) { result in
             switch result {
@@ -96,7 +98,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     func clickItem(item: Item) {
         switch item.type {
         case .episode:
@@ -116,38 +118,42 @@ struct ContentView: View {
         ZStack {
             backgroundColor.ignoresSafeArea()
             NavigationStack(path: $path) {
-                if loaded {
-                    TabView {
-                        FrontPage(pageId: pageId, clickItem: clickItem).tabItem {
-                            Label("Home", systemImage: "house.fill")
-                        }
-                        if authenticated {
-                            LiveView().tabItem {
-                                Label("Live", systemImage: "video")
+                VStack {
+                    if loaded && !loading && path.isEmpty {
+                        TabView {
+                            FrontPage(pageId: pageId, clickItem: clickItem).tabItem {
+                                Label("Home", systemImage: "house.fill")
+                            }
+                            if authenticated {
+                                LiveView().tabItem {
+                                    Label("Live", systemImage: "video")
+                                }
+                            }
+                            SearchView().tabItem {
+                                Label("Search", systemImage: "magnifyingglass")
+                            }
+                            SettingsView {
+                                authenticated = authenticationProvider.isAuthenticated()
+                            }.tabItem {
+                                Label("Settings", systemImage: "gearshape.fill")
                             }
                         }
-                        SearchView().tabItem {
-                            Label("Search", systemImage: "magnifyingglass")
-                        }
-                        SettingsView {
-                            authenticated = authenticationProvider.isAuthenticated()
-                        }.tabItem {
-                            Label("Settings", systemImage: "gearshape.fill")
-                        }
                     }
-                    .navigationDestination(for: EpisodeViewer.self) { episode in
-                        EpisodeViewer(episodeId: episode.episodeId)
-                    }
-                    .navigationDestination(for: PageView.self) { page in
-                        PageView(pageId: page.pageId, clickItem: clickItem)
-                    }
+                }
+                .navigationDestination(for: EpisodeViewer.self) { episode in
+                    EpisodeViewer(episodeId: episode.episodeId)
+                }
+                .navigationDestination(for: PageView.self) { page in
+                    PageView(pageId: page.pageId, clickItem: clickItem)
+                }
+                .navigationDestination(for: EpisodePlayer.self) { player in
+                    EpisodePlayer(title: player.title, playerUrl: player.playerUrl).ignoresSafeArea()
                 }
             }.task {
                 load()
             }
             .onOpenURL(perform: { url in
-                print(url.absoluteString)
-
+                loading = true
                 let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
                 let parts = components.path.split(separator: "/")
@@ -157,7 +163,27 @@ struct ContentView: View {
                 if parts[0] == "episode" {
                     if parts[1] != "" {
                         let str = parts[1]
+                        if let queryItems = components.queryItems {
+                            for q in queryItems {
+                                if q.name == "play" {
+                                    apolloClient.fetch(query: API.GetEpisodeQuery(id: String(str))) { result in
+                                        switch result {
+                                        case let .success(res):
+                                            if let streams = res.data?.episode.streams, let playerUrl = getPlayerUrl(streams: streams) {
+                                                print("Adding player to path")
+                                                path.append(EpisodePlayer(title: res.data?.episode.title, playerUrl: playerUrl))
+                                            }
+                                        case .failure:
+                                            print("Failed to retrieve stream from episode")
+                                        }
+                                        loading = false
+                                    }
+                                    return
+                                }
+                            }
+                        }
                         path.append(EpisodeViewer(episodeId: String(str)))
+                        loading = false
                     }
                 }
             })

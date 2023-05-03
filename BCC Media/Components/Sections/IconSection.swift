@@ -11,7 +11,7 @@ struct IconSection: View {
     var title: String?
     var items: [Item]
     var clickItem: (Item) -> Void
-    
+
     init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
         self.title = title
         self.items = items
@@ -24,16 +24,17 @@ struct IconSection: View {
                 Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             }
             ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 40) {
+                LazyHStack(alignment: .top, spacing: 60) {
                     ForEach(items) { item in
                         VStack(spacing: 10) {
                             Button {
                                 clickItem(item)
                             } label: {
                                 ItemImage(item.image)
-                                    .frame(width: 200, height: 200)
-                                    .background(cardBackgroundColor)
+                                    .frame(width: 180, height: 180)
                                     .cornerRadius(10)
+                                    .padding(20)
+                                    .background(cardBackgroundColor)
                             }.buttonStyle(.card)
                             VStack {
                                 Text(item.title)

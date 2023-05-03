@@ -48,9 +48,8 @@ class ContentProvider: TVTopShelfContentProvider {
                                     {
                                         item.playbackProgress = Double(e.duration) / Double(p)
                                     }
-                                    let action = TVTopShelfAction(url: urlFor(episodeId: i.id))
-                                    item.playAction = action
-                                    item.displayAction = action
+                                    item.playAction = TVTopShelfAction(url: urlFor(episodeId: i.id, withPlay: true))
+                                    item.displayAction = TVTopShelfAction(url: urlFor(episodeId: i.id, withPlay: false))
                                     item.imageShape = imageShape
                                     items.append(item)
                                 }
@@ -71,10 +70,15 @@ class ContentProvider: TVTopShelfContentProvider {
     }
 }
 
-func urlFor(episodeId: String) -> URL {
+func urlFor(episodeId: String, withPlay: Bool) -> URL {
     var components = URLComponents()
     components.scheme = "bcc.media"
     components.path = "episode/\(episodeId)"
+    if withPlay {
+        components.queryItems = [
+            URLQueryItem(name: "play", value: nil),
+        ]
+    }
 
     return components.url!
 }

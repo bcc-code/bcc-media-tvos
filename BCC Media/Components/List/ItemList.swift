@@ -19,9 +19,9 @@ struct ItemImage: View {
         GeometryReader { proxy in
             if proxy.size != .zero, let img = image {
                 AsyncImage(url: getImg(img, proxy.size)) { image in
-                    image.renderingMode(.original)
+                    image.renderingMode(.original).transition(.opacity)
                 } placeholder: {
-                    ProgressView()
+                    Rectangle().fill(cardBackgroundColor).transition(.opacity)
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
