@@ -125,20 +125,20 @@ struct ContentView: View {
                     if loaded && !loading && path.isEmpty {
                         TabView {
                             FrontPage(pageId: pageId, clickItem: clickItem).tabItem {
-                                Label("Home", systemImage: "house.fill")
+                                Label("tab_home", systemImage: "house.fill")
                             }
                             if authenticated {
                                 LiveView().tabItem {
-                                    Label("Live", systemImage: "video")
+                                    Label("tab_live", systemImage: "video")
                                 }
                             }
                             SearchView().tabItem {
-                                Label("Search", systemImage: "magnifyingglass")
+                                Label("tab_search", systemImage: "magnifyingglass")
                             }
                             SettingsView {
                                 authenticated = authenticationProvider.isAuthenticated()
                             }.tabItem {
-                                Label("Settings", systemImage: "gearshape.fill")
+                                Label("tab_settings", systemImage: "gearshape.fill")
                             }
                         }
                     }

@@ -50,24 +50,24 @@ struct SearchView: View {
         VStack {
             if let i = showResult {
                 ItemListView(
-                    title: NSLocalizedString("Shows", comment: ""),
+                    title: NSLocalizedString("common_shows", comment: ""),
                     items: i,
-                    emptyListText: Text("No shows with the current filter")
+                    emptyListText: Text("search_noShowsWithCurrentFilter")
                 ) { item in
                     ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
                 }
             }
             if let i = episodeResult {
                 ItemListView(
-                    title: NSLocalizedString("Episodes", comment: ""),
+                    title: NSLocalizedString("common_episodes", comment: ""),
                     items: i,
-                    emptyListText: Text("No episodes with the current filter")
+                    emptyListText: Text("search_noEpisodesWithCurrentFilter")
                 ) { item in
                     ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
                 }
             }
             if showResult == nil || episodeResult == nil {
-                Text("Enter something in the search field to begin searching")
+                Text("search_inputField")
             }
         }
         .searchable(text: $queryString)

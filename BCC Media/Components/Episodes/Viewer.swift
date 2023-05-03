@@ -104,16 +104,16 @@ struct EpisodeViewer: View {
                     VStack(alignment: .leading) {
                         EpisodeHeader(episode: e, season: season)
                         HStack {
-                            Picker("Tab", selection: $tab) {
-                                Text("Episodes").tag(Tab.season)
-                                Text("Details").tag(Tab.details)
+                            Picker(String(localized: "common_tab"), selection: $tab) {
+                                Text("common_episodes").tag(Tab.season)
+                                Text("common_details").tag(Tab.details)
                             }.pickerStyle(.segmented)
                         }
                         switch tab {
                         case .season:
                             VStack {
                                 if let s = season {
-                                    Picker("Season", selection: $seasonId) {
+                                    Picker(String(localized: "common_seasons"), selection: $seasonId) {
                                         ForEach(s.show.seasons.items, id: \.id) { se in
                                             Text(se.title).tag(se.id)
                                         }
@@ -140,11 +140,11 @@ struct EpisodeViewer: View {
                             ScrollView(.vertical) {
                                 VStack(alignment: .leading) {
                                     if let s = season {
-                                        Text("Show description").bold().font(.caption)
+                                        Text("shows_description").bold().font(.caption)
                                         Text(s.show.description).font(.caption2).foregroundColor(.gray)
                                     }
                                     Spacer()
-                                    Text("Release date").bold().font(.caption)
+                                    Text("episodes_releaseDate").bold().font(.caption)
                                     Text(toDateString(e.publishDate)).font(.caption2).foregroundColor(.gray)
                                     Spacer()
                                 }.focusable()

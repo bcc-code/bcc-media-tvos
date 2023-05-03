@@ -395,7 +395,6 @@
 				0943E18529BB364B0016348C /* Sections */,
 				2D64EACA7247B2B605E740B3 /* Episodes */,
 				2D64EAC0EC80770AAA794BC8 /* List */,
-				093D8D4129F27F1E00A2D685 /* Localization */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -674,6 +673,7 @@
 		2D64EF38E0F7589C8BE0D636 /* BCC Media */ = {
 			isa = PBXGroup;
 			children = (
+				093D8D4129F27F1E00A2D685 /* Localization */,
 				0943E18429BB363F0016348C /* Components */,
 				097D6EC129F1416F0007E4FB /* Utils */,
 				2D64E22E44F7DA7C709CE617 /* Views */,

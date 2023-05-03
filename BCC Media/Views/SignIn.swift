@@ -37,7 +37,7 @@ struct SignInView: View {
                 if let img = getQRCodeData(text: verificationUriComplete) {
                     Image(uiImage: UIImage(data: img)!).resizable().frame(width: 512, height: 512).cornerRadius(10).shadow(radius: 20)
                 }
-                Text("Scan this with your phone").foregroundColor(.gray)
+                Text("signIn_scanWithPhone").foregroundColor(.gray)
             }
             Spacer().frame(width: 50)
             VStack {

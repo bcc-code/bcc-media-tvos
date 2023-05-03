@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+extension String {
+    var capitalizedSentence: String {
+        // 1
+        let firstLetter = self.prefix(1).capitalized
+        // 2
+        let remainingLetters = self.dropFirst().lowercased()
+        // 3
+        return firstLetter + remainingLetters
+    }
+}
+
 struct SettingsView: View {
     @State var token = ""
     @State var verificationUri = ""
@@ -82,48 +93,36 @@ struct SettingsView: View {
             } else {
                 VStack {
                     Form {
-                        Section(header: Text("Settings")) {
-                            Picker("App Language", selection: $appLanguage) {
+                        Section(header: Text("common_settings")) {
+                            Picker("settings_appLanguage", selection: $appLanguage) {
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
-                                        Text(language.display)
-                                        if let e = language.english {
-                                            Text(e).foregroundColor(.gray)
-                                            Spacer()
-                                        }
+                                        Text(language.display.capitalizedSentence)
                                     }.tag(language.code)
                                 }
                             }.pickerStyle(.navigationLink).onChange(of: appLanguage) { value in
                                 setLanguage("appLanguage", value)
                             }
-                            Picker("Audio Language", selection: $audioLanguage) {
+                            Picker("settings_audioLanguage", selection: $audioLanguage) {
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
-                                        Text(language.display)
-                                        if let e = language.english {
-                                            Text(e).foregroundColor(.gray)
-                                            Spacer()
-                                        }
+                                        Text(language.display.capitalizedSentence)
                                     }.tag(language.code)
                                 }
                             }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
                                 setLanguage("audioLanguage", value)
                             }
-                            Picker("Subtitles", selection: $subtitleLanguage) {
+                            Picker("settings_subtitles", selection: $subtitleLanguage) {
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
-                                        Text(language.display)
-                                        if let e = language.english {
-                                            Text(e).foregroundColor(.gray)
-                                            Spacer()
-                                        }
+                                        Text(language.display.capitalizedSentence)
                                     }.tag(language.code)
                                 }
                             }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
                                 setLanguage("subtitleLanguage", value)
                             }
                         }
-                        Section(header: Text("Account")) {
+                        Section(header: Text("settings_account")) {
                             if authenticated {
                                 Button {
                                     logout()
@@ -132,10 +131,10 @@ struct SettingsView: View {
                                         if let n = name {
                                             Text(n)
                                         } else {
-                                            Text("Log out")
+                                            EmptyView()
                                         }
                                         Spacer()
-                                        Text("Log out").foregroundColor(.gray)
+                                        Text("settings_logOut").foregroundColor(.gray)
                                     }
                                 }
                             } else {
@@ -145,7 +144,7 @@ struct SettingsView: View {
                                     if loading {
                                         ProgressView()
                                     } else {
-                                        Text("Sign in")
+                                        Text("settings_signIn")
                                     }
                                 }
                             }

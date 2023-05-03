@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  BCC Media
+
+  Created by Fredrik Vedvik on 20/04/2023.
+  
+*/
+"common_live" = "Live";
+"common_shows" = "Serier";
+"common_episodes" = "Episoder";
+"common_season" = "Sesong";
+"common_details" = "Detaljer";
+"common_settings" = "Innstillinger";
+
+"shows_description" = "Serie beskrivelse";
+
+"episodes_releaseDate" = "Publiserings dato";
+
+"search_noShowsWithCurrentFilter" = "Ingen serier funnet med filteret";
+"search_noEpisodesWithCurrentFilter" = "Ingen episoder funnet med filteret";
+"search_inputField" = "Fyll ut noe i søkefeltet for å søke";
+
+"settings_logOut" = "Logg ut";
+"settings_signIn" = "Logg inn";
+"settings_account" = "Account";
+"settings_appLanguage" = "App Language";
+"settings_audioLanguage" = "Audio Language";
+"settings_subtitles" = "Subtitles";
+
+"signIn_scanWithPhone" = "Scan dette med telefonen din";
+"signIn_orGoToAndEnterCode" = "Eller gå til: $url og legg inn denne koden: $code";
+
+"tab_home" = "Hjem";
+"tab_live" = "Live";
+"tab_search" = "Søk";
+"tab_settings" = "Innstillinger";
