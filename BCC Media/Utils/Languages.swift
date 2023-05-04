@@ -8,16 +8,16 @@
 import Foundation
 
 enum LanguageCodes: String, CaseIterable {
+    case nb
+    case en
     case bg
     case da
     case de
-    case en
     case es
     case fi
     case fr
     case hu
     case it
-    case nb
     case nl
     case pl
     case pt

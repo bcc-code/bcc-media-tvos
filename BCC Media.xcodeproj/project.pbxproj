@@ -19,6 +19,9 @@
 		09083C392A02628C00A61EF9 /* LabelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09083C382A02628C00A61EF9 /* LabelSection.swift */; };
 		09083C3B2A0263D800A61EF9 /* DefaultGridSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09083C3A2A0263D800A61EF9 /* DefaultGridSection.swift */; };
 		09083C3D2A02653400A61EF9 /* PosterGridSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09083C3C2A02653400A61EF9 /* PosterGridSection.swift */; };
+		09083C3F2A03B02000A61EF9 /* ItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09083C3E2A03B02000A61EF9 /* ItemImage.swift */; };
+		09083C412A03B04400A61EF9 /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09083C402A03B04400A61EF9 /* LockView.swift */; };
+		09083C432A03B06800A61EF9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09083C422A03B06800A61EF9 /* PlayerViewController.swift */; };
 		09113B0029C081810087B9A2 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09113AFF29C081810087B9A2 /* PageView.swift */; };
 		091D4EEB29EE7C7100B67232 /* DefaultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D4EEA29EE7C7100B67232 /* DefaultSection.swift */; };
 		091D4F8729EEBD1400B67232 /* IconSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D4F8529EEBCA800B67232 /* IconSection.swift */; };
@@ -225,6 +228,9 @@
 		09083C382A02628C00A61EF9 /* LabelSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelSection.swift; sourceTree = "<group>"; };
 		09083C3A2A0263D800A61EF9 /* DefaultGridSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGridSection.swift; sourceTree = "<group>"; };
 		09083C3C2A02653400A61EF9 /* PosterGridSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterGridSection.swift; sourceTree = "<group>"; };
+		09083C3E2A03B02000A61EF9 /* ItemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemImage.swift; sourceTree = "<group>"; };
+		09083C402A03B04400A61EF9 /* LockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
+		09083C422A03B06800A61EF9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		09113AFF29C081810087B9A2 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		091D4EEA29EE7C7100B67232 /* DefaultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSection.swift; sourceTree = "<group>"; };
 		091D4F8529EEBCA800B67232 /* IconSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSection.swift; sourceTree = "<group>"; };
@@ -395,6 +401,9 @@
 				0943E18529BB364B0016348C /* Sections */,
 				2D64EACA7247B2B605E740B3 /* Episodes */,
 				2D64EAC0EC80770AAA794BC8 /* List */,
+				09083C3E2A03B02000A61EF9 /* ItemImage.swift */,
+				09083C402A03B04400A61EF9 /* LockView.swift */,
+				09083C422A03B06800A61EF9 /* PlayerViewController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -947,6 +956,7 @@
 				0990D42329F95AFC00B99D35 /* ItemSectionFragment.graphql.swift in Sources */,
 				2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */,
 				0990D41329F95AFC00B99D35 /* SchemaConfiguration.swift in Sources */,
+				09083C432A03B06800A61EF9 /* PlayerViewController.swift in Sources */,
 				0990D42129F95AFC00B99D35 /* API.graphql.swift in Sources */,
 				2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */,
 				0990D3B529F95AFC00B99D35 /* SectionItemType.graphql.swift in Sources */,
@@ -976,8 +986,10 @@
 				09083C372A0254D600A61EF9 /* Episodes.swift in Sources */,
 				0990D41F29F95AFC00B99D35 /* SearchResultItem.graphql.swift in Sources */,
 				0990D3CF29F95AFC00B99D35 /* PosterGridSection.graphql.swift in Sources */,
+				09083C3F2A03B02000A61EF9 /* ItemImage.swift in Sources */,
 				0990D3BD29F95AFC00B99D35 /* Show.graphql.swift in Sources */,
 				0990D40F29F95AFC00B99D35 /* LessonPagination.graphql.swift in Sources */,
+				09083C412A03B04400A61EF9 /* LockView.swift in Sources */,
 				09083C2B2A01111300A61EF9 /* GetDefaultEpisodeIdForShowQuery.graphql.swift in Sources */,
 				0990D41D29F95AFC00B99D35 /* ItemSection.graphql.swift in Sources */,
 				09083C312A01237E00A61EF9 /* GetDefaultEpisodeIdForSeasonQuery.graphql.swift in Sources */,

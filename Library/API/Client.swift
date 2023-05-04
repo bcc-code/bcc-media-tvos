@@ -50,9 +50,7 @@ private class CustomInterceptor: ApolloInterceptor {
                     request.addHeader(name: "Authorization", value: "Bearer " + c)
                 }
                 
-                if let language = UserDefaults.standard.string(forKey: "appLanguage") {
-                    request.addHeader(name: "Accept-Language", value: language)
-                }
+                request.addHeader(name: "Accept-Language", value: Locale.current.identifier)
                 
                 chain.proceedAsync(request: request,
                         response: response,

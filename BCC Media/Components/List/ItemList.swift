@@ -4,46 +4,6 @@
 
 import SwiftUI
 
-struct ItemImage: View {
-    var image: String?
-
-    init(_ image: String?) {
-        self.image = image
-    }
-
-    func getImg(_ img: String, _ size: CGSize) -> URL? {
-        URL(string: img + "?w=\(Int(size.width))&h=\(Int(size.height))&fit=crop&crop=faces")
-    }
-
-    var body: some View {
-        GeometryReader { proxy in
-            if proxy.size != .zero, let img = image {
-                AsyncImage(url: getImg(img, proxy.size)) { image in
-                    image.renderingMode(.original).transition(.opacity)
-                } placeholder: {
-                    Rectangle().fill(cardBackgroundColor).transition(.opacity)
-                }
-                .frame(width: proxy.size.width, height: proxy.size.height)
-            }
-        }
-    }
-}
-
-struct LockView: View {
-    var locked = false
-
-    var body: some View {
-        if locked {
-            ZStack {
-                Color.black.opacity(0.5)
-                Image(systemName: "lock.fill")
-                    .font(.title2)
-                    .foregroundColor(.gray)
-            }
-        }
-    }
-}
-
 struct ItemListView<T, IView: View>: View {
     var title: String?
     var items: [T]

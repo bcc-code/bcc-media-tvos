@@ -94,15 +94,15 @@ struct SettingsView: View {
                 VStack {
                     Form {
                         Section(header: Text("common_settings")) {
-                            Picker("settings_appLanguage", selection: $appLanguage) {
-                                ForEach(Language.getAll(), id: \.code) { language in
-                                    HStack {
-                                        Text(language.display.capitalizedSentence)
-                                    }.tag(language.code)
-                                }
-                            }.pickerStyle(.navigationLink).onChange(of: appLanguage) { value in
-                                setLanguage("appLanguage", value)
-                            }
+//                            Picker("settings_appLanguage", selection: $appLanguage) {
+//                                ForEach(Language.getAll(), id: \.code) { language in
+//                                    HStack {
+//                                        Text(language.display.capitalizedSentence)
+//                                    }.tag(language.code)
+//                                }
+//                            }.pickerStyle(.navigationLink).onChange(of: appLanguage) { value in
+//                                setLanguage("appLanguage", value)
+//                            }
                             Picker("settings_audioLanguage", selection: $audioLanguage) {
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
