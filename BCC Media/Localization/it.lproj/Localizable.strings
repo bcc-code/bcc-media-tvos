@@ -1,7 +1,24 @@
-/* 
-  Localizable.strings
-  BCC Media
-
-  Created by Fredrik Vedvik on 20/04/2023.
-  
-*/
+"common_live" = "Diretta";
+"common_shows" = "Shows";
+"common_episodes" = "Episodi";
+"common_season" = "Stagione";
+"common_details" = "Dettagli";
+"common_settings" = "Impostazioni";
+"shows_description" = "Show description";
+"episodes_releaseDate" = "Release date";
+"search_noShowsWithCurrentFilter" = "No shows with the current filter";
+"search_noEpisodesWithCurrentFilter" = "No episodes with the current filter";
+"search_inputField" = "Enter something in the search field to begin searching";
+"settings_logOut" = "Esci";
+"settings_signIn" = "7 / 5000
+Registrati";
+"settings_account" = "Account";
+"settings_appLanguage" = "App Language";
+"settings_audioLanguage" = "Audio Language";
+"settings_subtitles" = "Sottotitoli";
+"signIn_scanWithPhone" = "Scan this with your phone";
+"signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";
+"tab_home" = "Home";
+"tab_live" = "Diretta";
+"tab_search" = "Cerca";
+"tab_settings" = "Impostazioni";

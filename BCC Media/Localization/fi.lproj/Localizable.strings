@@ -1,7 +1,23 @@
-/* 
-  Localizable.strings
-  BCC Media
-
-  Created by Fredrik Vedvik on 20/04/2023.
-  
-*/
+"common_live" = "Live";
+"common_shows" = "Shows";
+"common_episodes" = "Jaksot";
+"common_season" = "Tuotantokausi";
+"common_details" = "Lisätietoa";
+"common_settings" = "Asetukset";
+"shows_description" = "Show description";
+"episodes_releaseDate" = "Release date";
+"search_noShowsWithCurrentFilter" = "No shows with the current filter";
+"search_noEpisodesWithCurrentFilter" = "No episodes with the current filter";
+"search_inputField" = "Enter something in the search field to begin searching";
+"settings_logOut" = "Kirjaudu ulos";
+"settings_signIn" = "Kirjaudu sisään";
+"settings_account" = "Account";
+"settings_appLanguage" = "App Language";
+"settings_audioLanguage" = "Audio Language";
+"settings_subtitles" = "Tekstitys";
+"signIn_scanWithPhone" = "Scan this with your phone";
+"signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";
+"tab_home" = "Etusivu";
+"tab_live" = "Live";
+"tab_search" = "Haku";
+"tab_settings" = "Asetukset";

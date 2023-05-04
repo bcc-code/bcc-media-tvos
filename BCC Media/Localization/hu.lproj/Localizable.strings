@@ -1,7 +1,23 @@
-/* 
-  Localizable.strings
-  BCC Media
-
-  Created by Fredrik Vedvik on 20/04/2023.
-  
-*/
+"common_live" = "Élő";
+"common_shows" = "Shows";
+"common_episodes" = "Epizódok";
+"common_season" = "Sorozat";
+"common_details" = "Részletek";
+"common_settings" = "Beállítások";
+"shows_description" = "Show description";
+"episodes_releaseDate" = "Release date";
+"search_noShowsWithCurrentFilter" = "No shows with the current filter";
+"search_noEpisodesWithCurrentFilter" = "No episodes with the current filter";
+"search_inputField" = "Enter something in the search field to begin searching";
+"settings_logOut" = "Kijelentkezés";
+"settings_signIn" = "Bejelentkezés";
+"settings_account" = "Account";
+"settings_appLanguage" = "App Language";
+"settings_audioLanguage" = "Audio Language";
+"settings_subtitles" = "Felíratok";
+"signIn_scanWithPhone" = "Scan this with your phone";
+"signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";
+"tab_home" = "Főoldal";
+"tab_live" = "Élő";
+"tab_search" = "Keresés";
+"tab_settings" = "Beállítások";
