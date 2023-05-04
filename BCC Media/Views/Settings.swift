@@ -74,7 +74,6 @@ struct SettingsView: View {
 
     @State var showSignIn = false
 
-    @State var appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "en"
     @State var audioLanguage = UserDefaults.standard.string(forKey: "audioLanguage") ?? "en"
     @State var subtitleLanguage = UserDefaults.standard.string(forKey: "subtitleLanguage") ?? "en"
 
@@ -94,15 +93,6 @@ struct SettingsView: View {
                 VStack {
                     Form {
                         Section(header: Text("common_settings")) {
-//                            Picker("settings_appLanguage", selection: $appLanguage) {
-//                                ForEach(Language.getAll(), id: \.code) { language in
-//                                    HStack {
-//                                        Text(language.display.capitalizedSentence)
-//                                    }.tag(language.code)
-//                                }
-//                            }.pickerStyle(.navigationLink).onChange(of: appLanguage) { value in
-//                                setLanguage("appLanguage", value)
-//                            }
                             Picker("settings_audioLanguage", selection: $audioLanguage) {
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {

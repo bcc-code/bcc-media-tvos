@@ -49,7 +49,7 @@ struct LiveView: View {
         NavigationLink {
             LivePlayer()
         } label: {
-            Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
-        }
+            Image(uiImage: UIImage(named: "Live.png")!)
+        }.buttonStyle(.card)
     }
 }
