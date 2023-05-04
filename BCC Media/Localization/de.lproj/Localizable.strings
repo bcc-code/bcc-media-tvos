@@ -2,6 +2,7 @@
 "common_shows" = "Shows";
 "common_episodes" = "Folgen";
 "common_season" = "Staffel";
+"common_seasons" = "Staffeln";
 "common_details" = "Details";
 "common_settings" = "Einstellungen";
 "shows_description" = "Show description";

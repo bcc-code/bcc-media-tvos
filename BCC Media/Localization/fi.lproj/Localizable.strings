@@ -2,6 +2,7 @@
 "common_shows" = "Shows";
 "common_episodes" = "Jaksot";
 "common_season" = "Tuotantokausi";
+"common_seasons" = "Tuotantokautta";
 "common_details" = "Lisätietoa";
 "common_settings" = "Asetukset";
 "shows_description" = "Show description";

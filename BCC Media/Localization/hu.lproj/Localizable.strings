@@ -2,6 +2,7 @@
 "common_shows" = "Shows";
 "common_episodes" = "Epizódok";
 "common_season" = "Sorozat";
+"common_seasons" = "Sorozat";
 "common_details" = "Részletek";
 "common_settings" = "Beállítások";
 "shows_description" = "Show description";

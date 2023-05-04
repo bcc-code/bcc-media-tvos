@@ -3,3 +3,4 @@ Pods
 /**/xcshareddata
 /**/xcuserdata
 .DS_Store
+.crowdin_token
