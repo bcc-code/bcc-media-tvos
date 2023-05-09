@@ -21,10 +21,17 @@ struct ItemImage: View {
     var body: some View {
         GeometryReader { proxy in
             if proxy.size != .zero, let img = image {
-                AsyncImage(url: getImg(img, proxy.size)) { image in
-                    image.renderingMode(.original).transition(.opacity)
-                } placeholder: {
-                    Rectangle().fill(cardBackgroundColor).transition(.opacity)
+                AsyncImage(url: getImg(img, proxy.size)) { phase in
+                    switch phase {
+                    case .empty:
+                        Rectangle().fill(cardBackgroundColor)
+                    case .success(let image):
+                        image.transition(.opacity)
+                    case .failure:
+                        Image(systemName: "wifi.slash")
+                    @unknown default:
+                        EmptyView()
+                    }
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
