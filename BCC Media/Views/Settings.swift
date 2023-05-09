@@ -74,11 +74,15 @@ struct SettingsView: View {
 
     @State var showSignIn = false
 
-    @State var audioLanguage = UserDefaults.standard.string(forKey: "audioLanguage") ?? "en"
-    @State var subtitleLanguage = UserDefaults.standard.string(forKey: "subtitleLanguage") ?? "en"
+    @State var audioLanguage = UserDefaults.standard.string(forKey: "audioLanguage") ?? "none"
+    @State var subtitleLanguage = UserDefaults.standard.string(forKey: "subtitleLanguage") ?? "none"
 
     func setLanguage(_ key: String, _ value: String) {
-        UserDefaults.standard.setValue(value, forKey: key)
+        if value == "none" {
+            UserDefaults.standard.removeObject(forKey: key)
+        } else {
+            UserDefaults.standard.setValue(value, forKey: key)
+        }
         apolloClient.clearCache()
     }
 
@@ -94,6 +98,7 @@ struct SettingsView: View {
                     Form {
                         Section(header: Text("common_settings")) {
                             Picker("settings_audioLanguage", selection: $audioLanguage) {
+                                Text("common_none").tag("none")
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
                                         Text(language.display.capitalizedSentence)
@@ -103,6 +108,7 @@ struct SettingsView: View {
                                 setLanguage("audioLanguage", value)
                             }
                             Picker("settings_subtitles", selection: $subtitleLanguage) {
+                                Text("common_none").tag("none")
                                 ForEach(Language.getAll(), id: \.code) { language in
                                     HStack {
                                         Text(language.display.capitalizedSentence)

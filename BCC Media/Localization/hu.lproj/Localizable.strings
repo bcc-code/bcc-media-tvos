@@ -5,6 +5,7 @@
 "common_seasons" = "Sorozat";
 "common_details" = "Részletek";
 "common_settings" = "Beállítások";
+"common_none" = "Nincs";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";

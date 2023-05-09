@@ -5,6 +5,7 @@
 "common_seasons" = "Tuotantokautta";
 "common_details" = "Lisätietoa";
 "common_settings" = "Asetukset";
+"common_none" = "Ei mikään";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";

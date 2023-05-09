@@ -5,6 +5,7 @@
 "common_seasons" = "Sezone";
 "common_details" = "Podrobnosti";
 "common_settings" = "Nastavitve";
+"common_none" = "Brez";
 "shows_description" = "Opis oddaje";
 "episodes_releaseDate" = "Datum izida";
 "search_noShowsWithCurrentFilter" = "Ni oddaj s trenutnim filtrom";

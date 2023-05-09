@@ -6,6 +6,7 @@
 "common_seasons" = "Sæsoner";
 "common_details" = "Detaljer";
 "common_settings" = "Indstillinger";
+"common_none" = "Ingen";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";

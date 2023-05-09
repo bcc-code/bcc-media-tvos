@@ -5,6 +5,7 @@
 "common_seasons" = "Staffeln";
 "common_details" = "Details";
 "common_settings" = "Einstellungen";
+"common_none" = "Keine";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";

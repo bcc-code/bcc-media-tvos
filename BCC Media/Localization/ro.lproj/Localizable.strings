@@ -5,6 +5,7 @@
 "common_seasons" = "Sezoane";
 "common_details" = "Detalii";
 "common_settings" = "Setări";
+"common_none" = "Niciunul";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";
