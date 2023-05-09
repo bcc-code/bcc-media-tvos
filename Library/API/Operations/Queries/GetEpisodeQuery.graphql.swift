@@ -13,6 +13,7 @@ public extension API {
           episode(id: $id) {
             __typename
             id
+            type
             title
             image
             ageRating
@@ -63,6 +64,7 @@ public extension API {
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.ID.self),
+          .field("type", GraphQLEnum<API.EpisodeType>.self),
           .field("title", String.self),
           .field("image", String?.self),
           .field("ageRating", String.self),
@@ -74,6 +76,7 @@ public extension API {
         ] }
 
         public var id: API.ID { __data["id"] }
+        public var type: GraphQLEnum<API.EpisodeType> { __data["type"] }
         public var title: String { __data["title"] }
         public var image: String? { __data["image"] }
         public var ageRating: String { __data["ageRating"] }

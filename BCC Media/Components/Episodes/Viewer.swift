@@ -77,6 +77,9 @@ struct EpisodeViewer: View {
                 if let e = res.data?.episode {
                     episode = e
                     seasonId = e.season?.id ?? ""
+                    if e.type != .episode {
+                        tab = .details
+                    }
                 }
             case .failure:
                 print("FAILURE")
@@ -105,7 +108,9 @@ struct EpisodeViewer: View {
                         EpisodeHeader(episode: e, season: season)
                         HStack {
                             Picker(String(localized: "common_tab"), selection: $tab) {
-                                Text("common_episodes").tag(Tab.season)
+                                if e.type == .episode {
+                                    Text("common_episodes").tag(Tab.season)
+                                }
                                 Text("common_details").tag(Tab.details)
                             }.pickerStyle(.segmented)
                         }

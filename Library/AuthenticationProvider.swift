@@ -212,7 +212,7 @@ extension AuthenticationProvider {
             if let encoded = try? JSONEncoder().encode(profile) {
                 ud.set(encoded, forKey: profileKey)
             }
-            ud.setValue(Calendar.current.date(byAdding: .day, value: 1, to: Date.now), forKey: profileExpiryKey)
+            ud.setValue(Calendar.current.date(byAdding: .minute, value: 5, to: Date.now), forKey: profileExpiryKey)
         } catch {
             print("Failed to fetch userinfo")
             print(error)

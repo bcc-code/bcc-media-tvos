@@ -1,6 +1,7 @@
 query GetEpisode($id: ID!) {
     episode(id: $id) {
         id
+        type
         title
         image
         ageRating
