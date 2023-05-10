@@ -23,20 +23,20 @@ workflows:
         - pattern: "*"
           include: true
     scripts:
-      - name: Install CocoaPods dependencies
-        script: | 
-          pod install
       - name: initialize keychain
         script: keychain initialize
-      - name: fetch signing files
-        script: |
-          app-store-connect fetch-signing-files $(xcode-project detect-bundle-id) \
-          --type IOS_APP_DEVELOPMENT \
-          --create 
+      - name: Fetch signing files
+        script: | 
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
       - name: Set up signing certificate
         script: keychain add-certificates
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
+      - name: Install CocoaPods dependencies
+        script: | 
+          pod install
       - name: Increment build number
         script: | 
           cd $CM_BUILD_DIR
