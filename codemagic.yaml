@@ -10,6 +10,7 @@ workflows:
         XCODE_WORKSPACE: "BCC Media.xcworkspace"
         XCODE_SCHEME: "BCC Media"
         APP_ID: 913268220
+        BUNDLE_ID: "tv.brunstad.app"
     integrations:
       app_store_connect: BrunstadTV
     triggering:
