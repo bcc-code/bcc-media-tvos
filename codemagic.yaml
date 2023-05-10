@@ -6,6 +6,8 @@ workflows:
     environment:
       xcode: latest
       cocoapods: default
+      groups:
+        - code-signing
       vars: 
         XCODE_WORKSPACE: "BCC Media.xcworkspace"
         XCODE_SCHEME: "BCC Media"
