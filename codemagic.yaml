@@ -7,11 +7,15 @@ workflows:
       xcode: latest
       cocoapods: default
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: tv.brunstad.app
+        provisioning_profiles:
+        - tvos-distribution
+        - tvos-topshelf-distribution
+        certificates:
+        - distribution
       vars: 
         XCODE_WORKSPACE: "BCC Media.xcworkspace"
         XCODE_SCHEME: "BCC Media"
+        APP_ID: 913268220
     integrations:
       app_store_connect: BrunstadTV
     triggering:
