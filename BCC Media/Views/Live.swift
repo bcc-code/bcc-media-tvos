@@ -45,11 +45,34 @@ struct LivePlayer: View {
 }
 
 struct LiveView: View {
+    var columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
-        NavigationLink {
-            LivePlayer()
-        } label: {
-            Image(uiImage: UIImage(named: "Live.png")!)
-        }.buttonStyle(.card)
+        VStack(alignment: .leading) {
+            HStack {
+                Image(uiImage: UIImage(named: "Live.png")!)
+                NavigationLink {
+                    LivePlayer()
+                } label: {
+                    Text("live_play")
+                }
+                Spacer()
+            }
+            ScrollView(.horizontal) {
+                LazyHStack(alignment: .top) {
+                    ForEach([0, 1, 2, 3, 4, 5], id: \.self) {index in
+                        VStack {    
+                            Rectangle().foregroundColor(cardBackgroundColor).frame(width: 600, height: 300)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct LiveView_Previews: PreviewProvider {
+    static var previews: some View {
+        LiveView()
     }
 }
