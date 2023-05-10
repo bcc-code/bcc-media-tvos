@@ -4,11 +4,16 @@ workflows:
     instance_type: mac_mini_m1
     max_build_duration: 30
     environment:
-      groups:
-        - keystore_credentials
-        - other
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: tv.brunstad.app
       xcode: latest
       cocoapods: default
+      vars: 
+        XCODE_WORKSPACE: "BCC Media.xcworkspace"
+        XCODE_SCHEME: "BCC Media"
+    integrations:
+      app_store_connect: BrunstadTV
     triggering:
       events:
         - tag
@@ -45,8 +50,6 @@ workflows:
         recipients:
           - fredrik.vedvik@bcc.no
       app_store_connect:
-        api_key: $APPLE_API_KEY
-        key_id: C7S8U2XYCC
-        issuer_id: 69a6de83-0d3a-47e3-e053-5b8c7c11a4d1
+        auth: integration
         submit_to_testflight: true
         submit_to_app_store: false
