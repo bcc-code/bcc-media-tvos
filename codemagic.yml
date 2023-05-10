@@ -1,0 +1,52 @@
+workflows:
+  deploy-tvos:
+    name: Publish tvOS to TestFlight
+    instance_type: mac_mini_m1
+    max_build_duration: 30
+    environment:
+      groups:
+        - keystore_credentials
+        - other
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - tag
+      branch_patterns:
+        - pattern: "*"
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: "*"
+          include: true
+    scripts:
+      - name: Install CocoaPods dependencies
+        script: | 
+          pod install
+      - name: Set up provisioning profiles settings on Xcode project
+        script: xcode-project use-profiles
+      - name: Increment build number
+        script: | 
+          cd $CM_BUILD_DIR
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_ID")
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+      - name: Build ipa for distribution
+        script: | 
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      email:
+        recipients:
+          - fredrik.vedvik@bcc.no
+      app_store_connect:
+        api_key: $APPLE_API_KEY
+        key_id: C7S8U2XYCC
+        issuer_id: 69a6de83-0d3a-47e3-e053-5b8c7c11a4d1
+        submit_to_testflight: true
+        submit_to_app_store: false
