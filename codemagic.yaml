@@ -26,15 +26,6 @@ workflows:
         - pattern: "*"
           include: true
     scripts:
-      - name: initialize keychain
-        script: keychain initialize
-      - name: Fetch signing files
-        script: | 
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --create
-      - name: Set up signing certificate
-        script: keychain add-certificates
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
       - name: Install CocoaPods dependencies
