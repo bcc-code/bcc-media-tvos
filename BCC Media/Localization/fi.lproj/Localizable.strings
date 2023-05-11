@@ -24,3 +24,6 @@
 "tab_search" = "Haku";
 "tab_settings" = "Asetukset";
 "live_play" = "Toista";
+"calendar_today" = "Tänään";
+"calendar_noScheduledEvents" = "Ei suunniteltuja tapahtumia";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

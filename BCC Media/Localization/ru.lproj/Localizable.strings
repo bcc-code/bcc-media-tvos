@@ -24,3 +24,6 @@
 "tab_search" = "Поиск";
 "tab_settings" = "Настройки";
 "live_play" = "Играть";
+"calendar_today" = "Сегодня";
+"calendar_noScheduledEvents" = "Нет запланированных мероприятий";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

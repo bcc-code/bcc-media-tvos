@@ -25,3 +25,6 @@
 "tab_search" = "Søg";
 "tab_settings" = "Indstillinger";
 "live_play" = "Afspil";
+"calendar_today" = "I dag";
+"calendar_noScheduledEvents" = "Ingen planlagte begivenheder";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

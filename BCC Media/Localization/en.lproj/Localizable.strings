@@ -31,3 +31,7 @@
 "tab_settings" = "Settings";
 
 "live_play" = "Play";
+
+"calendar_today" = "Today";
+"calendar_noScheduledEvents" = "No scheduled events";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

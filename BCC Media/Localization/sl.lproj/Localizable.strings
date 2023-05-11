@@ -24,3 +24,6 @@
 "tab_search" = "Išči";
 "tab_settings" = "Nastavitve";
 "live_play" = "Predvajaj";
+"calendar_today" = "Danes";
+"calendar_noScheduledEvents" = "Ni načrtovanih dogodkov";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

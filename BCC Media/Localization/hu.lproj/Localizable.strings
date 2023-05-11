@@ -24,3 +24,6 @@
 "tab_search" = "Keresés";
 "tab_settings" = "Beállítások";
 "live_play" = "Lejátszás";
+"calendar_today" = "Ma";
+"calendar_noScheduledEvents" = "Nincs tervezett esemény";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

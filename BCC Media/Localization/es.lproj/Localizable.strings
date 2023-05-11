@@ -24,3 +24,6 @@
 "tab_search" = "Buscar";
 "tab_settings" = "Configuración";
 "live_play" = "Reproducir";
+"calendar_today" = "Hoy";
+"calendar_noScheduledEvents" = "Sin eventos programados";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

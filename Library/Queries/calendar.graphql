@@ -1,0 +1,16 @@
+query GetCalendarDay($day: Date!) {
+    calendar {
+        day (day: $day) {
+            events {
+                title
+            }
+            entries {
+                id
+                title
+                start
+                end
+                description
+            }
+        }
+    }
+}

@@ -25,3 +25,6 @@ Registrati";
 "tab_search" = "Cerca";
 "tab_settings" = "Impostazioni";
 "live_play" = "Riproduci";
+"calendar_today" = "Oggi";
+"calendar_noScheduledEvents" = "Nessun evento in programma";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

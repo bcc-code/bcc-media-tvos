@@ -64,8 +64,10 @@ private class CustomInterceptor: ApolloInterceptor {
 
 class ApolloClientFactory {
     var tokenFactory: TokenFactory
-
-    init(tokenFactory: @escaping TokenFactory) {
+    var apiUrl: String
+    
+    init(_ apiUrl: String, tokenFactory: @escaping TokenFactory) {
+        self.apiUrl = apiUrl
         self.tokenFactory = tokenFactory
     }
 
@@ -77,7 +79,7 @@ class ApolloClientFactory {
         let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
         let provider = NetworkInterceptorProvider(tokenFactory: tokenFactory, client: client, store: store)
 
-        let url = URL(string: "https://api.brunstad.tv/query")!
+        let url = URL(string: apiUrl)!
 
         let requestChainTransport = RequestChainNetworkTransport(interceptorProvider: provider,
                 endpointURL: url)

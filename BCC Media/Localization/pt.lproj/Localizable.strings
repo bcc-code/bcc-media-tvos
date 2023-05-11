@@ -23,4 +23,7 @@
 "tab_live" = "Ao vivo. ";
 "tab_search" = "Busca";
 "tab_settings" = "Configurações.";
-"live_play" = "Play";
+"live_play" = "Jogar";
+"calendar_today" = "Hoje";
+"calendar_noScheduledEvents" = "Nenhum evento agendado";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

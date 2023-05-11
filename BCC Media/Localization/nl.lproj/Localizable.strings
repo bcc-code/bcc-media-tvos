@@ -24,3 +24,6 @@
 "tab_search" = "Zoeken";
 "tab_settings" = "Instellingen";
 "live_play" = "Afspelen";
+"calendar_today" = "Vandaag";
+"calendar_noScheduledEvents" = "Geen geplande evenementen";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

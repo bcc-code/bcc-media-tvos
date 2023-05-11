@@ -24,3 +24,6 @@
 "tab_search" = "Căutare";
 "tab_settings" = "Setări";
 "live_play" = "Redare";
+"calendar_today" = "Astăzi";
+"calendar_noScheduledEvents" = "Nu sunt evenimente programate";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

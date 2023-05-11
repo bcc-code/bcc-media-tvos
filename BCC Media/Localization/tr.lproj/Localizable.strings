@@ -24,3 +24,6 @@
 "tab_search" = "Ara";
 "tab_settings" = "Ayarlar";
 "live_play" = "Oynat";
+"calendar_today" = "Bugün";
+"calendar_noScheduledEvents" = "Planlanmış etkinlik yok";
+"calendar_timetableInLocalTime" = "Timetable is in your local time";

@@ -10,7 +10,7 @@ import SwiftUI
 
 let authenticationProvider = AuthenticationProvider()
 
-let apolloClient = ApolloClientFactory(tokenFactory: authenticationProvider.getAccessToken).NewClient()
+let apolloClient = ApolloClientFactory("https://api.brunstad.tv/query", tokenFactory: authenticationProvider.getAccessToken).NewClient()
 
 @main
 struct BCCMediaApp: App {
