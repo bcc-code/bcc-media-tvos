@@ -33,8 +33,8 @@ struct LivePlayer: View {
 
     var body: some View {
         VStack {
-            if let u = url {
-                PlayerViewController(videoURL: u, title: NSLocalizedString("common_live", comment: ""), startFrom: 0).ignoresSafeArea()
+            if let url = url {
+                PlayerViewController(url).ignoresSafeArea()
             } else {
                 ProgressView()
             }

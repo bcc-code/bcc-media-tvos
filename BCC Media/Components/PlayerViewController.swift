@@ -10,11 +10,27 @@ import AVKit
 
 struct PlayerViewController: UIViewControllerRepresentable {
     var videoURL: URL
-    var title: String?
-    var startFrom: Int
+    var options: Options
     
-    var audioLanguage: String? = UserDefaults.standard.string(forKey: "audioLanguage")
-    var subtitleLanguage: String? = UserDefaults.standard.string(forKey: "subtitleLanguage")
+    init(_ videoURL: URL, _ options: Options = .init()) {
+        self.videoURL = videoURL
+        self.options = options
+    }
+    
+    struct Options {
+        var startFrom: Int
+        var title: String?
+        var audioLanguage: String?
+        var subtitleLanguage: String?
+        
+        init(title: String? = nil, startFrom: Int = 0, audioLanguage: String? = nil, subtitleLanguage: String? = nil) {
+            self.title = title
+            
+            self.startFrom = startFrom
+            self.subtitleLanguage = subtitleLanguage ?? UserDefaults.standard.string(forKey: "audioLanguage")
+            self.audioLanguage = audioLanguage ?? UserDefaults.standard.string(forKey: "subtitleLanguage")
+        }
+    }
 
     private var player: AVPlayer {
         AVPlayer(url: videoURL)
@@ -33,7 +49,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
 
     func createMetadataItems() -> [AVMetadataItem] {
         let mapping: [AVMetadataIdentifier: Any] = [
-            .commonIdentifierTitle: title as Any,
+            .commonIdentifierTitle: options.title as Any,
         ]
 
         return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
@@ -41,23 +57,23 @@ struct PlayerViewController: UIViewControllerRepresentable {
 
     func makeUIViewController(context _: Context) -> AVPlayerViewController {
         let controller = AVPlayerViewController()
-        controller.title = title
+        controller.title = options.title
         controller.modalPresentationStyle = .fullScreen
         controller.player = player
-        if startFrom != 0 {
-            controller.player!.seek(to: CMTimeMakeWithSeconds(Double(startFrom), preferredTimescale: 100))
+        if options.startFrom != 0 {
+            controller.player!.seek(to: CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100))
         }
         controller.player!.play()
         
         if let item = controller.player!.currentItem {
             item.externalMetadata = createMetadataItems()
             Task {
-                if let l = audioLanguage, await item.setAudioLanguage(l) {
+                if let l = options.audioLanguage, await item.setAudioLanguage(l) {
                     print("Successfully set initial audio language")
                 }
             }
             Task {
-                if let l = subtitleLanguage, await item.setSubtitleLanguage(l) {
+                if let l = options.subtitleLanguage, await item.setSubtitleLanguage(l) {
                     print("Successfully set initial subtitle language")
                 }
             }

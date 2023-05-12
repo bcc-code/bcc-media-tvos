@@ -20,7 +20,7 @@ struct EpisodePlayer: View {
     }
 
     var body: some View {
-        PlayerViewController(videoURL: playerUrl, title: title, startFrom: startFrom).ignoresSafeArea()
+        PlayerViewController(playerUrl, .init(title: title, startFrom: startFrom)).ignoresSafeArea()
     }
 }
 
