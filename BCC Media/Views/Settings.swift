@@ -74,8 +74,8 @@ struct SettingsView: View {
 
     @State var showSignIn = false
 
-    @State var audioLanguage = UserDefaults.standard.string(forKey: "audioLanguage") ?? "none"
-    @State var subtitleLanguage = UserDefaults.standard.string(forKey: "subtitleLanguage") ?? "none"
+    @State var audioLanguage = AppOptions.standard.audioLanguage ?? "none"
+    @State var subtitleLanguage = AppOptions.standard.subtitleLanguage ?? "none"
 
     func setLanguage(_ key: String, _ value: String) {
         if value == "none" {

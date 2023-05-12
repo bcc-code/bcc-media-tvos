@@ -180,6 +180,7 @@
 		0990D43129F95AFC00B99D35 /* GetApplicationQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D3B429F95AFC00B99D35 /* GetApplicationQuery.graphql.swift */; };
 		0990D43229F95AFC00B99D35 /* GetApplicationQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D3B429F95AFC00B99D35 /* GetApplicationQuery.graphql.swift */; };
 		0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998F6F629ED4F2500C74B3F /* PosterSection.swift */; };
+		09A41AF22A0E619300C737D0 /* AppOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41AF12A0E619300C737D0 /* AppOptions.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CB225A29F7D82300201AAE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221429F7D82300201AAE /* Client.swift */; };
@@ -349,6 +350,7 @@
 		0990D3B429F95AFC00B99D35 /* GetApplicationQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetApplicationQuery.graphql.swift; sourceTree = "<group>"; };
 		0998F6F529ED4CEB00C74B3F /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0998F6F629ED4F2500C74B3F /* PosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
+		09A41AF12A0E619300C737D0 /* AppOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOptions.swift; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 			children = (
 				097D6EC229F1417E0007E4FB /* Languages.swift */,
 				09083C362A0254D600A61EF9 /* Episodes.swift */,
+				09A41AF12A0E619300C737D0 /* AppOptions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				0990D41129F95AFC00B99D35 /* QuestionPagination.graphql.swift in Sources */,
 				0990D41B29F95AFC00B99D35 /* Pagination.graphql.swift in Sources */,
 				0990D40329F95AFC00B99D35 /* FAQCategoryPagination.graphql.swift in Sources */,
+				09A41AF22A0E619300C737D0 /* AppOptions.swift in Sources */,
 				0990D3F729F95AFC00B99D35 /* IconSection.graphql.swift in Sources */,
 				0990D3BF29F95AFC00B99D35 /* Link.graphql.swift in Sources */,
 				0990D3CB29F95AFC00B99D35 /* SeasonPagination.graphql.swift in Sources */,

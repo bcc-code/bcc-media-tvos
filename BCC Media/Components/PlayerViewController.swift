@@ -27,8 +27,8 @@ struct PlayerViewController: UIViewControllerRepresentable {
             self.title = title
             
             self.startFrom = startFrom
-            self.subtitleLanguage = subtitleLanguage ?? UserDefaults.standard.string(forKey: "audioLanguage")
-            self.audioLanguage = audioLanguage ?? UserDefaults.standard.string(forKey: "subtitleLanguage")
+            self.subtitleLanguage = subtitleLanguage ?? AppOptions.standard.subtitleLanguage
+            self.audioLanguage = audioLanguage ?? AppOptions.standard.audioLanguage
         }
     }
 
