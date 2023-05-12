@@ -196,8 +196,8 @@
 		2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ED5CD0F006989283F50E /* ItemList.swift */; };
 		2D64ECB93F166B34429F7189 /* FeaturedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */; };
 		2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E9AA1E75A14695918908 /* Assets.xcassets */; };
-		9A6D0722396507E3220811E3 /* libPods-BCC Media.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */; };
-		B37401E591D893C7E48ED976 /* libPods-Top Shelf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92688DA54FBD60E469C5A068 /* libPods-Top Shelf.a */; };
+		47CC404B5BC7DBB4998353CF /* Pods_Top_Shelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788BD007CCF0FA3028B52E0E /* Pods_Top_Shelf.framework */; };
+		AD0CAE16A9AEC17B3F89289C /* Pods_BCC_Media.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4048D6B9E6F6C7A24632DBE2 /* Pods_BCC_Media.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -371,9 +371,9 @@
 		2D64ED5CD0F006989283F50E /* ItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		2D64EDB7C7CC093B3800C7EB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.swift; sourceTree = "<group>"; };
-		543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BCC Media.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4048D6B9E6F6C7A24632DBE2 /* Pods_BCC_Media.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BCC_Media.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		788BD007CCF0FA3028B52E0E /* Pods_Top_Shelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Top_Shelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.release.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.release.xcconfig"; sourceTree = "<group>"; };
-		92688DA54FBD60E469C5A068 /* libPods-Top Shelf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Top Shelf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C378207C865F97E3EFF39A95 /* Pods-Top Shelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Top Shelf.debug.xcconfig"; path = "Target Support Files/Pods-Top Shelf/Pods-Top Shelf.debug.xcconfig"; sourceTree = "<group>"; };
 		EC47F071FDF2F73048259466 /* Pods-Top Shelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Top Shelf.release.xcconfig"; path = "Target Support Files/Pods-Top Shelf/Pods-Top Shelf.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -383,7 +383,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B37401E591D893C7E48ED976 /* libPods-Top Shelf.a in Frameworks */,
+				47CC404B5BC7DBB4998353CF /* Pods_Top_Shelf.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,7 +391,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A6D0722396507E3220811E3 /* libPods-BCC Media.a in Frameworks */,
+				AD0CAE16A9AEC17B3F89289C /* Pods_BCC_Media.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,8 +609,8 @@
 		09CB211729F7BD9900201AAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				543F288CCFE12F60FB27D03E /* libPods-BCC Media.a */,
-				92688DA54FBD60E469C5A068 /* libPods-Top Shelf.a */,
+				4048D6B9E6F6C7A24632DBE2 /* Pods_BCC_Media.framework */,
+				788BD007CCF0FA3028B52E0E /* Pods_Top_Shelf.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -752,6 +752,7 @@
 				2D64EFB695C83636A4673F9B /* Frameworks */,
 				2D64E40409BAE8F8A7B8325D /* Resources */,
 				09F2A4E829C9B25100BA9F28 /* Embed Foundation Extensions */,
+				F4A1ADE72E62D68F8EB24C51 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -877,6 +878,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4A1ADE72E62D68F8EB24C51 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BCC Media/Pods-BCC Media-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BCC Media/Pods-BCC Media-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BCC Media/Pods-BCC Media-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1179,7 +1197,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8A4A779ED0A8CE0CEDE3D87E /* Pods-BCC Media.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
@@ -1198,14 +1215,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.0.2;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"Apollo\"",
-					"-l\"Auth0\"",
-					"-l\"JWTDecode\"",
-					"-l\"SimpleKeychain\"",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1334,7 +1343,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
@@ -1353,14 +1361,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.0.2;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"Apollo\"",
-					"-l\"Auth0\"",
-					"-l\"JWTDecode\"",
-					"-l\"SimpleKeychain\"",
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

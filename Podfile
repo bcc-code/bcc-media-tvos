@@ -5,22 +5,22 @@ platform :tvos, '16.1'
 
 target 'BCC Media' do
   # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
+  use_frameworks!
 
   # Pods for app
-
   pod 'Apollo'
-
   pod 'Auth0'
+  
+  # NPAW
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
 end
 
 target 'Top Shelf' do
   # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
+  use_frameworks!
 
   # Pods for app
-
   pod 'Apollo'
-
   pod 'Auth0'
 end
