@@ -13,12 +13,21 @@ struct EpisodePlayer: View {
     var episode: API.GetEpisodeQuery.Data.Episode
 
     var startFrom: Int
+    
+    var listener: PlaybackListener
 
     init(episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, startFrom: Int = 0) {
         self.episode = episode
         
         self.playerUrl = playerUrl
         self.startFrom = startFrom
+        
+        self.listener = PlaybackListener(stateCallback: {state in
+            apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { result in
+                print("updated progress")
+                print(state)
+            }
+        })
     }
 
     var body: some View {
@@ -29,7 +38,7 @@ struct EpisodePlayer: View {
             seasonId: episode.season?.id,
             showTitle: episode.season?.show.title,
             showId: episode.season?.show.id
-        ))).ignoresSafeArea()
+        )), listener).ignoresSafeArea()
     }
 }
 

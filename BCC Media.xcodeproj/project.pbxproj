@@ -191,6 +191,11 @@
 		09CB225B29F7D82300201AAE /* AuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221529F7D82300201AAE /* AuthenticationProvider.swift */; };
 		09E03AD229C887DF009329FF /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E03AD129C887DF009329FF /* SignIn.swift */; };
 		09E17AF52A124726004CFD28 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17AF42A124726004CFD28 /* Events.swift */; };
+		09E17B032A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B022A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift */; };
+		09E17B042A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B022A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift */; };
+		09E17B062A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B052A125A3F004CFD28 /* MutationRoot.graphql.swift */; };
+		09E17B072A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B052A125A3F004CFD28 /* MutationRoot.graphql.swift */; };
+		09E17B092A126985004CFD28 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B082A126985004CFD28 /* ProgressBar.swift */; };
 		09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F503FA29ED3C2900D09674 /* Auth0.plist */; };
 		2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF03910A399CCB4894D /* Settings.swift */; };
 		2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E460594AD4CC96AE76A4 /* ContentView.swift */; };
@@ -365,6 +370,9 @@
 		09CB221529F7D82300201AAE /* AuthenticationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationProvider.swift; sourceTree = "<group>"; };
 		09E03AD129C887DF009329FF /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		09E17AF42A124726004CFD28 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		09E17B022A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEpisodeProgressMutation.graphql.swift; sourceTree = "<group>"; };
+		09E17B052A125A3F004CFD28 /* MutationRoot.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutationRoot.graphql.swift; sourceTree = "<group>"; };
+		09E17B082A126985004CFD28 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		09F503FA29ED3C2900D09674 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.debug.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.debug.xcconfig"; sourceTree = "<group>"; };
 		2D64E027F4FB0C8D21E74DEA /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile; sourceTree = "<group>"; };
@@ -458,6 +466,7 @@
 				091D4F8529EEBCA800B67232 /* IconSection.swift */,
 				09083C382A02628C00A61EF9 /* LabelSection.swift */,
 				2D64E0F9AF6AA013DAADC415 /* CardSection.swift */,
+				09E17B082A126985004CFD28 /* ProgressBar.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -516,6 +525,7 @@
 		0990D37529F95AFC00B99D35 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				09E17B052A125A3F004CFD28 /* MutationRoot.graphql.swift */,
 				0990D38129F95AFC00B99D35 /* AchievementGroupPagination.graphql.swift */,
 				0990D39829F95AFC00B99D35 /* AchievementPagination.graphql.swift */,
 				0990D38429F95AFC00B99D35 /* AchievementSection.graphql.swift */,
@@ -598,6 +608,7 @@
 		0990D3AD29F95AFC00B99D35 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				09E17AF62A1255FA004CFD28 /* Mutations */,
 				0990D3AE29F95AFC00B99D35 /* Queries */,
 			);
 			path = Operations;
@@ -659,6 +670,14 @@
 				0990D36D29F95AFC00B99D35 /* Schema */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		09E17AF62A1255FA004CFD28 /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				09E17B022A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift */,
+			);
+			path = Mutations;
 			sourceTree = "<group>";
 		};
 		2ACB7A53A6D45DE17AB42CCF /* Pods */ = {
@@ -966,8 +985,10 @@
 				0990D3BA29F95AFC00B99D35 /* Language.swift in Sources */,
 				09083C302A01237E00A61EF9 /* GetDefaultEpisodeIdForStudyTopicQuery.graphql.swift in Sources */,
 				094056DC2A0CC1C7004781A3 /* CalendarEntry.graphql.swift in Sources */,
+				09E17B042A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift in Sources */,
 				09A41BA72A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */,
 				0990D36C29F95A1A00B99D35 /* Client.swift in Sources */,
+				09E17B072A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */,
 				0990D3EC29F95AFC00B99D35 /* CardListSection.graphql.swift in Sources */,
 				0990D42C29F95AFC00B99D35 /* GetEpisodeSeasonQuery.graphql.swift in Sources */,
 				0990D3C429F95AFC00B99D35 /* SectionPagination.graphql.swift in Sources */,
@@ -1018,6 +1039,7 @@
 				0990D3E729F95AFC00B99D35 /* ListSection.graphql.swift in Sources */,
 				0990D3F329F95AFC00B99D35 /* CollectionItemPagination.graphql.swift in Sources */,
 				09113B0029C081810087B9A2 /* PageView.swift in Sources */,
+				09E17B032A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift in Sources */,
 				0990D42329F95AFC00B99D35 /* ItemSectionFragment.graphql.swift in Sources */,
 				2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */,
 				0990D41329F95AFC00B99D35 /* SchemaConfiguration.swift in Sources */,
@@ -1062,6 +1084,7 @@
 				0990D3BD29F95AFC00B99D35 /* Show.graphql.swift in Sources */,
 				0990D40F29F95AFC00B99D35 /* LessonPagination.graphql.swift in Sources */,
 				094056EE2A0CC1D5004781A3 /* SimpleCalendarEntry.graphql.swift in Sources */,
+				09E17B062A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */,
 				09083C412A03B04400A61EF9 /* LockView.swift in Sources */,
 				09083C2B2A01111300A61EF9 /* GetDefaultEpisodeIdForShowQuery.graphql.swift in Sources */,
 				0990D41D29F95AFC00B99D35 /* ItemSection.graphql.swift in Sources */,
@@ -1083,6 +1106,7 @@
 				2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */,
 				0990D3C129F95AFC00B99D35 /* FeaturedSection.graphql.swift in Sources */,
 				09083C2F2A01237E00A61EF9 /* GetDefaultEpisodeIdForStudyTopicQuery.graphql.swift in Sources */,
+				09E17B092A126985004CFD28 /* ProgressBar.swift in Sources */,
 				0990D3E529F95AFC00B99D35 /* QueryRoot.graphql.swift in Sources */,
 				09083C342A0123B500A61EF9 /* Lesson.graphql.swift in Sources */,
 				2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */,

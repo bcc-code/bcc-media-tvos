@@ -76,3 +76,9 @@ query GetDefaultEpisodeIdForSeason($id: ID!) {
         }
     }
 }
+
+mutation SetEpisodeProgress($id: ID!, $progress: Int!) {
+    setEpisodeProgress(id: $id, progress: $progress) {
+        id
+    }
+}

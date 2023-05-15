@@ -35,8 +35,12 @@ struct DefaultSection: View {
                                         .frame(width: 400, height: 225)
                                         .cornerRadius(10)
                                         .overlay(
-                                            LockView(locked: item.locked)
+                                            LockView(locked: item.locked),
+                                            alignment: .top
                                         )
+                                        .overlay(
+                                            ProgressBar(item: item),
+                                            alignment: .bottom)
                                 }.buttonStyle(.card)
                                 ItemTitle(item)
                             }.frame(width: 400)

@@ -42,6 +42,9 @@ struct CardSection: View {
                                     }.frame(width: 400).cornerRadius(10).overlay(
                                         LockView(locked: item.locked)
                                     )
+                                    .overlay(
+                                        ProgressBar(item: item),
+                                        alignment: .bottom)
                                 }.buttonStyle(.card)
                             }.frame(width: 400)
                         }

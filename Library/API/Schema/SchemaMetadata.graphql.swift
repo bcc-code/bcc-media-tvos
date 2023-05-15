@@ -81,6 +81,7 @@ public extension API {
       case "ShowSearchItem": return API.Objects.ShowSearchItem
       case "Stream": return API.Objects.Stream
       case "Lesson": return API.Objects.Lesson
+      case "MutationRoot": return API.Objects.MutationRoot
       case "User": return API.Objects.User
       case "Analytics": return API.Objects.Analytics
       case "Application": return API.Objects.Application

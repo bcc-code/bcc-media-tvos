@@ -37,6 +37,9 @@ struct PosterGridSection: View {
                                         .frame(width: 400, height: 600).cornerRadius(10).overlay(
                                             LockView(locked: item.locked)
                                         )
+                                        .overlay(
+                                            ProgressBar(item: item),
+                                            alignment: .bottom)
                                 }.buttonStyle(.card)
                                 ItemTitle(item)
                             }.frame(width: 400)

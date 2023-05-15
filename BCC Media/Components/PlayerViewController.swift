@@ -36,20 +36,54 @@ extension YBPlugin {
     }
 }
 
+struct PlaybackState {
+    var time: Double
+}
+
+struct PlaybackListener {
+    var stateCallback: (PlaybackState) -> Void
+    
+    init(stateCallback: @escaping (PlaybackState) -> Void) {
+        self.stateCallback = stateCallback
+    }
+    
+    func onStateUpdate(state: PlaybackState) {
+        self.stateCallback(state)
+    }
+}
+
 struct PlayerViewController: UIViewControllerRepresentable {
     var videoURL: URL
     var options: Options
     
     private var player: AVPlayer
-    
     private var plugin: YBPlugin
     
-    init(_ videoURL: URL, _ options: Options = .init()) {
+    private var coordinator: Coordinator
+    
+    init(_ videoURL: URL, _ options: Options = .init(), _ listener: PlaybackListener = PlaybackListener() { _ in }) {
         self.videoURL = videoURL
         self.options = options
         self.player = AVPlayer(url: videoURL)
         
         self.plugin = YBPlugin(options, self.player)
+        
+        self.coordinator = Coordinator()
+        self.coordinator.timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [self] _ in
+            listener.onStateUpdate(state: self.getState())
+        }
+    }
+    
+    class Coordinator {
+        var timer: Timer?
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        coordinator
+    }
+    
+    func getState() -> PlaybackState {
+        PlaybackState(time: self.player.currentTime().seconds)
     }
     
     struct Options {
@@ -137,6 +171,10 @@ struct PlayerViewController: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_: AVPlayerViewController, context _: Context) {}
+    
+    static func dismantleUIViewController(_ uiViewController: AVPlayerViewController, coordinator: Coordinator) {
+        coordinator.timer?.invalidate()
+    }
 }
 
 extension AVPlayerItem {
