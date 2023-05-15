@@ -19,8 +19,14 @@ public struct ApplicationOptions {
     var pageId: String?
 }
 
+public struct NpawOptions {
+    var accountCode: String?
+}
+
 public struct AppOptions {
     private init() {}
+    
+    public var name: String = "tvOS"
     
     public var audioLanguage: String? {
         UserDefaults.standard.string(forKey: audioLanguageKey)
@@ -49,6 +55,8 @@ public struct AppOptions {
     public var user: UserOptions = UserOptions()
     
     public var app: ApplicationOptions = ApplicationOptions()
+    
+    public var npaw: NpawOptions = NpawOptions()
 }
 
 // Implement standard things
@@ -83,6 +91,10 @@ public extension AppOptions {
         AppOptions.standard.app
     }
     
+    static var npaw: NpawOptions {
+        AppOptions.standard.npaw
+    }
+    
     static func load() async -> Void {
         do {
             let data = try await withCheckedThrowingContinuation { continuation in
@@ -103,6 +115,10 @@ public extension AppOptions {
                 AppOptions.user.anonymousId = data.me.analytics.anonymousId
                 AppOptions.user.ageGroup = userInfo?.ageGroup
             }
+            
+            let processInfo = ProcessInfo.processInfo
+            
+            AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"]
         } catch {
             print(error)
         }

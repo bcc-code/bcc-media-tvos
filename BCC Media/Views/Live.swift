@@ -34,7 +34,7 @@ struct LivePlayer: View {
     var body: some View {
         VStack {
             if let url = url {
-                PlayerViewController(url).ignoresSafeArea()
+                PlayerViewController(url, .init(isLive: true)).ignoresSafeArea()
             } else {
                 ProgressView()
             }

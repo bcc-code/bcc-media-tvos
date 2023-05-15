@@ -7,14 +7,49 @@
 
 import SwiftUI
 import AVKit
+import YouboraAVPlayerAdapter
+import YouboraLib
+
+
+extension YBPlugin {
+    convenience init(_ options: PlayerViewController.Options, _ player: AVPlayer) {
+        let opts = YBOptions()
+        opts.enabled = AppOptions.npaw.accountCode != nil
+        opts.accountCode = AppOptions.npaw.accountCode
+        opts.username = AppOptions.user.anonymousId
+        opts.appName = AppOptions.standard.name
+        
+        let c = options.content
+        opts.contentId = c.episodeId
+        opts.contentTitle = options.title
+        opts.contentTvShow = c.showId
+        opts.contentIsLive = NSNumber(value: options.isLive)
+        opts.contentSeason = c.seasonId != nil && c.seasonTitle != nil ? "\(c.seasonId!) - \(c.seasonTitle!)" : nil
+        opts.program = c.showTitle ?? options.title
+        opts.contentEpisodeTitle = c.episodeTitle
+        
+        opts.contentCustomDimension2 = AppOptions.user.ageGroup
+        
+        self.init(options: opts)
+        
+        self.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: player))
+    }
+}
 
 struct PlayerViewController: UIViewControllerRepresentable {
     var videoURL: URL
     var options: Options
     
+    private var player: AVPlayer
+    
+    private var plugin: YBPlugin
+    
     init(_ videoURL: URL, _ options: Options = .init()) {
         self.videoURL = videoURL
         self.options = options
+        self.player = AVPlayer(url: videoURL)
+        
+        self.plugin = YBPlugin(options, self.player)
     }
     
     struct Options {
@@ -23,17 +58,36 @@ struct PlayerViewController: UIViewControllerRepresentable {
         var audioLanguage: String?
         var subtitleLanguage: String?
         
-        init(title: String? = nil, startFrom: Int = 0, audioLanguage: String? = nil, subtitleLanguage: String? = nil) {
+        var isLive: Bool
+        
+        var content: Content
+        struct Content {
+            var episodeTitle: String?
+            var episodeId: String?
+            var seasonTitle: String?
+            var seasonId: String?
+            var showTitle: String?
+            var showId: String?
+        }
+        
+        init(
+            title: String? = nil,
+            startFrom: Int = 0,
+            audioLanguage: String? = nil,
+            subtitleLanguage: String? = nil,
+            isLive: Bool = false,
+            content: Content = .init()
+        ) {
             self.title = title
             
             self.startFrom = startFrom
             self.subtitleLanguage = subtitleLanguage ?? AppOptions.standard.subtitleLanguage
             self.audioLanguage = audioLanguage ?? AppOptions.standard.audioLanguage
+            
+            self.isLive = isLive
+            
+            self.content = content
         }
-    }
-
-    private var player: AVPlayer {
-        AVPlayer(url: videoURL)
     }
 
     private func createMetadataItem(for identifier: AVMetadataIdentifier,

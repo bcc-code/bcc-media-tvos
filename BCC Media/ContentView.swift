@@ -152,7 +152,7 @@ struct ContentView: View {
                 }
                 .navigationDestination(for: EpisodePlayer.self) { player in
                     EpisodePlayer(
-                        title: player.title,
+                        episode: player.episode,
                         playerUrl: player.playerUrl,
                         startFrom: player.startFrom
                     ).ignoresSafeArea()
@@ -177,10 +177,10 @@ struct ContentView: View {
                                     apolloClient.fetch(query: API.GetEpisodeQuery(id: String(str))) { result in
                                         switch result {
                                         case let .success(res):
-                                            if let streams = res.data?.episode.streams, let playerUrl = getPlayerUrl(streams: streams) {
+                                            if let episode = res.data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
                                                 print("Adding player to path")
                                                 path.append(EpisodeViewer(episodeId: String(str)))
-                                                path.append(EpisodePlayer(title: res.data?.episode.title, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
+                                                path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
                                             }
                                         case .failure:
                                             print("Failed to retrieve stream from episode")

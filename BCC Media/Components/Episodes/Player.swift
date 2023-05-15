@@ -8,19 +8,28 @@
 import SwiftUI
 
 struct EpisodePlayer: View {
-    var title: String?
     var playerUrl: URL
+    
+    var episode: API.GetEpisodeQuery.Data.Episode
 
     var startFrom: Int
 
-    init(title: String?, playerUrl: URL, startFrom: Int = 0) {
-        self.title = title
+    init(episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, startFrom: Int = 0) {
+        self.episode = episode
+        
         self.playerUrl = playerUrl
         self.startFrom = startFrom
     }
 
     var body: some View {
-        PlayerViewController(playerUrl, .init(title: title, startFrom: startFrom)).ignoresSafeArea()
+        PlayerViewController(playerUrl, .init(title: episode.title, startFrom: startFrom, isLive: false, content: .init(
+            episodeTitle: episode.title,
+            episodeId: episode.id,
+            seasonTitle: episode.season?.title,
+            seasonId: episode.season?.id,
+            showTitle: episode.season?.show.title,
+            showId: episode.season?.show.id
+        ))).ignoresSafeArea()
     }
 }
 

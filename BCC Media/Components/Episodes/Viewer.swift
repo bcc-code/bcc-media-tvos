@@ -17,7 +17,7 @@ struct EpisodeHeader: View {
         VStack {
             if let url = getPlayerUrl(streams: episode.streams) {
                 NavigationLink {
-                    EpisodePlayer(title: episode.title, playerUrl: url, startFrom: episode.progress ?? 0)
+                    EpisodePlayer(episode: episode, playerUrl: url, startFrom: episode.progress ?? 0)
                 } label: {
                     ItemImage(episode.image).frame(width: 1280, height: 720)
                 }.buttonStyle(.card).frame(width: 1280, height: 720).overlay(

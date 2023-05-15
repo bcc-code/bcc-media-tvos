@@ -28,6 +28,12 @@ public extension API {
             season {
               __typename
               id
+              title
+              show {
+                __typename
+                id
+                title
+              }
             }
           }
         }
@@ -115,9 +121,31 @@ public extension API {
           public static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),
+            .field("title", String.self),
+            .field("show", Show.self),
           ] }
 
           public var id: API.ID { __data["id"] }
+          public var title: String { __data["title"] }
+          public var show: Show { __data["show"] }
+
+          /// Episode.Season.Show
+          ///
+          /// Parent Type: `Show`
+          public struct Show: API.SelectionSet {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public static var __parentType: Apollo.ParentType { API.Objects.Show }
+            public static var __selections: [Apollo.Selection] { [
+              .field("__typename", String.self),
+              .field("id", API.ID.self),
+              .field("title", String.self),
+            ] }
+
+            public var id: API.ID { __data["id"] }
+            public var title: String { __data["title"] }
+          }
         }
       }
     }

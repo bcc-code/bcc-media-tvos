@@ -14,6 +14,11 @@ query GetEpisode($id: ID!) {
         }
         season {
             id
+            title
+            show {
+                id
+                title
+            }
         }
     }
 }
