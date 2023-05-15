@@ -39,16 +39,12 @@ struct ContentView: View {
 
     @State var loading = false
 
-    func load() {
-        apolloClient.fetch(query: API.GetApplicationQuery()) { result in
-            switch result {
-            case let .success(data):
-                self.pageId = data.data?.application.page?.id ?? ""
-            case let .failure(error):
-                print(error)
-            }
-            loaded = true
+    func load() async -> Void {
+        await AppOptions.load()
+        if let pageId = AppOptions.app.pageId {
+            self.pageId = pageId
         }
+        loaded = true
     }
 
     func loadShow(_ id: String) {
@@ -68,12 +64,12 @@ struct ContentView: View {
             }
         }
     }
-
-    func loadTopic(_ id: String) {
-        apolloClient.fetch(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)) { result in
+    
+    func loadSeason(_ id: String) {
+        apolloClient.fetch(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) { result in
             switch result {
             case let .success(data):
-                if let episodeId = data.data?.studyTopic.defaultLesson.defaultEpisode?.id {
+                if let episodeId = data.data?.season.defaultEpisode.id {
                     path.append(EpisodeViewer(episodeId: episodeId))
                 } else if let errs = data.errors {
                     print(errs)
@@ -84,11 +80,11 @@ struct ContentView: View {
         }
     }
 
-    func loadSeason(_ id: String) {
-        apolloClient.fetch(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) { result in
+    func loadTopic(_ id: String) {
+        apolloClient.fetch(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)) { result in
             switch result {
             case let .success(data):
-                if let episodeId = data.data?.season.defaultEpisode.id {
+                if let episodeId = data.data?.studyTopic.defaultLesson.defaultEpisode?.id {
                     path.append(EpisodeViewer(episodeId: episodeId))
                 } else if let errs = data.errors {
                     print(errs)
@@ -162,7 +158,7 @@ struct ContentView: View {
                     ).ignoresSafeArea()
                 }
             }.task {
-                load()
+                await load()
             }
             .onOpenURL(perform: { url in
                 loading = true
@@ -183,6 +179,7 @@ struct ContentView: View {
                                         case let .success(res):
                                             if let streams = res.data?.episode.streams, let playerUrl = getPlayerUrl(streams: streams) {
                                                 print("Adding player to path")
+                                                path.append(EpisodeViewer(episodeId: String(str)))
                                                 path.append(EpisodePlayer(title: res.data?.episode.title, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
                                             }
                                         case .failure:
@@ -195,9 +192,9 @@ struct ContentView: View {
                             }
                         }
                         path.append(EpisodeViewer(episodeId: String(str)))
-                        loading = false
                     }
                 }
+                loading = false
             })
         }.preferredColorScheme(.dark)
     }

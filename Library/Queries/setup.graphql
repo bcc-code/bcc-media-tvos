@@ -1,0 +1,15 @@
+query getSetup {
+    me {
+        id
+        analytics {
+            anonymousId
+        }
+    }
+    application {
+        code
+        clientVersion
+        page {
+            id
+        }
+    }
+}

@@ -177,10 +177,14 @@
 		0990D42E29F95AFC00B99D35 /* GetConfigQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D3B229F95AFC00B99D35 /* GetConfigQuery.graphql.swift */; };
 		0990D42F29F95AFC00B99D35 /* GetPageQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D3B329F95AFC00B99D35 /* GetPageQuery.graphql.swift */; };
 		0990D43029F95AFC00B99D35 /* GetPageQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D3B329F95AFC00B99D35 /* GetPageQuery.graphql.swift */; };
-		0990D43129F95AFC00B99D35 /* GetApplicationQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D3B429F95AFC00B99D35 /* GetApplicationQuery.graphql.swift */; };
-		0990D43229F95AFC00B99D35 /* GetApplicationQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990D3B429F95AFC00B99D35 /* GetApplicationQuery.graphql.swift */; };
 		0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0998F6F629ED4F2500C74B3F /* PosterSection.swift */; };
 		09A41AF22A0E619300C737D0 /* AppOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41AF12A0E619300C737D0 /* AppOptions.swift */; };
+		09A41BA12A0E6AEA00C737D0 /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41B9F2A0E6AE900C737D0 /* User.graphql.swift */; };
+		09A41BA22A0E6AEA00C737D0 /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41B9F2A0E6AE900C737D0 /* User.graphql.swift */; };
+		09A41BA32A0E6AEA00C737D0 /* Analytics.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */; };
+		09A41BA42A0E6AEA00C737D0 /* Analytics.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */; };
+		09A41BA62A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */; };
+		09A41BA72A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CB225A29F7D82300201AAE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221429F7D82300201AAE /* Client.swift */; };
@@ -347,10 +351,12 @@
 		0990D3B129F95AFC00B99D35 /* GetEpisodeSeasonQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeSeasonQuery.graphql.swift; sourceTree = "<group>"; };
 		0990D3B229F95AFC00B99D35 /* GetConfigQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetConfigQuery.graphql.swift; sourceTree = "<group>"; };
 		0990D3B329F95AFC00B99D35 /* GetPageQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPageQuery.graphql.swift; sourceTree = "<group>"; };
-		0990D3B429F95AFC00B99D35 /* GetApplicationQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetApplicationQuery.graphql.swift; sourceTree = "<group>"; };
 		0998F6F529ED4CEB00C74B3F /* BCC Media.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BCC Media.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0998F6F629ED4F2500C74B3F /* PosterSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
 		09A41AF12A0E619300C737D0 /* AppOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOptions.swift; sourceTree = "<group>"; };
+		09A41B9F2A0E6AE900C737D0 /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
+		09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.graphql.swift; sourceTree = "<group>"; };
+		09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSetupQuery.graphql.swift; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -507,57 +513,59 @@
 		0990D37529F95AFC00B99D35 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				0990D38129F95AFC00B99D35 /* AchievementGroupPagination.graphql.swift */,
+				0990D39829F95AFC00B99D35 /* AchievementPagination.graphql.swift */,
+				0990D38429F95AFC00B99D35 /* AchievementSection.graphql.swift */,
+				09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */,
+				0990D39A29F95AFC00B99D35 /* Application.graphql.swift */,
 				094056DE2A0CC1D5004781A3 /* Calendar.graphql.swift */,
 				094056DD2A0CC1D5004781A3 /* CalendarDay.graphql.swift */,
-				094056E12A0CC1D5004781A3 /* EpisodeCalendarEntry.graphql.swift */,
-				094056E02A0CC1D5004781A3 /* Event.graphql.swift */,
-				094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */,
-				094056DF2A0CC1D5004781A3 /* ShowCalendarEntry.graphql.swift */,
-				094056E22A0CC1D5004781A3 /* SimpleCalendarEntry.graphql.swift */,
-				09083C332A0123B500A61EF9 /* Lesson.graphql.swift */,
-				0990D37629F95AFC00B99D35 /* Show.graphql.swift */,
-				0990D37729F95AFC00B99D35 /* Link.graphql.swift */,
-				0990D37829F95AFC00B99D35 /* FeaturedSection.graphql.swift */,
-				0990D37929F95AFC00B99D35 /* SectionPagination.graphql.swift */,
+				0990D38D29F95AFC00B99D35 /* CardListSection.graphql.swift */,
 				0990D37A29F95AFC00B99D35 /* CardSection.graphql.swift */,
-				0990D37B29F95AFC00B99D35 /* SectionItem.graphql.swift */,
-				0990D37C29F95AFC00B99D35 /* TaskPagination.graphql.swift */,
-				0990D37D29F95AFC00B99D35 /* SeasonPagination.graphql.swift */,
+				0990D39129F95AFC00B99D35 /* CollectionItemPagination.graphql.swift */,
+				0990D38929F95AFC00B99D35 /* DefaultGridSection.graphql.swift */,
 				0990D37E29F95AFC00B99D35 /* DefaultSection.graphql.swift */,
-				0990D37F29F95AFC00B99D35 /* PosterGridSection.graphql.swift */,
+				0990D39229F95AFC00B99D35 /* Episode.graphql.swift */,
+				094056E12A0CC1D5004781A3 /* EpisodeCalendarEntry.graphql.swift */,
+				0990D38629F95AFC00B99D35 /* EpisodePagination.graphql.swift */,
+				0990D38E29F95AFC00B99D35 /* EpisodeSearchItem.graphql.swift */,
+				094056E02A0CC1D5004781A3 /* Event.graphql.swift */,
+				0990D39929F95AFC00B99D35 /* FAQCategoryPagination.graphql.swift */,
+				0990D37829F95AFC00B99D35 /* FeaturedSection.graphql.swift */,
+				0990D38729F95AFC00B99D35 /* IconGridSection.graphql.swift */,
+				0990D39329F95AFC00B99D35 /* IconSection.graphql.swift */,
+				0990D39C29F95AFC00B99D35 /* LabelSection.graphql.swift */,
+				09083C332A0123B500A61EF9 /* Lesson.graphql.swift */,
+				0990D39F29F95AFC00B99D35 /* LessonPagination.graphql.swift */,
+				0990D37729F95AFC00B99D35 /* Link.graphql.swift */,
+				0990D39629F95AFC00B99D35 /* LinkPagination.graphql.swift */,
+				0990D38B29F95AFC00B99D35 /* ListSection.graphql.swift */,
+				0990D39729F95AFC00B99D35 /* MessageSection.graphql.swift */,
+				0990D39429F95AFC00B99D35 /* Page.graphql.swift */,
 				0990D38029F95AFC00B99D35 /* PageDetailsSection.graphql.swift */,
-				0990D38129F95AFC00B99D35 /* AchievementGroupPagination.graphql.swift */,
+				0990D37F29F95AFC00B99D35 /* PosterGridSection.graphql.swift */,
+				0990D38C29F95AFC00B99D35 /* PosterSection.graphql.swift */,
+				0990D38A29F95AFC00B99D35 /* QueryRoot.graphql.swift */,
+				0990D3A029F95AFC00B99D35 /* QuestionPagination.graphql.swift */,
+				0990D38529F95AFC00B99D35 /* SearchResult.graphql.swift */,
+				0990D39029F95AFC00B99D35 /* Season.graphql.swift */,
+				094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */,
+				0990D37D29F95AFC00B99D35 /* SeasonPagination.graphql.swift */,
+				0990D39B29F95AFC00B99D35 /* SeasonSearchItem.graphql.swift */,
+				0990D37B29F95AFC00B99D35 /* SectionItem.graphql.swift */,
+				0990D39E29F95AFC00B99D35 /* SectionItemPagination.graphql.swift */,
+				0990D37929F95AFC00B99D35 /* SectionPagination.graphql.swift */,
+				0990D37629F95AFC00B99D35 /* Show.graphql.swift */,
+				094056DF2A0CC1D5004781A3 /* ShowCalendarEntry.graphql.swift */,
+				0990D39529F95AFC00B99D35 /* ShowSearchItem.graphql.swift */,
+				094056E22A0CC1D5004781A3 /* SimpleCalendarEntry.graphql.swift */,
 				0990D38229F95AFC00B99D35 /* Stream.graphql.swift */,
 				0990D38329F95AFC00B99D35 /* StudyTopic.graphql.swift */,
-				0990D38429F95AFC00B99D35 /* AchievementSection.graphql.swift */,
-				0990D38529F95AFC00B99D35 /* SearchResult.graphql.swift */,
-				0990D38629F95AFC00B99D35 /* EpisodePagination.graphql.swift */,
-				0990D38729F95AFC00B99D35 /* IconGridSection.graphql.swift */,
-				0990D38829F95AFC00B99D35 /* UserCollectionEntryPagination.graphql.swift */,
-				0990D38929F95AFC00B99D35 /* DefaultGridSection.graphql.swift */,
-				0990D38A29F95AFC00B99D35 /* QueryRoot.graphql.swift */,
-				0990D38B29F95AFC00B99D35 /* ListSection.graphql.swift */,
-				0990D38C29F95AFC00B99D35 /* PosterSection.graphql.swift */,
-				0990D38D29F95AFC00B99D35 /* CardListSection.graphql.swift */,
-				0990D38E29F95AFC00B99D35 /* EpisodeSearchItem.graphql.swift */,
 				0990D38F29F95AFC00B99D35 /* SurveyQuestionPagination.graphql.swift */,
-				0990D39029F95AFC00B99D35 /* Season.graphql.swift */,
-				0990D39129F95AFC00B99D35 /* CollectionItemPagination.graphql.swift */,
-				0990D39229F95AFC00B99D35 /* Episode.graphql.swift */,
-				0990D39329F95AFC00B99D35 /* IconSection.graphql.swift */,
-				0990D39429F95AFC00B99D35 /* Page.graphql.swift */,
-				0990D39529F95AFC00B99D35 /* ShowSearchItem.graphql.swift */,
-				0990D39629F95AFC00B99D35 /* LinkPagination.graphql.swift */,
-				0990D39729F95AFC00B99D35 /* MessageSection.graphql.swift */,
-				0990D39829F95AFC00B99D35 /* AchievementPagination.graphql.swift */,
-				0990D39929F95AFC00B99D35 /* FAQCategoryPagination.graphql.swift */,
-				0990D39A29F95AFC00B99D35 /* Application.graphql.swift */,
-				0990D39B29F95AFC00B99D35 /* SeasonSearchItem.graphql.swift */,
-				0990D39C29F95AFC00B99D35 /* LabelSection.graphql.swift */,
+				0990D37C29F95AFC00B99D35 /* TaskPagination.graphql.swift */,
+				09A41B9F2A0E6AE900C737D0 /* User.graphql.swift */,
+				0990D38829F95AFC00B99D35 /* UserCollectionEntryPagination.graphql.swift */,
 				0990D39D29F95AFC00B99D35 /* WebSection.graphql.swift */,
-				0990D39E29F95AFC00B99D35 /* SectionItemPagination.graphql.swift */,
-				0990D39F29F95AFC00B99D35 /* LessonPagination.graphql.swift */,
-				0990D3A029F95AFC00B99D35 /* QuestionPagination.graphql.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -596,15 +604,15 @@
 			isa = PBXGroup;
 			children = (
 				094056D72A0CC1B8004781A3 /* GetCalendarDayQuery.graphql.swift */,
-				09083C2E2A01237E00A61EF9 /* GetDefaultEpisodeIdForSeasonQuery.graphql.swift */,
-				09083C2D2A01237E00A61EF9 /* GetDefaultEpisodeIdForStudyTopicQuery.graphql.swift */,
-				09083C2A2A01111300A61EF9 /* GetDefaultEpisodeIdForShowQuery.graphql.swift */,
-				0990D3AF29F95AFC00B99D35 /* SearchQuery.graphql.swift */,
-				0990D3B029F95AFC00B99D35 /* GetEpisodeQuery.graphql.swift */,
 				0990D3B229F95AFC00B99D35 /* GetConfigQuery.graphql.swift */,
+				09083C2E2A01237E00A61EF9 /* GetDefaultEpisodeIdForSeasonQuery.graphql.swift */,
+				09083C2A2A01111300A61EF9 /* GetDefaultEpisodeIdForShowQuery.graphql.swift */,
+				09083C2D2A01237E00A61EF9 /* GetDefaultEpisodeIdForStudyTopicQuery.graphql.swift */,
+				0990D3B029F95AFC00B99D35 /* GetEpisodeQuery.graphql.swift */,
 				0990D3B129F95AFC00B99D35 /* GetEpisodeSeasonQuery.graphql.swift */,
 				0990D3B329F95AFC00B99D35 /* GetPageQuery.graphql.swift */,
-				0990D3B429F95AFC00B99D35 /* GetApplicationQuery.graphql.swift */,
+				09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */,
+				0990D3AF29F95AFC00B99D35 /* SearchQuery.graphql.swift */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -642,10 +650,10 @@
 			isa = PBXGroup;
 			children = (
 				0990D3A929F95AFC00B99D35 /* API.graphql.swift */,
+				09CB221429F7D82300201AAE /* Client.swift */,
 				0990D3AA29F95AFC00B99D35 /* Fragments */,
 				0990D3AD29F95AFC00B99D35 /* Operations */,
 				0990D36D29F95AFC00B99D35 /* Schema */,
-				09CB221429F7D82300201AAE /* Client.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -949,13 +957,13 @@
 				0990D3CA29F95AFC00B99D35 /* TaskPagination.graphql.swift in Sources */,
 				094056EB2A0CC1D5004781A3 /* Event.graphql.swift in Sources */,
 				0990D40029F95AFC00B99D35 /* MessageSection.graphql.swift in Sources */,
-				0990D43229F95AFC00B99D35 /* GetApplicationQuery.graphql.swift in Sources */,
 				0990D42E29F95AFC00B99D35 /* GetConfigQuery.graphql.swift in Sources */,
 				0990D3BC29F95AFC00B99D35 /* StreamType.graphql.swift in Sources */,
 				0990D41E29F95AFC00B99D35 /* ItemSection.graphql.swift in Sources */,
 				0990D3BA29F95AFC00B99D35 /* Language.swift in Sources */,
 				09083C302A01237E00A61EF9 /* GetDefaultEpisodeIdForStudyTopicQuery.graphql.swift in Sources */,
 				094056DC2A0CC1C7004781A3 /* CalendarEntry.graphql.swift in Sources */,
+				09A41BA72A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */,
 				0990D36C29F95A1A00B99D35 /* Client.swift in Sources */,
 				0990D3EC29F95AFC00B99D35 /* CardListSection.graphql.swift in Sources */,
 				0990D42C29F95AFC00B99D35 /* GetEpisodeSeasonQuery.graphql.swift in Sources */,
@@ -987,6 +995,8 @@
 				0990D3C829F95AFC00B99D35 /* SectionItem.graphql.swift in Sources */,
 				0990D40829F95AFC00B99D35 /* SeasonSearchItem.graphql.swift in Sources */,
 				0990D3FA29F95AFC00B99D35 /* Page.graphql.swift in Sources */,
+				09A41BA22A0E6AEA00C737D0 /* User.graphql.swift in Sources */,
+				09A41BA42A0E6AEA00C737D0 /* Analytics.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,11 +1010,11 @@
 				0990D3E129F95AFC00B99D35 /* UserCollectionEntryPagination.graphql.swift in Sources */,
 				0990D3C729F95AFC00B99D35 /* SectionItem.graphql.swift in Sources */,
 				094056F02A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift in Sources */,
+				09A41BA62A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */,
 				0990D3ED29F95AFC00B99D35 /* EpisodeSearchItem.graphql.swift in Sources */,
 				0990D3E729F95AFC00B99D35 /* ListSection.graphql.swift in Sources */,
 				0990D3F329F95AFC00B99D35 /* CollectionItemPagination.graphql.swift in Sources */,
 				09113B0029C081810087B9A2 /* PageView.swift in Sources */,
-				0990D43129F95AFC00B99D35 /* GetApplicationQuery.graphql.swift in Sources */,
 				0990D42329F95AFC00B99D35 /* ItemSectionFragment.graphql.swift in Sources */,
 				2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */,
 				0990D41329F95AFC00B99D35 /* SchemaConfiguration.swift in Sources */,
@@ -1015,11 +1025,13 @@
 				0990D3FD29F95AFC00B99D35 /* LinkPagination.graphql.swift in Sources */,
 				097D6EBC29F003310007E4FB /* Player.swift in Sources */,
 				091D4F8729EEBD1400B67232 /* IconSection.swift in Sources */,
+				09A41BA32A0E6AEA00C737D0 /* Analytics.graphql.swift in Sources */,
 				0990D3F529F95AFC00B99D35 /* Episode.graphql.swift in Sources */,
 				094056EA2A0CC1D5004781A3 /* Event.graphql.swift in Sources */,
 				09E03AD229C887DF009329FF /* SignIn.swift in Sources */,
 				0990D40D29F95AFC00B99D35 /* SectionItemPagination.graphql.swift in Sources */,
 				0990D41129F95AFC00B99D35 /* QuestionPagination.graphql.swift in Sources */,
+				09A41BA12A0E6AEA00C737D0 /* User.graphql.swift in Sources */,
 				0990D41B29F95AFC00B99D35 /* Pagination.graphql.swift in Sources */,
 				0990D40329F95AFC00B99D35 /* FAQCategoryPagination.graphql.swift in Sources */,
 				09A41AF22A0E619300C737D0 /* AppOptions.swift in Sources */,

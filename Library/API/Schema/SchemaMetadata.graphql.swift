@@ -32,8 +32,6 @@ public extension API {
     public static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       case "QueryRoot": return API.Objects.QueryRoot
-      case "Application": return API.Objects.Application
-      case "Page": return API.Objects.Page
       case "Calendar": return API.Objects.Calendar
       case "CalendarDay": return API.Objects.CalendarDay
       case "Event": return API.Objects.Event
@@ -41,6 +39,7 @@ public extension API {
       case "SeasonCalendarEntry": return API.Objects.SeasonCalendarEntry
       case "ShowCalendarEntry": return API.Objects.ShowCalendarEntry
       case "SimpleCalendarEntry": return API.Objects.SimpleCalendarEntry
+      case "Page": return API.Objects.Page
       case "SectionPagination": return API.Objects.SectionPagination
       case "AchievementGroupPagination": return API.Objects.AchievementGroupPagination
       case "AchievementPagination": return API.Objects.AchievementPagination
@@ -82,6 +81,9 @@ public extension API {
       case "ShowSearchItem": return API.Objects.ShowSearchItem
       case "Stream": return API.Objects.Stream
       case "Lesson": return API.Objects.Lesson
+      case "User": return API.Objects.User
+      case "Analytics": return API.Objects.Analytics
+      case "Application": return API.Objects.Application
       default: return nil
       }
     }
