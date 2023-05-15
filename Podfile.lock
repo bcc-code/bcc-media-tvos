@@ -6,6 +6,7 @@ PODS:
     - JWTDecode (~> 3.0)
     - SimpleKeychain (~> 1.0)
   - JWTDecode (3.0.1)
+  - Rudder (2.2.7)
   - SimpleKeychain (1.0.1)
   - YouboraAVPlayerAdapter (6.7.0):
     - YouboraAVPlayerAdapter/Default (= 6.7.0)
@@ -17,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - Apollo
   - Auth0
+  - Rudder
   - YouboraAVPlayerAdapter
   - YouboraLib
 
@@ -25,6 +27,7 @@ SPEC REPOS:
     - Apollo
     - Auth0
     - JWTDecode
+    - Rudder
     - SimpleKeychain
     - YouboraAVPlayerAdapter
     - YouboraLib
@@ -33,10 +36,11 @@ SPEC CHECKSUMS:
   Apollo: 557761ba1b5a0f8dbeaaa90d9ef8e6ee998fdc30
   Auth0: 64da28fdc5cd499aa516dc4bfd0ace8efae2c1da
   JWTDecode: 2eed97c2fa46ccaf3049a787004eedf0be474a87
+  Rudder: 2347c09aee69232812e8262b28d72b69df677940
   SimpleKeychain: 130211269f88f038d7dc5254cf0b1b9ce978c398
   YouboraAVPlayerAdapter: f48516d2e5862e3f6b183471993be165cc8e8c77
   YouboraLib: 86bfabe1b909bee7b1f2707821ba6cb1b6398da8
 
-PODFILE CHECKSUM: a24d9e94602ef70d87552d7af85bbb22047a43ce
+PODFILE CHECKSUM: c0a9a5b2e28af1fcaae948064532b17a5e3a3d48
 
 COCOAPODS: 1.12.1

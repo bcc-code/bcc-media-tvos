@@ -14,6 +14,9 @@ target 'BCC Media' do
   # NPAW
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
+
+  # Analytics
+  pod 'Rudder'
 end
 
 target 'Top Shelf' do

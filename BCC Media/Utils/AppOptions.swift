@@ -23,6 +23,11 @@ public struct NpawOptions {
     var accountCode: String?
 }
 
+public struct RudderOptions {
+    var dataPlaneUrl: String = ""
+    var writeKey: String = ""
+}
+
 public struct AppOptions {
     private init() {}
     
@@ -57,6 +62,8 @@ public struct AppOptions {
     public var app: ApplicationOptions = ApplicationOptions()
     
     public var npaw: NpawOptions = NpawOptions()
+    
+    public var rudder: RudderOptions = RudderOptions()
 }
 
 // Implement standard things
@@ -93,6 +100,10 @@ public extension AppOptions {
     
     static var npaw: NpawOptions {
         AppOptions.standard.npaw
+    }
+    
+    static var rudder: RudderOptions {
+        AppOptions.standard.rudder
     }
     
     static func load() async -> Void {
