@@ -40,5 +40,5 @@
 "calendar_timetableInLocalTime" = "Timetable is in your local time";
 
 "aboutUs_description" = "BCC Media is a foundation in the BCC Federation which produces and distribute content with positive and christian values";
-"aboutUs_contact" = "Contact us on support@bcc.media or in the BCC Media mobile app";
-"aboutUs_privacyPolicy" = "The Privacy Policy can be read on bcc.media/no/personvern";
+"aboutUs_contact" = "Contact us on $email or in the BCC Media mobile app";
+"aboutUs_privacyPolicy" = "The Privacy Policy can be read on $url";

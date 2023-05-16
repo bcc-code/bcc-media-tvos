@@ -10,6 +10,9 @@ import SwiftUI
 struct AboutUsView: View {
     @Environment(\.dismiss) private var dismiss
     
+    var contactString = NSLocalizedString("aboutUs_contact", comment: "")
+    var privacyPolicyString = NSLocalizedString("aboutUs_privacyPolicy", comment: "")
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
             Spacer()
@@ -17,10 +20,13 @@ struct AboutUsView: View {
                 Image(uiImage: UIImage(named: "LogoBanner.png")!)
                     .resizable()
                     .frame(width: 970, height: 346)
-                Text("aboutUs_description").font(.callout)
-                Text("aboutUs_contact").font(.callout)
-                Text("aboutUs_privacyPolicy").font(.callout)
-            }.focusable()
+                Text("aboutUs_description")
+                Text(contactString.split(separator: "$email")[0])
+                + Text("support@bcc.media").foregroundColor(.blue)
+                + Text(contactString.split(separator: "$email")[1])
+                Text(privacyPolicyString.split(separator: "$url")[0])
+                + Text("bcc.media/no/personvern").foregroundColor(.blue)
+            }.focusable().font(.callout)
             HStack {
                 Spacer()
                 Button {

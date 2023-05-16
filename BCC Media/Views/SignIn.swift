@@ -30,6 +30,8 @@ struct SignInView: View {
         let uiimage = UIImage(ciImage: scaledCIImage)
         return uiimage.pngData()!
     }
+    
+    var localizedGotoString = NSLocalizedString("signIn_orGoToAndEnterCode", comment: "")
 
     var body: some View {
         HStack {
@@ -42,10 +44,9 @@ struct SignInView: View {
             Spacer().frame(width: 50)
             VStack {
                 Group {
-                    
-                    Text("Or go to: ") +
+                    Text(localizedGotoString.split(separator: "$url")[0]) +
                         Text(getSimpleUri()).foregroundColor(.blue) +
-                        Text(" and enter this code:")
+                    Text(localizedGotoString.split(separator:"$url")[1].split(separator: "$code")[0])
                 }
                 Spacer().frame(height: 30)
                 Text(code).font(.title)

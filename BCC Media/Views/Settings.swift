@@ -40,7 +40,7 @@ struct SettingsView: View {
         authenticated = authenticationProvider.isAuthenticated()
         onSave()
         loading = false
-        path.removeLast()
+        path.removeLast(path.count)
         Task {
             await reloadUserInfo()
         }
