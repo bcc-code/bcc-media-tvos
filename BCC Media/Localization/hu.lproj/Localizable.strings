@@ -6,6 +6,7 @@
 "common_details" = "Részletek";
 "common_settings" = "Beállítások";
 "common_none" = "Nincs";
+"common_back" = "Vissza";
 "shows_description" = "Leírás mutatása";
 "episodes_releaseDate" = "Megjelenési dátum";
 "search_noShowsWithCurrentFilter" = "Az aktuális szűrővel nincs megjelenés";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "Alkalmazás nyelve";
 "settings_audioLanguage" = "Audió nyelve";
 "settings_subtitles" = "Felíratok";
-"settings_details" = "Részletek";
+"settings_information" = "Információ";
 "settings_aboutUs" = "Rólunk";
 "signIn_scanWithPhone" = "Szkenneld be ezt a telefonoddal";
 "signIn_orGoToAndEnterCode" = "Vagy menj a következő címre: $url és írd be ezt a kódot: $code";

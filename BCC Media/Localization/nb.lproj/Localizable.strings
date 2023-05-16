@@ -6,6 +6,7 @@
 "common_details" = "Detaljer";
 "common_settings" = "Innstillinger";
 "common_none" = "Ingen";
+"common_back" = "Tilbake";
 "shows_description" = "Serie beskrivelse";
 "episodes_releaseDate" = "Utgivelsesdato";
 "search_noShowsWithCurrentFilter" = "Ingen serier med nåværende filter";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "App språk";
 "settings_audioLanguage" = "Lydspråk";
 "settings_subtitles" = "Undertekster";
-"settings_details" = "Detaljer";
+"settings_information" = "Informasjon";
 "settings_aboutUs" = "Om oss";
 "signIn_scanWithPhone" = "Scan denne med telefonen din";
 "signIn_orGoToAndEnterCode" = "Eller gå til: $url og legg innd enne koden: $code";

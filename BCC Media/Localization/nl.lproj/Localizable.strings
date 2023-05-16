@@ -6,6 +6,7 @@
 "common_details" = "Details";
 "common_settings" = "Instellingen";
 "common_none" = "Geen";
+"common_back" = "Terug";
 "shows_description" = "Toon beschrijving";
 "episodes_releaseDate" = "Publicatiedatum";
 "search_noShowsWithCurrentFilter" = "Geen series die aan het filter voldoen";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "Taal van de app";
 "settings_audioLanguage" = "Audio taal";
 "settings_subtitles" = "Ondertiteling";
-"settings_details" = "Details";
+"settings_information" = "Informatie";
 "settings_aboutUs" = "Over ons";
 "signIn_scanWithPhone" = "Scan met je telefoon";
 "signIn_orGoToAndEnterCode" = "Of ga naar $url en vul de volgende code in: $code";

@@ -6,6 +6,7 @@
 "common_details" = "Szczegóły";
 "common_settings" = "Ustawienia";
 "common_none" = "Bez napisów";
+"common_back" = "Wstecz";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Napisy";
-"settings_details" = "Szczegóły";
+"settings_information" = "Informacje";
 "settings_aboutUs" = "O nas";
 "signIn_scanWithPhone" = "Scan this with your phone";
 "signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";

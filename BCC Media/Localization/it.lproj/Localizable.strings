@@ -6,6 +6,7 @@
 "common_details" = "Dettagli";
 "common_settings" = "Impostazioni";
 "common_none" = "Nessuno";
+"common_back" = "Indietro";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";
@@ -18,7 +19,7 @@ Registrati";
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Sottotitoli";
-"settings_details" = "Dettagli";
+"settings_information" = "Informazioni";
 "settings_aboutUs" = "Chi siamo";
 "signIn_scanWithPhone" = "Scan this with your phone";
 "signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";

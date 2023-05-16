@@ -6,6 +6,7 @@
 "common_details" = "Details";
 "common_settings" = "Settings";
 "common_none" = "None";
+"common_back" = "Back";
 
 "shows_description" = "Show description";
 
@@ -21,7 +22,7 @@
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Subtitles";
-"settings_details" = "Details";
+"settings_information" = "Information";
 "settings_aboutUs" = "About us";
 
 "signIn_scanWithPhone" = "Scan this with your phone";

@@ -91,71 +91,72 @@ struct SettingsView: View {
     @State var path: NavigationPath = .init()
 
     var body: some View {
-        NavigationStack(path: $path) {
-            VStack {
-                Form {
-                    Section(header: Text("common_settings")) {
-                        Picker("settings_audioLanguage", selection: $audioLanguage) {
-                            Text("common_none").tag("none")
-                            ForEach(Language.getAll(), id: \.code) { language in
-                                Text(language.display.capitalizedSentence).tag(language.code)
+        ZStack {
+            NavigationStack(path: $path) {
+                VStack {
+                    Form {
+                        Section(header: Text("common_settings")) {
+                            Picker("settings_audioLanguage", selection: $audioLanguage) {
+                                Text("common_none").tag("none")
+                                ForEach(Language.getAll(), id: \.code) { language in
+                                    Text(language.display.capitalizedSentence).tag(language.code)
+                                }
+                            }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
+                                setLanguage("audioLanguage", value)
                             }
-                        }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
-                            setLanguage("audioLanguage", value)
-                        }
-                        Picker("settings_subtitles", selection: $subtitleLanguage) {
-                            Text("common_none").tag("none")
-                            ForEach(Language.getAll(), id: \.code) { language in
-                                HStack {
-                                    Text(language.display.capitalizedSentence)
-                                }.tag(language.code)
+                            Picker("settings_subtitles", selection: $subtitleLanguage) {
+                                Text("common_none").tag("none")
+                                ForEach(Language.getAll(), id: \.code) { language in
+                                    HStack {
+                                        Text(language.display.capitalizedSentence)
+                                    }.tag(language.code)
+                                }
+                            }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
+                                setLanguage("subtitleLanguage", value)
                             }
-                        }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
-                            setLanguage("subtitleLanguage", value)
                         }
-                    }
-                    Section(header: Text("settings_account")) {
-                        if authenticated {
-                            Button {
-                                logout()
-                            } label: {
-                                HStack {
-                                    if let n = name {
-                                        Text(n)
-                                    } else {
-                                        EmptyView()
+                        Section(header: Text("settings_account")) {
+                            if authenticated {
+                                Button {
+                                    logout()
+                                } label: {
+                                    HStack {
+                                        if let n = name {
+                                            Text(n)
+                                        } else {
+                                            EmptyView()
+                                        }
+                                        Spacer()
+                                        Text("settings_logOut").foregroundColor(.gray)
                                     }
-                                    Spacer()
-                                    Text("settings_logOut").foregroundColor(.gray)
                                 }
-                            }
-                        } else {
-                            Button {
-                                startSignIn()
-                            } label: {
-                                if loading {
-                                    ProgressView()
-                                } else {
-                                    Text("settings_signIn")
+                            } else {
+                                Button {
+                                    startSignIn()
+                                } label: {
+                                    if loading {
+                                        ProgressView()
+                                    } else {
+                                        Text("settings_signIn")
+                                    }
                                 }
                             }
                         }
-                    }
-                    Section(header: Text("settings_details")) {
-                        Button {
-                            path.append(AboutUsView())
-                        } label: {
-                            Text("settings_aboutUs")
+                        Section(header: Text("settings_information")) {
+                            NavigationLink("settings_aboutUs") {
+                                AboutUsView()
+                            }
                         }
                     }
-                }
-            }.frame(maxWidth: 800)
-                .navigationDestination(for: SignInView.self) { view in
-                view
-                }.navigationDestination(for: AboutUsView.self) { view in
-                    view
-                }
-        }.task {
+                }.frame(maxWidth: 800)
+                    .navigationDestination(for: SignInView.self) { view in
+                        view
+                    }.navigationDestination(for: AboutUsView.self) { view in
+                        view
+                    }
+            }
+        }
+        .task {
             await reloadUserInfo()
         }
     }

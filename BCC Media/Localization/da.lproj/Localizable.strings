@@ -7,6 +7,7 @@
 "common_details" = "Detaljer";
 "common_settings" = "Indstillinger";
 "common_none" = "Ingen";
+"common_back" = "Tilbage";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";
@@ -18,7 +19,7 @@
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Undertekster";
-"settings_details" = "Detaljer";
+"settings_information" = "Information";
 "settings_aboutUs" = "Om os";
 "signIn_scanWithPhone" = "Scan this with your phone";
 "signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";

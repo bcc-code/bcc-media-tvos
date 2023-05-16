@@ -6,6 +6,7 @@
 "common_details" = "Подробности";
 "common_settings" = "Настройки";
 "common_none" = "Нет";
+"common_back" = "Назад";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Субтитры";
-"settings_details" = "Подробности";
+"settings_information" = "Информация";
 "settings_aboutUs" = "О нас";
 "signIn_scanWithPhone" = "Scan this with your phone";
 "signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";

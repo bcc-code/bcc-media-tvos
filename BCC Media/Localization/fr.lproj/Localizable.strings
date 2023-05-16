@@ -6,6 +6,7 @@
 "common_details" = "Détails";
 "common_settings" = "Paramètres";
 "common_none" = "Aucun";
+"common_back" = "Retour";
 "shows_description" = "Description de l\'émission";
 "episodes_releaseDate" = "Date de parution";
 "search_noShowsWithCurrentFilter" = "Pas d\'émissions avec le filtre actuel";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "Langue de l\'application";
 "settings_audioLanguage" = "Langue audio";
 "settings_subtitles" = "Sous-titres";
-"settings_details" = "Détails";
+"settings_information" = "Information";
 "settings_aboutUs" = "À propos de nous";
 "signIn_scanWithPhone" = "Scanne ceci avec ton téléphone";
 "signIn_orGoToAndEnterCode" = "Ou va sur : $url et entre ce code : $code";

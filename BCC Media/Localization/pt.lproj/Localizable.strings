@@ -6,6 +6,7 @@
 "common_details" = "Detalhes ";
 "common_settings" = "Configurações.";
 "common_none" = "Nenhum";
+"common_back" = "Voltar";
 "shows_description" = "Sem descrição";
 "episodes_releaseDate" = "Datas de lançamento";
 "search_noShowsWithCurrentFilter" = "Não aparece com o filtro atual";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "Idioma do aplicativo";
 "settings_audioLanguage" = "Idioma do áudio";
 "settings_subtitles" = "Legendas";
-"settings_details" = "Detalhes ";
+"settings_information" = "Informação";
 "settings_aboutUs" = "Sobre nós ";
 "signIn_scanWithPhone" = "Faça o escane disso com o seu telefone";
 "signIn_orGoToAndEnterCode" = "Ou vá para: $url e digite este código: $code";

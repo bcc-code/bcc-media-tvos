@@ -42,6 +42,7 @@ struct SignInView: View {
             Spacer().frame(width: 50)
             VStack {
                 Group {
+                    
                     Text("Or go to: ") +
                         Text(getSimpleUri()).foregroundColor(.blue) +
                         Text(" and enter this code:")

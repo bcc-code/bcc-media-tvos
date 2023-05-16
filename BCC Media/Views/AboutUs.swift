@@ -8,16 +8,27 @@
 import SwiftUI
 
 struct AboutUsView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
-        VStack(alignment: .center, spacing: 40) {
+        VStack(alignment: .leading, spacing: 40) {
             Spacer()
-            Image(uiImage: UIImage(named: "LogoBanner.png")!)
-                .resizable()
-                .frame(width: 970, height: 346)
-            Spacer()
-            Text("aboutUs_description").font(.callout)
-            Text("aboutUs_contact").font(.callout)
-            Text("aboutUs_privacyPolicy").font(.callout)
+            VStack(alignment: .leading, spacing: 40) {
+                Image(uiImage: UIImage(named: "LogoBanner.png")!)
+                    .resizable()
+                    .frame(width: 970, height: 346)
+                Text("aboutUs_description").font(.callout)
+                Text("aboutUs_contact").font(.callout)
+                Text("aboutUs_privacyPolicy").font(.callout)
+            }.focusable()
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Text("common_back")
+                }
+            }
             Spacer()
         }.frame(width: 970)
     }

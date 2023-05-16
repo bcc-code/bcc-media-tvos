@@ -6,6 +6,7 @@
 "common_details" = "Podrobnosti";
 "common_settings" = "Nastavitve";
 "common_none" = "Brez";
+"common_back" = "Nazaj";
 "shows_description" = "Opis oddaje";
 "episodes_releaseDate" = "Datum izida";
 "search_noShowsWithCurrentFilter" = "Ni oddaj s trenutnim filtrom";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "Jezik aplikacije";
 "settings_audioLanguage" = "Jezik zvoka";
 "settings_subtitles" = "Podnapisi";
-"settings_details" = "Podrobnosti";
+"settings_information" = "Informacije";
 "settings_aboutUs" = "O nas";
 "signIn_scanWithPhone" = "Skeniraj s telefonom";
 "signIn_orGoToAndEnterCode" = "Ali pojdi na: $url in vnesi to kodo: $code";

@@ -6,6 +6,7 @@
 "common_details" = "Detaylar";
 "common_settings" = "Ayarlar";
 "common_none" = "Hiçbiri";
+"common_back" = "Geri";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Altyazılar";
-"settings_details" = "Detaylar";
+"settings_information" = "Bilgi";
 "settings_aboutUs" = "Hakkımızda";
 "signIn_scanWithPhone" = "Scan this with your phone";
 "signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";

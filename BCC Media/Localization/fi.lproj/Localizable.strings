@@ -6,6 +6,7 @@
 "common_details" = "Lisätietoa";
 "common_settings" = "Asetukset";
 "common_none" = "Ei mikään";
+"common_back" = "Takaisin";
 "shows_description" = "Näytä kuvaus";
 "episodes_releaseDate" = "Julkaisupäivämäärä";
 "search_noShowsWithCurrentFilter" = "Suodatusehdoilla ei löydy esityksiä";
@@ -17,7 +18,7 @@
 "settings_appLanguage" = "Sovelluksen kieli";
 "settings_audioLanguage" = "Puhekieli";
 "settings_subtitles" = "Tekstitys";
-"settings_details" = "Lisätietoa";
+"settings_information" = "Tiedot";
 "settings_aboutUs" = "Tietoa meistä";
 "signIn_scanWithPhone" = "Kuvaa tämä puhelimellasi";
 "signIn_orGoToAndEnterCode" = "Tai mene $url ja syötä tämä koodi: $code";
