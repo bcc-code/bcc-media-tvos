@@ -69,6 +69,7 @@ public extension API {
       case "MessageSection": return API.Objects.MessageSection
       case "PageDetailsSection": return API.Objects.PageDetailsSection
       case "WebSection": return API.Objects.WebSection
+      case "ItemSectionMetadata": return API.Objects.ItemSectionMetadata
       case "SectionItem": return API.Objects.SectionItem
       case "Show": return API.Objects.Show
       case "Season": return API.Objects.Season

@@ -9,6 +9,10 @@ public extension API {
       fragment ItemSectionFragment on ItemSection {
         __typename
         title
+        metadata {
+          __typename
+          prependLiveElement
+        }
         items {
           __typename
           items {
@@ -37,11 +41,29 @@ public extension API {
     public static var __selections: [Apollo.Selection] { [
       .field("__typename", String.self),
       .field("title", String?.self),
+      .field("metadata", Metadata?.self),
       .field("items", Items.self),
     ] }
 
     public var title: String? { __data["title"] }
+    public var metadata: Metadata? { __data["metadata"] }
     public var items: Items { __data["items"] }
+
+    /// Metadata
+    ///
+    /// Parent Type: `ItemSectionMetadata`
+    public struct Metadata: API.SelectionSet {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public static var __parentType: Apollo.ParentType { API.Objects.ItemSectionMetadata }
+      public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
+        .field("prependLiveElement", Bool.self),
+      ] }
+
+      public var prependLiveElement: Bool { __data["prependLiveElement"] }
+    }
 
     /// Items
     ///

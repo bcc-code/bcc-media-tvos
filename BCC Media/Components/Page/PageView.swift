@@ -67,7 +67,8 @@ struct PageDisplay: View {
                                 FeaturedSection(
                                     itemSection.title,
                                     mapToItems(itemSection.items),
-                                    clickItem: clickItem
+                                    clickItem: clickItem,
+                                    withLiveElement: itemSection.metadata?.prependLiveElement == true
                                 )
                             case "DefaultSection":
                                 DefaultSection(

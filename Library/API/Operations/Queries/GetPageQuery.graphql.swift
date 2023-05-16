@@ -124,6 +124,7 @@ public extension API {
               public var id: API.ID { __data["id"] }
               public var title: String? { __data["title"] }
               public var description: String? { __data["description"] }
+              public var metadata: ItemSectionFragment.Metadata? { __data["metadata"] }
               public var items: ItemSectionFragment.Items { __data["items"] }
 
               public struct Fragments: FragmentContainer {

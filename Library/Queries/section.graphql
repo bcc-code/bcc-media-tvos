@@ -1,6 +1,9 @@
 fragment ItemSectionFragment on ItemSection {
     __typename
     title
+    metadata {
+        prependLiveElement
+    }
     items {
         items {
             id
