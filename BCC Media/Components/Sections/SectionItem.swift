@@ -14,6 +14,7 @@ struct SectionItemButton: ButtonStyle {
         configuration.label
             .padding(.zero)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 4 : 0))
+            .cornerRadius(10)
             .scaleEffect(configuration.isPressed ? 1.05 : focused ? 1.02 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
     }

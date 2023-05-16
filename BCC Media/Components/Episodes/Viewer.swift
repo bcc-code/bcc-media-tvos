@@ -151,7 +151,7 @@ struct EpisodeViewer: View {
                                             Text(se.title).tag(se.id)
                                         }
                                     }.pickerStyle(.navigationLink).disabled(s.show.seasons.items.count <= 1)
-                                    VStack(alignment: .leading, spacing: 10) {
+                                    VStack(alignment: .leading, spacing: 20) {
                                         ForEach(s.episodes.items, id: \.id) { ep in
                                             EpisodeListItem(ep)
                                         }.frame(width: 1280, height: 180)
