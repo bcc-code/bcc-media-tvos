@@ -17,6 +17,8 @@
 "settings_appLanguage" = "Jezik aplikacije";
 "settings_audioLanguage" = "Jezik zvoka";
 "settings_subtitles" = "Podnapisi";
+"settings_details" = "Podrobnosti";
+"settings_aboutUs" = "O nas";
 "signIn_scanWithPhone" = "Skeniraj s telefonom";
 "signIn_orGoToAndEnterCode" = "Ali pojdi na: $url in vnesi to kodo: $code";
 "tab_home" = "Domov";
@@ -26,4 +28,7 @@
 "live_play" = "Predvajaj";
 "calendar_today" = "Danes";
 "calendar_noScheduledEvents" = "Ni načrtovanih dogodkov";
-"calendar_timetableInLocalTime" = "Timetable is in your local time";
+"calendar_timetableInLocalTime" = "Razpored je v tvojem lokalnem času";
+"aboutUs_description" = "BCC Media is a foundation in the BCC Federation which produces and distribute content with positive and christian values";
+"aboutUs_contact" = "Contact us on support@bcc.media or in the BCC Media mobile app";
+"aboutUs_privacyPolicy" = "The Privacy Policy can be read on bcc.media/no/personvern";

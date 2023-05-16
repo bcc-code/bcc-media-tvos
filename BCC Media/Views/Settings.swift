@@ -38,9 +38,9 @@ struct SettingsView: View {
     func authStateUpdate() {
         apolloClient.clearCache()
         authenticated = authenticationProvider.isAuthenticated()
-        showSignIn = false
         onSave()
         loading = false
+        path.removeLast()
         Task {
             await reloadUserInfo()
         }
@@ -62,7 +62,11 @@ struct SettingsView: View {
                     token = code.userCode
                     verificationUri = code.verificationUri
                     verificationUriComplete = code.verificationUriComplete
-                    showSignIn = true
+                    path.append(
+                        SignInView(cancel: {
+                            cancelTask?()
+                            authStateUpdate()
+                        }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token))
                 }
                 authStateUpdate()
             } catch {
@@ -71,8 +75,6 @@ struct SettingsView: View {
         }
         cancelTask = task.cancel
     }
-
-    @State var showSignIn = false
 
     @State var audioLanguage = AppOptions.standard.audioLanguage ?? "none"
     @State var subtitleLanguage = AppOptions.standard.subtitleLanguage ?? "none"
@@ -85,69 +87,74 @@ struct SettingsView: View {
         }
         apolloClient.clearCache()
     }
+    
+    @State var path: NavigationPath = .init()
 
     var body: some View {
-        NavigationStack {
-            if showSignIn {
-                SignInView(cancel: {
-                    cancelTask?()
-                    authStateUpdate()
-                }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token)
-            } else {
-                VStack {
-                    Form {
-                        Section(header: Text("common_settings")) {
-                            Picker("settings_audioLanguage", selection: $audioLanguage) {
-                                Text("common_none").tag("none")
-                                ForEach(Language.getAll(), id: \.code) { language in
-                                    HStack {
-                                        Text(language.display.capitalizedSentence)
-                                    }.tag(language.code)
-                                }
-                            }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
-                                setLanguage("audioLanguage", value)
+        NavigationStack(path: $path) {
+            VStack {
+                Form {
+                    Section(header: Text("common_settings")) {
+                        Picker("settings_audioLanguage", selection: $audioLanguage) {
+                            Text("common_none").tag("none")
+                            ForEach(Language.getAll(), id: \.code) { language in
+                                Text(language.display.capitalizedSentence).tag(language.code)
                             }
-                            Picker("settings_subtitles", selection: $subtitleLanguage) {
-                                Text("common_none").tag("none")
-                                ForEach(Language.getAll(), id: \.code) { language in
-                                    HStack {
-                                        Text(language.display.capitalizedSentence)
-                                    }.tag(language.code)
-                                }
-                            }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
-                                setLanguage("subtitleLanguage", value)
-                            }
+                        }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
+                            setLanguage("audioLanguage", value)
                         }
-                        Section(header: Text("settings_account")) {
-                            if authenticated {
-                                Button {
-                                    logout()
-                                } label: {
-                                    HStack {
-                                        if let n = name {
-                                            Text(n)
-                                        } else {
-                                            EmptyView()
-                                        }
-                                        Spacer()
-                                        Text("settings_logOut").foregroundColor(.gray)
-                                    }
-                                }
-                            } else {
-                                Button {
-                                    startSignIn()
-                                } label: {
-                                    if loading {
-                                        ProgressView()
+                        Picker("settings_subtitles", selection: $subtitleLanguage) {
+                            Text("common_none").tag("none")
+                            ForEach(Language.getAll(), id: \.code) { language in
+                                HStack {
+                                    Text(language.display.capitalizedSentence)
+                                }.tag(language.code)
+                            }
+                        }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
+                            setLanguage("subtitleLanguage", value)
+                        }
+                    }
+                    Section(header: Text("settings_account")) {
+                        if authenticated {
+                            Button {
+                                logout()
+                            } label: {
+                                HStack {
+                                    if let n = name {
+                                        Text(n)
                                     } else {
-                                        Text("settings_signIn")
+                                        EmptyView()
                                     }
+                                    Spacer()
+                                    Text("settings_logOut").foregroundColor(.gray)
+                                }
+                            }
+                        } else {
+                            Button {
+                                startSignIn()
+                            } label: {
+                                if loading {
+                                    ProgressView()
+                                } else {
+                                    Text("settings_signIn")
                                 }
                             }
                         }
                     }
-                }.frame(maxWidth: 800)
-            }
+                    Section(header: Text("settings_details")) {
+                        Button {
+                            path.append(AboutUsView())
+                        } label: {
+                            Text("settings_aboutUs")
+                        }
+                    }
+                }
+            }.frame(maxWidth: 800)
+                .navigationDestination(for: SignInView.self) { view in
+                view
+                }.navigationDestination(for: AboutUsView.self) { view in
+                    view
+                }
         }.task {
             await reloadUserInfo()
         }

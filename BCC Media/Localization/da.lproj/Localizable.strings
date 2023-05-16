@@ -18,6 +18,8 @@
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Undertekster";
+"settings_details" = "Detaljer";
+"settings_aboutUs" = "Om os";
 "signIn_scanWithPhone" = "Scan this with your phone";
 "signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";
 "tab_home" = "Hjem";
@@ -28,3 +30,6 @@
 "calendar_today" = "I dag";
 "calendar_noScheduledEvents" = "Ingen planlagte begivenheder";
 "calendar_timetableInLocalTime" = "Timetable is in your local time";
+"aboutUs_description" = "BCC Media is a foundation in the BCC Federation which produces and distribute content with positive and christian values";
+"aboutUs_contact" = "Contact us on support@bcc.media or in the BCC Media mobile app";
+"aboutUs_privacyPolicy" = "The Privacy Policy can be read on bcc.media/no/personvern";

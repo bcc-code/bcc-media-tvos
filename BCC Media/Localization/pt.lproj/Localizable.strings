@@ -17,6 +17,8 @@
 "settings_appLanguage" = "Idioma do aplicativo";
 "settings_audioLanguage" = "Idioma do áudio";
 "settings_subtitles" = "Legendas";
+"settings_details" = "Detalhes ";
+"settings_aboutUs" = "Sobre nós ";
 "signIn_scanWithPhone" = "Faça o escane disso com o seu telefone";
 "signIn_orGoToAndEnterCode" = "Ou vá para: $url e digite este código: $code";
 "tab_home" = "Início";
@@ -26,4 +28,7 @@
 "live_play" = "Jogar";
 "calendar_today" = "Hoje";
 "calendar_noScheduledEvents" = "Nenhum evento agendado";
-"calendar_timetableInLocalTime" = "Timetable is in your local time";
+"calendar_timetableInLocalTime" = "O horário está no seu horário local";
+"aboutUs_description" = "BCC Media is a foundation in the BCC Federation which produces and distribute content with positive and christian values";
+"aboutUs_contact" = "Contact us on support@bcc.media or in the BCC Media mobile app";
+"aboutUs_privacyPolicy" = "The Privacy Policy can be read on bcc.media/no/personvern";

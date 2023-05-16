@@ -35,7 +35,6 @@ struct ContentView: View {
     @State var pageId = ""
 
     @State var loaded = false
-    @State var path: NavigationPath = .init()
 
     @State var loading = false
 
@@ -112,7 +111,9 @@ struct ContentView: View {
             loadSeason(item.id)
         }
     }
-
+    
+    @State var path: NavigationPath = .init()
+    
     var body: some View {
         ZStack {
             backgroundColor.ignoresSafeArea()

@@ -57,6 +57,16 @@ struct SignInView: View {
     }
 }
 
+extension SignInView: Hashable {
+    static func == (lhs: SignInView, rhs: SignInView) -> Bool {
+        true
+    }
+
+    func hash(into hasher: inout Hasher) {
+        
+    }
+}
+
 struct SignInView_Preview: PreviewProvider {
     static var previews: some View {
         SignInView(cancel: {}, verificationUri: "https://login.bcc.no/activate", verificationUriComplete: "https://login.bcc.no/asd", code: "1234-1234")

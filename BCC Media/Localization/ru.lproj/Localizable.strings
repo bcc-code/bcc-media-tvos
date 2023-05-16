@@ -17,6 +17,8 @@
 "settings_appLanguage" = "App Language";
 "settings_audioLanguage" = "Audio Language";
 "settings_subtitles" = "Субтитры";
+"settings_details" = "Подробности";
+"settings_aboutUs" = "О нас";
 "signIn_scanWithPhone" = "Scan this with your phone";
 "signIn_orGoToAndEnterCode" = "Or go to: $url and enter this code: $code";
 "tab_home" = "Главная";
@@ -27,3 +29,6 @@
 "calendar_today" = "Сегодня";
 "calendar_noScheduledEvents" = "Нет запланированных мероприятий";
 "calendar_timetableInLocalTime" = "Timetable is in your local time";
+"aboutUs_description" = "BCC Media is a foundation in the BCC Federation which produces and distribute content with positive and christian values";
+"aboutUs_contact" = "Contact us on support@bcc.media or in the BCC Media mobile app";
+"aboutUs_privacyPolicy" = "The Privacy Policy can be read on bcc.media/no/personvern";
