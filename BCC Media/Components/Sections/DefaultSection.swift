@@ -17,6 +17,8 @@ struct DefaultSection: View {
         self.items = items
         self.clickItem = clickItem
     }
+    
+    @FocusState var isFocused: Bool
 
     var body: some View {
         VStack {
@@ -24,27 +26,11 @@ struct DefaultSection: View {
                 Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             }
             ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 40) {
+                LazyHStack(alignment: .top, spacing: 20) {
                     ForEach(items) { item in
-                        if let img = item.image {
-                            VStack(alignment: .leading, spacing: 20) {
-                                Button {
-                                    clickItem(item)
-                                } label: {
-                                    ItemImage(img)
-                                        .frame(width: 400, height: 225)
-                                        .cornerRadius(10)
-                                        .overlay(
-                                            LockView(locked: item.locked),
-                                            alignment: .top
-                                        )
-                                        .overlay(
-                                            ProgressBar(item: item),
-                                            alignment: .bottom)
-                                }.buttonStyle(.card)
-                                ItemTitle(item)
-                            }.frame(width: 400)
-                        }
+                        SectionItemCard(item) {
+                            clickItem(item)
+                        }.frame(width: 400, height: 225)
                     }
                 }.padding(100)
             }.padding(-100)

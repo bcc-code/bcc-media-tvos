@@ -196,6 +196,7 @@
 		09E17B062A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B052A125A3F004CFD28 /* MutationRoot.graphql.swift */; };
 		09E17B072A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B052A125A3F004CFD28 /* MutationRoot.graphql.swift */; };
 		09E17B092A126985004CFD28 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B082A126985004CFD28 /* ProgressBar.swift */; };
+		09E17B422A136B19004CFD28 /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B412A136B19004CFD28 /* SectionItem.swift */; };
 		09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F503FA29ED3C2900D09674 /* Auth0.plist */; };
 		2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF03910A399CCB4894D /* Settings.swift */; };
 		2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E460594AD4CC96AE76A4 /* ContentView.swift */; };
@@ -373,6 +374,7 @@
 		09E17B022A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEpisodeProgressMutation.graphql.swift; sourceTree = "<group>"; };
 		09E17B052A125A3F004CFD28 /* MutationRoot.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutationRoot.graphql.swift; sourceTree = "<group>"; };
 		09E17B082A126985004CFD28 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		09E17B412A136B19004CFD28 /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		09F503FA29ED3C2900D09674 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.debug.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.debug.xcconfig"; sourceTree = "<group>"; };
 		2D64E027F4FB0C8D21E74DEA /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				09083C382A02628C00A61EF9 /* LabelSection.swift */,
 				2D64E0F9AF6AA013DAADC415 /* CardSection.swift */,
 				09E17B082A126985004CFD28 /* ProgressBar.swift */,
+				09E17B412A136B19004CFD28 /* SectionItem.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -1074,6 +1077,7 @@
 				0990D42F29F95AFC00B99D35 /* GetPageQuery.graphql.swift in Sources */,
 				0990D3FB29F95AFC00B99D35 /* ShowSearchItem.graphql.swift in Sources */,
 				0990D3CD29F95AFC00B99D35 /* DefaultSection.graphql.swift in Sources */,
+				09E17B422A136B19004CFD28 /* SectionItem.swift in Sources */,
 				09CB225A29F7D82300201AAE /* Client.swift in Sources */,
 				09083C372A0254D600A61EF9 /* Episodes.swift in Sources */,
 				0990D41F29F95AFC00B99D35 /* SearchResultItem.graphql.swift in Sources */,

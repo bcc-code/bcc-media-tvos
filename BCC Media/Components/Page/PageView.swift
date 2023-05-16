@@ -117,7 +117,7 @@ struct PageDisplay: View {
                     }
                 }
             }.padding(100)
-        }.navigationTitle(page.title).padding(-100)
+        }.padding(-100)
     }
 }
 

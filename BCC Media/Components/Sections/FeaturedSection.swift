@@ -10,7 +10,8 @@ struct FeaturedButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(.zero)
-            .scaleEffect(configuration.isPressed || focused ? 1.02 : 1)
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 4 : 0))
+            .scaleEffect(configuration.isPressed ? 1.05 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
     }
 }
@@ -59,14 +60,23 @@ struct FeaturedSection: View {
     }
 
     var body: some View {
-        TabView {
-            ForEach(items.indices, id: \.self) { index in
-                FeaturedCard(item: items[index]) {
-                    clickItem(items[index])
-                }
+        ScrollView(.horizontal) {
+            LazyHStack(spacing: 5) {
+                ForEach(items.indices, id: \.self) { index in
+                    FeaturedCard(item: items[index]) {
+                        clickItem(items[index])
+                    }
+                }.frame(width: 1800)
             }.padding(100)
+        }.padding(-100)
+        .frame(width: 1800, height: 800)
+    }
+}
+
+struct FeaturedSection_Previews: PreviewProvider {
+    static var previews: some View {
+        FeaturedSection(nil, previewItems) { item in
+            
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .frame(height: 800).padding(-100)
     }
 }

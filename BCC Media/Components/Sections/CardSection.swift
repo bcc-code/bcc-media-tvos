@@ -7,6 +7,41 @@
 
 import SwiftUI
 
+private struct CardSectionItem: View {
+    var item: Item
+    var onClick: () -> Void
+    
+    init(_ item: Item, onClick: @escaping () -> Void) {
+        self.item = item
+        self.onClick = onClick
+    }
+    
+    @FocusState var isFocused: Bool
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Button {
+                onClick()
+            } label: {
+                VStack(alignment: .leading) {
+                    ItemImage(item.image)
+                        .frame(width: 400, height: 225).cornerRadius(10)
+                    VStack(alignment: .leading) {
+                        Text(item.title)
+                        Text(item.description).font(.caption2).foregroundColor(.gray)
+                    }.padding(.horizontal, 20).padding(.bottom, 10)
+                    Spacer()
+                }.background(cardBackgroundColor).frame(width: 400).cornerRadius(10).overlay(
+                    LockView(locked: item.locked)
+                )
+                .overlay(
+                    ProgressBar(item: item),
+                    alignment: .bottom)
+            }.buttonStyle(SectionItemButton(focused: isFocused)).focused($isFocused)
+        }.frame(width: 400)
+    }
+}
+
 struct CardSection: View {
     var title: String?
     var items: [Item]
@@ -26,27 +61,8 @@ struct CardSection: View {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 40) {
                     ForEach(items) { item in
-                        if let img = item.image {
-                            VStack(alignment: .leading, spacing: 20) {
-                                Button {
-                                    clickItem(item)
-                                } label: {
-                                    VStack(alignment: .leading) {
-                                        ItemImage(img)
-                                            .frame(width: 400, height: 225).cornerRadius(10)
-                                        VStack(alignment: .leading) {
-                                            Text(item.title)
-                                            Text(item.description).font(.caption2).foregroundColor(.gray)
-                                        }.padding(.horizontal, 20).padding(.bottom, 10)
-                                        Spacer()
-                                    }.frame(width: 400).cornerRadius(10).overlay(
-                                        LockView(locked: item.locked)
-                                    )
-                                    .overlay(
-                                        ProgressBar(item: item),
-                                        alignment: .bottom)
-                                }.buttonStyle(.card)
-                            }.frame(width: 400)
+                        CardSectionItem(item) {
+                            clickItem(item)
                         }
                     }
                 }.padding(100)

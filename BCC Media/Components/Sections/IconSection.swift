@@ -7,6 +7,39 @@
 
 import SwiftUI
 
+struct IconSectionItem: View {
+    var item: Item
+    var onClick: () -> Void
+    
+    init(_ item: Item, onClick: @escaping () -> Void) {
+        self.item = item
+        self.onClick = onClick
+    }
+    
+    @FocusState var isFocused: Bool
+    
+    var body: some View {
+        VStack(spacing: 10) {
+            Button {
+                onClick()
+            } label: {
+                ItemImage(item.image)
+                    .frame(width: 180, height: 180)
+                    .cornerRadius(10)
+                    .padding(20)
+                    .background(cardBackgroundColor).overlay(
+                        LockView(locked: item.locked)
+                    )
+            }
+            .buttonStyle(SectionItemButton(focused: isFocused))
+            .focused($isFocused)
+            VStack {
+                Text(item.title)
+            }
+        }.frame(width: 200)
+    }
+}
+
 struct IconSection: View {
     var title: String?
     var items: [Item]
@@ -24,24 +57,11 @@ struct IconSection: View {
                 Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             }
             ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 60) {
+                LazyHStack(alignment: .top, spacing: 40) {
                     ForEach(items) { item in
-                        VStack(spacing: 10) {
-                            Button {
-                                clickItem(item)
-                            } label: {
-                                ItemImage(item.image)
-                                    .frame(width: 180, height: 180)
-                                    .cornerRadius(10)
-                                    .padding(20)
-                                    .background(cardBackgroundColor).overlay(
-                                        LockView(locked: item.locked)
-                                    )
-                            }.buttonStyle(.card)
-                            VStack {
-                                Text(item.title)
-                            }
-                        }.frame(width: 200)
+                        IconSectionItem(item) {
+                            clickItem(item)
+                        }
                     }
                 }.padding(100)
             }.padding(-100)

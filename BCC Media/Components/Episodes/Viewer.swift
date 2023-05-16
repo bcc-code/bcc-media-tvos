@@ -12,6 +12,8 @@ internal enum Tab {
 struct EpisodeHeader: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     var season: API.GetEpisodeSeasonQuery.Data.Season?
+    
+    @FocusState var isFocused: Bool
 
     var body: some View {
         VStack {
@@ -20,18 +22,17 @@ struct EpisodeHeader: View {
                     EpisodePlayer(episode: episode, playerUrl: url, startFrom: episode.progress ?? 0)
                 } label: {
                     ItemImage(episode.image).frame(width: 1280, height: 720)
-                }.buttonStyle(.card).frame(width: 1280, height: 720).overlay(
+                }.buttonStyle(SectionItemButton(focused: isFocused)).frame(width: 1280, height: 720).overlay(
                     Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
-                )
+                ).focused($isFocused)
             }
         }
-        VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading) {
-                Text(episode.title).font(.title3)
+        VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text(episode.title).font(.title2)
                 HStack(spacing: 5) {
-                    Text(episode.ageRating).background(
-                        Rectangle().foregroundColor(cardBackgroundColor)
-                    )
+                    Text(episode.ageRating).padding([.horizontal], 10).padding(.vertical, 5).background(
+                        Rectangle().foregroundColor(cardBackgroundColor)).cornerRadius(10)
                     if let s = season {
                         Text(s.show.title).font(.subheadline).foregroundColor(.blue)
                     }
@@ -39,6 +40,33 @@ struct EpisodeHeader: View {
             }
             Text(episode.description).font(.caption)
         }.padding(.vertical, 20)
+    }
+}
+
+struct EpisodeListItem: View {
+    var ep: API.EpisodeSeason.Episodes.Item
+    
+    init(_ ep: API.EpisodeSeason.Episodes.Item) {
+        self.ep = ep
+    }
+    
+    @FocusState var isFocused: Bool
+    
+    var body: some View {
+        NavigationLink {
+            EpisodeViewer(episodeId: ep.id)
+        } label: {
+            HStack(alignment: .top, spacing: 0) {
+                ItemImage(ep.image).frame(width: 320, height: 180).cornerRadius(10).padding(.zero)
+                VStack(alignment: .leading) {
+                    Text(ep.title).font(.subheadline)
+                    Text(ep.description).font(.caption2).foregroundColor(.gray)
+                }.padding(20)
+                Spacer()
+            }.frame(maxWidth: .infinity).background(cardBackgroundColor)
+        }.buttonStyle(SectionItemButton(focused: isFocused))
+            .padding(.zero)
+            .focused($isFocused)
     }
 }
 
@@ -125,18 +153,7 @@ struct EpisodeViewer: View {
                                     }.pickerStyle(.navigationLink).disabled(s.show.seasons.items.count <= 1)
                                     VStack(alignment: .leading, spacing: 10) {
                                         ForEach(s.episodes.items, id: \.id) { ep in
-                                            NavigationLink {
-                                                EpisodeViewer(episodeId: ep.id)
-                                            } label: {
-                                                HStack(alignment: .top, spacing: 0) {
-                                                    ItemImage(ep.image).frame(width: 320, height: 180).cornerRadius(10).padding(.zero)
-                                                    VStack(alignment: .leading) {
-                                                        Text(ep.title).font(.subheadline)
-                                                        Text(ep.description).font(.caption2).foregroundColor(.gray)
-                                                    }.padding(20)
-                                                    Spacer()
-                                                }.frame(maxWidth: .infinity).background(cardBackgroundColor)
-                                            }.buttonStyle(.card).padding(.zero)
+                                            EpisodeListItem(ep)
                                         }.frame(width: 1280, height: 180)
                                     }
                                 }
