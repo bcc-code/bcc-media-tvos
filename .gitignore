@@ -6,3 +6,5 @@ Pods
 .crowdin_token
 
 build/
+BCC Media.app.dSYM.zip
+BCC Media.ipa
