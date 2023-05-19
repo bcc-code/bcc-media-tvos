@@ -201,6 +201,7 @@
 		09E17B492A1385AE004CFD28 /* ItemSectionMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B482A1385AE004CFD28 /* ItemSectionMetadata.graphql.swift */; };
 		09E17B4A2A138642004CFD28 /* ItemSectionMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B482A1385AE004CFD28 /* ItemSectionMetadata.graphql.swift */; };
 		09E17B4E2A13893A004CFD28 /* Live.png in Resources */ = {isa = PBXBuildFile; fileRef = 09E17B4D2A13893A004CFD28 /* Live.png */; };
+		09E17B8A2A1755C2004CFD28 /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E17B892A1755C2004CFD28 /* CalendarDay.swift */; };
 		09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F503FA29ED3C2900D09674 /* Auth0.plist */; };
 		2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ECF03910A399CCB4894D /* Settings.swift */; };
 		2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E460594AD4CC96AE76A4 /* ContentView.swift */; };
@@ -382,6 +383,7 @@
 		09E17B462A137BE2004CFD28 /* LogoBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoBanner.png; sourceTree = "<group>"; };
 		09E17B482A1385AE004CFD28 /* ItemSectionMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemSectionMetadata.graphql.swift; sourceTree = "<group>"; };
 		09E17B4D2A13893A004CFD28 /* Live.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Live.png; sourceTree = "<group>"; };
+		09E17B892A1755C2004CFD28 /* CalendarDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
 		09F503FA29ED3C2900D09674 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		268F212B2F84BA3D5AD1D07C /* Pods-BCC Media.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCC Media.debug.xcconfig"; path = "Target Support Files/Pods-BCC Media/Pods-BCC Media.debug.xcconfig"; sourceTree = "<group>"; };
 		2D64E027F4FB0C8D21E74DEA /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 				09083C3E2A03B02000A61EF9 /* ItemImage.swift */,
 				09083C402A03B04400A61EF9 /* LockView.swift */,
 				09083C422A03B06800A61EF9 /* PlayerViewController.swift */,
+				09E17B892A1755C2004CFD28 /* CalendarDay.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				094056F02A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift in Sources */,
 				09A41BA62A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */,
 				0990D3ED29F95AFC00B99D35 /* EpisodeSearchItem.graphql.swift in Sources */,
+				09E17B8A2A1755C2004CFD28 /* CalendarDay.swift in Sources */,
 				0990D3E729F95AFC00B99D35 /* ListSection.graphql.swift in Sources */,
 				0990D3F329F95AFC00B99D35 /* CollectionItemPagination.graphql.swift in Sources */,
 				09113B0029C081810087B9A2 /* PageView.swift in Sources */,

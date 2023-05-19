@@ -65,26 +65,29 @@ struct FeaturedSection: View {
     @FocusState var liveFocused: Bool
 
     var body: some View {
-        ScrollView(.horizontal) {
-            LazyHStack(alignment: .top, spacing: 5) {
-                if withLiveElement {
-                    VStack(alignment: .leading) {
-                        Text("common_live").font(.title3)
-                        NavigationLink {
-                            LivePlayer().ignoresSafeArea()
-                        } label: {
-                            Image(uiImage: UIImage(named: "Live.png")!).frame(width: 450, height: 250)
-                        }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20)
-                    }.padding(.trailing, 50)
-                }
-                ForEach(items.indices, id: \.self) { index in
-                    FeaturedCard(item: items[index]) {
-                        clickItem(items[index])
+        VStack {
+            ScrollView(.horizontal) {
+                LazyHStack(alignment: .top, spacing: 5) {
+                    if withLiveElement {
+                        VStack(alignment: .leading) {
+                            Text("common_live").font(.title3)
+                            NavigationLink {
+                                LivePlayer().ignoresSafeArea()
+                            } label: {
+                                Image(uiImage: UIImage(named: "Live.png")!).frame(width: 450, height: 250)
+                            }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20)
+                            CalendarDay()
+                        }.padding(.trailing, 50)
                     }
-                }.frame(width: withLiveElement ? 1200 : 1800)
-            }.padding(100)
-        }.padding(-100)
-            .frame(width: 1800, height: withLiveElement ? 600 : 800)
+                    ForEach(items.indices, id: \.self) { index in
+                        FeaturedCard(item: items[index]) {
+                            clickItem(items[index])
+                        }
+                    }.frame(width: withLiveElement ? 1200 : 1800)
+                }.padding(100)
+            }.padding(-100)
+                .frame(width: 1800, height: withLiveElement ? 600 : 800)
+        }
     }
 }
 
