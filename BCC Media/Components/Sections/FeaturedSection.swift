@@ -67,26 +67,26 @@ struct FeaturedSection: View {
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 5) {
+                LazyHStack(alignment: .top, spacing: 10) {
                     if withLiveElement {
                         VStack(alignment: .leading) {
                             Text("common_live").font(.title3)
                             NavigationLink {
                                 LivePlayer().ignoresSafeArea()
                             } label: {
-                                Image(uiImage: UIImage(named: "Live.png")!).frame(width: 450, height: 250)
+                                Image(uiImage: UIImage(named: "Live.png")!).resizable().frame(width: 450)
                             }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20)
                             CalendarDay()
-                        }.padding(.trailing, 50)
+                        }.padding(0)
                     }
                     ForEach(items.indices, id: \.self) { index in
                         FeaturedCard(item: items[index]) {
                             clickItem(items[index])
                         }
-                    }.frame(width: withLiveElement ? 1200 : 1800)
+                    }.frame(width: withLiveElement ? 1200 : 1760)
                 }.padding(100)
             }.padding(-100)
-                .frame(width: 1800, height: withLiveElement ? 600 : 800)
+                .frame(width: 1760, height: withLiveElement ? 600 : 800)
         }
     }
 }

@@ -23,37 +23,39 @@ struct SectionItemButton: ButtonStyle {
 struct SectionItemCard: View {
     var item: Item
     var onClick: () -> Void
+    var width: CGFloat
+    var height: CGFloat
     
-    init(_ item: Item, onClick: @escaping () -> Void) {
+    init(_ item: Item, width: CGFloat, height: CGFloat, onClick: @escaping () -> Void) {
         self.item = item
+        self.width = width
+        self.height = height
         self.onClick = onClick
     }
     
     @FocusState var isFocused: Bool
     
     var body: some View {
-        GeometryReader { reader in
-            if let image = item.image {
-                VStack(alignment: .leading, spacing: 20) {
-                    Button {
-                        onClick()
-                    } label: {
-                        ItemImage(image)
-                            .frame(width: reader.size.width, height: reader.size.height)
-                            .cornerRadius(10)
-                            .overlay(
-                                LockView(locked: item.locked),
-                                alignment: .top
-                            )
-                            .overlay(
-                                ProgressBar(item: item),
-                                alignment: .bottom)
-                    }
-                    .buttonStyle(SectionItemButton(focused: isFocused))
-                    .focused($isFocused)
-                    ItemTitle(item)
-                }.frame(width: reader.size.width)
-            }
+        if let image = item.image {
+            VStack(alignment: .leading, spacing: 20) {
+                Button {
+                    onClick()
+                } label: {
+                    ItemImage(image)
+                        .frame(width: width, height: height)
+                        .cornerRadius(10)
+                        .overlay(
+                            LockView(locked: item.locked),
+                            alignment: .top
+                        )
+                        .overlay(
+                            ProgressBar(item: item),
+                            alignment: .bottom)
+                }
+                .buttonStyle(SectionItemButton(focused: isFocused))
+                .focused($isFocused)
+                ItemTitle(item)
+            }.frame(width: width)
         }
     }
 }

@@ -101,13 +101,13 @@ struct CalendarDay: View {
                         }
                     }
                 }
+                Text("calendar_timetableInLocalTime")
             } else {
                 HStack(alignment: .top) {
                     Text("calendar_noScheduledEvents").foregroundColor(.gray).bold()
                 }.padding(.top, 40)
                 Spacer()
             }
-            Text("calendar_timetableInLocalTime")
         }.onAppear {
             getCalendarDay()
         }

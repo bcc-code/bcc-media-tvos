@@ -26,9 +26,9 @@ struct PosterSection: View {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 20) {
                     ForEach(items) { item in
-                        SectionItemCard(item) {
+                        SectionItemCard(item, width: 400, height: 600) {
                             clickItem(item)
-                        }.frame(width: 400, height: 600)
+                        }
                     }
                 }.padding(100)
             }.padding(-100)
