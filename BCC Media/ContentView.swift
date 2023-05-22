@@ -30,6 +30,13 @@ struct FrontPage: View {
     }
 }
 
+enum TabType: Hashable {
+    case pages
+    case live
+    case search
+    case settings
+}
+
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var pageId = ""
@@ -45,159 +52,182 @@ struct ContentView: View {
         }
         loaded = true
     }
+    
+    func playCallback(_ player: EpisodePlayer) {
+        path.append(player)
+    }
 
-    func loadShow(_ id: String) {
-        apolloClient.fetch(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) { result in
-            switch result {
-            case let .success(data):
-                if let episodeId = data.data?.show.defaultEpisode.id {
-                    path.append(EpisodeViewer(episodeId: episodeId))
-                } else if let errs = data.errors {
-                    for err in errs {
-                        print(err.path as Any)
-                        print(err.message as Any)
+    func loadShow(_ id: String) async {
+        await withUnsafeContinuation { c in
+            apolloClient.fetch(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) { result in
+                switch result {
+                case let .success(data):
+                    if let episodeId = data.data?.show.defaultEpisode.id {
+                        path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
+                    } else if let errs = data.errors {
+                        for err in errs {
+                            print(err.path as Any)
+                            print(err.message as Any)
+                        }
                     }
+                case let .failure(error):
+                    print(error)
                 }
-            case let .failure(error):
-                print(error)
+                c.resume()
             }
         }
     }
     
-    func loadSeason(_ id: String) {
-        apolloClient.fetch(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) { result in
-            switch result {
-            case let .success(data):
-                if let episodeId = data.data?.season.defaultEpisode.id {
-                    path.append(EpisodeViewer(episodeId: episodeId))
-                } else if let errs = data.errors {
-                    print(errs)
+    func loadSeason(_ id: String) async {
+        await withUnsafeContinuation { c in
+            apolloClient.fetch(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) { result in
+                switch result {
+                case let .success(data):
+                    if let episodeId = data.data?.season.defaultEpisode.id {
+                        path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
+                    } else if let errs = data.errors {
+                        print(errs)
+                    }
+                case let .failure(error):
+                    print(error)
                 }
-            case let .failure(error):
-                print(error)
+                c.resume()
             }
         }
     }
 
-    func loadTopic(_ id: String) {
-        apolloClient.fetch(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)) { result in
-            switch result {
-            case let .success(data):
-                if let episodeId = data.data?.studyTopic.defaultLesson.defaultEpisode?.id {
-                    path.append(EpisodeViewer(episodeId: episodeId))
-                } else if let errs = data.errors {
-                    print(errs)
+    func loadTopic(_ id: String) async {
+        await withUnsafeContinuation { c in
+            apolloClient.fetch(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)) { result in
+                switch result {
+                case let .success(data):
+                    if let episodeId = data.data?.studyTopic.defaultLesson.defaultEpisode?.id {
+                        path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
+                    } else if let errs = data.errors {
+                        print(errs)
+                    }
+                case let .failure(error):
+                    print(error)
                 }
-            case let .failure(error):
-                print(error)
+                c.resume()
             }
         }
     }
 
-    func clickItem(item: Item) {
+    func clickItemAsync(item: Item) async {
         if item.locked {
+            print("Item was locked. Ignoring")
             return
         }
         switch item.type {
         case .episode:
-            path.append(EpisodeViewer(episodeId: item.id))
+            print("Navigating to episode")
+            path.append(EpisodeViewer(episodeId: item.id, playCallback: playCallback))
         case .show:
-            loadShow(item.id)
+            print("Loading show")
+            await loadShow(item.id)
         case .page:
             path.append(PageView(pageId: item.id, clickItem: clickItem))
         case .topic:
-            loadTopic(item.id)
+            await loadTopic(item.id)
         case .season:
-            loadSeason(item.id)
+            await loadSeason(item.id)
+        }
+    }
+    
+    func clickItem(item: Item) {
+        Task {
+            await clickItemAsync(item: item)
         }
     }
     
     @State var path: NavigationPath = .init()
+    @State var rootPath: NavigationPath = .init()
+    
+    @State var tab: TabType = .pages
     
     var body: some View {
         ZStack {
             backgroundColor.ignoresSafeArea()
-            NavigationStack(path: $path) {
-                VStack {
-                    if loaded && !loading && path.isEmpty {
-                        TabView {
-                            FrontPage(pageId: pageId, clickItem: clickItem).tabItem {
-                                Label("tab_home", systemImage: "house.fill")
-                            }
-                            if authenticated {
-                                LiveView().tabItem {
-                                    Label("tab_live", systemImage: "video")
-                                }
-                            }
-                            SearchView().tabItem {
-                                Label("tab_search", systemImage: "magnifyingglass")
-                            }
-                            SettingsView {
-                                authenticated = authenticationProvider.isAuthenticated()
-                            }.tabItem {
-                                Label("tab_settings", systemImage: "gearshape.fill")
-                            }
+            if loaded && !loading {
+                TabView(selection: $tab) {
+                    NavigationStack(path: $path) {
+                        FrontPage(pageId: pageId, clickItem: clickItem)
+                        .navigationDestination(for: EpisodeViewer.self) { episode in
+                            episode.toolbar(.visible, for: .tabBar)
                         }
+                        .navigationDestination(for: PageView.self) { page in
+                            page.toolbar(.visible, for: .tabBar)
+                        }
+                        .navigationDestination(for: EpisodePlayer.self) { player in
+                            player.ignoresSafeArea().toolbar(.hidden, for: .tabBar)
+                        }
+                    }.tabItem {
+                        Label("tab_home", systemImage: "house.fill")
+                    }.tag(TabType.pages)
+                    if authenticated {
+                        LiveView().tabItem {
+                            Label("tab_live", systemImage: "video")
+                        }.tag(TabType.live)
                     }
+                    SearchView(clickItem: { item in
+                        Task {
+                            await clickItemAsync(item: item)
+                            
+                            try! await Task.sleep(nanoseconds: 50_000_000)
+                            
+                            tab = .pages
+                        }
+                    }, playCallback: playCallback).tabItem {
+                        Label("tab_search", systemImage: "magnifyingglass")
+                    }.tag(TabType.search)
+                    SettingsView {
+                        authenticated = authenticationProvider.isAuthenticated()
+                    }.tabItem {
+                        Label("tab_settings", systemImage: "gearshape.fill")
+                    }.tag(TabType.settings)
                 }
-                .navigationDestination(for: EpisodeViewer.self) { episode in
-                    EpisodeViewer(
-                        episodeId: episode.episodeId
-                    )
-                }
-                .navigationDestination(for: PageView.self) { page in
-                    PageView(
-                        pageId: page.pageId,
-                        clickItem: clickItem
-                    )
-                }
-                .navigationDestination(for: EpisodePlayer.self) { player in
-                    EpisodePlayer(
-                        episode: player.episode,
-                        playerUrl: player.playerUrl,
-                        startFrom: player.startFrom
-                    ).ignoresSafeArea()
-                }
-            }.task {
-                await load()
             }
-            .onOpenURL(perform: { url in
-                loading = true
-                let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        }.preferredColorScheme(.dark)
+            .task {
+            await load()
+        }
+        .onOpenURL(perform: { url in
+            loading = true
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
-                let parts = components.path.split(separator: "/")
-                if parts.count == 0 {
-                    return
-                }
-                if parts[0] == "episode" {
-                    if parts[1] != "" {
-                        let str = parts[1]
-                        if let queryItems = components.queryItems {
-                            for q in queryItems {
-                                if q.name == "play" {
-                                    apolloClient.fetch(query: API.GetEpisodeQuery(id: String(str))) { result in
-                                        switch result {
-                                        case let .success(res):
-                                            if let episode = res.data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
-                                                print("Adding player to path")
-                                                path.append(EpisodeViewer(episodeId: String(str)))
-                                                path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
-                                            }
-                                        case .failure:
-                                            print("Failed to retrieve stream from episode")
+            let parts = components.path.split(separator: "/")
+            if parts.count == 0 {
+                return
+            }
+            if parts[0] == "episode" {
+                if parts[1] != "" {
+                    let str = parts[1]
+                    if let queryItems = components.queryItems {
+                        for q in queryItems {
+                            if q.name == "play" {
+                                apolloClient.fetch(query: API.GetEpisodeQuery(id: String(str))) { result in
+                                    switch result {
+                                    case let .success(res):
+                                        if let episode = res.data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
+                                            print("Adding player to path")
+                                            path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
+                                            path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
                                         }
-                                        loading = false
+                                    case .failure:
+                                        print("Failed to retrieve stream from episode")
                                     }
-                                    return
+                                    loading = false
                                 }
+                                return
                             }
                         }
-                        path.append(EpisodeViewer(episodeId: String(str)))
                     }
+                    path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
                 }
-                loading = false
-            })
-        }.preferredColorScheme(.dark)
+            }
+            loading = false
+        })
     }
 }
 

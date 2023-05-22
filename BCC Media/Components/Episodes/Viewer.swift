@@ -13,13 +13,15 @@ struct EpisodeHeader: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     var season: API.GetEpisodeSeasonQuery.Data.Season?
     
+    var playCallback: (EpisodePlayer) -> Void
+    
     @FocusState var isFocused: Bool
 
     var body: some View {
         VStack {
             if let url = getPlayerUrl(streams: episode.streams) {
-                NavigationLink {
-                    EpisodePlayer(episode: episode, playerUrl: url, startFrom: episode.progress ?? 0)
+                Button {
+                    playCallback(EpisodePlayer(episode: episode, playerUrl: url, startFrom: episode.progress ?? 0))
                 } label: {
                     ItemImage(episode.image).frame(width: 1280, height: 720)
                 }.buttonStyle(SectionItemButton(focused: isFocused)).frame(width: 1280, height: 720).overlay(
@@ -46,15 +48,18 @@ struct EpisodeHeader: View {
 struct EpisodeListItem: View {
     var ep: API.EpisodeSeason.Episodes.Item
     
-    init(_ ep: API.EpisodeSeason.Episodes.Item) {
+    var playCallback: (EpisodePlayer) -> Void
+    
+    init(_ ep: API.EpisodeSeason.Episodes.Item, playCallback: @escaping (EpisodePlayer) -> Void) {
         self.ep = ep
+        self.playCallback = playCallback
     }
     
     @FocusState var isFocused: Bool
     
     var body: some View {
         NavigationLink {
-            EpisodeViewer(episodeId: ep.id)
+            EpisodeViewer(episodeId: ep.id, playCallback: playCallback)
         } label: {
             HStack(alignment: .top, spacing: 0) {
                 ItemImage(ep.image).frame(width: 320, height: 180).cornerRadius(10).padding(.zero)
@@ -72,6 +77,8 @@ struct EpisodeListItem: View {
 
 struct EpisodeViewer: View {
     @State var episodeId: String
+    var playCallback: (EpisodePlayer) -> Void
+    
     @State private var playerUrl: URL?
     @State private var episode: API.GetEpisodeQuery.Data.Episode?
     @State private var season: API.GetEpisodeSeasonQuery.Data.Season?
@@ -133,7 +140,7 @@ struct EpisodeViewer: View {
             if let e = episode {
                 ScrollView(.vertical) {
                     VStack(alignment: .leading) {
-                        EpisodeHeader(episode: e, season: season)
+                        EpisodeHeader(episode: e, season: season, playCallback: playCallback)
                         HStack {
                             Picker(String(localized: "common_tab"), selection: $tab) {
                                 if e.type == .episode {
@@ -153,7 +160,7 @@ struct EpisodeViewer: View {
                                     }.pickerStyle(.navigationLink).disabled(s.show.seasons.items.count <= 1)
                                     VStack(alignment: .leading, spacing: 20) {
                                         ForEach(s.episodes.items, id: \.id) { ep in
-                                            EpisodeListItem(ep)
+                                            EpisodeListItem(ep, playCallback: playCallback)
                                         }.frame(width: 1280, height: 180)
                                     }
                                 }
@@ -199,6 +206,8 @@ extension EpisodeViewer: Hashable {
 
 struct EpisodeViewer_Previews: PreviewProvider {
     static var previews: some View {
-        EpisodeViewer(episodeId: "1838")
+        EpisodeViewer(episodeId: "1838") { item in
+            
+        }
     }
 }

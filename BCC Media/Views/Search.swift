@@ -13,6 +13,9 @@ struct SearchView: View {
     @State var episodeResult: [API.SearchQuery.Data.Search.Result]? = nil
 
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
+    
+    var clickItem: (Item) -> Void
+    var playCallback: (EpisodePlayer) -> Void
 
     func getResult(query: String) {
         if query == "" {
@@ -41,35 +44,36 @@ struct SearchView: View {
             }
         }
     }
+    
+    func mapToItem(_ type: ItemType) -> ((API.SearchQuery.Data.Search.Result) -> Item) {
+        func toItem(_ r: API.SearchQuery.Data.Search.Result) -> Item {
+            Item(id: r.id, title: r.title, description: r.description ?? "", image: r.image, type: type)
+        }
+        return toItem
+    }
 
     func mapToItem(r: API.SearchQuery.Data.Search.Result) -> Item {
         Item(id: r.id, title: r.title, description: r.description ?? "", image: r.image)
     }
 
     var body: some View {
-        VStack {
-            if let i = showResult {
-                ItemListView(
-                    title: NSLocalizedString("common_shows", comment: ""),
-                    items: i,
-                    emptyListText: Text("search_noShowsWithCurrentFilter")
-                ) { item in
-                    ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
+        ScrollView(.vertical) {
+            VStack {
+                if let i = showResult {
+                    DefaultSection(NSLocalizedString("common_shows", comment: ""), i.map(mapToItem(.show))) { item in
+                        clickItem(item)
+                    }
                 }
-            }
-            if let i = episodeResult {
-                ItemListView(
-                    title: NSLocalizedString("common_episodes", comment: ""),
-                    items: i,
-                    emptyListText: Text("search_noEpisodesWithCurrentFilter")
-                ) { item in
-                    ItemView(item.title, item.image, destination: EpisodeViewer(episodeId: item.id))
+                if let i = episodeResult {
+                    DefaultSection(NSLocalizedString("common_episodes", comment: ""), i.map(mapToItem(.episode))) { item in
+                        clickItem(item)
+                    }
                 }
-            }
-            if showResult == nil || episodeResult == nil {
-                Text("search_inputField")
-            }
-        }
+                if showResult == nil || episodeResult == nil {
+                    Text("search_inputField")
+                }
+            }.padding(100)
+        }.padding(-100)
         .searchable(text: $queryString)
         .onChange(of: queryString, perform: getResult)
     }
@@ -77,6 +81,10 @@ struct SearchView: View {
 
 struct SearchView_Preview: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchView() { item in
+            
+        } playCallback: { player in
+            
+        }
     }
 }
