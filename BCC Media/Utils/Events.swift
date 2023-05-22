@@ -68,8 +68,8 @@ struct Events {
     private init() {
         let config = RSConfig(writeKey: AppOptions.rudder.writeKey)
             .dataPlaneURL(AppOptions.rudder.dataPlaneUrl)
-            .trackLifecycleEvents(true)
-            .recordScreenViews(true)
+//            .trackLifecycleEvents(true)
+//            .recordScreenViews(true)
         
         client.configure(with: config)
     }
