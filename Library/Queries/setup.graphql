@@ -1,6 +1,7 @@
 query getSetup {
     me {
         id
+        bccMember
         analytics {
             anonymousId
         }

@@ -40,6 +40,7 @@ enum TabType: Hashable {
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var pageId = ""
+    @State var bccMember = false
 
     @State var loaded = false
 
@@ -49,6 +50,7 @@ struct ContentView: View {
         await AppOptions.load()
         if let pageId = AppOptions.app.pageId {
             self.pageId = pageId
+            self.bccMember = AppOptions.user.bccMember == true
         }
         loaded = true
     }
@@ -155,7 +157,7 @@ struct ContentView: View {
                             .tabItem {
                                 Label("tab_home", systemImage: "house.fill")
                             }.tag(TabType.pages)
-                        if authenticated {
+                        if authenticated && bccMember {
                             LiveView().tabItem {
                                 Label("tab_live", systemImage: "video")
                             }.tag(TabType.live)
@@ -169,6 +171,9 @@ struct ContentView: View {
                         }.tag(TabType.search)
                         SettingsView {
                             authenticated = authenticationProvider.isAuthenticated()
+                            Task {
+                                await load()
+                            }
                         }.tabItem {
                             Label("tab_settings", systemImage: "gearshape.fill")
                         }.tag(TabType.settings)

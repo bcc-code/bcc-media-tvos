@@ -219,14 +219,16 @@ extension AuthenticationProvider {
         if let expiry = ud.object(forKey: AuthenticationProvider.profileExpiryKey) as? Date {
             if expiry > Date.now {
                 if let data = ud.object(forKey: AuthenticationProvider.profileKey) as? Data, let profile = try? JSONDecoder().decode(Profile.self, from: data) {
-                      return profile
-                 }
+                    print("returning cached profile")
+                    return profile
+                }
             }
         }
         
         do {
             let token = await getAccessToken()
             if token == nil {
+                print("no access token available")
                 return nil
             }
             let userInfo = try await authentication().userInfo(withAccessToken: token!).start()
@@ -248,7 +250,8 @@ extension AuthenticationProvider {
             if let encoded = try? JSONEncoder().encode(profile) {
                 ud.set(encoded, forKey: AuthenticationProvider.profileKey)
             }
-            ud.setValue(Calendar.current.date(byAdding: .minute, value: 5, to: Date.now), forKey: AuthenticationProvider.profileExpiryKey)
+            ud.set(Calendar.current.date(byAdding: .minute, value: 5, to: Date.now), forKey: AuthenticationProvider.profileExpiryKey)
+            return profile
         } catch {
             print("Failed to fetch userinfo")
             print(error)

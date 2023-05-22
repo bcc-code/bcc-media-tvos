@@ -30,6 +30,7 @@ struct SettingsView: View {
     @State var loading = false
 
     func reloadUserInfo() async {
+        authenticationProvider.clearUserInfoCache()
         if let info = await authenticationProvider.userInfo() {
             name = info.name
         }
@@ -38,11 +39,11 @@ struct SettingsView: View {
     func authStateUpdate() {
         apolloClient.clearCache()
         authenticated = authenticationProvider.isAuthenticated()
-        onSave()
         loading = false
         path.removeLast(path.count)
         Task {
             await reloadUserInfo()
+            onSave()
         }
     }
 

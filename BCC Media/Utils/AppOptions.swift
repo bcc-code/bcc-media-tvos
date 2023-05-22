@@ -13,6 +13,7 @@ private let subtitleLanguageKey = "subtitleLanguage"
 public struct UserOptions {
     var anonymousId: String?
     var ageGroup: String?
+    var bccMember: Bool?
 }
 
 public struct ApplicationOptions {
@@ -125,6 +126,7 @@ public extension AppOptions {
                 let userInfo = await authenticationProvider.userInfo()
                 AppOptions.user.anonymousId = data.me.analytics.anonymousId
                 AppOptions.user.ageGroup = userInfo?.ageGroup
+                AppOptions.user.bccMember = data.me.bccMember
             }
             
             let processInfo = ProcessInfo.processInfo

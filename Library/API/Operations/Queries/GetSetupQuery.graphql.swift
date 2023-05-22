@@ -13,6 +13,7 @@ public extension API {
           me {
             __typename
             id
+            bccMember
             analytics {
               __typename
               anonymousId
@@ -57,10 +58,12 @@ public extension API {
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.ID?.self),
+          .field("bccMember", Bool.self),
           .field("analytics", Analytics.self),
         ] }
 
         public var id: API.ID? { __data["id"] }
+        public var bccMember: Bool { __data["bccMember"] }
         public var analytics: Analytics { __data["analytics"] }
 
         /// Me.Analytics
