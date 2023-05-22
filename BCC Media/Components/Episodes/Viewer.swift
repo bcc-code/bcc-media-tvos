@@ -86,38 +86,23 @@ struct EpisodeViewer: View {
     @State private var tab: Tab = .season
     @State private var seasonId: String = ""
 
-    func loadSeason(id: String) {
-        print("LOADING SEASON")
-        print(id)
-        apolloClient.fetch(query: API.GetEpisodeSeasonQuery(id: id)) { result in
-            switch result {
-            case let .success(res):
-                if let s = res.data?.season {
-                    season = s
-                }
-            case let .failure(error):
-                print(error)
-            }
+    func loadSeason(id: String) async {
+        let data = await apolloClient.getAsync(query: API.GetEpisodeSeasonQuery(id: id))
+        if let s = data?.season {
+            season = s
         }
     }
 
-    func load() {
+    func load() async {
         if episodeId == episode?.id {
             return
         }
-        print("LOADING EPISODE")
-        apolloClient.fetch(query: API.GetEpisodeQuery(id: episodeId)) { result in
-            switch result {
-            case let .success(res):
-                if let e = res.data?.episode {
-                    episode = e
-                    seasonId = e.season?.id ?? ""
-                    if e.type != .episode {
-                        tab = .details
-                    }
-                }
-            case .failure:
-                print("FAILURE")
+        let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: episodeId))
+        if let e = data?.episode {
+            episode = e
+            seasonId = e.season?.id ?? ""
+            if e.type != .episode {
+                tab = .details
             }
         }
     }
@@ -185,10 +170,12 @@ struct EpisodeViewer: View {
                 ProgressView()
             }
         }.task {
-            load()
+            await load()
         }.onChange(of: seasonId) { id in
             if !id.isEmpty {
-                loadSeason(id: id)
+                Task {
+                    await loadSeason(id: id)
+                }
             }
         }
     }

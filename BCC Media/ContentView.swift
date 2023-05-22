@@ -50,7 +50,11 @@ struct ContentView: View {
     func load() async -> Void {
         await AppOptions.load()
         if let pageId = AppOptions.app.pageId {
+            self.frontPage = nil
+            // Assure that the cache is cleared. It's done asynchronously
+            try! await Task.sleep(nanoseconds: 1_000_000)
             self.frontPage = await getPage(pageId)
+            print("FETCHED FRONTPAGE")
             self.bccMember = AppOptions.user.bccMember == true
         }
         loaded = true

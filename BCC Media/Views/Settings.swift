@@ -37,13 +37,15 @@ struct SettingsView: View {
     }
 
     func authStateUpdate() {
-        apolloClient.clearCache()
-        authenticated = authenticationProvider.isAuthenticated()
-        loading = false
-        path.removeLast(path.count)
-        Task {
-            await reloadUserInfo()
+        apolloClient.clearCache(callbackQueue: .main) { completed in
+            print("CLEARED APOLLO CACHE")
+            authenticated = authenticationProvider.isAuthenticated()
+            loading = false
+            path.removeLast(path.count)
             onSave()
+            Task {
+                await reloadUserInfo()
+            }
         }
     }
 
