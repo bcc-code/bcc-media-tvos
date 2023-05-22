@@ -174,6 +174,7 @@ struct ContentView: View {
                         Task {
                             await clickItemAsync(item: item)
                             
+                            // Fixes the issues with state. Allows path state to update before the tab is switched, so the correct episode is opened
                             try! await Task.sleep(nanoseconds: 50_000_000)
                             
                             tab = .pages
