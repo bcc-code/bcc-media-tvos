@@ -65,7 +65,7 @@ struct SearchView: View {
                     }
                 }
                 if let i = episodeResult {
-                    DefaultSection(NSLocalizedString("common_episodes", comment: ""), i.map(mapToItem(.episode))) { item in
+                    DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), i.map(mapToItem(.episode))) { item in
                         clickItem(item)
                     }
                 }

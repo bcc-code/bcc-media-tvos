@@ -18,7 +18,7 @@ struct DefaultGridSection: View {
         self.clickItem = clickItem
     }
 
-    var columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+    var columns = [GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top), GridItem(.flexible(), alignment: .top)]
 
     var body: some View {
         VStack {
