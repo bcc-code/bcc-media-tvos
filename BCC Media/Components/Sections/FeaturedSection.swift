@@ -35,7 +35,7 @@ struct FeaturedCard: View {
                         if item.description != "" {
                             Text(item.description).font(.caption2).foregroundColor(.gray)
                         }
-                    }.padding(20).frame(maxWidth: 1000),
+                    }.padding([.bottom, .horizontal], 50),
 
                     alignment: .bottomLeading
                 ).overlay(

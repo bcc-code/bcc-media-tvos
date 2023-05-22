@@ -88,6 +88,13 @@ struct SettingsView: View {
         apolloClient.clearCache()
     }
     
+    func getVersion() -> String {
+        let versionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        let buildString = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
+        
+        return "\(versionString) (\(buildString))"
+    }
+    
     @State var path: NavigationPath = .init()
 
     var body: some View {
@@ -148,6 +155,8 @@ struct SettingsView: View {
                             }
                         }
                     }
+                    Spacer()
+                    Text("App Version: " + getVersion()).foregroundColor(.gray)
                 }.frame(maxWidth: 800)
                     .navigationDestination(for: SignInView.self) { view in
                         view

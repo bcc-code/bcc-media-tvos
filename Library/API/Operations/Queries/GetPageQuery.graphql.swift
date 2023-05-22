@@ -13,6 +13,7 @@ public extension API {
           page(id: $id) {
             __typename
             id
+            code
             title
             description
             sections(first: 100) {
@@ -61,12 +62,14 @@ public extension API {
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.ID.self),
+          .field("code", String.self),
           .field("title", String.self),
           .field("description", String?.self),
           .field("sections", Sections.self, arguments: ["first": 100]),
         ] }
 
         public var id: API.ID { __data["id"] }
+        public var code: String { __data["code"] }
         public var title: String { __data["title"] }
         public var description: String? { __data["description"] }
         public var sections: Sections { __data["sections"] }

@@ -15,7 +15,7 @@ let previewItems: [Item] = [
     Item(id: "11", title: "Another Item", description: "description", image: "https://brunstadtv.imgix.net/92a64b64-1f82-42c2-85f2-8a7ff39b1f90.jpg"),
 ]
 
-enum ItemType {
+enum ItemType: String {
     case episode
     case show
     case page
@@ -34,6 +34,8 @@ struct Item: Identifiable {
     var type: ItemType = .episode
 
     var locked = false
+    
+    var index = 0
 }
 
 struct ItemTitle: View {
@@ -78,7 +80,13 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
 }
 
 func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {
-    items.items.map { item in
-        mapToItem(item)
+    var result: [Item] = []
+    
+    for (index, item) in items.items.enumerated() {
+        var i = mapToItem(item)
+        i.index = index
+        result.append(i)
     }
+    
+    return result
 }

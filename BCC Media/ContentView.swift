@@ -142,7 +142,6 @@ struct ContentView: View {
     }
     
     @State var path: NavigationPath = .init()
-    @State var rootPath: NavigationPath = .init()
     
     @State var tab: TabType = .pages
     
@@ -150,43 +149,39 @@ struct ContentView: View {
         ZStack {
             backgroundColor.ignoresSafeArea()
             if loaded && !loading {
-                TabView(selection: $tab) {
-                    NavigationStack(path: $path) {
+                NavigationStack(path: $path) {
+                    TabView(selection: $tab) {
                         FrontPage(pageId: pageId, clickItem: clickItem)
-                        .navigationDestination(for: EpisodeViewer.self) { episode in
-                            episode.toolbar(.visible, for: .tabBar)
+                            .tabItem {
+                                Label("tab_home", systemImage: "house.fill")
+                            }.tag(TabType.pages)
+                        if authenticated {
+                            LiveView().tabItem {
+                                Label("tab_live", systemImage: "video")
+                            }.tag(TabType.live)
                         }
-                        .navigationDestination(for: PageView.self) { page in
-                            page.toolbar(.visible, for: .tabBar)
-                        }
-                        .navigationDestination(for: EpisodePlayer.self) { player in
-                            player.ignoresSafeArea().toolbar(.hidden, for: .tabBar)
-                        }
-                    }.tabItem {
-                        Label("tab_home", systemImage: "house.fill")
-                    }.tag(TabType.pages)
-                    if authenticated {
-                        LiveView().tabItem {
-                            Label("tab_live", systemImage: "video")
-                        }.tag(TabType.live)
+                        SearchView(clickItem: { item in
+                            Task {
+                                await clickItemAsync(item: item)
+                            }
+                        }, playCallback: playCallback).tabItem {
+                            Label("tab_search", systemImage: "magnifyingglass")
+                        }.tag(TabType.search)
+                        SettingsView {
+                            authenticated = authenticationProvider.isAuthenticated()
+                        }.tabItem {
+                            Label("tab_settings", systemImage: "gearshape.fill")
+                        }.tag(TabType.settings)
                     }
-                    SearchView(clickItem: { item in
-                        Task {
-                            await clickItemAsync(item: item)
-                            
-                            // Fixes the issues with state. Allows path state to update before the tab is switched, so the correct episode is opened
-                            try! await Task.sleep(nanoseconds: 50_000_000)
-                            
-                            tab = .pages
-                        }
-                    }, playCallback: playCallback).tabItem {
-                        Label("tab_search", systemImage: "magnifyingglass")
-                    }.tag(TabType.search)
-                    SettingsView {
-                        authenticated = authenticationProvider.isAuthenticated()
-                    }.tabItem {
-                        Label("tab_settings", systemImage: "gearshape.fill")
-                    }.tag(TabType.settings)
+                    .navigationDestination(for: EpisodeViewer.self) { episode in
+                        episode
+                    }
+                    .navigationDestination(for: PageView.self) { page in
+                        page
+                    }
+                    .navigationDestination(for: EpisodePlayer.self) { player in
+                        player.ignoresSafeArea()
+                    }
                 }
             }
         }.preferredColorScheme(.dark)

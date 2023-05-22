@@ -45,6 +45,110 @@ struct PageDetailsSection: View {
     }
 }
 
+struct SectionView: View {
+    var page: API.GetPageQuery.Data.Page
+    var index: Int
+    var section: API.GetPageQuery.Data.Page.Sections.Item
+    
+    private var _clickItem: (Item) -> Void
+    
+    var metadata: API.ItemSectionFragment.Metadata?
+    var items: [Item]?
+    
+    init(_ page: API.GetPageQuery.Data.Page, _ index: Int, clickItem: @escaping (Item) -> Void) {
+        self.page = page
+        self.index = index
+        
+        section = page.sections.items[index]
+        _clickItem = clickItem
+        
+        if let itemSection = section.asItemSection {
+            metadata = itemSection.metadata
+            items = mapToItems(itemSection.items)
+        }
+    }
+    
+    func clickItem(item: Item) {
+        self._clickItem(item)
+        
+        Events.trigger(SectionClicked(
+            sectionId: section.id,
+            sectionName: section.title ?? "",
+            sectionPosition: index,
+            sectionType: section.__typename ?? "",
+            elementPosition: item.index,
+            elementType: item.type.rawValue,
+            elementId: item.id,
+            elementName: item.title,
+            pageCode: page.code))
+    }
+    
+    var body: some View {
+        if let items = items {
+            if !items.isEmpty {
+                switch section.__typename! {
+                case "PosterSection":
+                    PosterSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
+                case "FeaturedSection":
+                    FeaturedSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem,
+                        withLiveElement: metadata?.prependLiveElement == true
+                    )
+                case "DefaultSection":
+                    DefaultSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
+                case "DefaultGridSection":
+                    DefaultGridSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
+                case "IconSection":
+                    IconSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
+                case "CardSection":
+                    CardSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
+                case "LabelSection":
+                    LabelSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
+                default:
+                    MissingContent(section.__typename ?? "unknown type")
+                }
+            }
+        } else {
+            switch section.__typename {
+            case "MessageSection":
+                EmptyView()
+            case "PageDetailsSection":
+                PageDetailsSection(section.title, section.description)
+            case "AchievementSection":
+                EmptyView()
+            default:
+                MissingContent(section.__typename ?? "unknown type")
+            }
+        }
+    }
+}
+
 struct PageDisplay: View {
     var page: API.GetPageQuery.Data.Page
 
@@ -53,72 +157,12 @@ struct PageDisplay: View {
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(spacing: 50) {
-                ForEach(page.sections.items, id: \.id) { section in
-                    if let itemSection = section.asItemSection {
-                        if !itemSection.items.items.isEmpty {
-                            switch section.__typename! {
-                            case "PosterSection":
-                                PosterSection(
-                                    itemSection.title,
-                                    mapToItems(itemSection.items),
-                                    clickItem: clickItem
-                                )
-                            case "FeaturedSection":
-                                FeaturedSection(
-                                    itemSection.title,
-                                    mapToItems(itemSection.items),
-                                    clickItem: clickItem,
-                                    withLiveElement: itemSection.metadata?.prependLiveElement == true
-                                )
-                            case "DefaultSection":
-                                DefaultSection(
-                                    itemSection.title,
-                                    mapToItems(itemSection.items),
-                                    clickItem: clickItem
-                                )
-                            case "DefaultGridSection":
-                                DefaultGridSection(
-                                    itemSection.title,
-                                    mapToItems(itemSection.items),
-                                    clickItem: clickItem
-                                )
-                            case "IconSection":
-                                IconSection(
-                                    itemSection.title,
-                                    mapToItems(itemSection.items),
-                                    clickItem: clickItem
-                                )
-                            case "CardSection":
-                                CardSection(
-                                    itemSection.title,
-                                    mapToItems(itemSection.items),
-                                    clickItem: clickItem
-                                )
-                            case "LabelSection":
-                                LabelSection(
-                                    itemSection.title,
-                                    mapToItems(itemSection.items),
-                                    clickItem: clickItem
-                                )
-                            default:
-                                MissingContent(section.__typename ?? "unknown type")
-                            }
-                        }
-                    } else {
-                        switch section.__typename {
-                        case "MessageSection":
-                            EmptyView()
-                        case "PageDetailsSection":
-                            PageDetailsSection(section.title, section.description)
-                        case "AchievementSection":
-                            EmptyView()
-                        default:
-                            MissingContent(section.__typename ?? "unknown type")
-                        }
-                    }
+                ForEach(page.sections.items.indices, id: \.self) { index in
+                    SectionView(page, index, clickItem: clickItem)
                 }
             }.padding(100)
         }.padding(-100)
+            .navigationTitle(page.title)
     }
 }
 
