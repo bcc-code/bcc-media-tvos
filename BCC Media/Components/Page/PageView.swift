@@ -149,7 +149,7 @@ struct SectionView: View {
     }
 }
 
-struct PageDisplay: View {
+struct PageView: View {
     var page: API.GetPageQuery.Data.Page
 
     var clickItem: (Item) -> Void
@@ -166,63 +166,12 @@ struct PageDisplay: View {
     }
 }
 
-struct PageView: View {
-    @State var pageId: String
-    @State var page: API.GetPageQuery.Data.Page? = nil
-
-    var clickItem: (Item) -> Void
-
-    init(pageId: String, clickItem: @escaping ((Item) -> Void)) {
-        self.pageId = pageId
-        self.clickItem = clickItem
-    }
-
-    func load() {
-        page = nil
-
-        apolloClient.fetch(query: API.GetPageQuery(
-            id: pageId
-        )) { result in
-            switch result {
-            case let .success(res):
-                if let p = res.data {
-                    page = p.page
-                } else if let errs = res.errors {
-                    print(errs)
-                }
-            case .failure:
-                print("FAILED")
-            }
-
-            print("Page loaded: " + self.pageId)
-        }
-    }
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            if let p = page {
-                PageDisplay(page: p, clickItem: clickItem)
-                    .refreshable { load() }
-                    .transition(.opacity)
-            }
-        }.task { load() }.frame(width: .infinity)
-    }
-}
-
 extension PageView: Hashable {
     static func == (lhs: PageView, rhs: PageView) -> Bool {
-        lhs.pageId == rhs.pageId
+        lhs.page.id == rhs.page.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(pageId)
-    }
-}
-
-struct PageView_Previews: PreviewProvider {
-    static var previews: some View {
-        PageView(pageId: "-1") { item in
-            print(item.title)
-        }
+        hasher.combine(page.id)
     }
 }

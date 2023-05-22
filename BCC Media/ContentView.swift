@@ -16,17 +16,18 @@ var cardBackgroundColor: Color {
     Color(red: 29 / 256, green: 40 / 256, blue: 56 / 256)
 }
 
+// This is a struct to distinguish the first page component from any subpages.
 struct FrontPage: View {
-    var pageId: String
+    var page: API.GetPageQuery.Data.Page
     var clickItem: (Item) -> Void
 
-    init(pageId: String, clickItem: @escaping (Item) -> Void) {
-        self.pageId = pageId
+    init(page: API.GetPageQuery.Data.Page, clickItem: @escaping (Item) -> Void) {
+        self.page = page
         self.clickItem = clickItem
     }
 
     var body: some View {
-        PageView(pageId: pageId, clickItem: clickItem)
+        PageView(page: page, clickItem: clickItem)
     }
 }
 
@@ -39,7 +40,7 @@ enum TabType: Hashable {
 
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
-    @State var pageId = ""
+    @State var frontPage: API.GetPageQuery.Data.Page? = nil
     @State var bccMember = false
 
     @State var loaded = false
@@ -49,7 +50,7 @@ struct ContentView: View {
     func load() async -> Void {
         await AppOptions.load()
         if let pageId = AppOptions.app.pageId {
-            self.pageId = pageId
+            self.frontPage = await getPage(pageId)
             self.bccMember = AppOptions.user.bccMember == true
         }
         loaded = true
@@ -60,65 +61,34 @@ struct ContentView: View {
     }
 
     func loadShow(_ id: String) async {
-        await withUnsafeContinuation { c in
-            apolloClient.fetch(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) { result in
-                switch result {
-                case let .success(data):
-                    if let episodeId = data.data?.show.defaultEpisode.id {
-                        path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
-                    } else if let errs = data.errors {
-                        for err in errs {
-                            print(err.path as Any)
-                            print(err.message as Any)
-                        }
-                    }
-                case let .failure(error):
-                    print(error)
-                }
-                c.resume()
-            }
+        let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForShowQuery(id: id))
+        if let episodeId = data?.show.defaultEpisode.id {
+            path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
         }
     }
     
     func loadSeason(_ id: String) async {
-        await withUnsafeContinuation { c in
-            apolloClient.fetch(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) { result in
-                switch result {
-                case let .success(data):
-                    if let episodeId = data.data?.season.defaultEpisode.id {
-                        path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
-                    } else if let errs = data.errors {
-                        print(errs)
-                    }
-                case let .failure(error):
-                    print(error)
-                }
-                c.resume()
-            }
+        let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id))
+        if let episodeId = data?.season.defaultEpisode.id {
+            path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
         }
     }
 
     func loadTopic(_ id: String) async {
-        await withUnsafeContinuation { c in
-            apolloClient.fetch(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)) { result in
-                switch result {
-                case let .success(data):
-                    if let episodeId = data.data?.studyTopic.defaultLesson.defaultEpisode?.id {
-                        path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
-                    } else if let errs = data.errors {
-                        print(errs)
-                    }
-                case let .failure(error):
-                    print(error)
-                }
-                c.resume()
-            }
+        let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id))
+        if let episodeId = data?.studyTopic.defaultLesson.defaultEpisode?.id {
+            path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
         }
+    }
+    
+    func getPage(_ id: String) async -> API.GetPageQuery.Data.Page {
+        let data = await apolloClient.getAsync(query: API.GetPageQuery(id: id))
+        return data!.page
     }
 
     func clickItemAsync(item: Item) async {
         if item.locked {
-            print("Item was locked. Ignoring")
+            print("Item was locked. Ignoring click")
             return
         }
         switch item.type {
@@ -129,7 +99,7 @@ struct ContentView: View {
             print("Loading show")
             await loadShow(item.id)
         case .page:
-            path.append(PageView(pageId: item.id, clickItem: clickItem))
+            path.append(PageView(page: await getPage(item.id), clickItem: clickItem))
         case .topic:
             await loadTopic(item.id)
         case .season:
@@ -150,33 +120,36 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             backgroundColor.ignoresSafeArea()
-            if loaded && !loading {
                 NavigationStack(path: $path) {
-                    TabView(selection: $tab) {
-                        FrontPage(pageId: pageId, clickItem: clickItem)
-                            .tabItem {
-                                Label("tab_home", systemImage: "house.fill")
-                            }.tag(TabType.pages)
-                        if authenticated && bccMember {
-                            LiveView().tabItem {
-                                Label("tab_live", systemImage: "video")
-                            }.tag(TabType.live)
+                    ZStack {
+                        if loaded && !loading, let p = frontPage {
+                            TabView(selection: $tab) {
+                                FrontPage(page: p, clickItem: clickItem)
+                                    .tabItem {
+                                        Label("tab_home", systemImage: "house.fill")
+                                    }.tag(TabType.pages)
+                                if authenticated && bccMember {
+                                    LiveView().tabItem {
+                                        Label("tab_live", systemImage: "video")
+                                    }.tag(TabType.live)
+                                }
+                                SearchView(clickItem: { item in
+                                    Task {
+                                        await clickItemAsync(item: item)
+                                    }
+                                }, playCallback: playCallback).tabItem {
+                                    Label("tab_search", systemImage: "magnifyingglass")
+                                }.tag(TabType.search)
+                                SettingsView {
+                                    authenticated = authenticationProvider.isAuthenticated()
+                                    Task {
+                                        await load()
+                                    }
+                                }.tabItem {
+                                    Label("tab_settings", systemImage: "gearshape.fill")
+                                }.tag(TabType.settings)
+                            }
                         }
-                        SearchView(clickItem: { item in
-                            Task {
-                                await clickItemAsync(item: item)
-                            }
-                        }, playCallback: playCallback).tabItem {
-                            Label("tab_search", systemImage: "magnifyingglass")
-                        }.tag(TabType.search)
-                        SettingsView {
-                            authenticated = authenticationProvider.isAuthenticated()
-                            Task {
-                                await load()
-                            }
-                        }.tabItem {
-                            Label("tab_settings", systemImage: "gearshape.fill")
-                        }.tag(TabType.settings)
                     }
                     .navigationDestination(for: EpisodeViewer.self) { episode in
                         episode
@@ -187,7 +160,6 @@ struct ContentView: View {
                     .navigationDestination(for: EpisodePlayer.self) { player in
                         player.ignoresSafeArea()
                     }
-                }
             }
         }.preferredColorScheme(.dark)
             .task {

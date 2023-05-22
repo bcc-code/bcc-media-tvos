@@ -89,3 +89,43 @@ class ApolloClientFactory {
     }
 
 }
+
+extension ApolloClient {
+    func getThrowingAsync<Q: GraphQLQuery>(query: Q) async throws -> Q.Data {
+        return try await withCheckedThrowingContinuation { c in
+            apolloClient.fetch(query: query) { result in
+                switch result {
+                case let .success(data):
+                    if let data = data.data {
+                        c.resume(returning: data)
+                    }
+                    if let errors = data.errors {
+                        print(errors)
+                    }
+                case let .failure(err):
+                    c.resume(throwing: err)
+                }
+            }
+        }
+    }
+    
+    func getAsync<Q: GraphQLQuery>(query: Q) async -> Q.Data? {
+        return await withCheckedContinuation { c in
+            apolloClient.fetch(query: query) { result in
+                switch result {
+                case let .success(data):
+                    if let data = data.data {
+                        c.resume(returning: data)
+                    }
+                    if let errors = data.errors {
+                        print(errors)
+                        c.resume(returning: nil)
+                    }
+                case let .failure(err):
+                    print(err)
+                    c.resume(returning: nil)
+                }
+            }
+        }
+    }
+}
