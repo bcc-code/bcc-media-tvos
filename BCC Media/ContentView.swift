@@ -56,7 +56,7 @@ struct ContentView: View {
         if let pageId = AppOptions.app.pageId {
             frontPage = nil
             // Assure that the cache is cleared. It's done asynchronously
-            try! await Task.sleep(nanoseconds: 1_000_000)
+            try? await Task.sleep(nanoseconds: 1_000_000)
             frontPage = await getPage(pageId)
             print("FETCHED FRONTPAGE")
             bccMember = AppOptions.user.bccMember == true
@@ -92,6 +92,55 @@ struct ContentView: View {
         }
         
         return path
+    }
+    
+    func reload() async {
+        authenticationProvider.clearUserInfoCache()
+        await load()
+    }
+
+    func authStateUpdate() {
+        apolloClient.clearCache(callbackQueue: .main) { _ in
+            print("CLEARED APOLLO CACHE")
+            authenticated = authenticationProvider.isAuthenticated()
+            loading = false
+            path.removeLast(path.count)
+            Task {
+                await reload()
+            }
+        }
+    }
+
+    func logout() {
+        loading = true
+        Task {
+            _ = await authenticationProvider.logout()
+            authStateUpdate()
+        }
+    }
+    
+    @State var cancelLogin: (() -> Void)? = nil
+    func startSignIn() {
+        let task = Task {
+            do {
+                try await authenticationProvider.login { code in
+                    path.append(
+                        SignInView(
+                            cancel: {
+                                cancelLogin?()
+                            },
+                            verificationUri: code.verificationUri,
+                            verificationUriComplete: code.verificationUriComplete,
+                            code: code.userCode
+                        )
+                    )
+                }
+                authStateUpdate()
+            } catch {
+                print(error)
+            }
+        }
+        cancelLogin = task.cancel
     }
 
     func playCallback(_ player: EpisodePlayer) {
@@ -179,12 +228,16 @@ struct ContentView: View {
                             }, playCallback: playCallback).tabItem {
                                 Label("tab_search", systemImage: "magnifyingglass")
                             }.tag(TabType.search)
-                            SettingsView {
+                            SettingsView(path: $path, onSave: {
                                 authenticated = authenticationProvider.isAuthenticated()
                                 Task {
                                     await load()
                                 }
-                            }.tabItem {
+                            }) {
+                                startSignIn()
+                            } logout: {
+                                logout()
+                            } .tabItem {
                                 Label("tab_settings", systemImage: "gearshape.fill")
                             }.tag(TabType.settings)
                         }
@@ -199,29 +252,39 @@ struct ContentView: View {
                 .navigationDestination(for: EpisodePlayer.self) { player in
                     player.ignoresSafeArea()
                 }
+                .navigationDestination(for: SignInView.self) { view in
+                    view
+                }.navigationDestination(for: AboutUsView.self) { view in
+                    view
+                }
             }.disabled(!authenticated && !onboarded)
             if !authenticated && !onboarded {
-                Color.black.opacity(0.5).ignoresSafeArea().transition(.opacity).zIndex(1)
+                Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
                 ZStack {
-                    backgroundColor
-                    VStack {
-                        Image(uiImage: UIImage(named: "OnboardBg")!)
-                        Text("onboard_title").font(.title3)
-                        Text("onboard_description").foregroundColor(.gray)
-                        Spacer()
-                        Button("onboard_login") {
-                            withAnimation {
-                                tab = .settings
-                                onboarded.toggle()
+                    HStack {
+                        Image(uiImage: UIImage(named: "OnboardArt")!)
+                        VStack {
+                            Spacer()
+                            VStack(alignment: .leading) {
+                                Text("onboard_title").font(.title2)
+                                Text("onboard_description").foregroundColor(.gray)
                             }
-                        }.tint(.blue)
-                        Button("onboard_explorePublic") {
-                            withAnimation {
-                                onboarded.toggle()
+                            Spacer()
+                            Button("onboard_login") {
+                                withAnimation {
+                                    tab = .settings
+                                    onboarded.toggle()
+                                }
+                            }.tint(.blue)
+                            Button("onboard_explorePublic") {
+                                withAnimation {
+                                    onboarded.toggle()
+                                }
                             }
-                        }
-                    }.padding(50)
-                }.frame(width: 1080).cornerRadius(40).transition(.move(edge: .bottom)).zIndex(2)
+                            Spacer()
+                        }.padding(50)
+                    }
+                }.transition(.move(edge: .bottom)).zIndex(2)
             }
         }.preferredColorScheme(.dark)
             .task {

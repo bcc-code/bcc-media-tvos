@@ -11,6 +11,7 @@ private let audioLanguageKey = "audioLanguage"
 private let subtitleLanguageKey = "subtitleLanguage"
 
 public struct UserOptions {
+    var name: String?
     var anonymousId: String?
     var ageGroup: String?
     var bccMember: Bool?
@@ -108,34 +109,24 @@ public extension AppOptions {
     }
 
     static func load() async {
-        do {
-            let data = try await withCheckedThrowingContinuation { continuation in
-                apolloClient.fetch(query: API.GetSetupQuery()) { result in
-                    switch result {
-                    case let .success(response):
-                        continuation.resume(returning: response.data!)
-                    case let .failure(error):
-                        continuation.resume(throwing: error)
-                    }
-                }
-            }
-
-            AppOptions.standard.app.pageId = data.application.page?.id
-
-            if authenticationProvider.isAuthenticated() {
-                let userInfo = await authenticationProvider.userInfo()
-                AppOptions.user.anonymousId = data.me.analytics.anonymousId
-                AppOptions.user.ageGroup = userInfo?.ageGroup
-                AppOptions.user.bccMember = data.me.bccMember
-            }
-
-            let processInfo = ProcessInfo.processInfo
-
-            AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"]
-            AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? ""
-            AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? ""
-        } catch {
-            print(error)
+        guard let data = await apolloClient.getAsync(query: API.GetSetupQuery()) else {
+            return
         }
+
+        AppOptions.standard.app.pageId = data.application.page?.id
+
+        if authenticationProvider.isAuthenticated() {
+            let userInfo = await authenticationProvider.userInfo()
+            AppOptions.user.name = userInfo?.name
+            AppOptions.user.anonymousId = data.me.analytics.anonymousId
+            AppOptions.user.ageGroup = userInfo?.ageGroup
+            AppOptions.user.bccMember = data.me.bccMember
+        }
+
+        let processInfo = ProcessInfo.processInfo
+
+        AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"]
+        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? ""
+        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? ""
     }
 }

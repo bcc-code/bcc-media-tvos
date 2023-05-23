@@ -23,61 +23,17 @@ struct SettingsView: View {
     @State var verificationUri = ""
     @State var verificationUriComplete = ""
     @State var authenticated = authenticationProvider.isAuthenticated()
+    
+    @Binding var path: NavigationPath
+    
     var onSave: () -> Void
+    
+    var signIn: () -> Void
+    var logout: () -> Void
 
     @State var name: String? = nil
     @State var cancelTask: (() -> Void)? = nil
     @State var loading = false
-
-    func reloadUserInfo() async {
-        authenticationProvider.clearUserInfoCache()
-        if let info = await authenticationProvider.userInfo() {
-            name = info.name
-        }
-    }
-
-    func authStateUpdate() {
-        apolloClient.clearCache(callbackQueue: .main) { _ in
-            print("CLEARED APOLLO CACHE")
-            authenticated = authenticationProvider.isAuthenticated()
-            loading = false
-            path.removeLast(path.count)
-            onSave()
-            Task {
-                await reloadUserInfo()
-            }
-        }
-    }
-
-    func logout() {
-        loading = true
-        Task {
-            _ = await authenticationProvider.logout()
-            authStateUpdate()
-        }
-    }
-
-    func startSignIn() {
-        loading = true
-        let task = Task {
-            do {
-                try await authenticationProvider.login { code in
-                    token = code.userCode
-                    verificationUri = code.verificationUri
-                    verificationUriComplete = code.verificationUriComplete
-                    path.append(
-                        SignInView(cancel: {
-                            cancelTask?()
-                            authStateUpdate()
-                        }, verificationUri: verificationUri, verificationUriComplete: verificationUriComplete, code: token))
-                }
-                authStateUpdate()
-            } catch {
-                print(error)
-            }
-        }
-        cancelTask = task.cancel
-    }
 
     @State var audioLanguage = AppOptions.standard.audioLanguage ?? "none"
     @State var subtitleLanguage = AppOptions.standard.subtitleLanguage ?? "none"
@@ -97,92 +53,83 @@ struct SettingsView: View {
 
         return "\(versionString) (\(buildString))"
     }
-
-    @State var path: NavigationPath = .init()
     
     @State var logoutPopup = false
 
     var body: some View {
-        ZStack {
-            NavigationStack(path: $path) {
-                VStack {
-                    Form {
-                        Section(header: Text("common_settings")) {
-                            Picker("settings_audioLanguage", selection: $audioLanguage) {
-                                Text("common_none").tag("none")
-                                ForEach(Language.getAll(), id: \.code) { language in
-                                    Text(language.display.capitalizedSentence).tag(language.code)
+        VStack {
+            Form {
+                Section(header: Text("common_settings")) {
+                    Picker("settings_audioLanguage", selection: $audioLanguage) {
+                        Text("common_none").tag("none")
+                        ForEach(Language.getAll(), id: \.code) { language in
+                            Text(language.display.capitalizedSentence).tag(language.code)
+                        }
+                    }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
+                        setLanguage("audioLanguage", value)
+                    }
+                    Picker("settings_subtitles", selection: $subtitleLanguage) {
+                        Text("common_none").tag("none")
+                        ForEach(Language.getAll(), id: \.code) { language in
+                            HStack {
+                                Text(language.display.capitalizedSentence)
+                            }.tag(language.code)
+                        }
+                    }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
+                        setLanguage("subtitleLanguage", value)
+                    }
+                }
+                Section(header: Text("settings_account")) {
+                    if authenticated {
+                        Button {
+                            logoutPopup = true
+                        } label: {
+                            HStack {
+                                if let n = AppOptions.user.name {
+                                    Text(n)
+                                } else {
+                                    EmptyView()
                                 }
-                            }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
-                                setLanguage("audioLanguage", value)
+                                Spacer()
+                                Text("settings_logOut").foregroundColor(.red)
                             }
-                            Picker("settings_subtitles", selection: $subtitleLanguage) {
-                                Text("common_none").tag("none")
-                                ForEach(Language.getAll(), id: \.code) { language in
-                                    HStack {
-                                        Text(language.display.capitalizedSentence)
-                                    }.tag(language.code)
-                                }
-                            }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
-                                setLanguage("subtitleLanguage", value)
+                        }.confirmationDialog("settings_logOutConfirm", isPresented: $logoutPopup, titleVisibility: .visible) {
+                            Button("settings_logOut", role: .destructive) {
+                                logout()
                             }
                         }
-                        Section(header: Text("settings_account")) {
-                            if authenticated {
-                                Button {
-                                    logoutPopup = true
-//                                    logout()
-                                } label: {
-                                    HStack {
-                                        if let n = name {
-                                            Text(n)
-                                        } else {
-                                            EmptyView()
-                                        }
-                                        Spacer()
-                                        Text("settings_logOut").foregroundColor(.red)
-                                    }
-                                }.confirmationDialog("settings_logOutConfirm", isPresented: $logoutPopup, titleVisibility: .visible) {
-                                    Button("settings_logOut", role: .destructive) {
-                                        logout()
-                                    }
-                                }
+                    } else {
+                        Button {
+                            signIn()
+                        } label: {
+                            if loading {
+                                ProgressView()
                             } else {
-                                Button {
-                                    startSignIn()
-                                } label: {
-                                    if loading {
-                                        ProgressView()
-                                    } else {
-                                        Text("settings_signIn")
-                                    }
-                                }.tint(.blue)
+                                Text("settings_signIn")
                             }
-                        }
-                        Section(header: Text("settings_information")) {
-                            NavigationLink("settings_aboutUs") {
-                                AboutUsView()
-                            }
-                        }
+                        }.tint(.blue)
                     }
-                    Spacer()
-                    Text("App Version: " + getVersion()).foregroundColor(.gray)
-                }.frame(maxWidth: 800)
-                    .navigationDestination(for: SignInView.self) { view in
-                        view
-                    }.navigationDestination(for: AboutUsView.self) { view in
-                        view
+                }
+                Section(header: Text("settings_information")) {
+                    Button("settings_aboutUs") {
+                        path.append(AboutUsView())
                     }
+                }
             }
-        }
-        .task {
-            await reloadUserInfo()
-        }
+            Spacer()
+            Text("App Version: " + getVersion()).foregroundColor(.gray)
+        }.frame(maxWidth: 800)
     }
 }
 
 struct SettingsView_Preview: PreviewProvider {
+    @State static var path: NavigationPath = .init()
+    
     static var previews: some View {
-        SettingsView(onSave: {})
+        SettingsView(path: $path, onSave: {}) {
+            print("")
+        } logout: {
+            print("")
+        }
     }
 }

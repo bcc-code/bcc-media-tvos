@@ -54,7 +54,7 @@ struct DeviceTokenRequestResponse: Codable {
 }
 
 struct AuthenticationProvider {
-    private var options = AuthenticationProvider.getConfigFromPlist()
+    private var options = AuthenticationProvider.getConfigFromPlist() ?? Options(client_id: "", scope: "", audience: "", domain: "")
     private var credentialsManager = Auth0.CredentialsManager(authentication: authentication(), storage: SimpleKeychain(service: "bcc.media", accessGroup: "group.tv.brunstad.app"))
     
     private struct Options {
@@ -64,16 +64,19 @@ struct AuthenticationProvider {
         var domain: String
     }
     
-    private static func getConfigFromPlist() -> Options {
+    private static func getConfigFromPlist() -> Options? {
         let url = URL(fileURLWithPath: Bundle.main.path(forResource: "Auth0", ofType: "plist")!)
-        let data = try! Data(contentsOf: url)
-        let plist = try! PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [String:String]
-        
-        var domain: String = ""
-        var clientId: String = ""
-        if let properties = plist {
-            clientId = properties["ClientId"]!
-            domain = properties["Domain"]!
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+        guard let plist = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [String:String] else {
+            return nil
+        }
+        guard let clientId = plist["ClientId"] else {
+            return nil
+        }
+        guard let domain = plist["Domain"] else {
+            return nil
         }
         return Options(client_id: clientId, scope: "openid profile email offline_access", audience: "api.bcc.no", domain: domain)
     }
@@ -110,7 +113,9 @@ struct AuthenticationProvider {
     }
 
     func login(codeCallback: (DeviceTokenRequestResponse) -> Void) async throws {
-        let response = try! await fetchDeviceCode()
+        guard let response = try? await fetchDeviceCode() else {
+            return
+        }
 
         codeCallback(response)
 
