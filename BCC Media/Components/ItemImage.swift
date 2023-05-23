@@ -25,7 +25,7 @@ struct ItemImage: View {
                     switch phase {
                     case .empty:
                         Rectangle().fill(cardBackgroundColor)
-                    case .success(let image):
+                    case let .success(image):
                         image.transition(.opacity)
                     case .failure:
                         Image(systemName: "wifi.slash")

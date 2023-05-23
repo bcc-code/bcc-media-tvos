@@ -31,13 +31,13 @@ public struct RudderOptions {
 
 public struct AppOptions {
     private init() {}
-    
+
     public var name: String = "tvOS"
-    
+
     public var audioLanguage: String? {
         UserDefaults.standard.string(forKey: audioLanguageKey)
     }
-    
+
     public func setAudioLanguage(_ value: String?) {
         if let value = value {
             UserDefaults.standard.set(value, forKey: audioLanguageKey)
@@ -45,11 +45,11 @@ public struct AppOptions {
             UserDefaults.standard.removeObject(forKey: audioLanguageKey)
         }
     }
-    
+
     public var subtitleLanguage: String? {
         UserDefaults.standard.string(forKey: subtitleLanguageKey)
     }
-    
+
     public func setSubtitleLanguage(_ value: String?) {
         if let value = value {
             UserDefaults.standard.set(value, forKey: subtitleLanguageKey)
@@ -57,20 +57,20 @@ public struct AppOptions {
             UserDefaults.standard.removeObject(forKey: subtitleLanguageKey)
         }
     }
-    
-    public var user: UserOptions = UserOptions()
-    
-    public var app: ApplicationOptions = ApplicationOptions()
-    
-    public var npaw: NpawOptions = NpawOptions()
-    
-    public var rudder: RudderOptions = RudderOptions()
+
+    public var user: UserOptions = .init()
+
+    public var app: ApplicationOptions = .init()
+
+    public var npaw: NpawOptions = .init()
+
+    public var rudder: RudderOptions = .init()
 }
 
 // Implement standard things
 public extension AppOptions {
     static var standard = AppOptions()
-    
+
     static var audioLanguage: String? {
         get {
             AppOptions.standard.audioLanguage
@@ -78,7 +78,7 @@ public extension AppOptions {
             AppOptions.standard.setAudioLanguage(newValue)
         }
     }
-    
+
     static var subtitleLanguage: String? {
         get {
             AppOptions.standard.subtitleLanguage
@@ -86,7 +86,7 @@ public extension AppOptions {
             AppOptions.standard.setSubtitleLanguage(newValue)
         }
     }
-    
+
     static var user: UserOptions {
         get {
             AppOptions.standard.user
@@ -94,43 +94,43 @@ public extension AppOptions {
             AppOptions.standard.user = newValue
         }
     }
-    
+
     static var app: ApplicationOptions {
         AppOptions.standard.app
     }
-    
+
     static var npaw: NpawOptions {
         AppOptions.standard.npaw
     }
-    
+
     static var rudder: RudderOptions {
         AppOptions.standard.rudder
     }
-    
-    static func load() async -> Void {
+
+    static func load() async {
         do {
             let data = try await withCheckedThrowingContinuation { continuation in
                 apolloClient.fetch(query: API.GetSetupQuery()) { result in
                     switch result {
-                    case .success(let response):
+                    case let .success(response):
                         continuation.resume(returning: response.data!)
-                    case .failure(let error):
+                    case let .failure(error):
                         continuation.resume(throwing: error)
                     }
                 }
             }
-            
+
             AppOptions.standard.app.pageId = data.application.page?.id
-            
+
             if authenticationProvider.isAuthenticated() {
                 let userInfo = await authenticationProvider.userInfo()
                 AppOptions.user.anonymousId = data.me.analytics.anonymousId
                 AppOptions.user.ageGroup = userInfo?.ageGroup
                 AppOptions.user.bccMember = data.me.bccMember
             }
-            
+
             let processInfo = ProcessInfo.processInfo
-            
+
             AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"]
             AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? ""
             AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? ""

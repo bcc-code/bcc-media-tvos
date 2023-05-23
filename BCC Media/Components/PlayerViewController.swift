@@ -5,11 +5,10 @@
 //  Created by Fredrik Vedvik on 04/05/2023.
 //
 
-import SwiftUI
 import AVKit
+import SwiftUI
 import YouboraAVPlayerAdapter
 import YouboraLib
-
 
 extension YBPlugin {
     convenience init(_ options: PlayerViewController.Options, _ player: AVPlayer) {
@@ -18,7 +17,7 @@ extension YBPlugin {
         opts.accountCode = AppOptions.npaw.accountCode
         opts.username = AppOptions.user.anonymousId
         opts.appName = AppOptions.standard.name
-        
+
         let c = options.content
         opts.contentId = c.episodeId
         opts.contentTitle = options.title
@@ -27,12 +26,12 @@ extension YBPlugin {
         opts.contentSeason = c.seasonId != nil && c.seasonTitle != nil ? "\(c.seasonId!) - \(c.seasonTitle!)" : nil
         opts.program = c.showTitle ?? options.title
         opts.contentEpisodeTitle = c.episodeTitle
-        
+
         opts.contentCustomDimension2 = AppOptions.user.ageGroup
-        
+
         self.init(options: opts)
-        
-        self.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: player))
+
+        adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: player))
     }
 }
 
@@ -42,58 +41,58 @@ struct PlaybackState {
 
 struct PlaybackListener {
     var stateCallback: (PlaybackState) -> Void
-    
+
     init(stateCallback: @escaping (PlaybackState) -> Void) {
         self.stateCallback = stateCallback
     }
-    
+
     func onStateUpdate(state: PlaybackState) {
-        self.stateCallback(state)
+        stateCallback(state)
     }
 }
 
 struct PlayerViewController: UIViewControllerRepresentable {
     var videoURL: URL
     var options: Options
-    
+
     private var player: AVPlayer
     private var plugin: YBPlugin
-    
+
     private var coordinator: Coordinator
-    
-    init(_ videoURL: URL, _ options: Options = .init(), _ listener: PlaybackListener = PlaybackListener() { _ in }) {
+
+    init(_ videoURL: URL, _ options: Options = .init(), _ listener: PlaybackListener = PlaybackListener { _ in }) {
         self.videoURL = videoURL
         self.options = options
-        self.player = AVPlayer(url: videoURL)
-        
-        self.plugin = YBPlugin(options, self.player)
-        
-        self.coordinator = Coordinator()
-        self.coordinator.timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [self] _ in
+        player = AVPlayer(url: videoURL)
+
+        plugin = YBPlugin(options, player)
+
+        coordinator = Coordinator()
+        coordinator.timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [self] _ in
             listener.onStateUpdate(state: self.getState())
         }
     }
-    
+
     class Coordinator {
         var timer: Timer?
     }
-    
+
     func makeCoordinator() -> Coordinator {
         coordinator
     }
-    
+
     func getState() -> PlaybackState {
-        PlaybackState(time: self.player.currentTime().seconds)
+        PlaybackState(time: player.currentTime().seconds)
     }
-    
+
     struct Options {
         var startFrom: Int
         var title: String?
         var audioLanguage: String?
         var subtitleLanguage: String?
-        
+
         var isLive: Bool
-        
+
         var content: Content
         struct Content {
             var episodeTitle: String?
@@ -103,7 +102,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
             var showTitle: String?
             var showId: String?
         }
-        
+
         init(
             title: String? = nil,
             startFrom: Int = 0,
@@ -113,13 +112,13 @@ struct PlayerViewController: UIViewControllerRepresentable {
             content: Content = .init()
         ) {
             self.title = title
-            
+
             self.startFrom = startFrom
             self.subtitleLanguage = subtitleLanguage ?? AppOptions.standard.subtitleLanguage
             self.audioLanguage = audioLanguage ?? AppOptions.standard.audioLanguage
-            
+
             self.isLive = isLive
-            
+
             self.content = content
         }
     }
@@ -152,7 +151,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
             controller.player!.seek(to: CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100))
         }
         controller.player!.play()
-        
+
         if let item = controller.player!.currentItem {
             item.externalMetadata = createMetadataItems()
             Task {
@@ -171,8 +170,8 @@ struct PlayerViewController: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_: AVPlayerViewController, context _: Context) {}
-    
-    static func dismantleUIViewController(_ uiViewController: AVPlayerViewController, coordinator: Coordinator) {
+
+    static func dismantleUIViewController(_: AVPlayerViewController, coordinator: Coordinator) {
         coordinator.timer?.invalidate()
     }
 }
@@ -186,7 +185,7 @@ extension AVPlayerItem {
             let locale = Locale(identifier: language)
             let options = AVMediaSelectionGroup.mediaSelectionOptions(from: group.options, with: locale)
             if let option = options.first {
-                self.select(option, in: group)
+                select(option, in: group)
                 return true
             }
         } catch {
@@ -194,12 +193,13 @@ extension AVPlayerItem {
         }
         return false
     }
-    
+
     private func getMediaSelectionGroup(characteristic: AVMediaCharacteristic) async -> String? {
         do {
             if let group = try await asset.loadMediaSelectionGroup(for: characteristic),
-                let selectedOption = currentMediaSelection.selectedMediaOption(in: group),
-                let languageCode = selectedOption.extendedLanguageTag {
+               let selectedOption = currentMediaSelection.selectedMediaOption(in: group),
+               let languageCode = selectedOption.extendedLanguageTag
+            {
                 return languageCode
             }
         } catch {
@@ -207,7 +207,7 @@ extension AVPlayerItem {
         }
         return nil
     }
-    
+
     func setAudioLanguage(_ audioLanguage: String) async -> Bool {
         await setMediaSelectionGroup(audioLanguage, characteristic: .audible)
     }
@@ -215,13 +215,12 @@ extension AVPlayerItem {
     func setSubtitleLanguage(_ subtitleLanguage: String) async -> Bool {
         await setMediaSelectionGroup(subtitleLanguage, characteristic: .legible)
     }
-    
+
     func getSelectedAudioLanguage() async -> String? {
         await getMediaSelectionGroup(characteristic: .audible)
     }
-    
+
     func getSelectedSubtitleLanguage() async -> String? {
         await getMediaSelectionGroup(characteristic: .legible)
     }
 }
-

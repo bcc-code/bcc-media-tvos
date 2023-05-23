@@ -10,14 +10,14 @@ import SwiftUI
 private struct CardSectionItem: View {
     var item: Item
     var onClick: () -> Void
-    
+
     init(_ item: Item, onClick: @escaping () -> Void) {
         self.item = item
         self.onClick = onClick
     }
-    
+
     @FocusState var isFocused: Bool
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Button {
@@ -36,7 +36,8 @@ private struct CardSectionItem: View {
                 )
                 .overlay(
                     ProgressBar(item: item),
-                    alignment: .bottom)
+                    alignment: .bottom
+                )
             }.buttonStyle(SectionItemButton(focused: isFocused)).focused($isFocused)
         }.frame(width: 400)
     }

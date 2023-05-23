@@ -10,9 +10,9 @@ import SwiftUI
 extension String {
     var capitalizedSentence: String {
         // 1
-        let firstLetter = self.prefix(1).capitalized
+        let firstLetter = prefix(1).capitalized
         // 2
-        let remainingLetters = self.dropFirst().lowercased()
+        let remainingLetters = dropFirst().lowercased()
         // 3
         return firstLetter + remainingLetters
     }
@@ -37,7 +37,7 @@ struct SettingsView: View {
     }
 
     func authStateUpdate() {
-        apolloClient.clearCache(callbackQueue: .main) { completed in
+        apolloClient.clearCache(callbackQueue: .main) { _ in
             print("CLEARED APOLLO CACHE")
             authenticated = authenticationProvider.isAuthenticated()
             loading = false
@@ -90,14 +90,14 @@ struct SettingsView: View {
         }
         apolloClient.clearCache()
     }
-    
+
     func getVersion() -> String {
         let versionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
         let buildString = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
-        
+
         return "\(versionString) (\(buildString))"
     }
-    
+
     @State var path: NavigationPath = .init()
 
     var body: some View {

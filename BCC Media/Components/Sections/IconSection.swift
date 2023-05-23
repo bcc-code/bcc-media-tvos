@@ -10,14 +10,14 @@ import SwiftUI
 struct IconSectionItem: View {
     var item: Item
     var onClick: () -> Void
-    
+
     init(_ item: Item, onClick: @escaping () -> Void) {
         self.item = item
         self.onClick = onClick
     }
-    
+
     @FocusState var isFocused: Bool
-    
+
     var body: some View {
         VStack(spacing: 10) {
             Button {

@@ -9,16 +9,16 @@ import SwiftUI
 
 struct ProgressBar: View {
     var item: Item
-    
+
     func durationToString(_ duration: Int) -> String {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.zeroFormattingBehavior = .dropLeading
-        
+
         return formatter.string(from: TimeInterval(duration))!
     }
-    
+
     var body: some View {
         HStack(spacing: 2) {
             if let duration = item.duration {
@@ -33,8 +33,8 @@ struct ProgressBar: View {
                                 .cornerRadius(5)
                         }
                     }
-                        .frame(width: .infinity, height: 15)
-                        .cornerRadius(5)
+                    .frame(width: .infinity, height: 15)
+                    .cornerRadius(5)
                 } else {
                     Spacer()
                 }

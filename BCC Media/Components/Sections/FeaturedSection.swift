@@ -42,9 +42,9 @@ struct FeaturedCard: View {
                     LockView(locked: item.locked)
                 )
         }
-            .buttonStyle(FeaturedButton(focused: isFocused))
-            .padding(0)
-            .focused($isFocused)
+        .buttonStyle(FeaturedButton(focused: isFocused))
+        .padding(0)
+        .focused($isFocused)
     }
 }
 
@@ -52,7 +52,7 @@ struct FeaturedSection: View {
     var title: String?
     var items: [Item]
     var clickItem: (Item) -> Void
-    
+
     var withLiveElement: Bool
 
     init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void, withLiveElement: Bool = false) {
@@ -61,7 +61,7 @@ struct FeaturedSection: View {
         self.clickItem = clickItem
         self.withLiveElement = withLiveElement && authenticationProvider.isAuthenticated()
     }
-    
+
     @FocusState var liveFocused: Bool
 
     var body: some View {
@@ -93,8 +93,7 @@ struct FeaturedSection: View {
 
 struct FeaturedSection_Previews: PreviewProvider {
     static var previews: some View {
-        FeaturedSection(nil, previewItems) { item in
-            
+        FeaturedSection(nil, previewItems) { _ in
         }
     }
 }

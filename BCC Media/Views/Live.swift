@@ -16,7 +16,7 @@ struct LiveResponse: Codable {
 
 struct LivePlayer: View {
     @State var url: URL?
-    
+
     func load() {
         Task {
             let token = await authenticationProvider.getAccessToken()
@@ -45,22 +45,20 @@ struct LivePlayer: View {
 }
 
 extension LivePlayer: Hashable {
-    static func == (lhs: LivePlayer, rhs: LivePlayer) -> Bool {
+    static func == (_: LivePlayer, _: LivePlayer) -> Bool {
         true
     }
-    
-    func hash(into hasher: inout Hasher) {
-        
-    }
+
+    func hash(into _: inout Hasher) {}
 }
 
 struct LiveView: View {
     var columns = [GridItem(.flexible()), GridItem(.flexible())]
-    
+
     @FocusState var imageFocused
-    
+
     @State var path: NavigationPath = .init()
-    
+
     var body: some View {
         NavigationStack(path: $path) {
             VStack(alignment: .leading) {
@@ -79,7 +77,7 @@ struct LiveView: View {
                     Spacer()
                 }
                 CalendarDay()
-            }.navigationDestination(for: LivePlayer.self) { player in
+            }.navigationDestination(for: LivePlayer.self) { _ in
                 LivePlayer()
             }
         }

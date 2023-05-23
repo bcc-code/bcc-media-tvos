@@ -47,19 +47,19 @@ struct ContentView: View {
 
     @State var loading = false
 
-    func load() async -> Void {
+    func load() async {
         await AppOptions.load()
         if let pageId = AppOptions.app.pageId {
-            self.frontPage = nil
+            frontPage = nil
             // Assure that the cache is cleared. It's done asynchronously
             try! await Task.sleep(nanoseconds: 1_000_000)
-            self.frontPage = await getPage(pageId)
+            frontPage = await getPage(pageId)
             print("FETCHED FRONTPAGE")
-            self.bccMember = AppOptions.user.bccMember == true
+            bccMember = AppOptions.user.bccMember == true
         }
         loaded = true
     }
-    
+
     func playCallback(_ player: EpisodePlayer) {
         path.append(player)
     }
@@ -70,7 +70,7 @@ struct ContentView: View {
             path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
         }
     }
-    
+
     func loadSeason(_ id: String) async {
         let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id))
         if let episodeId = data?.season.defaultEpisode.id {
@@ -84,7 +84,7 @@ struct ContentView: View {
             path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
         }
     }
-    
+
     func getPage(_ id: String) async -> API.GetPageQuery.Data.Page {
         let data = await apolloClient.getAsync(query: API.GetPageQuery(id: id))
         return data!.page
@@ -110,101 +110,101 @@ struct ContentView: View {
             await loadSeason(item.id)
         }
     }
-    
+
     func clickItem(item: Item) {
         Task {
             await clickItemAsync(item: item)
         }
     }
-    
+
     @State var path: NavigationPath = .init()
-    
+
     @State var tab: TabType = .pages
-    
+
     var body: some View {
         ZStack {
             backgroundColor.ignoresSafeArea()
-                NavigationStack(path: $path) {
-                    ZStack {
-                        if loaded && !loading, let p = frontPage {
-                            TabView(selection: $tab) {
-                                FrontPage(page: p, clickItem: clickItem)
-                                    .tabItem {
-                                        Label("tab_home", systemImage: "house.fill")
-                                    }.tag(TabType.pages)
-                                if authenticated && bccMember {
-                                    LiveView().tabItem {
-                                        Label("tab_live", systemImage: "video")
-                                    }.tag(TabType.live)
-                                }
-                                SearchView(clickItem: { item in
-                                    Task {
-                                        await clickItemAsync(item: item)
-                                    }
-                                }, playCallback: playCallback).tabItem {
-                                    Label("tab_search", systemImage: "magnifyingglass")
-                                }.tag(TabType.search)
-                                SettingsView {
-                                    authenticated = authenticationProvider.isAuthenticated()
-                                    Task {
-                                        await load()
-                                    }
-                                }.tabItem {
-                                    Label("tab_settings", systemImage: "gearshape.fill")
-                                }.tag(TabType.settings)
+            NavigationStack(path: $path) {
+                ZStack {
+                    if loaded && !loading, let p = frontPage {
+                        TabView(selection: $tab) {
+                            FrontPage(page: p, clickItem: clickItem)
+                                .tabItem {
+                                    Label("tab_home", systemImage: "house.fill")
+                                }.tag(TabType.pages)
+                            if authenticated && bccMember {
+                                LiveView().tabItem {
+                                    Label("tab_live", systemImage: "video")
+                                }.tag(TabType.live)
                             }
+                            SearchView(clickItem: { item in
+                                Task {
+                                    await clickItemAsync(item: item)
+                                }
+                            }, playCallback: playCallback).tabItem {
+                                Label("tab_search", systemImage: "magnifyingglass")
+                            }.tag(TabType.search)
+                            SettingsView {
+                                authenticated = authenticationProvider.isAuthenticated()
+                                Task {
+                                    await load()
+                                }
+                            }.tabItem {
+                                Label("tab_settings", systemImage: "gearshape.fill")
+                            }.tag(TabType.settings)
                         }
                     }
-                    .navigationDestination(for: EpisodeViewer.self) { episode in
-                        episode
-                    }
-                    .navigationDestination(for: PageView.self) { page in
-                        page
-                    }
-                    .navigationDestination(for: EpisodePlayer.self) { player in
-                        player.ignoresSafeArea()
-                    }
+                }
+                .navigationDestination(for: EpisodeViewer.self) { episode in
+                    episode
+                }
+                .navigationDestination(for: PageView.self) { page in
+                    page
+                }
+                .navigationDestination(for: EpisodePlayer.self) { player in
+                    player.ignoresSafeArea()
+                }
             }
         }.preferredColorScheme(.dark)
             .task {
-            await load()
-        }
-        .onOpenURL(perform: { url in
-            loading = true
-            let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-
-            let parts = components.path.split(separator: "/")
-            if parts.count == 0 {
-                return
+                await load()
             }
-            if parts[0] == "episode" {
-                if parts[1] != "" {
-                    let str = parts[1]
-                    if let queryItems = components.queryItems {
-                        for q in queryItems {
-                            if q.name == "play" {
-                                apolloClient.fetch(query: API.GetEpisodeQuery(id: String(str))) { result in
-                                    switch result {
-                                    case let .success(res):
-                                        if let episode = res.data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
-                                            print("Adding player to path")
-                                            path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
-                                            path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
+            .onOpenURL(perform: { url in
+                loading = true
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+
+                let parts = components.path.split(separator: "/")
+                if parts.count == 0 {
+                    return
+                }
+                if parts[0] == "episode" {
+                    if parts[1] != "" {
+                        let str = parts[1]
+                        if let queryItems = components.queryItems {
+                            for q in queryItems {
+                                if q.name == "play" {
+                                    apolloClient.fetch(query: API.GetEpisodeQuery(id: String(str))) { result in
+                                        switch result {
+                                        case let .success(res):
+                                            if let episode = res.data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
+                                                print("Adding player to path")
+                                                path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
+                                                path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
+                                            }
+                                        case .failure:
+                                            print("Failed to retrieve stream from episode")
                                         }
-                                    case .failure:
-                                        print("Failed to retrieve stream from episode")
+                                        loading = false
                                     }
-                                    loading = false
+                                    return
                                 }
-                                return
                             }
                         }
+                        path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
                     }
-                    path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
                 }
-            }
-            loading = false
-        })
+                loading = false
+            })
     }
 }
 

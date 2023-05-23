@@ -25,16 +25,16 @@ struct SectionItemCard: View {
     var onClick: () -> Void
     var width: CGFloat
     var height: CGFloat
-    
+
     init(_ item: Item, width: CGFloat, height: CGFloat, onClick: @escaping () -> Void) {
         self.item = item
         self.width = width
         self.height = height
         self.onClick = onClick
     }
-    
+
     @FocusState var isFocused: Bool
-    
+
     var body: some View {
         if let image = item.image {
             VStack(alignment: .leading, spacing: 20) {
@@ -50,7 +50,8 @@ struct SectionItemCard: View {
                         )
                         .overlay(
                             ProgressBar(item: item),
-                            alignment: .bottom)
+                            alignment: .bottom
+                        )
                 }
                 .buttonStyle(SectionItemButton(focused: isFocused))
                 .focused($isFocused)

@@ -9,10 +9,10 @@ import SwiftUI
 
 struct AboutUsView: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     var contactString = NSLocalizedString("aboutUs_contact", comment: "")
     var privacyPolicyString = NSLocalizedString("aboutUs_privacyPolicy", comment: "")
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
             Spacer()
@@ -22,10 +22,10 @@ struct AboutUsView: View {
                     .frame(width: 970, height: 346)
                 Text("aboutUs_description")
                 Text(contactString.split(separator: "$email")[0])
-                + Text("support@bcc.media").foregroundColor(.blue)
-                + Text(contactString.split(separator: "$email")[1])
+                    + Text("support@bcc.media").foregroundColor(.blue)
+                    + Text(contactString.split(separator: "$email")[1])
                 Text(privacyPolicyString.split(separator: "$url")[0])
-                + Text("bcc.media/no/personvern").foregroundColor(.blue)
+                    + Text("bcc.media/no/personvern").foregroundColor(.blue)
             }.focusable().font(.callout)
             HStack {
                 Spacer()
@@ -41,13 +41,11 @@ struct AboutUsView: View {
 }
 
 extension AboutUsView: Hashable {
-    static func == (lhs: AboutUsView, rhs: AboutUsView) -> Bool {
+    static func == (_: AboutUsView, _: AboutUsView) -> Bool {
         true
     }
 
-    func hash(into hasher: inout Hasher) {
-        
-    }
+    func hash(into _: inout Hasher) {}
 }
 
 struct AboutUsView_Previews: PreviewProvider {

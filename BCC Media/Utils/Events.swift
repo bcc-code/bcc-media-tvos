@@ -8,19 +8,19 @@
 import Foundation
 import Rudder
 
-protocol Event : Encodable {
+protocol Event: Encodable {
     static var eventName: String { get }
 }
 
 extension Event {
-    var dictionary: [String:Any] {
+    var dictionary: [String: Any] {
         return (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(self))) as? [String: Any] ?? [:]
     }
 }
 
 struct SectionClicked: Event {
     static let eventName = "section_clicked"
-    
+
     var sectionId: String
     var sectionName: String
     var sectionPosition: Int
@@ -34,13 +34,13 @@ struct SectionClicked: Event {
 
 struct AudioonlyClicked: Event {
     static let eventName = "audioonly_clicked"
-    
+
     var audioOnly: Bool
 }
 
 struct CalendardayClicked: Event {
     static let eventName = "calendarday_clicked"
-    
+
     var pageCode: String
     var calendarView: String
     var calendarDate: String
@@ -48,7 +48,7 @@ struct CalendardayClicked: Event {
 
 struct SearchPerformed: Event {
     static let eventName = "search_performed"
-    
+
     var searchText: String
     var searchLatency: Int
     var searchResultCount: Int
@@ -56,7 +56,7 @@ struct SearchPerformed: Event {
 
 struct LanguageChanged: Event {
     static let eventName = "language_changed"
-    
+
     var pageCode: String
     var languageFrom: String
     var languageTo: String
@@ -64,19 +64,19 @@ struct LanguageChanged: Event {
 
 struct Events {
     private let client = RSClient.sharedInstance()
-    
+
     private init() {
         let config = RSConfig(writeKey: AppOptions.rudder.writeKey)
             .dataPlaneURL(AppOptions.rudder.dataPlaneUrl)
 //            .trackLifecycleEvents(true)
 //            .recordScreenViews(true)
-        
+
         client.configure(with: config)
     }
-    
+
     public static let standard = Events()
-    
-    public static func trigger<T : Event>(_ event: T) {
+
+    public static func trigger<T: Event>(_ event: T) {
         standard.client.track(T.eventName, properties: event.dictionary)
     }
 }

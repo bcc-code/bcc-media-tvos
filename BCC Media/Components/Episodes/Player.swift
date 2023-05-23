@@ -9,21 +9,21 @@ import SwiftUI
 
 struct EpisodePlayer: View {
     var playerUrl: URL
-    
+
     var episode: API.GetEpisodeQuery.Data.Episode
 
     var startFrom: Int
-    
+
     var listener: PlaybackListener
 
     init(episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, startFrom: Int = 0) {
         self.episode = episode
-        
+
         self.playerUrl = playerUrl
         self.startFrom = startFrom
-        
-        self.listener = PlaybackListener(stateCallback: {state in
-            apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { result in
+
+        listener = PlaybackListener(stateCallback: { state in
+            apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { _ in
                 print("updated progress")
                 print(state)
             }

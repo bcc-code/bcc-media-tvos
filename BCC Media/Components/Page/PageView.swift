@@ -49,28 +49,28 @@ struct SectionView: View {
     var page: API.GetPageQuery.Data.Page
     var index: Int
     var section: API.GetPageQuery.Data.Page.Sections.Item
-    
+
     private var _clickItem: (Item) -> Void
-    
+
     var metadata: API.ItemSectionFragment.Metadata?
     var items: [Item]?
-    
+
     init(_ page: API.GetPageQuery.Data.Page, _ index: Int, clickItem: @escaping (Item) -> Void) {
         self.page = page
         self.index = index
-        
+
         section = page.sections.items[index]
         _clickItem = clickItem
-        
+
         if let itemSection = section.asItemSection {
             metadata = itemSection.metadata
             items = mapToItems(itemSection.items)
         }
     }
-    
+
     func clickItem(item: Item) {
-        self._clickItem(item)
-        
+        _clickItem(item)
+
         Events.trigger(SectionClicked(
             sectionId: section.id,
             sectionName: section.title ?? "",
@@ -80,9 +80,10 @@ struct SectionView: View {
             elementType: item.type.rawValue,
             elementId: item.id,
             elementName: item.title,
-            pageCode: page.code))
+            pageCode: page.code
+        ))
     }
-    
+
     var body: some View {
         if let items = items {
             if !items.isEmpty {

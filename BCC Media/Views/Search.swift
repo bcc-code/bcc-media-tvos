@@ -13,7 +13,7 @@ struct SearchView: View {
     @State var episodeResult: [API.SearchQuery.Data.Search.Result]? = nil
 
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
-    
+
     var clickItem: (Item) -> Void
     var playCallback: (EpisodePlayer) -> Void
 
@@ -44,7 +44,7 @@ struct SearchView: View {
             }
         }
     }
-    
+
     func mapToItem(_ type: ItemType) -> ((API.SearchQuery.Data.Search.Result) -> Item) {
         func toItem(_ r: API.SearchQuery.Data.Search.Result) -> Item {
             Item(id: r.id, title: r.title, description: r.description ?? "", image: r.image, type: type)
@@ -74,17 +74,16 @@ struct SearchView: View {
                 }
             }.padding(100)
         }.padding(-100)
-        .searchable(text: $queryString)
-        .onChange(of: queryString, perform: getResult)
+            .searchable(text: $queryString)
+            .onChange(of: queryString, perform: getResult)
     }
 }
 
 struct SearchView_Preview: PreviewProvider {
     static var previews: some View {
-        SearchView() { item in
-            
-        } playCallback: { player in
-            
+        SearchView { _ in
+
+        } playCallback: { _ in
         }
     }
 }

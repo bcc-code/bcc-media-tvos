@@ -30,7 +30,7 @@ struct SignInView: View {
         let uiimage = UIImage(ciImage: scaledCIImage)
         return uiimage.pngData()!
     }
-    
+
     var localizedGotoString = NSLocalizedString("signIn_orGoToAndEnterCode", comment: "")
 
     var body: some View {
@@ -46,7 +46,7 @@ struct SignInView: View {
                 Group {
                     Text(localizedGotoString.split(separator: "$url")[0]) +
                         Text(getSimpleUri()).foregroundColor(.blue) +
-                    Text(localizedGotoString.split(separator:"$url")[1].split(separator: "$code")[0])
+                        Text(localizedGotoString.split(separator: "$url")[1].split(separator: "$code")[0])
                 }
                 Spacer().frame(height: 30)
                 Text(code).font(.title)
@@ -60,13 +60,11 @@ struct SignInView: View {
 }
 
 extension SignInView: Hashable {
-    static func == (lhs: SignInView, rhs: SignInView) -> Bool {
+    static func == (_: SignInView, _: SignInView) -> Bool {
         true
     }
 
-    func hash(into hasher: inout Hasher) {
-        
-    }
+    func hash(into _: inout Hasher) {}
 }
 
 struct SignInView_Preview: PreviewProvider {

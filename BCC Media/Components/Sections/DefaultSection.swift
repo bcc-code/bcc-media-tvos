@@ -17,7 +17,7 @@ struct DefaultSection: View {
         self.items = items
         self.clickItem = clickItem
     }
-    
+
     @FocusState var isFocused: Bool
 
     var body: some View {

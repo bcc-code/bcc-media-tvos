@@ -12,9 +12,9 @@ internal enum Tab {
 struct EpisodeHeader: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     var season: API.GetEpisodeSeasonQuery.Data.Season?
-    
+
     var playCallback: (EpisodePlayer) -> Void
-    
+
     @FocusState var isFocused: Bool
 
     var body: some View {
@@ -47,16 +47,16 @@ struct EpisodeHeader: View {
 
 struct EpisodeListItem: View {
     var ep: API.EpisodeSeason.Episodes.Item
-    
+
     var playCallback: (EpisodePlayer) -> Void
-    
+
     init(_ ep: API.EpisodeSeason.Episodes.Item, playCallback: @escaping (EpisodePlayer) -> Void) {
         self.ep = ep
         self.playCallback = playCallback
     }
-    
+
     @FocusState var isFocused: Bool
-    
+
     var body: some View {
         NavigationLink {
             EpisodeViewer(episodeId: ep.id, playCallback: playCallback)
@@ -78,7 +78,7 @@ struct EpisodeListItem: View {
 struct EpisodeViewer: View {
     @State var episodeId: String
     var playCallback: (EpisodePlayer) -> Void
-    
+
     @State private var playerUrl: URL?
     @State private var episode: API.GetEpisodeQuery.Data.Episode?
     @State private var season: API.GetEpisodeSeasonQuery.Data.Season?
@@ -193,8 +193,7 @@ extension EpisodeViewer: Hashable {
 
 struct EpisodeViewer_Previews: PreviewProvider {
     static var previews: some View {
-        EpisodeViewer(episodeId: "1838") { item in
-            
+        EpisodeViewer(episodeId: "1838") { _ in
         }
     }
 }
