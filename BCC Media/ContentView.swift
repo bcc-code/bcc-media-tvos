@@ -272,7 +272,7 @@ struct ContentView: View {
                             Spacer()
                             Button("onboard_login") {
                                 withAnimation {
-                                    tab = .settings
+                                    startSignIn()
                                     onboarded.toggle()
                                 }
                             }.tint(.blue)
