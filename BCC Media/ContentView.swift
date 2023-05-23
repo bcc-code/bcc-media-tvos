@@ -63,6 +63,36 @@ struct ContentView: View {
         }
         loaded = true
     }
+    
+    private func getPathsFromUrl(_ url: URL) async -> [any Hashable] {
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+
+        let parts = components.path.split(separator: "/")
+        if parts.count == 0 {
+            return []
+        }
+        
+        var path: [any Hashable] = []
+        
+        if parts[0] == "episode" {
+            if parts[1] != "" {
+                let str = parts[1]
+                path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
+                if let queryItems = components.queryItems {
+                    for q in queryItems {
+                        if q.name == "play" {
+                            let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: String(str)))
+                            if let episode = data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
+                                path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: episode.progress ?? 0))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return path
+    }
 
     func playCallback(_ player: EpisodePlayer) {
         path.append(player)
@@ -199,39 +229,13 @@ struct ContentView: View {
             }
             .onOpenURL(perform: { url in
                 loading = true
-                let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-
-                let parts = components.path.split(separator: "/")
-                if parts.count == 0 {
-                    return
-                }
-                if parts[0] == "episode" {
-                    if parts[1] != "" {
-                        let str = parts[1]
-                        if let queryItems = components.queryItems {
-                            for q in queryItems {
-                                if q.name == "play" {
-                                    apolloClient.fetch(query: API.GetEpisodeQuery(id: String(str))) { result in
-                                        switch result {
-                                        case let .success(res):
-                                            if let episode = res.data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
-                                                print("Adding player to path")
-                                                path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
-                                                path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: res.data?.episode.progress ?? 0))
-                                            }
-                                        case .failure:
-                                            print("Failed to retrieve stream from episode")
-                                        }
-                                        loading = false
-                                    }
-                                    return
-                                }
-                            }
-                        }
-                        path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
+                Task {
+                    let paths = await getPathsFromUrl(url)
+                    for p in paths {
+                        path.append(p)
                     }
+                    loading = false
                 }
-                loading = false
             })
     }
 }

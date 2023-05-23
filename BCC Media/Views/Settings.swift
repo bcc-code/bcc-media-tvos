@@ -142,7 +142,7 @@ struct SettingsView: View {
                                         Spacer()
                                         Text("settings_logOut").foregroundColor(.red)
                                     }
-                                }.confirmationDialog("settings_logoutConfirm", isPresented: $logoutPopup, titleVisibility: .visible) {
+                                }.confirmationDialog("settings_logOutConfirm", isPresented: $logoutPopup, titleVisibility: .visible) {
                                     Button("settings_logOut", role: .destructive) {
                                         logout()
                                     }
