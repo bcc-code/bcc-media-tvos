@@ -32,6 +32,8 @@ struct SignInView: View {
     }
 
     var localizedGotoString = NSLocalizedString("signIn_orGoToAndEnterCode", comment: "")
+    
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         HStack {
@@ -52,10 +54,12 @@ struct SignInView: View {
                 Text(code).font(.title)
                 Spacer().frame(height: 100)
                 Button("Cancel") {
-                    cancel()
+                    dismiss()
                 }
             }
-        }.frame(width: 1200, height: 800)
+        }.frame(width: 1200, height: 800).onDisappear {
+            cancel()
+        }
     }
 }
 

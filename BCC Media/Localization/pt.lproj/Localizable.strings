@@ -13,6 +13,7 @@
 "search_noEpisodesWithCurrentFilter" = "Não aparece com o filtro atual";
 "search_inputField" = "Digite algo no campo de pesquisa para começar a pesquisar";
 "settings_logOut" = "Sair";
+"settings_logOutConfirm" = "Are you sure you want to log out?";
 "settings_signIn" = "Entrar";
 "settings_account" = "Conta";
 "settings_appLanguage" = "Idioma do aplicativo";
@@ -33,3 +34,7 @@
 "aboutUs_description" = "BCC Media is a foundation in the BCC Federation which produces and distribute content with positive and christian values";
 "aboutUs_contact" = "Contact us on $email or in the BCC Media mobile app";
 "aboutUs_privacyPolicy" = "The Privacy Policy can be read on $url";
+"onboard_title" = "The most powerful message in the world";
+"onboard_description" = "Assistir séries, programas e filmes baseados nos valores cristãos";
+"onboard_login" = "Log in";
+"onboard_explorePublic" = "Explorar conteúdo público";

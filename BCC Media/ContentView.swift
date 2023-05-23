@@ -18,16 +18,20 @@ var cardBackgroundColor: Color {
 
 // This is a struct to distinguish the first page component from any subpages.
 struct FrontPage: View {
-    var page: API.GetPageQuery.Data.Page
+    var page: API.GetPageQuery.Data.Page?
     var clickItem: (Item) -> Void
 
-    init(page: API.GetPageQuery.Data.Page, clickItem: @escaping (Item) -> Void) {
+    init(page: API.GetPageQuery.Data.Page?, clickItem: @escaping (Item) -> Void) {
         self.page = page
         self.clickItem = clickItem
     }
 
     var body: some View {
-        PageView(page: page, clickItem: clickItem)
+        ZStack {
+            if let page = page {
+                PageView(page: page, clickItem: clickItem)
+            }
+        }
     }
 }
 
@@ -118,17 +122,18 @@ struct ContentView: View {
     }
 
     @State var path: NavigationPath = .init()
-
     @State var tab: TabType = .pages
+    
+    @State var onboarded = authenticationProvider.isAuthenticated()
 
     var body: some View {
         ZStack {
             backgroundColor.ignoresSafeArea()
             NavigationStack(path: $path) {
                 ZStack {
-                    if loaded && !loading, let p = frontPage {
+                    if loaded && !loading {
                         TabView(selection: $tab) {
-                            FrontPage(page: p, clickItem: clickItem)
+                            FrontPage(page: frontPage, clickItem: clickItem)
                                 .tabItem {
                                     Label("tab_home", systemImage: "house.fill")
                                 }.tag(TabType.pages)
@@ -164,6 +169,29 @@ struct ContentView: View {
                 .navigationDestination(for: EpisodePlayer.self) { player in
                     player.ignoresSafeArea()
                 }
+            }.disabled(!authenticated && !onboarded)
+            if !authenticated && !onboarded {
+                Color.black.opacity(0.5).ignoresSafeArea().transition(.opacity).zIndex(1)
+                ZStack {
+                    backgroundColor
+                    VStack {
+                        Image(uiImage: UIImage(named: "OnboardBg")!)
+                        Text("onboard_title").font(.title3)
+                        Text("onboard_description").foregroundColor(.gray)
+                        Spacer()
+                        Button("onboard_login") {
+                            withAnimation {
+                                tab = .settings
+                                onboarded.toggle()
+                            }
+                        }.tint(.blue)
+                        Button("onboard_explorePublic") {
+                            withAnimation {
+                                onboarded.toggle()
+                            }
+                        }
+                    }.padding(50)
+                }.frame(width: 1080).cornerRadius(40).transition(.move(edge: .bottom)).zIndex(2)
             }
         }.preferredColorScheme(.dark)
             .task {

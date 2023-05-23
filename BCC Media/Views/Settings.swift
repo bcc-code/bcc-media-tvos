@@ -99,6 +99,8 @@ struct SettingsView: View {
     }
 
     @State var path: NavigationPath = .init()
+    
+    @State var logoutPopup = false
 
     var body: some View {
         ZStack {
@@ -128,7 +130,8 @@ struct SettingsView: View {
                         Section(header: Text("settings_account")) {
                             if authenticated {
                                 Button {
-                                    logout()
+                                    logoutPopup = true
+//                                    logout()
                                 } label: {
                                     HStack {
                                         if let n = name {
@@ -137,7 +140,11 @@ struct SettingsView: View {
                                             EmptyView()
                                         }
                                         Spacer()
-                                        Text("settings_logOut").foregroundColor(.gray)
+                                        Text("settings_logOut").foregroundColor(.red)
+                                    }
+                                }.confirmationDialog("settings_logoutConfirm", isPresented: $logoutPopup, titleVisibility: .visible) {
+                                    Button("settings_logOut", role: .destructive) {
+                                        logout()
                                     }
                                 }
                             } else {
@@ -149,7 +156,7 @@ struct SettingsView: View {
                                     } else {
                                         Text("settings_signIn")
                                     }
-                                }
+                                }.tint(.blue)
                             }
                         }
                         Section(header: Text("settings_information")) {
