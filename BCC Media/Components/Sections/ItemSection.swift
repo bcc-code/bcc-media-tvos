@@ -23,6 +23,8 @@ enum ItemType: String {
     case season
 }
 
+typealias ClickItem = (Item) async -> Void
+
 struct Item: Identifiable {
     var id: String
     var title: String
@@ -89,4 +91,21 @@ func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {
     }
 
     return result
+}
+
+struct LoadingOverlay: View {
+    var loading: Bool
+    
+    init(_ loading: Bool) {
+        self.loading = loading
+    }
+    
+    var body: some View {
+        ZStack {
+            if loading {
+                Color.black.opacity(0.5)
+                ProgressView()
+            }
+        }
+    }
 }

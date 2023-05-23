@@ -33,7 +33,7 @@ struct ProgressBar: View {
                                 .cornerRadius(5)
                         }
                     }
-                    .frame(width: .infinity, height: 15)
+                    .frame(height: 15)
                     .cornerRadius(5)
                 } else {
                     Spacer()

@@ -18,12 +18,19 @@ struct FeaturedButton: ButtonStyle {
 
 struct FeaturedCard: View {
     var item: Item
-    var clicked: () -> Void
+    var clicked: () async -> Void
 
+    @State var loading = false
     @FocusState var isFocused: Bool
 
     var body: some View {
-        Button(action: clicked) {
+        Button(action: {
+            Task {
+                loading.toggle()
+                await clicked()
+                loading.toggle()
+            }
+        }) {
             ItemImage(item.image)
                 .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear]), startPoint: .top, endPoint: .bottom))
                 .cornerRadius(10)
@@ -40,7 +47,7 @@ struct FeaturedCard: View {
                     alignment: .bottomLeading
                 ).overlay(
                     LockView(locked: item.locked)
-                )
+                ).overlay(LoadingOverlay(loading))
         }
         .buttonStyle(FeaturedButton(focused: isFocused))
         .padding(0)
@@ -51,11 +58,11 @@ struct FeaturedCard: View {
 struct FeaturedSection: View {
     var title: String?
     var items: [Item]
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
 
     var withLiveElement: Bool
 
-    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void, withLiveElement: Bool = false) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping ClickItem, withLiveElement: Bool = false) {
         self.title = title
         self.items = items
         self.clickItem = clickItem
@@ -81,7 +88,7 @@ struct FeaturedSection: View {
                     }
                     ForEach(items.indices, id: \.self) { index in
                         FeaturedCard(item: items[index]) {
-                            clickItem(items[index])
+                            await clickItem(items[index])
                         }
                     }.frame(width: withLiveElement ? 1200 : 1760)
                 }.padding(100)

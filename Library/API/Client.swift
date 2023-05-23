@@ -91,9 +91,9 @@ class ApolloClientFactory {
 }
 
 extension ApolloClient {
-    func getThrowingAsync<Q: GraphQLQuery>(query: Q) async throws -> Q.Data {
+    func getThrowingAsync<Q: GraphQLQuery>(query: Q, cachePolicy: CachePolicy = .default) async throws -> Q.Data {
         return try await withCheckedThrowingContinuation { c in
-            apolloClient.fetch(query: query) { result in
+            apolloClient.fetch(query: query, cachePolicy: cachePolicy) { result in
                 switch result {
                 case let .success(data):
                     if let data = data.data {
@@ -109,9 +109,9 @@ extension ApolloClient {
         }
     }
     
-    func getAsync<Q: GraphQLQuery>(query: Q) async -> Q.Data? {
+    func getAsync<Q: GraphQLQuery>(query: Q, cachePolicy: CachePolicy = .default) async -> Q.Data? {
         return await withCheckedContinuation { c in
-            apolloClient.fetch(query: query) { result in
+            apolloClient.fetch(query: query, cachePolicy: cachePolicy) { result in
                 switch result {
                 case let .success(data):
                     if let data = data.data {

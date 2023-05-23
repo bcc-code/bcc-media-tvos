@@ -16,7 +16,10 @@ let apolloClient = ApolloClientFactory("https://api.brunstad.tv/query", tokenFac
 struct BCCMediaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().onAppear {
+                // Initialize rudder SDK
+                _ = Events.standard
+            }
         }
     }
 }

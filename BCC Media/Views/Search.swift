@@ -14,7 +14,7 @@ struct SearchView: View {
 
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
 
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
     var playCallback: (EpisodePlayer) -> Void
 
     func getResult(query: String) {
@@ -61,12 +61,12 @@ struct SearchView: View {
             VStack {
                 if let i = showResult {
                     DefaultSection(NSLocalizedString("common_shows", comment: ""), i.map(mapToItem(.show))) { item in
-                        clickItem(item)
+                        await clickItem(item)
                     }
                 }
                 if let i = episodeResult {
                     DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), i.map(mapToItem(.episode))) { item in
-                        clickItem(item)
+                        await clickItem(item)
                     }
                 }
                 if showResult == nil || episodeResult == nil {

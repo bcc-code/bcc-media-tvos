@@ -50,12 +50,12 @@ struct SectionView: View {
     var index: Int
     var section: API.GetPageQuery.Data.Page.Sections.Item
 
-    private var _clickItem: (Item) -> Void
+    private var _clickItem: ClickItem
 
     var metadata: API.ItemSectionFragment.Metadata?
     var items: [Item]?
 
-    init(_ page: API.GetPageQuery.Data.Page, _ index: Int, clickItem: @escaping (Item) -> Void) {
+    init(_ page: API.GetPageQuery.Data.Page, _ index: Int, clickItem: @escaping ClickItem) {
         self.page = page
         self.index = index
 
@@ -68,8 +68,8 @@ struct SectionView: View {
         }
     }
 
-    func clickItem(item: Item) {
-        _clickItem(item)
+    func clickItem(item: Item) async {
+        await _clickItem(item)
 
         Events.trigger(SectionClicked(
             sectionId: section.id,
@@ -153,7 +153,7 @@ struct SectionView: View {
 struct PageView: View {
     var page: API.GetPageQuery.Data.Page
 
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
 
     var body: some View {
         ScrollView(.vertical) {

@@ -13,7 +13,7 @@ struct SectionItemButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(.zero)
-            .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 4 : 0))
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 6 : 0))
             .cornerRadius(10)
             .scaleEffect(configuration.isPressed ? 1.02 : focused ? 1.05 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
@@ -22,30 +22,38 @@ struct SectionItemButton: ButtonStyle {
 
 struct SectionItemCard: View {
     var item: Item
-    var onClick: () -> Void
+    var onClick: () async -> Void
     var width: CGFloat
     var height: CGFloat
 
-    init(_ item: Item, width: CGFloat, height: CGFloat, onClick: @escaping () -> Void) {
+    init(_ item: Item, width: CGFloat, height: CGFloat, onClick: @escaping () async -> Void) {
         self.item = item
         self.width = width
         self.height = height
         self.onClick = onClick
     }
 
+    @State private var loading = false
     @FocusState var isFocused: Bool
 
     var body: some View {
         if let image = item.image {
             VStack(alignment: .leading, spacing: 20) {
                 Button {
-                    onClick()
+                    Task {
+                        loading = true
+                        await onClick()
+                        loading = false
+                    }
                 } label: {
                     ItemImage(image)
                         .frame(width: width, height: height)
                         .cornerRadius(10)
                         .overlay(
-                            LockView(locked: item.locked),
+                            ZStack {
+                                LockView(locked: item.locked)
+                                LoadingOverlay(loading)
+                            },
                             alignment: .top
                         )
                         .overlay(

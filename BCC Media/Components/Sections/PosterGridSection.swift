@@ -10,9 +10,9 @@ import SwiftUI
 struct PosterGridSection: View {
     var title: String?
     var items: [Item]
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
 
-    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping ClickItem) {
         self.title = title
         self.items = items
         self.clickItem = clickItem
@@ -29,7 +29,7 @@ struct PosterGridSection: View {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(items) { item in
                         SectionItemCard(item, width: 400, height: 600) {
-                            clickItem(item)
+                            await clickItem(item)
                         }
                     }
                 }.padding(100)

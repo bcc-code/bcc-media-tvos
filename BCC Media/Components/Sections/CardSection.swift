@@ -9,19 +9,24 @@ import SwiftUI
 
 private struct CardSectionItem: View {
     var item: Item
-    var onClick: () -> Void
+    var onClick: () async -> Void
 
-    init(_ item: Item, onClick: @escaping () -> Void) {
+    init(_ item: Item, onClick: @escaping () async -> Void) {
         self.item = item
         self.onClick = onClick
     }
 
+    @State private var loading = false
     @FocusState var isFocused: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Button {
-                onClick()
+                Task {
+                    loading.toggle()
+                    await onClick()
+                    loading.toggle()
+                }
             } label: {
                 VStack(alignment: .leading) {
                     ItemImage(item.image)
@@ -31,12 +36,16 @@ private struct CardSectionItem: View {
                         Text(item.description).font(.caption2).foregroundColor(.gray)
                     }.padding(.horizontal, 20).padding(.bottom, 10)
                     Spacer()
-                }.background(cardBackgroundColor).frame(width: 400).cornerRadius(10).overlay(
+                }.background(cardBackgroundColor).frame(width: 400).cornerRadius(10)
+                .overlay(
                     LockView(locked: item.locked)
                 )
                 .overlay(
                     ProgressBar(item: item),
                     alignment: .bottom
+                )
+                .overlay(
+                    LoadingOverlay(loading)
                 )
             }.buttonStyle(SectionItemButton(focused: isFocused)).focused($isFocused)
         }.frame(width: 400)
@@ -46,9 +55,9 @@ private struct CardSectionItem: View {
 struct CardSection: View {
     var title: String?
     var items: [Item]
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
 
-    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping ClickItem) {
         self.title = title
         self.items = items
         self.clickItem = clickItem
@@ -63,7 +72,7 @@ struct CardSection: View {
                 LazyHStack(alignment: .top, spacing: 40) {
                     ForEach(items) { item in
                         CardSectionItem(item) {
-                            clickItem(item)
+                            await clickItem(item)
                         }
                     }
                 }.padding(100)

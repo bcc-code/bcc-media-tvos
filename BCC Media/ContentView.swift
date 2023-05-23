@@ -19,9 +19,9 @@ var cardBackgroundColor: Color {
 // This is a struct to distinguish the first page component from any subpages.
 struct FrontPage: View {
     var page: API.GetPageQuery.Data.Page?
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
 
-    init(page: API.GetPageQuery.Data.Page?, clickItem: @escaping (Item) -> Void) {
+    init(page: API.GetPageQuery.Data.Page?, clickItem: @escaping ClickItem) {
         self.page = page
         self.clickItem = clickItem
     }
@@ -77,13 +77,21 @@ struct ContentView: View {
         if parts[0] == "episode" {
             if parts[1] != "" {
                 let str = parts[1]
-                path.append(EpisodeViewer(episodeId: String(str), playCallback: playCallback))
+                guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: String(str))) else {
+                    return []
+                }
+                path.append(EpisodeViewer(episode: data.episode) { id in
+                    Task {
+                        await loadEpisode(id)
+                    }
+                } playCallback: { p in
+                    playCallback(p)
+                })
                 if let queryItems = components.queryItems {
                     for q in queryItems {
                         if q.name == "play" {
-                            let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: String(str)))
-                            if let episode = data?.episode, let playerUrl = getPlayerUrl(streams: episode.streams) {
-                                path.append(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: episode.progress ?? 0))
+                            if let playerUrl = getPlayerUrl(streams: data.episode.streams) {
+                                path.append(EpisodePlayer(episode: data.episode, playerUrl: playerUrl, startFrom: data.episode.progress ?? 0))
                             }
                         }
                     }
@@ -146,25 +154,45 @@ struct ContentView: View {
     func playCallback(_ player: EpisodePlayer) {
         path.append(player)
     }
+    
+    func loadEpisode(_ id: String) async {
+        let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id))
+        if let data = data {
+            path.append(EpisodeViewer(episode: data.episode) { id in
+                Task {
+                    await loadEpisode(id)
+                }
+            } playCallback: { p in
+                playCallback(p)
+            })
+        }
+    }
 
     func loadShow(_ id: String) async {
         let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForShowQuery(id: id))
         if let episodeId = data?.show.defaultEpisode.id {
-            path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
+            await loadEpisode(episodeId)
         }
     }
 
     func loadSeason(_ id: String) async {
         let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id))
         if let episodeId = data?.season.defaultEpisode.id {
-            path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
+            await loadEpisode(episodeId)
         }
     }
 
     func loadTopic(_ id: String) async {
         let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id))
         if let episodeId = data?.studyTopic.defaultLesson.defaultEpisode?.id {
-            path.append(EpisodeViewer(episodeId: episodeId, playCallback: playCallback))
+            await loadEpisode(episodeId)
+        }
+    }
+    
+    func loadPage(_ id: String) async {
+        let data = await apolloClient.getAsync(query: API.GetPageQuery(id: id))
+        if let data = data {
+            path.append(PageView(page: data.page, clickItem: clickItem))
         }
     }
 
@@ -173,30 +201,25 @@ struct ContentView: View {
         return data!.page
     }
 
-    func clickItemAsync(item: Item) async {
+    func clickItem(item: Item) async {
         if item.locked {
             print("Item was locked. Ignoring click")
             return
         }
+        
+        print("LOADING: \(item.type)")
+        
         switch item.type {
         case .episode:
-            print("Navigating to episode")
-            path.append(EpisodeViewer(episodeId: item.id, playCallback: playCallback))
+            await loadEpisode(item.id)
         case .show:
-            print("Loading show")
             await loadShow(item.id)
         case .page:
-            path.append(PageView(page: await getPage(item.id), clickItem: clickItem))
+            await loadPage(item.id)
         case .topic:
             await loadTopic(item.id)
         case .season:
             await loadSeason(item.id)
-        }
-    }
-
-    func clickItem(item: Item) {
-        Task {
-            await clickItemAsync(item: item)
         }
     }
 
@@ -209,53 +232,47 @@ struct ContentView: View {
         ZStack {
             backgroundColor.ignoresSafeArea()
             NavigationStack(path: $path) {
-                ZStack {
-                    if loaded && !loading {
-                        TabView(selection: $tab) {
-                            FrontPage(page: frontPage, clickItem: clickItem)
-                                .tabItem {
-                                    Label("tab_home", systemImage: "house.fill")
-                                }.tag(TabType.pages)
-                            if authenticated && bccMember {
-                                LiveView().tabItem {
-                                    Label("tab_live", systemImage: "video")
-                                }.tag(TabType.live)
-                            }
-                            SearchView(clickItem: { item in
-                                Task {
-                                    await clickItemAsync(item: item)
-                                }
-                            }, playCallback: playCallback).tabItem {
-                                Label("tab_search", systemImage: "magnifyingglass")
-                            }.tag(TabType.search)
-                            SettingsView(path: $path, onSave: {
-                                authenticated = authenticationProvider.isAuthenticated()
-                                Task {
-                                    await load()
-                                }
-                            }) {
-                                startSignIn()
-                            } logout: {
-                                logout()
-                            } .tabItem {
-                                Label("tab_settings", systemImage: "gearshape.fill")
-                            }.tag(TabType.settings)
+                if loaded && !loading {
+                    TabView(selection: $tab) {
+                        FrontPage(page: frontPage, clickItem: clickItem)
+                            .tabItem {
+                                Label("tab_home", systemImage: "house.fill")
+                            }.tag(TabType.pages)
+                        if authenticated && bccMember {
+                            LiveView().tabItem {
+                                Label("tab_live", systemImage: "video")
+                            }.tag(TabType.live)
                         }
+                        SearchView(clickItem: clickItem, playCallback: playCallback).tabItem {
+                            Label("tab_search", systemImage: "magnifyingglass")
+                        }.tag(TabType.search)
+                        SettingsView(path: $path, onSave: {
+                            authenticated = authenticationProvider.isAuthenticated()
+                            Task {
+                                await load()
+                            }
+                        }) {
+                            startSignIn()
+                        } logout: {
+                            logout()
+                        } .tabItem {
+                            Label("tab_settings", systemImage: "gearshape.fill")
+                        }.tag(TabType.settings)
                     }
-                }
-                .navigationDestination(for: EpisodeViewer.self) { episode in
-                    episode
-                }
-                .navigationDestination(for: PageView.self) { page in
-                    page
-                }
-                .navigationDestination(for: EpisodePlayer.self) { player in
-                    player.ignoresSafeArea()
-                }
-                .navigationDestination(for: SignInView.self) { view in
-                    view
-                }.navigationDestination(for: AboutUsView.self) { view in
-                    view
+                    .navigationDestination(for: EpisodeViewer.self) { episode in
+                        episode
+                    }
+                    .navigationDestination(for: PageView.self) { page in
+                        page
+                    }
+                    .navigationDestination(for: EpisodePlayer.self) { player in
+                        player.ignoresSafeArea()
+                    }
+                    .navigationDestination(for: SignInView.self) { view in
+                        view
+                    }.navigationDestination(for: AboutUsView.self) { view in
+                        view
+                    }
                 }
             }.disabled(!authenticated && !onboarded)
             if !authenticated && !onboarded {

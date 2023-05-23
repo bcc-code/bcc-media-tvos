@@ -10,9 +10,9 @@ import SwiftUI
 struct PosterSection: View {
     var title: String?
     var items: [Item]
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
 
-    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping ClickItem) {
         self.title = title
         self.items = items
         self.clickItem = clickItem
@@ -27,7 +27,7 @@ struct PosterSection: View {
                 LazyHStack(alignment: .top, spacing: 20) {
                     ForEach(items) { item in
                         SectionItemCard(item, width: 400, height: 600) {
-                            clickItem(item)
+                            await clickItem(item)
                         }
                     }
                 }.padding(100)

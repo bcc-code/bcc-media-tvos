@@ -10,9 +10,9 @@ import SwiftUI
 struct LabelSection: View {
     var title: String?
     var items: [Item]
-    var clickItem: (Item) -> Void
+    var clickItem: ClickItem
 
-    init(_ title: String?, _ items: [Item], clickItem: @escaping (Item) -> Void) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping ClickItem) {
         self.title = title
         self.items = items
         self.clickItem = clickItem
@@ -27,7 +27,9 @@ struct LabelSection: View {
                 LazyHStack(alignment: .top, spacing: 20) {
                     ForEach(items) { item in
                         Button {
-                            clickItem(item)
+                            Task {
+                                await clickItem(item)
+                            }
                         } label: {
                             Text(item.title)
                                 .padding(.horizontal, 20)
