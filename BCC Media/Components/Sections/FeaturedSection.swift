@@ -11,7 +11,7 @@ struct FeaturedButton: ButtonStyle {
         configuration.label
             .padding(.zero)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 4 : 0))
-            .scaleEffect(configuration.isPressed ? 1.05 : 1)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
     }
 }
