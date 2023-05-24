@@ -32,7 +32,7 @@ struct SignInView: View {
     }
 
     var localizedGotoString = NSLocalizedString("signIn_orGoToAndEnterCode", comment: "")
-    
+
     @Environment(\.dismiss) var dismiss
 
     var body: some View {

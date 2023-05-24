@@ -37,16 +37,16 @@ private struct CardSectionItem: View {
                     }.padding(.horizontal, 20).padding(.bottom, 10)
                     Spacer()
                 }.background(cardBackgroundColor).frame(width: 400).cornerRadius(10)
-                .overlay(
-                    LockView(locked: item.locked)
-                )
-                .overlay(
-                    ProgressBar(item: item),
-                    alignment: .bottom
-                )
-                .overlay(
-                    LoadingOverlay(loading)
-                )
+                    .overlay(
+                        LockView(locked: item.locked)
+                    )
+                    .overlay(
+                        ProgressBar(item: item),
+                        alignment: .bottom
+                    )
+                    .overlay(
+                        LoadingOverlay(loading)
+                    )
             }.buttonStyle(SectionItemButton(focused: isFocused)).focused($isFocused)
         }.frame(width: 400)
     }

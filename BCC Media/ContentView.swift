@@ -63,11 +63,11 @@ struct ContentView: View {
         }
         loaded = true
     }
-    
-    private func viewCallback(_ id: String) async -> Void {
+
+    private func viewCallback(_ id: String) async {
         await loadEpisode(id)
     }
-    
+
     private func getPathsFromUrl(_ url: URL) async -> [any Hashable] {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
@@ -75,9 +75,9 @@ struct ContentView: View {
         if parts.count == 0 {
             return []
         }
-        
+
         var path: [any Hashable] = []
-        
+
         if parts[0] == "episode" {
             if parts[1] != "" {
                 let str = parts[1]
@@ -96,10 +96,10 @@ struct ContentView: View {
                 }
             }
         }
-        
+
         return path
     }
-    
+
     func reload() async {
         authenticationProvider.clearUserInfoCache()
         await load()
@@ -124,7 +124,7 @@ struct ContentView: View {
             authStateUpdate()
         }
     }
-    
+
     @State var cancelLogin: (() -> Void)? = nil
     func startSignIn() {
         let task = Task {
@@ -152,7 +152,7 @@ struct ContentView: View {
     func playCallback(_ player: EpisodePlayer) {
         path.append(player)
     }
-    
+
     func loadEpisode(_ id: String) async {
         guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id)) else {
             return
@@ -176,12 +176,13 @@ struct ContentView: View {
 
     func loadTopic(_ id: String) async {
         guard let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)),
-              let episodeId = data.studyTopic.defaultLesson.defaultEpisode?.id else {
+              let episodeId = data.studyTopic.defaultLesson.defaultEpisode?.id
+        else {
             return
         }
         await loadEpisode(episodeId)
     }
-    
+
     func loadPage(_ id: String) async {
         guard let data = await apolloClient.getAsync(query: API.GetPageQuery(id: id)) else {
             return
@@ -199,9 +200,9 @@ struct ContentView: View {
             print("Item was locked. Ignoring click")
             return
         }
-        
+
         print("LOADING: \(item.type) \(item.id)")
-        
+
         switch item.type {
         case .episode:
             await loadEpisode(item.id)
@@ -218,7 +219,7 @@ struct ContentView: View {
 
     @State var path: NavigationPath = .init()
     @State var tab: TabType = .pages
-    
+
     @State var onboarded = authenticationProvider.isAuthenticated()
 
     var body: some View {
@@ -248,7 +249,7 @@ struct ContentView: View {
                             startSignIn()
                         } logout: {
                             logout()
-                        } .tabItem {
+                        }.tabItem {
                             Label("tab_settings", systemImage: "gearshape.fill")
                         }.tag(TabType.settings)
                     }

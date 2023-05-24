@@ -95,11 +95,11 @@ func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {
 
 struct LoadingOverlay: View {
     var loading: Bool
-    
+
     init(_ loading: Bool) {
         self.loading = loading
     }
-    
+
     var body: some View {
         ZStack {
             if loading {

@@ -52,7 +52,7 @@ struct EpisodeHeader: View {
 struct EpisodeListItem: View {
     var ep: API.EpisodeSeason.Episodes.Item
     var click: () async -> Void
-    
+
     @State private var loading = false
 
     init(_ ep: API.EpisodeSeason.Episodes.Item, click: @escaping () async -> Void) {
@@ -168,15 +168,15 @@ struct EpisodeViewer: View {
                 }
             }.frame(width: 1280).padding(100)
         }.padding(-100)
-        .onAppear {
-            seasonId = episode.season?.id ?? ""
-        }.onChange(of: seasonId) { id in
-            if !id.isEmpty {
-                Task {
-                    await loadSeason(id)
+            .onAppear {
+                seasonId = episode.season?.id ?? ""
+            }.onChange(of: seasonId) { id in
+                if !id.isEmpty {
+                    Task {
+                        await loadSeason(id)
+                    }
                 }
             }
-        }
     }
 }
 

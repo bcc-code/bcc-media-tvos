@@ -23,11 +23,11 @@ struct SettingsView: View {
     @State var verificationUri = ""
     @State var verificationUriComplete = ""
     @State var authenticated = authenticationProvider.isAuthenticated()
-    
+
     @Binding var path: NavigationPath
-    
+
     var onSave: () -> Void
-    
+
     var signIn: () -> Void
     var logout: () -> Void
 
@@ -53,7 +53,7 @@ struct SettingsView: View {
 
         return "\(versionString) (\(buildString))"
     }
-    
+
     @State var logoutPopup = false
 
     var body: some View {
@@ -124,7 +124,7 @@ struct SettingsView: View {
 
 struct SettingsView_Preview: PreviewProvider {
     @State static var path: NavigationPath = .init()
-    
+
     static var previews: some View {
         SettingsView(path: $path, onSave: {}) {
             print("")
