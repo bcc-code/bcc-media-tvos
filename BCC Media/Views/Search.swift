@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State var queryString = ""
+    @Binding var queryString: String
 
     @State var episodeResult: [API.SearchQuery.Data.Search.Result]? = nil
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
@@ -16,30 +16,25 @@ struct SearchView: View {
     var clickItem: ClickItem
     var playCallback: (EpisodePlayer) -> Void
 
-    func getResult(query: String) {
+    func getResult(_ query: String) async {
         if query == "" {
-            episodeResult = []
-            showResult = []
+            episodeResult = nil
+            showResult = nil
             return
         }
-        apolloClient.fetch(query: API.SearchQuery(query: query, collection: "episode")) { result in
-            switch result {
-            case let .success(data):
-                if let r = data.data?.search.result {
-                    self.episodeResult = r
+
+        await withTaskGroup(of: Void.self) { group in
+            group.addTask {
+                guard let data = await apolloClient.getAsync(query: API.SearchQuery(query: query, collection: "episode")) else {
+                    return
                 }
-            case let .failure(error):
-                print(error)
+                episodeResult = data.search.result
             }
-        }
-        apolloClient.fetch(query: API.SearchQuery(query: query, collection: "show")) { result in
-            switch result {
-            case let .success(data):
-                if let r = data.data?.search.result {
-                    self.showResult = r
+            group.addTask {
+                guard let data = await apolloClient.getAsync(query: API.SearchQuery(query: query, collection: "show")) else {
+                    return
                 }
-            case let .failure(error):
-                print(error)
+                showResult = data.search.result
             }
         }
     }
@@ -57,13 +52,13 @@ struct SearchView: View {
 
     var body: some View {
         ScrollView(.vertical) {
-            VStack {
-                if let i = showResult {
+            LazyVStack {
+                if let i = showResult, i.count > 0 {
                     DefaultSection(NSLocalizedString("common_shows", comment: ""), i.map(mapToItem(.show))) { item in
                         await clickItem(item)
                     }
                 }
-                if let i = episodeResult {
+                if let i = episodeResult, i.count > 0 {
                     DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), i.map(mapToItem(.episode))) { item in
                         await clickItem(item)
                     }
@@ -74,13 +69,19 @@ struct SearchView: View {
             }.padding(100)
         }.padding(-100)
             .searchable(text: $queryString)
-            .onChange(of: queryString, perform: getResult)
+            .onChange(of: queryString) { query in
+                Task {
+                    await getResult(query)
+                }
+            }
     }
 }
 
 struct SearchView_Preview: PreviewProvider {
+    @State static var query = ""
+
     static var previews: some View {
-        SearchView { _ in
+        SearchView(queryString: $query) { _ in
 
         } playCallback: { _ in
         }

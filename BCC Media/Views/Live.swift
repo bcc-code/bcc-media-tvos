@@ -53,39 +53,39 @@ extension LivePlayer: Hashable {
 }
 
 struct LiveView: View {
-    var columns = [GridItem(.flexible()), GridItem(.flexible())]
+    var play: () -> Void
+
+    init(_ play: @escaping () -> Void) {
+        self.play = play
+    }
+
+    private var columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     @FocusState var imageFocused
 
-    @State var path: NavigationPath = .init()
-
     var body: some View {
-        NavigationStack(path: $path) {
-            VStack(alignment: .leading) {
-                HStack(alignment: .top) {
-                    Image(uiImage: UIImage(named: "Live.png")!)
-                        .focusable()
-                        .focused($imageFocused)
-                        .scaleEffect(imageFocused ? 1.02 : 1)
-                        .animation(.easeOut(duration: 0.1), value: imageFocused)
-                        .onTapGesture {
-                            path.append(LivePlayer())
-                        }
-                    VStack {
-                        Text("common_live").font(.title).bold()
+        VStack(alignment: .leading) {
+            HStack(alignment: .top) {
+                Image(uiImage: UIImage(named: "Live.png")!)
+                    .focusable()
+                    .focused($imageFocused)
+                    .scaleEffect(imageFocused ? 1.02 : 1)
+                    .animation(.easeOut(duration: 0.1), value: imageFocused)
+                    .onTapGesture {
+                        play()
                     }
-                    Spacer()
+                VStack {
+                    Text("common_live").font(.title).bold()
                 }
-                CalendarDay()
-            }.navigationDestination(for: LivePlayer.self) { _ in
-                LivePlayer()
+                Spacer()
             }
+            CalendarDay()
         }
     }
 }
 
 struct LiveView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveView()
+        LiveView {}
     }
 }

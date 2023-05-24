@@ -35,6 +35,12 @@ struct FrontPage: View {
     }
 }
 
+enum StaticDestination: Hashable {
+    case live
+    case aboutUs
+    case signIn
+}
+
 enum TabType: Hashable {
     case pages
     case live
@@ -217,6 +223,8 @@ struct ContentView: View {
         }
     }
 
+    @State var searchQuery = ""
+
     @State var path: NavigationPath = .init()
     @State var tab: TabType = .pages
 
@@ -227,31 +235,63 @@ struct ContentView: View {
             backgroundColor.ignoresSafeArea()
             if loaded {
                 NavigationStack(path: $path) {
-                    TabView(selection: $tab) {
-                        FrontPage(page: frontPage, clickItem: clickItem)
-                            .tabItem {
-                                Label("tab_home", systemImage: "house.fill")
-                            }.tag(TabType.pages)
-                        if authenticated && bccMember {
-                            LiveView().tabItem {
-                                Label("tab_live", systemImage: "video")
-                            }.tag(TabType.live)
-                        }
-                        SearchView(clickItem: clickItem, playCallback: playCallback).tabItem {
-                            Label("tab_search", systemImage: "magnifyingglass")
-                        }.tag(TabType.search)
-                        SettingsView(path: $path, onSave: {
-                            authenticated = authenticationProvider.isAuthenticated()
-                            Task {
-                                await load()
+                    ZStack {
+                        TabView(selection: $tab) {
+                            FrontPage(page: frontPage, clickItem: clickItem)
+                                .tabItem {
+                                    Label("tab_home", systemImage: "house.fill")
+                                }.tag(TabType.pages)
+                            if authenticated && bccMember {
+                                LiveView {
+                                    path.append(StaticDestination.live)
+                                }.tabItem {
+                                    Label("tab_live", systemImage: "video")
+                                }.tag(TabType.live)
                             }
-                        }) {
-                            startSignIn()
-                        } logout: {
-                            logout()
-                        }.tabItem {
-                            Label("tab_settings", systemImage: "gearshape.fill")
-                        }.tag(TabType.settings)
+                            SearchView(queryString: $searchQuery, clickItem: clickItem, playCallback: playCallback).tabItem {
+                                Label("tab_search", systemImage: "magnifyingglass")
+                            }.tag(TabType.search)
+                            SettingsView(path: $path, onSave: {
+                                authenticated = authenticationProvider.isAuthenticated()
+                                Task {
+                                    await load()
+                                }
+                            }) {
+                                startSignIn()
+                            } logout: {
+                                logout()
+                            }.tabItem {
+                                Label("tab_settings", systemImage: "gearshape.fill")
+                            }.tag(TabType.settings)
+                        }.disabled(!authenticated && !onboarded)
+                        if !authenticated && !onboarded {
+                            Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
+                            ZStack {
+                                HStack {
+                                    Image(uiImage: UIImage(named: "OnboardArt")!)
+                                    VStack {
+                                        Spacer()
+                                        VStack(alignment: .leading) {
+                                            Text("onboard_title").font(.title2)
+                                            Text("onboard_description").foregroundColor(.gray)
+                                        }
+                                        Spacer()
+                                        Button("onboard_login") {
+                                            withAnimation {
+                                                startSignIn()
+                                                onboarded.toggle()
+                                            }
+                                        }.tint(.blue)
+                                        Button("onboard_explorePublic") {
+                                            withAnimation {
+                                                onboarded.toggle()
+                                            }
+                                        }
+                                        Spacer()
+                                    }.padding(50)
+                                }
+                            }.transition(.move(edge: .bottom)).zIndex(2)
+                        }
                     }
                     .navigationDestination(for: API.GetEpisodeQuery.Data.Episode.self) { i in
                         EpisodeViewer(episode: i, viewCallback: viewCallback, playCallback: playCallback)
@@ -264,37 +304,20 @@ struct ContentView: View {
                     }
                     .navigationDestination(for: SignInView.self) { view in
                         view
-                    }.navigationDestination(for: AboutUsView.self) { view in
+                    }
+                    .navigationDestination(for: AboutUsView.self) { view in
                         view
                     }
-                }.disabled(!authenticated && !onboarded)
-                if !authenticated && !onboarded {
-                    Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
-                    ZStack {
-                        HStack {
-                            Image(uiImage: UIImage(named: "OnboardArt")!)
-                            VStack {
-                                Spacer()
-                                VStack(alignment: .leading) {
-                                    Text("onboard_title").font(.title2)
-                                    Text("onboard_description").foregroundColor(.gray)
-                                }
-                                Spacer()
-                                Button("onboard_login") {
-                                    withAnimation {
-                                        startSignIn()
-                                        onboarded.toggle()
-                                    }
-                                }.tint(.blue)
-                                Button("onboard_explorePublic") {
-                                    withAnimation {
-                                        onboarded.toggle()
-                                    }
-                                }
-                                Spacer()
-                            }.padding(50)
+                    .navigationDestination(for: StaticDestination.self) { dest in
+                        switch dest {
+                        case .live:
+                            LivePlayer()
+                        case .aboutUs:
+                            AboutUsView()
+                        default:
+                            EmptyView()
                         }
-                    }.transition(.move(edge: .bottom)).zIndex(2)
+                    }
                 }
             }
         }.preferredColorScheme(.dark)
