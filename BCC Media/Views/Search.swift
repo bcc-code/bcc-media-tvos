@@ -11,7 +11,6 @@ struct SearchView: View {
     @State var queryString = ""
 
     @State var episodeResult: [API.SearchQuery.Data.Search.Result]? = nil
-
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
 
     var clickItem: ClickItem

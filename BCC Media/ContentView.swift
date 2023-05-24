@@ -233,33 +233,31 @@ struct ContentView: View {
             backgroundColor.ignoresSafeArea()
             NavigationStack(path: $path) {
                 ZStack {
-                    if loaded && !loading {
-                        TabView(selection: $tab) {
-                            FrontPage(page: frontPage, clickItem: clickItem)
-                                .tabItem {
-                                    Label("tab_home", systemImage: "house.fill")
-                                }.tag(TabType.pages)
-                            if authenticated && bccMember {
-                                LiveView().tabItem {
-                                    Label("tab_live", systemImage: "video")
-                                }.tag(TabType.live)
-                            }
-                            SearchView(clickItem: clickItem, playCallback: playCallback).tabItem {
-                                Label("tab_search", systemImage: "magnifyingglass")
-                            }.tag(TabType.search)
-                            SettingsView(path: $path, onSave: {
-                                authenticated = authenticationProvider.isAuthenticated()
-                                Task {
-                                    await load()
-                                }
-                            }) {
-                                startSignIn()
-                            } logout: {
-                                logout()
-                            } .tabItem {
-                                Label("tab_settings", systemImage: "gearshape.fill")
-                            }.tag(TabType.settings)
+                    TabView(selection: $tab) {
+                        FrontPage(page: frontPage, clickItem: clickItem)
+                            .tabItem {
+                                Label("tab_home", systemImage: "house.fill")
+                            }.tag(TabType.pages)
+                        if authenticated && bccMember {
+                            LiveView().tabItem {
+                                Label("tab_live", systemImage: "video")
+                            }.tag(TabType.live)
                         }
+                        SearchView(clickItem: clickItem, playCallback: playCallback).tabItem {
+                            Label("tab_search", systemImage: "magnifyingglass")
+                        }.tag(TabType.search)
+                        SettingsView(path: $path, onSave: {
+                            authenticated = authenticationProvider.isAuthenticated()
+                            Task {
+                                await load()
+                            }
+                        }) {
+                            startSignIn()
+                        } logout: {
+                            logout()
+                        } .tabItem {
+                            Label("tab_settings", systemImage: "gearshape.fill")
+                        }.tag(TabType.settings)
                     }
                 }
                 .navigationDestination(for: EpisodeViewer.self) { episode in
@@ -276,7 +274,7 @@ struct ContentView: View {
                 }.navigationDestination(for: AboutUsView.self) { view in
                     view
                 }
-            }.disabled(!authenticated && !onboarded)
+            }
             if !authenticated && !onboarded {
                 Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
                 ZStack {
@@ -316,6 +314,7 @@ struct ContentView: View {
                     for p in paths {
                         path.append(p)
                     }
+                    onboarded = true
                     loading = false
                 }
             })
