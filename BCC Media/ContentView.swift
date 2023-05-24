@@ -232,47 +232,49 @@ struct ContentView: View {
         ZStack {
             backgroundColor.ignoresSafeArea()
             NavigationStack(path: $path) {
-                if loaded && !loading {
-                    TabView(selection: $tab) {
-                        FrontPage(page: frontPage, clickItem: clickItem)
-                            .tabItem {
-                                Label("tab_home", systemImage: "house.fill")
-                            }.tag(TabType.pages)
-                        if authenticated && bccMember {
-                            LiveView().tabItem {
-                                Label("tab_live", systemImage: "video")
-                            }.tag(TabType.live)
-                        }
-                        SearchView(clickItem: clickItem, playCallback: playCallback).tabItem {
-                            Label("tab_search", systemImage: "magnifyingglass")
-                        }.tag(TabType.search)
-                        SettingsView(path: $path, onSave: {
-                            authenticated = authenticationProvider.isAuthenticated()
-                            Task {
-                                await load()
+                ZStack {
+                    if loaded && !loading {
+                        TabView(selection: $tab) {
+                            FrontPage(page: frontPage, clickItem: clickItem)
+                                .tabItem {
+                                    Label("tab_home", systemImage: "house.fill")
+                                }.tag(TabType.pages)
+                            if authenticated && bccMember {
+                                LiveView().tabItem {
+                                    Label("tab_live", systemImage: "video")
+                                }.tag(TabType.live)
                             }
-                        }) {
-                            startSignIn()
-                        } logout: {
-                            logout()
-                        } .tabItem {
-                            Label("tab_settings", systemImage: "gearshape.fill")
-                        }.tag(TabType.settings)
+                            SearchView(clickItem: clickItem, playCallback: playCallback).tabItem {
+                                Label("tab_search", systemImage: "magnifyingglass")
+                            }.tag(TabType.search)
+                            SettingsView(path: $path, onSave: {
+                                authenticated = authenticationProvider.isAuthenticated()
+                                Task {
+                                    await load()
+                                }
+                            }) {
+                                startSignIn()
+                            } logout: {
+                                logout()
+                            } .tabItem {
+                                Label("tab_settings", systemImage: "gearshape.fill")
+                            }.tag(TabType.settings)
+                        }
                     }
-                    .navigationDestination(for: EpisodeViewer.self) { episode in
-                        episode
-                    }
-                    .navigationDestination(for: PageView.self) { page in
-                        page
-                    }
-                    .navigationDestination(for: EpisodePlayer.self) { player in
-                        player.ignoresSafeArea()
-                    }
-                    .navigationDestination(for: SignInView.self) { view in
-                        view
-                    }.navigationDestination(for: AboutUsView.self) { view in
-                        view
-                    }
+                }
+                .navigationDestination(for: EpisodeViewer.self) { episode in
+                    episode
+                }
+                .navigationDestination(for: PageView.self) { page in
+                    page
+                }
+                .navigationDestination(for: EpisodePlayer.self) { player in
+                    player.ignoresSafeArea()
+                }
+                .navigationDestination(for: SignInView.self) { view in
+                    view
+                }.navigationDestination(for: AboutUsView.self) { view in
+                    view
                 }
             }.disabled(!authenticated && !onboarded)
             if !authenticated && !onboarded {
