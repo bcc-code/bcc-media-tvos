@@ -158,6 +158,7 @@ struct ContentView: View {
     func loadEpisode(_ id: String) async {
         let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id))
         if let data = data {
+            print("Has path count: " + path.count.toString())
             path.append(EpisodeViewer(episode: data.episode) { id in
                 Task {
                     await loadEpisode(id)
@@ -207,7 +208,7 @@ struct ContentView: View {
             return
         }
         
-        print("LOADING: \(item.type)")
+        print("LOADING: \(item.type) \(item.id)")
         
         switch item.type {
         case .episode:
@@ -231,8 +232,8 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             backgroundColor.ignoresSafeArea()
-            NavigationStack(path: $path) {
-                ZStack {
+            if loaded {
+                NavigationStack(path: $path) {
                     TabView(selection: $tab) {
                         FrontPage(page: frontPage, clickItem: clickItem)
                             .tabItem {
@@ -259,49 +260,49 @@ struct ContentView: View {
                             Label("tab_settings", systemImage: "gearshape.fill")
                         }.tag(TabType.settings)
                     }
-                }
-                .navigationDestination(for: EpisodeViewer.self) { episode in
-                    episode
-                }
-                .navigationDestination(for: PageView.self) { page in
-                    page
-                }
-                .navigationDestination(for: EpisodePlayer.self) { player in
-                    player.ignoresSafeArea()
-                }
-                .navigationDestination(for: SignInView.self) { view in
-                    view
-                }.navigationDestination(for: AboutUsView.self) { view in
-                    view
-                }
-            }
-            if !authenticated && !onboarded {
-                Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
-                ZStack {
-                    HStack {
-                        Image(uiImage: UIImage(named: "OnboardArt")!)
-                        VStack {
-                            Spacer()
-                            VStack(alignment: .leading) {
-                                Text("onboard_title").font(.title2)
-                                Text("onboard_description").foregroundColor(.gray)
-                            }
-                            Spacer()
-                            Button("onboard_login") {
-                                withAnimation {
-                                    startSignIn()
-                                    onboarded.toggle()
-                                }
-                            }.tint(.blue)
-                            Button("onboard_explorePublic") {
-                                withAnimation {
-                                    onboarded.toggle()
-                                }
-                            }
-                            Spacer()
-                        }.padding(50)
+                    .navigationDestination(for: EpisodeViewer.self) { view in
+                        view
                     }
-                }.transition(.move(edge: .bottom)).zIndex(2)
+                    .navigationDestination(for: PageView.self) { page in
+                        page
+                    }
+                    .navigationDestination(for: EpisodePlayer.self) { player in
+                        player.ignoresSafeArea()
+                    }
+                    .navigationDestination(for: SignInView.self) { view in
+                        view
+                    }.navigationDestination(for: AboutUsView.self) { view in
+                        view
+                    }
+                }.disabled(!authenticated && !onboarded)
+                if !authenticated && !onboarded {
+                    Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
+                    ZStack {
+                        HStack {
+                            Image(uiImage: UIImage(named: "OnboardArt")!)
+                            VStack {
+                                Spacer()
+                                VStack(alignment: .leading) {
+                                    Text("onboard_title").font(.title2)
+                                    Text("onboard_description").foregroundColor(.gray)
+                                }
+                                Spacer()
+                                Button("onboard_login") {
+                                    withAnimation {
+                                        startSignIn()
+                                        onboarded.toggle()
+                                    }
+                                }.tint(.blue)
+                                Button("onboard_explorePublic") {
+                                    withAnimation {
+                                        onboarded.toggle()
+                                    }
+                                }
+                                Spacer()
+                            }.padding(50)
+                        }
+                    }.transition(.move(edge: .bottom)).zIndex(2)
+                }
             }
         }.preferredColorScheme(.dark)
             .task {

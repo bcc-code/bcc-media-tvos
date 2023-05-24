@@ -19,17 +19,19 @@ struct EpisodeHeader: View {
 
     var body: some View {
         VStack {
-            if let url = getPlayerUrl(streams: episode.streams) {
-                Button {
-                    Task {
+            Button {
+                Task {
+                    if let url = getPlayerUrl(streams: episode.streams) {
                         await playCallback(EpisodePlayer(episode: episode, playerUrl: url, startFrom: episode.progress ?? 0))
                     }
-                } label: {
-                    ItemImage(episode.image).frame(width: 1280, height: 720)
-                }.buttonStyle(SectionItemButton(focused: isFocused)).frame(width: 1280, height: 720).overlay(
+                }
+            } label: {
+                ItemImage(episode.image).frame(width: 1280, height: 720).overlay(
                     Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
-                ).focused($isFocused)
-            }
+                ).overlay(
+                    LockView(locked: getPlayerUrl(streams: episode.streams) == nil)
+                )
+            }.buttonStyle(SectionItemButton(focused: isFocused)).frame(width: 1280, height: 720).focused($isFocused)
         }
         VStack(alignment: .leading, spacing: 10) {
             VStack(alignment: .leading, spacing: 5) {
@@ -145,7 +147,7 @@ struct EpisodeViewer: View {
                                 ForEach(s.episodes.items, id: \.id) { ep in
                                     EpisodeListItem(ep) {
                                         await viewCallback(ep.id)
-                                    }
+                                    }.disabled(ep.id == episode.id)
                                 }.frame(width: 1280, height: 180)
                             }.focusSection()
                         }
@@ -180,7 +182,7 @@ struct EpisodeViewer: View {
 
 extension EpisodeViewer: Hashable {
     static func == (lhs: EpisodeViewer, rhs: EpisodeViewer) -> Bool {
-        lhs.episode.id == rhs.episode.id
+        return lhs.episode.id == rhs.episode.id
     }
 
     func hash(into hasher: inout Hasher) {
