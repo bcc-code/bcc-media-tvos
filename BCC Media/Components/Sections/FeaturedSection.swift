@@ -26,9 +26,13 @@ struct FeaturedCard: View {
     var body: some View {
         Button(action: {
             Task {
-                loading.toggle()
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    loading.toggle()
+                }
                 await clicked()
-                loading.toggle()
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    loading.toggle()
+                }
             }
         }) {
             ItemImage(item.image)

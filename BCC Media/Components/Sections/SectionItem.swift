@@ -41,11 +41,11 @@ struct SectionItemCard: View {
             VStack(alignment: .leading, spacing: 20) {
                 Button {
                     Task {
-                        withAnimation {
+                        withAnimation(.easeInOut(duration: 0.1)) {
                             loading.toggle()
                         }
                         await onClick()
-                        withAnimation {
+                        withAnimation(.easeInOut(duration: 0.1)) {
                             loading.toggle()
                         }
                     }

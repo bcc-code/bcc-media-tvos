@@ -23,9 +23,13 @@ struct IconSectionItem: View {
         VStack(spacing: 10) {
             Button {
                 Task {
-                    loading.toggle()
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        loading.toggle()
+                    }
                     await onClick()
-                    loading.toggle()
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        loading.toggle()
+                    }
                 }
             } label: {
                 ItemImage(item.image)
