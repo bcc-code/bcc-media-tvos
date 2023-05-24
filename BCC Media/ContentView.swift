@@ -64,6 +64,10 @@ struct ContentView: View {
         loaded = true
     }
     
+    private func viewCallback(_ id: String) async -> Void {
+        await loadEpisode(id)
+    }
+    
     private func getPathsFromUrl(_ url: URL) async -> [any Hashable] {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
@@ -80,13 +84,7 @@ struct ContentView: View {
                 guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: String(str))) else {
                     return []
                 }
-                path.append(EpisodeViewer(episode: data.episode) { id in
-                    Task {
-                        await loadEpisode(id)
-                    }
-                } playCallback: { p in
-                    playCallback(p)
-                })
+                path.append(data.episode)
                 if let queryItems = components.queryItems {
                     for q in queryItems {
                         if q.name == "play" {
@@ -156,45 +154,39 @@ struct ContentView: View {
     }
     
     func loadEpisode(_ id: String) async {
-        let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id))
-        if let data = data {
-            print("Has path count: " + path.count.toString())
-            path.append(EpisodeViewer(episode: data.episode) { id in
-                Task {
-                    await loadEpisode(id)
-                }
-            } playCallback: { p in
-                playCallback(p)
-            })
+        guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id)) else {
+            return
         }
+        path.append(data.episode)
     }
 
     func loadShow(_ id: String) async {
-        let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForShowQuery(id: id))
-        if let episodeId = data?.show.defaultEpisode.id {
-            await loadEpisode(episodeId)
+        guard let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) else {
+            return
         }
+        await loadEpisode(data.show.defaultEpisode.id)
     }
 
     func loadSeason(_ id: String) async {
-        let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id))
-        if let episodeId = data?.season.defaultEpisode.id {
-            await loadEpisode(episodeId)
+        guard let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForSeasonQuery(id: id)) else {
+            return
         }
+        await loadEpisode(data.season.defaultEpisode.id)
     }
 
     func loadTopic(_ id: String) async {
-        let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id))
-        if let episodeId = data?.studyTopic.defaultLesson.defaultEpisode?.id {
-            await loadEpisode(episodeId)
+        guard let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForStudyTopicQuery(id: id)),
+              let episodeId = data.studyTopic.defaultLesson.defaultEpisode?.id else {
+            return
         }
+        await loadEpisode(episodeId)
     }
     
     func loadPage(_ id: String) async {
-        let data = await apolloClient.getAsync(query: API.GetPageQuery(id: id))
-        if let data = data {
-            path.append(PageView(page: data.page, clickItem: clickItem))
+        guard let data = await apolloClient.getAsync(query: API.GetPageQuery(id: id)) else {
+            return
         }
+        path.append(data.page)
     }
 
     func getPage(_ id: String) async -> API.GetPageQuery.Data.Page {
@@ -260,11 +252,11 @@ struct ContentView: View {
                             Label("tab_settings", systemImage: "gearshape.fill")
                         }.tag(TabType.settings)
                     }
-                    .navigationDestination(for: EpisodeViewer.self) { view in
-                        view
+                    .navigationDestination(for: API.GetEpisodeQuery.Data.Episode.self) { i in
+                        EpisodeViewer(episode: i, viewCallback: viewCallback, playCallback: playCallback)
                     }
-                    .navigationDestination(for: PageView.self) { page in
-                        page
+                    .navigationDestination(for: API.GetPageQuery.Data.Page.self) { page in
+                        PageView(page: page, clickItem: clickItem)
                     }
                     .navigationDestination(for: EpisodePlayer.self) { player in
                         player.ignoresSafeArea()
