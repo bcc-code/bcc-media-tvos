@@ -41,9 +41,13 @@ struct SectionItemCard: View {
             VStack(alignment: .leading, spacing: 20) {
                 Button {
                     Task {
-                        loading = true
+                        withAnimation {
+                            loading.toggle()
+                        }
                         await onClick()
-                        loading = false
+                        withAnimation {
+                            loading.toggle()
+                        }
                     }
                 } label: {
                     ItemImage(image)

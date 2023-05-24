@@ -103,8 +103,8 @@ struct LoadingOverlay: View {
     var body: some View {
         ZStack {
             if loading {
-                Color.black.opacity(0.5)
-                ProgressView()
+                Color.black.opacity(0.5).transition(.opacity)
+                ProgressView().transition(.opacity)
             }
         }
     }
