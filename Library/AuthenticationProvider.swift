@@ -53,6 +53,14 @@ struct DeviceTokenRequestResponse: Codable {
     }
 }
 
+class ErrorCallbacks {
+    var callbacks: [() -> Void] = []
+    
+    func append(_ cb: @escaping () -> Void) {
+        callbacks.append(cb)
+    }
+}
+
 struct AuthenticationProvider {
     private var options = AuthenticationProvider.getConfigFromPlist() ?? Options(client_id: "", scope: "", audience: "", domain: "")
     private var credentialsManager = Auth0.CredentialsManager(authentication: authentication(), storage: SimpleKeychain(service: "bcc.media", accessGroup: "group.tv.brunstad.app"))
@@ -88,6 +96,12 @@ struct AuthenticationProvider {
     func isAuthenticated() -> Bool {
         credentialsManager.hasValid() || credentialsManager.canRenew()
     }
+    
+    private var errorCallbacks = ErrorCallbacks()
+    
+    func registerErrorCallback(_ cb: @escaping () -> Void) {
+        self.errorCallbacks.append(cb)
+    }
 
     func getAccessToken() async -> String? {
         do {
@@ -97,6 +111,10 @@ struct AuthenticationProvider {
         } catch {
             print("Error occured when trying to fetch access token")
             print(error)
+            
+            for cb in errorCallbacks.callbacks {
+                cb()
+            }
         }
         return nil
     }

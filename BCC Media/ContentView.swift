@@ -67,7 +67,12 @@ struct ContentView: View {
             print("FETCHED FRONTPAGE")
             bccMember = AppOptions.user.bccMember == true
         }
-        loaded = true
+        authenticationProvider.registerErrorCallback {
+            startSignIn()
+        }
+        withAnimation {
+            loaded = true
+        }
     }
 
     private func viewCallback(_ id: String) async {
@@ -251,7 +256,7 @@ struct ContentView: View {
                             SearchView(queryString: $searchQuery, clickItem: clickItem, playCallback: playCallback).tabItem {
                                 Label("tab_search", systemImage: "magnifyingglass")
                             }.tag(TabType.search)
-                            SettingsView(path: $path, onSave: {
+                            SettingsView(path: $path, authenticated: authenticated, onSave: {
                                 authenticated = authenticationProvider.isAuthenticated()
                                 Task {
                                     await load()
@@ -318,7 +323,7 @@ struct ContentView: View {
                             EmptyView()
                         }
                     }
-                }
+                }.transition(.opacity)
             }
         }.preferredColorScheme(.dark)
             .task {
