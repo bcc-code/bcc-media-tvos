@@ -154,6 +154,13 @@ struct PageView: View {
     var page: API.GetPageQuery.Data.Page
 
     var clickItem: ClickItem
+    
+    init(_ page: API.GetPageQuery.Data.Page, clickItem: @escaping ClickItem) {
+        self.page = page
+        self.clickItem = clickItem
+        
+        Events.page(page.code)
+    }
 
     var body: some View {
         ScrollView(.vertical) {
@@ -164,15 +171,5 @@ struct PageView: View {
             }.padding(100)
         }.padding(-100)
             .navigationTitle(page.title)
-    }
-}
-
-extension PageView: Hashable {
-    static func == (lhs: PageView, rhs: PageView) -> Bool {
-        lhs.page.id == rhs.page.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(page.id)
     }
 }

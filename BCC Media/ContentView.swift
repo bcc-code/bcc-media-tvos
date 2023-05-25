@@ -29,7 +29,7 @@ struct FrontPage: View {
     var body: some View {
         ZStack {
             if let page = page {
-                PageView(page: page, clickItem: clickItem)
+                PageView(page, clickItem: clickItem)
             }
         }
     }
@@ -297,7 +297,7 @@ struct ContentView: View {
                         EpisodeViewer(episode: i, viewCallback: viewCallback, playCallback: playCallback)
                     }
                     .navigationDestination(for: API.GetPageQuery.Data.Page.self) { page in
-                        PageView(page: page, clickItem: clickItem)
+                        PageView(page, clickItem: clickItem)
                     }
                     .navigationDestination(for: EpisodePlayer.self) { player in
                         player.ignoresSafeArea()

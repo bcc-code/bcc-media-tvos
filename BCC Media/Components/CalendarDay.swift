@@ -55,16 +55,10 @@ private func isoStringDuration(_ start: String, _ end: String) -> String {
 struct CalendarDay: View {
     @State var day: API.GetCalendarDayQuery.Data.Calendar.Day? = nil
 
-    func getCalendarDay() {
-        apolloClient.fetch(query: API.GetCalendarDayQuery(day: toISOString(.now))) { result in
-            switch result {
-            case let .success(data):
-                if let d = data.data?.calendar?.day {
-                    day = d
-                }
-            case .failure:
-                print("Failed")
-            }
+    func getCalendarDay() async {
+        let data = await apolloClient.getAsync(query: API.GetCalendarDayQuery(day: toISOString(.now)))
+        if let calendar = data?.calendar {
+            day = calendar.day
         }
     }
 
@@ -92,6 +86,12 @@ struct CalendarDay: View {
                                     Text(entry.description).foregroundColor(.blue)
                                 }
                             }
+                            .padding(15)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(.white, lineWidth: focusState == .row(id: entry.id) ? 6 : 0)
+                            )
+                            .cornerRadius(10)
                             .scaleEffect(focusState == .row(id: entry.id) ? 1.02 : 1)
                             .animation(.easeOut(duration: 0.1), value: focusState == .row(id: entry.id))
                             .focusable()
@@ -106,8 +106,8 @@ struct CalendarDay: View {
                 }.padding(.top, 40)
                 Spacer()
             }
-        }.onAppear {
-            getCalendarDay()
+        }.task {
+            await getCalendarDay()
         }
     }
 }

@@ -62,6 +62,36 @@ struct LanguageChanged: Event {
     var languageTo: String
 }
 
+class VideoEvent {
+    var sessionId: String
+    var livestream: Bool
+    var contentPodId: String
+    var position: Int?
+    var totalLength: Int
+    var videoPlayer = "AVPlayer"
+    var fullScreen = true
+    var hasVideo = true
+    
+    init(sessionId: String, livestream: Bool, contentPodId: String, position: Int? = nil, totalLength: Int, videoPlayer: String = "AVPlayer", fullScreen: Bool = true, hasVideo: Bool = true) {
+        self.sessionId = sessionId
+        self.livestream = livestream
+        self.contentPodId = contentPodId
+        self.position = position
+        self.totalLength = totalLength
+        self.videoPlayer = videoPlayer
+        self.fullScreen = fullScreen
+        self.hasVideo = hasVideo
+    }
+}
+
+class PlaybackStarted: VideoEvent, Event {
+    static var eventName = "playback_started"
+}
+
+class PlaybackPaused: VideoEvent, Event {
+    static var eventName = "playback_paused"
+}
+
 struct Events {
     private let client = RSClient.sharedInstance()
 
@@ -78,5 +108,9 @@ struct Events {
 
     public static func trigger<T: Event>(_ event: T) {
         standard.client.track(T.eventName, properties: event.dictionary)
+    }
+    
+    public static func page(_ pageCode: String) {
+        standard.client.screen(pageCode)
     }
 }

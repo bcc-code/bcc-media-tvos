@@ -61,19 +61,19 @@ struct LiveView: View {
 
     private var columns = [GridItem(.flexible()), GridItem(.flexible())]
 
-    @FocusState var imageFocused
+    @FocusState var isFocused
+    
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
-                Image(uiImage: UIImage(named: "Live.png")!)
-                    .focusable()
-                    .focused($imageFocused)
-                    .scaleEffect(imageFocused ? 1.02 : 1)
-                    .animation(.easeOut(duration: 0.1), value: imageFocused)
-                    .onTapGesture {
-                        play()
-                    }
+                Button {
+                    play()
+                } label: {
+                    Image(uiImage: UIImage(named: "Live.png")!)
+                }
+                    .buttonStyle(SectionItemButton(focused: isFocused))
+                    .focused($isFocused)
                 VStack {
                     Text("common_live").font(.title).bold()
                 }

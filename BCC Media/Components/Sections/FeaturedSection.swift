@@ -11,7 +11,7 @@ struct FeaturedButton: ButtonStyle {
         configuration.label
             .padding(.zero)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 4 : 0))
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+            .scaleEffect(configuration.isPressed ? 0.98 : focused ? 1.02 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
     }
 }
@@ -44,7 +44,7 @@ struct FeaturedCard: View {
                         Text(item.title).font(.title3)
 
                         if item.description != "" {
-                            Text(item.description).font(.caption2).foregroundColor(.gray)
+                            Text(item.description).font(.caption).foregroundColor(.gray)
                         }
                     }.padding([.bottom, .horizontal], 50),
 
@@ -78,7 +78,7 @@ struct FeaturedSection: View {
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 10) {
+                LazyHStack(alignment: .top, spacing: 20) {
                     if withLiveElement {
                         VStack(alignment: .leading) {
                             Text("common_live").font(.title3)
