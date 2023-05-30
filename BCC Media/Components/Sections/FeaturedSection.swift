@@ -86,7 +86,7 @@ struct FeaturedSection: View {
                                 LivePlayer().ignoresSafeArea()
                             } label: {
                                 Image(uiImage: UIImage(named: "Live.png")!).resizable().frame(width: 450)
-                            }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20)
+                            }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20).accessibilityLabel(Text("common_live"))
                             CalendarDay()
                         }.padding(0)
                     }

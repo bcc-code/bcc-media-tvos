@@ -46,6 +46,8 @@ struct IconSectionItem: View {
             }
             .buttonStyle(SectionItemButton(focused: isFocused))
             .focused($isFocused)
+            .accessibilityLabel(item.title)
+            .accessibilityHint(item.title)
             VStack {
                 Text(item.title)
             }
