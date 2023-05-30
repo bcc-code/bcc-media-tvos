@@ -26,3 +26,4 @@ ts.upload:
 
 deploy:
 	- ./scripts/envsubst.sh
+	- fastlane beta
