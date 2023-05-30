@@ -92,6 +92,16 @@ class PlaybackPaused: VideoEvent, Event {
     static var eventName = "playback_paused"
 }
 
+class ErrorOccured: Event {
+    static var eventName = "tvos_error"
+    
+    var error: String
+    
+    init(error: String) {
+        self.error = error
+    }
+}
+
 struct Events {
     private let client = RSClient.sharedInstance()
 

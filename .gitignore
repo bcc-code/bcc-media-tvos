@@ -8,3 +8,5 @@ Pods
 build/
 BCC Media.app.dSYM.zip
 BCC Media.ipa
+
+.env

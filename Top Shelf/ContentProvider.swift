@@ -7,7 +7,9 @@
 
 import TVServices
 
-let authenticationProvider = AuthenticationProvider()
+let authenticationProvider = AuthenticationProvider() { error in
+    print(error)
+}
 
 let apolloClient = ApolloClientFactory("https://api.brunstad.tv/query", tokenFactory: authenticationProvider.getAccessToken).NewClient()
 

@@ -62,6 +62,14 @@ class ErrorCallbacks {
 }
 
 struct AuthenticationProvider {
+    public var logger: (Error) -> Void = { error in
+        print(error)
+    }
+    
+    init(logger: @escaping (Error) -> Void) {
+        self.logger = logger
+    }
+    
     private var options = AuthenticationProvider.getConfigFromPlist() ?? Options(client_id: "", scope: "", audience: "", domain: "")
     private var credentialsManager = Auth0.CredentialsManager(authentication: authentication(), storage: SimpleKeychain(service: "bcc.media", accessGroup: "group.tv.brunstad.app"))
     
@@ -109,8 +117,7 @@ struct AuthenticationProvider {
                 return try await credentialsManager.credentials().accessToken
             }
         } catch {
-            print("Error occured when trying to fetch access token")
-            print(error)
+            self.logger(error)
             
             for cb in errorCallbacks.callbacks {
                 cb()

@@ -125,8 +125,8 @@ public extension AppOptions {
 
         let processInfo = ProcessInfo.processInfo
 
-        AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"]
-        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? ""
-        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? ""
+        AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"] ?? CI.npawAccountCode
+        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? CI.rudderWriteKey
+        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? CI.rudderDataplaneURL
     }
 }

@@ -8,7 +8,9 @@
 
 import SwiftUI
 
-let authenticationProvider = AuthenticationProvider()
+let authenticationProvider = AuthenticationProvider(logger: { err in
+    Events.trigger(ErrorOccured(error: err.localizedDescription))
+})
 
 let apolloClient = ApolloClientFactory("https://api.brunstad.tv/query", tokenFactory: authenticationProvider.getAccessToken).NewClient()
 
