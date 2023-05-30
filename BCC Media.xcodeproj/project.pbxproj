@@ -212,7 +212,6 @@
 		2D64EA29005F0263D6C3B55E /* EpisodeViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EA55186CD532816176C8 /* EpisodeViewer.swift */; };
 		2D64EA541B19A003A7D1E461 /* CardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E0F9AF6AA013DAADC415 /* CardSection.swift */; };
 		2D64EC85401AF8C1D2388AE7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64E8D1544EEBCFE89BE986 /* Search.swift */; };
-		2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64ED5CD0F006989283F50E /* ItemList.swift */; };
 		2D64ECB93F166B34429F7189 /* FeaturedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */; };
 		2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D64E9AA1E75A14695918908 /* Assets.xcassets */; };
 		47CC404B5BC7DBB4998353CF /* Pods_Top_Shelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 788BD007CCF0FA3028B52E0E /* Pods_Top_Shelf.framework */; };
@@ -401,7 +400,6 @@
 		2D64EA55186CD532816176C8 /* EpisodeViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeViewer.swift; sourceTree = "<group>"; };
 		2D64EC95DA7A0E51573DC051 /* Live.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Live.swift; sourceTree = "<group>"; };
 		2D64ECF03910A399CCB4894D /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		2D64ED5CD0F006989283F50E /* ItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		2D64EDB7C7CC093B3800C7EB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 		2D64EF54DB7C36BB151F58B2 /* FeaturedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.swift; sourceTree = "<group>"; };
 		4048D6B9E6F6C7A24632DBE2 /* Pods_BCC_Media.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BCC_Media.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -464,7 +462,6 @@
 				09113AFE29C081710087B9A2 /* Page */,
 				0943E18529BB364B0016348C /* Sections */,
 				2D64EACA7247B2B605E740B3 /* Episodes */,
-				2D64EAC0EC80770AAA794BC8 /* List */,
 				09083C3E2A03B02000A61EF9 /* ItemImage.swift */,
 				09083C402A03B04400A61EF9 /* LockView.swift */,
 				09083C422A03B06800A61EF9 /* PlayerViewController.swift */,
@@ -739,14 +736,6 @@
 				09E17B442A13797A004CFD28 /* AboutUs.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		2D64EAC0EC80770AAA794BC8 /* List */ = {
-			isa = PBXGroup;
-			children = (
-				2D64ED5CD0F006989283F50E /* ItemList.swift */,
-			);
-			path = List;
 			sourceTree = "<group>";
 		};
 		2D64EACA7247B2B605E740B3 /* Episodes */ = {
@@ -1139,7 +1128,6 @@
 				09E17B092A126985004CFD28 /* ProgressBar.swift in Sources */,
 				0990D3E529F95AFC00B99D35 /* QueryRoot.graphql.swift in Sources */,
 				09083C342A0123B500A61EF9 /* Lesson.graphql.swift in Sources */,
-				2D64ECB6DCDA4680003C7B61 /* ItemList.swift in Sources */,
 				0990D3B729F95AFC00B99D35 /* Date.swift in Sources */,
 				09083C392A02628C00A61EF9 /* LabelSection.swift in Sources */,
 				0990D40129F95AFC00B99D35 /* AchievementPagination.graphql.swift in Sources */,
@@ -1215,7 +1203,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
@@ -1227,7 +1215,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1244,7 +1232,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
@@ -1256,7 +1244,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1274,7 +1262,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;
@@ -1287,7 +1275,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1420,7 +1408,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;
@@ -1433,7 +1421,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.4;
+				MARKETING_VERSION = 4.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

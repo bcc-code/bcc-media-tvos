@@ -74,6 +74,7 @@ struct LiveView: View {
                 }
                     .buttonStyle(SectionItemButton(focused: isFocused))
                     .focused($isFocused)
+                    .accessibilityLabel(Text("common_live"))
                 VStack {
                     Text("common_live").font(.title).bold()
                 }
