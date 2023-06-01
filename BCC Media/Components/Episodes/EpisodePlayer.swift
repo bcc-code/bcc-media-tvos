@@ -33,7 +33,7 @@ struct EpisodePlayer: View {
     var body: some View {
         PlayerViewController(playerUrl, .init(title: episode.title, startFrom: startFrom, isLive: false, content: .init(
             episodeTitle: episode.title,
-            episodeId: episode.id,
+            id: episode.id,
             seasonTitle: episode.season?.title,
             seasonId: episode.season?.id,
             showTitle: episode.season?.show.title,

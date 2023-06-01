@@ -52,7 +52,42 @@ private func isoStringDuration(_ start: String, _ end: String) -> String {
     return str
 }
 
+struct EntryView: View {
+    var entry: API.GetCalendarDayQuery.Data.Calendar.Day.Entry
+
+    init(_ entry: API.GetCalendarDayQuery.Data.Calendar.Day.Entry) {
+        self.entry = entry
+    }
+
+    @FocusState var focused
+
+    var body: some View {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading) {
+                Text(isoStringHours(entry.start)).bold()
+                Text(isoStringDuration(entry.start, entry.end)).foregroundColor(.gray)
+            }
+            VStack(alignment: .leading) {
+                Text(entry.title).bold()
+                Text(entry.description).foregroundColor(.blue)
+            }
+        }
+        .padding(15)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.white, lineWidth: focused ? 6 : 0)
+        )
+        .cornerRadius(10)
+        .scaleEffect(focused ? 1.02 : 1)
+        .animation(.easeOut(duration: 0.1), value: focused)
+        .focusable()
+        .focused($focused)
+    }
+}
+
 struct CalendarDay: View {
+    var horizontal = true
+
     @State var day: API.GetCalendarDayQuery.Data.Calendar.Day? = nil
 
     func getCalendarDay() async {
@@ -73,29 +108,20 @@ struct CalendarDay: View {
         VStack(alignment: .leading) {
             Text("calendar_today")
             if let entries = day?.entries, entries.count > 0 {
-                ScrollView(.horizontal) {
-                    LazyHStack(alignment: .top) {
-                        ForEach(entries, id: \.self) { entry in
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(isoStringHours(entry.start)).bold()
-                                    Text(isoStringDuration(entry.start, entry.end)).foregroundColor(.gray)
-                                }
-                                VStack(alignment: .leading) {
-                                    Text(entry.title).bold()
-                                    Text(entry.description).foregroundColor(.blue)
-                                }
+                if horizontal {
+                    ScrollView(.horizontal) {
+                        LazyHStack(alignment: .top) {
+                            ForEach(entries, id: \.self) { entry in
+                                EntryView(entry)
                             }
-                            .padding(15)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.white, lineWidth: focusState == .row(id: entry.id) ? 6 : 0)
-                            )
-                            .cornerRadius(10)
-                            .scaleEffect(focusState == .row(id: entry.id) ? 1.02 : 1)
-                            .animation(.easeOut(duration: 0.1), value: focusState == .row(id: entry.id))
-                            .focusable()
-                            .focused($focusState, equals: .row(id: entry.id))
+                        }
+                    }
+                } else {
+                    ScrollView(.vertical) {
+                        LazyVStack(alignment: .leading) {
+                            ForEach(entries, id: \.self) { entry in
+                                EntryView(entry)
+                            }
                         }
                     }
                 }

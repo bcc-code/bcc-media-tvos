@@ -7,7 +7,7 @@
 
 import TVServices
 
-let authenticationProvider = AuthenticationProvider() { error in
+let authenticationProvider = AuthenticationProvider { error in
     print(error)
 }
 

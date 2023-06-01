@@ -19,7 +19,7 @@ extension YBPlugin {
         opts.appName = AppOptions.standard.name
 
         let c = options.content
-        opts.contentId = c.episodeId
+        opts.contentId = c.id
         opts.contentTitle = options.title
         opts.contentTvShow = c.showId
         opts.contentIsLive = NSNumber(value: options.isLive)
@@ -96,7 +96,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
         var content: Content
         struct Content {
             var episodeTitle: String?
-            var episodeId: String?
+            var id: String?
             var seasonTitle: String?
             var seasonId: String?
             var showTitle: String?

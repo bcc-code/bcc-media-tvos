@@ -34,7 +34,7 @@ struct LivePlayer: View {
     var body: some View {
         VStack {
             if let url = url {
-                PlayerViewController(url, .init(isLive: true)).ignoresSafeArea()
+                PlayerViewController(url, .init(title: "Live", isLive: true, content: .init(id: "livestream"))).ignoresSafeArea()
             } else {
                 ProgressView()
             }
@@ -62,7 +62,6 @@ struct LiveView: View {
     private var columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     @FocusState var isFocused
-    
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -72,9 +71,9 @@ struct LiveView: View {
                 } label: {
                     Image(uiImage: UIImage(named: "Live.png")!)
                 }
-                    .buttonStyle(SectionItemButton(focused: isFocused))
-                    .focused($isFocused)
-                    .accessibilityLabel(Text("common_live"))
+                .buttonStyle(SectionItemButton(focused: isFocused))
+                .focused($isFocused)
+                .accessibilityLabel(Text("common_live"))
                 VStack {
                     Text("common_live").font(.title).bold()
                 }

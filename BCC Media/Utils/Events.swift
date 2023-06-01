@@ -71,7 +71,7 @@ class VideoEvent {
     var videoPlayer = "AVPlayer"
     var fullScreen = true
     var hasVideo = true
-    
+
     init(sessionId: String, livestream: Bool, contentPodId: String, position: Int? = nil, totalLength: Int, videoPlayer: String = "AVPlayer", fullScreen: Bool = true, hasVideo: Bool = true) {
         self.sessionId = sessionId
         self.livestream = livestream
@@ -94,9 +94,9 @@ class PlaybackPaused: VideoEvent, Event {
 
 class ErrorOccured: Event {
     static var eventName = "tvos_error"
-    
+
     var error: String
-    
+
     init(error: String) {
         self.error = error
     }
@@ -119,7 +119,7 @@ struct Events {
     public static func trigger<T: Event>(_ event: T) {
         standard.client.track(T.eventName, properties: event.dictionary)
     }
-    
+
     public static func page(_ pageCode: String) {
         standard.client.screen(pageCode)
     }

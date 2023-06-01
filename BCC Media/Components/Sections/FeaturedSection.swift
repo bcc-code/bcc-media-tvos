@@ -70,7 +70,7 @@ struct FeaturedSection: View {
         self.title = title
         self.items = items
         self.clickItem = clickItem
-        self.withLiveElement = withLiveElement && authenticationProvider.isAuthenticated()
+        self.withLiveElement = true || (withLiveElement && authenticationProvider.isAuthenticated())
     }
 
     @FocusState var liveFocused: Bool
@@ -87,8 +87,8 @@ struct FeaturedSection: View {
                             } label: {
                                 Image(uiImage: UIImage(named: "Live.png")!).resizable().frame(width: 450)
                             }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20).accessibilityLabel(Text("common_live"))
-                            CalendarDay()
-                        }.padding(0)
+                            CalendarDay(horizontal: false)
+                        }.padding(0).frame(width: 450)
                     }
                     ForEach(items.indices, id: \.self) { index in
                         FeaturedCard(item: items[index]) {

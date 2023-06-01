@@ -154,11 +154,11 @@ struct PageView: View {
     var page: API.GetPageQuery.Data.Page
 
     var clickItem: ClickItem
-    
+
     init(_ page: API.GetPageQuery.Data.Page, clickItem: @escaping ClickItem) {
         self.page = page
         self.clickItem = clickItem
-        
+
         Events.page(page.code)
     }
 

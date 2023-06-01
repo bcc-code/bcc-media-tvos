@@ -24,7 +24,7 @@ struct SettingsView: View {
     @State var verificationUriComplete = ""
 
     @Binding var path: NavigationPath
-    
+
     var authenticated: Bool
     var onSave: () -> Void
 
