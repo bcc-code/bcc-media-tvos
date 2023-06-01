@@ -70,7 +70,7 @@ struct FeaturedSection: View {
         self.title = title
         self.items = items
         self.clickItem = clickItem
-        self.withLiveElement = true || (withLiveElement && authenticationProvider.isAuthenticated())
+        self.withLiveElement = withLiveElement && authenticationProvider.isAuthenticated()
     }
 
     @FocusState var liveFocused: Bool
