@@ -65,14 +65,14 @@ struct EntryView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 Text(isoStringHours(entry.start)).bold()
-                Text(isoStringDuration(entry.start, entry.end)).foregroundColor(.gray)
+                Text(isoStringDuration(entry.start, entry.end)).font(.caption2).foregroundColor(.gray)
             }
             VStack(alignment: .leading) {
                 Text(entry.title).bold()
-                Text(entry.description).foregroundColor(.blue)
+                Text(entry.description).font(.caption2).foregroundColor(.blue)
             }
         }
-        .padding(15)
+        .padding(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(.white, lineWidth: focused ? 6 : 0)
@@ -91,7 +91,7 @@ struct CalendarDay: View {
     @State var day: API.GetCalendarDayQuery.Data.Calendar.Day? = nil
 
     func getCalendarDay() async {
-        let data = await apolloClient.getAsync(query: API.GetCalendarDayQuery(day: toISOString(.now)))
+        let data = await apolloClient.getAsync(query: API.GetCalendarDayQuery(day: "2023-05-28T00:00:00Z"))
         if let calendar = data?.calendar {
             day = calendar.day
         }
@@ -110,21 +110,22 @@ struct CalendarDay: View {
             if let entries = day?.entries, entries.count > 0 {
                 if horizontal {
                     ScrollView(.horizontal) {
-                        LazyHStack(alignment: .top) {
+                        LazyHStack(alignment: .top, spacing: 20) {
                             ForEach(entries, id: \.self) { entry in
                                 EntryView(entry)
                             }
-                        }
-                    }
+                        }.padding(20)
+                    }.padding(-20).padding(.vertical, 5)
                 } else {
                     ScrollView(.vertical) {
-                        LazyVStack(alignment: .leading) {
+                        LazyVStack(alignment: .center, spacing: 5) {
                             ForEach(entries, id: \.self) { entry in
                                 EntryView(entry)
                             }
-                        }
-                    }
+                        }.padding(20)
+                    }.padding(-20).padding(.vertical, 5)
                 }
+                Spacer()
                 Text("calendar_timetableInLocalTime")
             } else {
                 HStack(alignment: .top) {
