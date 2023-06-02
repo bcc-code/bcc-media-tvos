@@ -37,3 +37,11 @@ struct PosterGridSection: View {
         }
     }
 }
+
+struct PosterGridSection_Previews: PreviewProvider {
+    static var previews: some View {
+        PosterGridSection("test", previewItems) { i in
+            print(i)
+        }
+    }
+}

@@ -94,6 +94,12 @@ struct SectionView: View {
                         items,
                         clickItem: clickItem
                     )
+                case "PosterGridSection":
+                    PosterGridSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
                 case "FeaturedSection":
                     FeaturedSection(
                         section.title,
