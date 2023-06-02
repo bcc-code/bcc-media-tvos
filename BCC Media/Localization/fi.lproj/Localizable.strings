@@ -13,7 +13,7 @@
 "search_noEpisodesWithCurrentFilter" = "Suodatusehdoilla ei löyty jaksoja";
 "search_inputField" = "Aloita haku syöttämällä jotain hakukenttään";
 "settings_logOut" = "Kirjaudu ulos";
-"settings_logOutConfirm" = "Are you sure you want to log out?";
+"settings_logOutConfirm" = "Haluatko varmasti kirjautua ulos?";
 "settings_signIn" = "Kirjaudu sisään";
 "settings_account" = "Tili";
 "settings_appLanguage" = "Sovelluksen kieli";
@@ -34,7 +34,7 @@
 "aboutUs_description" = "BCC Media on BCC Liitossa oleva yhdistys, joka tuottaa ja toimittaa positiivista Kristillisten arvojen mukaista sisältöä";
 "aboutUs_contact" = "Meihin saa yhteyde sähköpostilla: $email tai BCC Media kännykkäsovelluksella";
 "aboutUs_privacyPolicy" = "Tietosuojakäytännöistä voi lukea $url";
-"onboard_title" = "The most powerful message in the world";
+"onboard_title" = "Kaikista maailman sanomista voimakkain";
 "onboard_description" = "Katsele Kristillisten arvojen mukaisia videoita, esityksiä, ja sarjoja";
-"onboard_login" = "Log in";
+"onboard_login" = "Kirjaudu sisään";
 "onboard_explorePublic" = "Tutustu avoimeen sisältöön";

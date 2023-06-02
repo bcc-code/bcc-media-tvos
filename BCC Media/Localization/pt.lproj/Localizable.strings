@@ -13,7 +13,7 @@
 "search_noEpisodesWithCurrentFilter" = "Não aparece com o filtro atual";
 "search_inputField" = "Digite algo no campo de pesquisa para começar a pesquisar";
 "settings_logOut" = "Sair";
-"settings_logOutConfirm" = "Are you sure you want to log out?";
+"settings_logOutConfirm" = "Tem certeza que deseja sair?";
 "settings_signIn" = "Entrar";
 "settings_account" = "Conta";
 "settings_appLanguage" = "Idioma do aplicativo";
@@ -31,10 +31,10 @@
 "calendar_today" = "Hoje";
 "calendar_noScheduledEvents" = "Nenhum evento agendado";
 "calendar_timetableInLocalTime" = "O horário está no seu horário local";
-"aboutUs_description" = "BCC Media is a foundation in the BCC Federation which produces and distribute content with positive and christian values";
-"aboutUs_contact" = "Contact us on $email or in the BCC Media mobile app";
-"aboutUs_privacyPolicy" = "The Privacy Policy can be read on $url";
-"onboard_title" = "The most powerful message in the world";
+"aboutUs_description" = "BCC Media é uma fundação da Federação BCC que produz e distribui conteúdo com valores positivos e cristãos";
+"aboutUs_contact" = "Contate-nos em $email ou no aplicativo móvel BCC Media";
+"aboutUs_privacyPolicy" = "A Política de Privacidade pode ser lida em $url";
+"onboard_title" = "A mensagem mais poderosa do mundo";
 "onboard_description" = "Assistir séries, programas e filmes baseados nos valores cristãos";
-"onboard_login" = "Log in";
+"onboard_login" = "Entrar";
 "onboard_explorePublic" = "Explorar conteúdo público";

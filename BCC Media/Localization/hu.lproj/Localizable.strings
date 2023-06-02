@@ -13,7 +13,7 @@
 "search_noEpisodesWithCurrentFilter" = "Nincsenek epizódok a jelenlegi szűrővel";
 "search_inputField" = "A keresés megkezdéséhez írj be valamit a keresőmezőbe";
 "settings_logOut" = "Kijelentkezés";
-"settings_logOutConfirm" = "Are you sure you want to log out?";
+"settings_logOutConfirm" = "Biztosan ki szeretnél jelentkezni?";
 "settings_signIn" = "Bejelentkezés";
 "settings_account" = "Fiók";
 "settings_appLanguage" = "Alkalmazás nyelve";
@@ -34,7 +34,7 @@
 "aboutUs_description" = "A BCC Media a BCC szövetség médiaalapítványa, amely pozitív és keresztény értékeket tartalmazó tartalmakat gyárt és terjeszt";
 "aboutUs_contact" = "Lépj velünk kapcsolatba a $email címen vagy a BCC Media mobilalkalmazáson keresztül";
 "aboutUs_privacyPolicy" = "Az adatvédelmi irányelvek a $url oldalon olvashatók";
-"onboard_title" = "The most powerful message in the world";
+"onboard_title" = "A világ legerősebb üzenete";
 "onboard_description" = "Keresztény értékeken alapuló sorozatok, műsorok és filmek megtekintése";
-"onboard_login" = "Log in";
+"onboard_login" = "Bejelentkezés";
 "onboard_explorePublic" = "Nyilvános tartalmak felfedezése";

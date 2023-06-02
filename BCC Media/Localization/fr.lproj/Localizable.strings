@@ -13,7 +13,7 @@
 "search_noEpisodesWithCurrentFilter" = "Aucun épisode avec le filtre actuel";
 "search_inputField" = "Entrer quelque chose dans le champ de recherche pour commencer la recherche";
 "settings_logOut" = "Se déconnecter";
-"settings_logOutConfirm" = "Are you sure you want to log out?";
+"settings_logOutConfirm" = "Êtes-vous sûr de vouloir vous déconnecter ?";
 "settings_signIn" = "Se connecter";
 "settings_account" = "Compte";
 "settings_appLanguage" = "Langue de l\'application";
@@ -34,7 +34,7 @@
 "aboutUs_description" = "BCC Media est une fondation de la Fédération BCC qui produit et distribue du contenu avec des valeurs positives et chrétiennes";
 "aboutUs_contact" = "Contacte-nous sur $email ou dans l\'application mobile de BCC Media";
 "aboutUs_privacyPolicy" = "La politique de confidentialité peut être consultée sur $url";
-"onboard_title" = "The most powerful message in the world";
+"onboard_title" = "Le message le plus puissant au monde";
 "onboard_description" = "Regarde des séries, des émissions et des films basés sur les valeurs chrétiennes";
-"onboard_login" = "Log in";
+"onboard_login" = "Connexion";
 "onboard_explorePublic" = "Explorer le contenu public";
