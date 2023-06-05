@@ -19,7 +19,9 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
     increment_build_number(xcodeproj: "BCC Media.xcodeproj")
+    sh("cd .. && ./scripts/build.sh pre")
     build_app(workspace: "BCC Media.xcworkspace", scheme: "BCC Media")
+    sh("cd .. && ./scripts/build.sh post")
     upload_to_testflight
   end
 end
