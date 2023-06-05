@@ -91,7 +91,7 @@ struct CalendarDay: View {
     @State var day: API.GetCalendarDayQuery.Data.Calendar.Day? = nil
 
     func getCalendarDay() async {
-        let data = await apolloClient.getAsync(query: API.GetCalendarDayQuery(day: "2023-05-28T00:00:00Z"))
+        let data = await apolloClient.getAsync(query: API.GetCalendarDayQuery(day: toISOString(.now)))
         if let calendar = data?.calendar {
             day = calendar.day
         }
