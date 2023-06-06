@@ -274,7 +274,7 @@ struct ContentView: View {
                             ZStack {
                                 HStack {
                                     Image(uiImage: UIImage(named: "OnboardArt")!)
-                                    VStack {
+                                    VStack(alignment: .leading) {
                                         Spacer()
                                         VStack(alignment: .leading) {
                                             Text("onboard_title").font(.title2)
