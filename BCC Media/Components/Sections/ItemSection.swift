@@ -38,6 +38,7 @@ struct Item: Identifiable {
     var locked = false
 
     var index = 0
+    var sectionIndex = 0
 }
 
 struct ItemTitle: View {
@@ -81,12 +82,13 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     return Item(id: item.id, title: item.title, description: item.description, image: item.image, duration: duration, progress: progress, type: t, locked: locked)
 }
 
-func mapToItems(_ items: API.ItemSectionFragment.Items) -> [Item] {
+func mapToItems(_ items: API.ItemSectionFragment.Items, sectionIndex: Int) -> [Item] {
     var result: [Item] = []
 
     for (index, item) in items.items.enumerated() {
         var i = mapToItem(item)
         i.index = index
+        i.sectionIndex = sectionIndex
         result.append(i)
     }
 

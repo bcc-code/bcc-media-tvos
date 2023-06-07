@@ -15,6 +15,17 @@ struct SearchView: View {
 
     var clickItem: ClickItem
     var playCallback: (EpisodePlayer) -> Void
+    
+    private func _clickItem(_ item: Item, group: String) async {
+        Events.trigger(SearchresultClicked(
+            searchText: queryString,
+            elementPosition: item.index,
+            elementType: item.type.rawValue,
+            elementId: item.id,
+            group: group
+        ))
+        await clickItem(item)
+    }
 
     func getResult(_ query: String) async {
         if query == "" {
@@ -23,6 +34,7 @@ struct SearchView: View {
             return
         }
 
+        let start = Date.now
         await withTaskGroup(of: Void.self) { group in
             group.addTask {
                 guard let data = await apolloClient.getAsync(query: API.SearchQuery(query: query, collection: "episode")) else {
@@ -37,6 +49,11 @@ struct SearchView: View {
                 showResult = data.search.result
             }
         }
+        Events.trigger(SearchPerformed(
+            searchText: query,
+            searchLatency: Date.now.timeIntervalSince(start),
+            searchResultCount: (episodeResult?.count ?? 0) + (showResult?.count ?? 0))
+        )
     }
 
     func mapToItem(_ type: ItemType) -> ((API.SearchQuery.Data.Search.Result) -> Item) {
@@ -45,22 +62,30 @@ struct SearchView: View {
         }
         return toItem
     }
-
-    func mapToItem(r: API.SearchQuery.Data.Search.Result) -> Item {
-        Item(id: r.id, title: r.title, description: r.description ?? "", image: r.image)
+        
+    func mapToItems(_ type: ItemType, _ items: [API.SearchQuery.Data.Search.Result]) -> [Item] {
+        var r: [Item] = []
+        
+        items.indices.forEach { index in
+            var item = mapToItem(type)(items[index])
+            item.index = index
+            r.append(item)
+        }
+        
+        return r
     }
 
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack {
                 if let i = showResult, i.count > 0 {
-                    DefaultSection(NSLocalizedString("common_shows", comment: ""), i.map(mapToItem(.show))) { item in
-                        await clickItem(item)
+                    DefaultSection(NSLocalizedString("common_shows", comment: ""), mapToItems(.show, i)) { item in
+                        await _clickItem(item, group: "shows")
                     }
                 }
                 if let i = episodeResult, i.count > 0 {
-                    DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), i.map(mapToItem(.episode))) { item in
-                        await clickItem(item)
+                    DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), mapToItems(.episode, i)) { item in
+                        await _clickItem(item, group: "episodes")
                     }
                 }
                 if showResult == nil || episodeResult == nil {
@@ -73,6 +98,9 @@ struct SearchView: View {
                 Task {
                     await getResult(query)
                 }
+            }
+            .onAppear {
+                Events.page("search")
             }
     }
 }

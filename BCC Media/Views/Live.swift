@@ -81,6 +81,9 @@ struct LiveView: View {
             }
             CalendarDay()
         }
+        .onAppear {
+            Events.page("live")
+        }
     }
 }
 

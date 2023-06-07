@@ -50,8 +50,18 @@ struct SearchPerformed: Event {
     static let eventName = "search_performed"
 
     var searchText: String
-    var searchLatency: Int
+    var searchLatency: Double
     var searchResultCount: Int
+}
+
+struct SearchresultClicked: Event {
+    static let eventName = "searchresult_clicked"
+    
+    var searchText: String
+    var elementPosition: Int
+    var elementType: String
+    var elementId: String
+    var group: String
 }
 
 struct LanguageChanged: Event {
@@ -117,6 +127,7 @@ struct Events {
     public static let standard = Events()
 
     public static func trigger<T: Event>(_ event: T) {
+        print(event)
         standard.client.track(T.eventName, properties: event.dictionary)
     }
 

@@ -64,7 +64,7 @@ struct SectionView: View {
 
         if let itemSection = section.asItemSection {
             metadata = itemSection.metadata
-            items = mapToItems(itemSection.items)
+            items = mapToItems(itemSection.items, sectionIndex: index)
         }
     }
 
@@ -164,8 +164,6 @@ struct PageView: View {
     init(_ page: API.GetPageQuery.Data.Page, clickItem: @escaping ClickItem) {
         self.page = page
         self.clickItem = clickItem
-
-        Events.page(page.code)
     }
 
     var body: some View {
@@ -177,5 +175,8 @@ struct PageView: View {
             }.padding(100)
         }.padding(-100)
             .navigationTitle(page.title)
+            .onAppear {
+                Events.page(page.code)
+            }
     }
 }

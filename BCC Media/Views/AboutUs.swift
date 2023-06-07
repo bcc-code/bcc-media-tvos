@@ -37,6 +37,9 @@ struct AboutUsView: View {
             }
             Spacer()
         }.frame(width: 970)
+            .onAppear {
+                Events.page("about-us")
+            }
     }
 }
 

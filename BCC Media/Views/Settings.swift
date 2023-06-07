@@ -118,6 +118,9 @@ struct SettingsView: View {
             Spacer()
             Text("App Version: " + getVersion()).foregroundColor(.gray)
         }.frame(maxWidth: 800)
+            .onAppear {
+                Events.page("settings")
+            }
     }
 }
 
