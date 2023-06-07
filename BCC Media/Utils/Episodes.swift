@@ -7,7 +7,7 @@
 
 import Foundation
 
-func getPlayerUrl(streams: [API.GetEpisodeQuery.Data.Episode.Stream]) -> URL? {
+func getPlayerUrl(streams: [API.GetEpisodeStreamsQuery.Data.Episode.Stream]) -> URL? {
     let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
     var index = 0
     var stream = streams.first(where: { $0.type == types[index] })

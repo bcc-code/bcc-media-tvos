@@ -21,15 +21,18 @@ struct EpisodeHeader: View {
         VStack {
             Button {
                 Task {
-                    if let url = getPlayerUrl(streams: episode.streams) {
-                        await playCallback(EpisodePlayer(episode: episode, playerUrl: url, startFrom: episode.progress ?? 0))
+                    guard let streams = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id)),
+                            let playerUrl = getPlayerUrl(streams: streams.episode.streams) else {
+                        return
                     }
+                    
+                    await playCallback(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: episode.progress ?? 0))
                 }
             } label: {
                 ItemImage(episode.image).frame(width: 1280, height: 720).overlay(
                     Image(systemName: "play.fill").resizable().frame(width: 100, height: 100)
                 ).overlay(
-                    LockView(locked: getPlayerUrl(streams: episode.streams) == nil)
+                    LockView(locked: episode.locked)
                 )
             }.buttonStyle(SectionItemButton(focused: isFocused)).frame(width: 1280, height: 720).focused($isFocused)
         }

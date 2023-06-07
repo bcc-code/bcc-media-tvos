@@ -99,9 +99,10 @@ struct ContentView: View {
                 if let queryItems = components.queryItems {
                     for q in queryItems {
                         if q.name == "play" {
-                            if let playerUrl = getPlayerUrl(streams: data.episode.streams) {
-                                path.append(EpisodePlayer(episode: data.episode, playerUrl: playerUrl, startFrom: data.episode.progress ?? 0))
+                            guard let streams = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: String(str))) else {
+                                return path
                             }
+                            path.append(EpisodePlayer(episode: data.episode, playerUrl: getPlayerUrl(streams: streams.episode.streams)!, startFrom: data.episode.progress ?? 0))
                         }
                     }
                 }
@@ -261,11 +262,8 @@ struct ContentView: View {
                                 Task {
                                     await load()
                                 }
-                            }) {
-                                startSignIn()
-                            } logout: {
-                                logout()
-                            }.tabItem {
+                            }, signIn: startSignIn, logout: logout, name: AppOptions.user.name, loading: loading)
+                            .tabItem {
                                 Label("tab_settings", systemImage: "gearshape.fill")
                             }.tag(TabType.settings)
                         }.disabled(!authenticated && !onboarded)

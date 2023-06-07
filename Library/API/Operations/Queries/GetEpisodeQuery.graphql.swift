@@ -20,11 +20,7 @@ public extension API {
             publishDate
             description
             progress
-            streams {
-              __typename
-              url
-              type
-            }
+            locked
             season {
               __typename
               id
@@ -77,7 +73,7 @@ public extension API {
           .field("publishDate", API.Date.self),
           .field("description", String.self),
           .field("progress", Int?.self),
-          .field("streams", [Stream].self),
+          .field("locked", Bool.self),
           .field("season", Season?.self),
         ] }
 
@@ -89,26 +85,8 @@ public extension API {
         public var publishDate: API.Date { __data["publishDate"] }
         public var description: String { __data["description"] }
         public var progress: Int? { __data["progress"] }
-        public var streams: [Stream] { __data["streams"] }
+        public var locked: Bool { __data["locked"] }
         public var season: Season? { __data["season"] }
-
-        /// Episode.Stream
-        ///
-        /// Parent Type: `Stream`
-        public struct Stream: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: Apollo.ParentType { API.Objects.Stream }
-          public static var __selections: [Apollo.Selection] { [
-            .field("__typename", String.self),
-            .field("url", String.self),
-            .field("type", GraphQLEnum<API.StreamType>.self),
-          ] }
-
-          public var url: String { __data["url"] }
-          public var type: GraphQLEnum<API.StreamType> { __data["type"] }
-        }
 
         /// Episode.Season
         ///

@@ -8,10 +8,7 @@ query GetEpisode($id: ID!) {
         publishDate
         description
         progress
-        streams {
-            url
-            type
-        }
+        locked
         season {
             id
             title
@@ -19,6 +16,15 @@ query GetEpisode($id: ID!) {
                 id
                 title
             }
+        }
+    }
+}
+
+query GetEpisodeStreams($id: ID!) {
+    episode(id: $id) {
+        streams {
+            url
+            type
         }
     }
 }

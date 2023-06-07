@@ -46,6 +46,8 @@
 		094056F02A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */; };
 		094056F12A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
+		096CF4432A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */; };
+		096CF4442A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */; };
 		097D6EBC29F003310007E4FB /* EpisodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EBB29F003310007E4FB /* EpisodePlayer.swift */; };
 		097D6EC329F1417E0007E4FB /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EC229F1417E0007E4FB /* Languages.swift */; };
 		097D6EC629F149A80007E4FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 097D6EC829F149A80007E4FB /* Localizable.strings */; };
@@ -279,6 +281,7 @@
 		094056E22A0CC1D5004781A3 /* SimpleCalendarEntry.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCalendarEntry.graphql.swift; sourceTree = "<group>"; };
 		094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonCalendarEntry.graphql.swift; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
+		096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeStreamsQuery.graphql.swift; sourceTree = "<group>"; };
 		097D6EBB29F003310007E4FB /* EpisodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodePlayer.swift; sourceTree = "<group>"; };
 		097D6EC229F1417E0007E4FB /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		097D6EC729F149A80007E4FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -637,6 +640,7 @@
 		0990D3AE29F95AFC00B99D35 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */,
 				094056D72A0CC1B8004781A3 /* GetCalendarDayQuery.graphql.swift */,
 				0990D3B229F95AFC00B99D35 /* GetConfigQuery.graphql.swift */,
 				09083C2E2A01237E00A61EF9 /* GetDefaultEpisodeIdForSeasonQuery.graphql.swift */,
@@ -1046,6 +1050,7 @@
 				0990D40829F95AFC00B99D35 /* SeasonSearchItem.graphql.swift in Sources */,
 				0990D3FA29F95AFC00B99D35 /* Page.graphql.swift in Sources */,
 				09A41BA22A0E6AEA00C737D0 /* User.graphql.swift in Sources */,
+				096CF4442A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */,
 				09A41BA42A0E6AEA00C737D0 /* Analytics.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1163,6 +1168,7 @@
 				0990D3D729F95AFC00B99D35 /* StudyTopic.graphql.swift in Sources */,
 				0990D3EB29F95AFC00B99D35 /* CardListSection.graphql.swift in Sources */,
 				2D64EA541B19A003A7D1E461 /* CardSection.swift in Sources */,
+				096CF4432A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */,
 				09083C3B2A0263D800A61EF9 /* DefaultGridSection.swift in Sources */,
 				0990D3B929F95AFC00B99D35 /* Language.swift in Sources */,
 				0990D42B29F95AFC00B99D35 /* GetEpisodeSeasonQuery.graphql.swift in Sources */,

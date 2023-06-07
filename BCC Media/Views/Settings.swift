@@ -31,9 +31,8 @@ struct SettingsView: View {
     var signIn: () -> Void
     var logout: () -> Void
 
-    @State var name: String? = nil
-    @State var cancelTask: (() -> Void)? = nil
-    @State var loading = false
+    var name: String?
+    var loading: Bool
 
     @State var audioLanguage = AppOptions.standard.audioLanguage ?? "none"
     @State var subtitleLanguage = AppOptions.standard.subtitleLanguage ?? "none"
@@ -85,8 +84,8 @@ struct SettingsView: View {
                             logoutPopup = true
                         } label: {
                             HStack {
-                                if let n = AppOptions.user.name {
-                                    Text(n)
+                                if let name = name {
+                                    Text(name)
                                 } else {
                                     EmptyView()
                                 }
@@ -126,10 +125,6 @@ struct SettingsView_Preview: PreviewProvider {
     @State static var path: NavigationPath = .init()
 
     static var previews: some View {
-        SettingsView(path: $path, authenticated: false, onSave: {}) {
-            print("")
-        } logout: {
-            print("")
-        }
+        SettingsView(path: $path, authenticated: false, onSave: {}, signIn: {}, logout: {}, name: nil, loading: false)
     }
 }
