@@ -72,6 +72,13 @@ struct LanguageChanged: Event {
     var languageTo: String
 }
 
+struct ApplicationOpened: Event {
+    static let eventName = "application_opened"
+    
+    var reason: String
+    var coldStart: Bool
+}
+
 class VideoEvent {
     var sessionId: String
     var livestream: Bool
