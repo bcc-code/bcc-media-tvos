@@ -1,5 +1,13 @@
 query GetEpisode($id: ID!) {
     episode(id: $id) {
+        ...BaseEpisode
+        next {
+            ...BaseEpisode
+        }
+    }
+}
+
+fragment BaseEpisode on Episode {
         id
         type
         title
@@ -17,7 +25,6 @@ query GetEpisode($id: ID!) {
                 title
             }
         }
-    }
 }
 
 query GetEpisodeStreams($id: ID!) {

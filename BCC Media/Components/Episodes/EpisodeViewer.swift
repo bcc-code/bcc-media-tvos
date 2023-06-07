@@ -26,7 +26,7 @@ struct EpisodeHeader: View {
                         return
                     }
                     
-                    await playCallback(EpisodePlayer(episode: episode, playerUrl: playerUrl, startFrom: episode.progress ?? 0))
+                    await playCallback(EpisodePlayer(episode, playerUrl: playerUrl, startFrom: episode.progress ?? 0))
                 }
             } label: {
                 ItemImage(episode.image).frame(width: 1280, height: 720).overlay(

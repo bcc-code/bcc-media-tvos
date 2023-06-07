@@ -76,6 +76,7 @@ public extension API {
       case "Episode": return API.Objects.Episode
       case "Link": return API.Objects.Link
       case "StudyTopic": return API.Objects.StudyTopic
+      case "Game": return API.Objects.Game
       case "SearchResult": return API.Objects.SearchResult
       case "EpisodeSearchItem": return API.Objects.EpisodeSearchItem
       case "SeasonSearchItem": return API.Objects.SeasonSearchItem

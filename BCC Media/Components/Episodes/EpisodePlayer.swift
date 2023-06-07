@@ -16,29 +16,45 @@ struct EpisodePlayer: View {
 
     var listener: PlaybackListener
 
-    init(episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, startFrom: Int = 0) {
+    init(_ episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, startFrom: Int = 0) {
         self.episode = episode
 
         self.playerUrl = playerUrl
         self.startFrom = startFrom
 
         listener = PlaybackListener(stateCallback: { state in
+            if state.time.isNaN {
+                return
+            }
             apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { _ in
                 print("updated progress")
                 print(state)
             }
         })
     }
+    
+    func getPlayerOptions(_ episode: API.GetEpisodeQuery.Data.Episode) -> PlayerOptions {
+        PlayerOptions(
+            title: episode.title,
+            startFrom: startFrom,
+            isLive: false,
+            content: .init(
+                episodeTitle: episode.title,
+                id: episode.id,
+                seasonTitle: episode.season?.title,
+                seasonId: episode.season?.id,
+                showTitle: episode.season?.show.title,
+                showId: episode.season?.show.id
+            )
+        )
+    }
 
     var body: some View {
-        PlayerViewController(playerUrl, .init(title: episode.title, startFrom: startFrom, isLive: false, content: .init(
-            episodeTitle: episode.title,
-            id: episode.id,
-            seasonTitle: episode.season?.title,
-            seasonId: episode.season?.id,
-            showTitle: episode.season?.show.title,
-            showId: episode.season?.show.id
-        )), listener).ignoresSafeArea()
+        PlayerViewController(
+            playerUrl,
+            getPlayerOptions(episode),
+            listener
+        ).ignoresSafeArea()
     }
 }
 

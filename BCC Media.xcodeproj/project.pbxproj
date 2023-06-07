@@ -46,8 +46,14 @@
 		094056F02A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */; };
 		094056F12A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */; };
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
+		09464D232A30B03C00380B5D /* BaseEpisode.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09464D222A30B03C00380B5D /* BaseEpisode.graphql.swift */; };
+		09464D242A30B03C00380B5D /* BaseEpisode.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09464D222A30B03C00380B5D /* BaseEpisode.graphql.swift */; };
+		09464D262A30B07800380B5D /* Game.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09464D252A30B07800380B5D /* Game.graphql.swift */; };
+		09464D272A30B07800380B5D /* Game.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09464D252A30B07800380B5D /* Game.graphql.swift */; };
 		096CF4432A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */; };
 		096CF4442A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */; };
+		096CF44C2A309E6D005524AD /* AVPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF44B2A309E6D005524AD /* AVPlayerExtension.swift */; };
+		096CF44E2A309EBA005524AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF44D2A309EBA005524AD /* Player.swift */; };
 		097D6EBC29F003310007E4FB /* EpisodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EBB29F003310007E4FB /* EpisodePlayer.swift */; };
 		097D6EC329F1417E0007E4FB /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EC229F1417E0007E4FB /* Languages.swift */; };
 		097D6EC629F149A80007E4FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 097D6EC829F149A80007E4FB /* Localizable.strings */; };
@@ -281,7 +287,11 @@
 		094056E22A0CC1D5004781A3 /* SimpleCalendarEntry.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCalendarEntry.graphql.swift; sourceTree = "<group>"; };
 		094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonCalendarEntry.graphql.swift; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
+		09464D222A30B03C00380B5D /* BaseEpisode.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseEpisode.graphql.swift; sourceTree = "<group>"; };
+		09464D252A30B07800380B5D /* Game.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.graphql.swift; sourceTree = "<group>"; };
 		096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeStreamsQuery.graphql.swift; sourceTree = "<group>"; };
+		096CF44B2A309E6D005524AD /* AVPlayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerExtension.swift; sourceTree = "<group>"; };
+		096CF44D2A309EBA005524AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		097D6EBB29F003310007E4FB /* EpisodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodePlayer.swift; sourceTree = "<group>"; };
 		097D6EC229F1417E0007E4FB /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		097D6EC729F149A80007E4FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -493,9 +503,19 @@
 			path = Sections;
 			sourceTree = "<group>";
 		};
+		096CF44A2A309E5E005524AD /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				096CF44B2A309E6D005524AD /* AVPlayerExtension.swift */,
+				096CF44D2A309EBA005524AD /* Player.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		097D6EC129F1416F0007E4FB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				096CF44A2A309E5E005524AD /* Player */,
 				097D6EC229F1417E0007E4FB /* Languages.swift */,
 				09083C362A0254D600A61EF9 /* Episodes.swift */,
 				09A41AF12A0E619300C737D0 /* AppOptions.swift */,
@@ -547,6 +567,7 @@
 		0990D37529F95AFC00B99D35 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				09464D252A30B07800380B5D /* Game.graphql.swift */,
 				0990D38129F95AFC00B99D35 /* AchievementGroupPagination.graphql.swift */,
 				0990D39829F95AFC00B99D35 /* AchievementPagination.graphql.swift */,
 				0990D38429F95AFC00B99D35 /* AchievementSection.graphql.swift */,
@@ -622,6 +643,7 @@
 		0990D3AA29F95AFC00B99D35 /* Fragments */ = {
 			isa = PBXGroup;
 			children = (
+				09464D222A30B03C00380B5D /* BaseEpisode.graphql.swift */,
 				0990D3AB29F95AFC00B99D35 /* ItemSectionFragment.graphql.swift */,
 				0990D3AC29F95AFC00B99D35 /* EpisodeSeason.graphql.swift */,
 			);
@@ -1024,7 +1046,9 @@
 				0990D3C429F95AFC00B99D35 /* SectionPagination.graphql.swift in Sources */,
 				0990D3D029F95AFC00B99D35 /* PosterGridSection.graphql.swift in Sources */,
 				0990D40429F95AFC00B99D35 /* FAQCategoryPagination.graphql.swift in Sources */,
+				09464D242A30B03C00380B5D /* BaseEpisode.graphql.swift in Sources */,
 				0990D41029F95AFC00B99D35 /* LessonPagination.graphql.swift in Sources */,
+				09464D272A30B07800380B5D /* Game.graphql.swift in Sources */,
 				0990D3D429F95AFC00B99D35 /* AchievementGroupPagination.graphql.swift in Sources */,
 				0990D3E429F95AFC00B99D35 /* DefaultGridSection.graphql.swift in Sources */,
 				0990D42829F95AFC00B99D35 /* SearchQuery.graphql.swift in Sources */,
@@ -1073,6 +1097,7 @@
 				09113B0029C081810087B9A2 /* PageView.swift in Sources */,
 				09E17B032A125A38004CFD28 /* SetEpisodeProgressMutation.graphql.swift in Sources */,
 				0990D42329F95AFC00B99D35 /* ItemSectionFragment.graphql.swift in Sources */,
+				09464D262A30B07800380B5D /* Game.graphql.swift in Sources */,
 				2D64E78A38DE97116A7131C3 /* BCCMediaApp.swift in Sources */,
 				0990D41329F95AFC00B99D35 /* SchemaConfiguration.swift in Sources */,
 				09083C432A03B06800A61EF9 /* PlayerViewController.swift in Sources */,
@@ -1123,6 +1148,7 @@
 				09E17B062A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */,
 				09083C412A03B04400A61EF9 /* LockView.swift in Sources */,
 				09083C2B2A01111300A61EF9 /* GetDefaultEpisodeIdForShowQuery.graphql.swift in Sources */,
+				096CF44E2A309EBA005524AD /* Player.swift in Sources */,
 				0990D41D29F95AFC00B99D35 /* ItemSection.graphql.swift in Sources */,
 				09083C312A01237E00A61EF9 /* GetDefaultEpisodeIdForSeasonQuery.graphql.swift in Sources */,
 				091D4EEB29EE7C7100B67232 /* DefaultSection.swift in Sources */,
@@ -1149,6 +1175,7 @@
 				09083C392A02628C00A61EF9 /* LabelSection.swift in Sources */,
 				0990D40129F95AFC00B99D35 /* AchievementPagination.graphql.swift in Sources */,
 				09083C3D2A02653400A61EF9 /* PosterGridSection.swift in Sources */,
+				09464D232A30B03C00380B5D /* BaseEpisode.graphql.swift in Sources */,
 				0990D3EF29F95AFC00B99D35 /* SurveyQuestionPagination.graphql.swift in Sources */,
 				0990D3C929F95AFC00B99D35 /* TaskPagination.graphql.swift in Sources */,
 				0990D41929F95AFC00B99D35 /* Section.graphql.swift in Sources */,
@@ -1159,6 +1186,7 @@
 				094056E62A0CC1D5004781A3 /* Calendar.graphql.swift in Sources */,
 				094056EC2A0CC1D5004781A3 /* EpisodeCalendarEntry.graphql.swift in Sources */,
 				0990D3C529F95AFC00B99D35 /* CardSection.graphql.swift in Sources */,
+				096CF44C2A309E6D005524AD /* AVPlayerExtension.swift in Sources */,
 				0990D40529F95AFC00B99D35 /* Application.graphql.swift in Sources */,
 				0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */,
 				0990D3F129F95AFC00B99D35 /* Season.graphql.swift in Sources */,
@@ -1221,7 +1249,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
@@ -1250,7 +1278,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
@@ -1280,7 +1308,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;
@@ -1426,7 +1454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;

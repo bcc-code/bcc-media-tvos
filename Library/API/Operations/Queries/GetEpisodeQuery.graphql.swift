@@ -12,28 +12,15 @@ public extension API {
         query GetEpisode($id: ID!) {
           episode(id: $id) {
             __typename
-            id
-            type
-            title
-            image
-            ageRating
-            publishDate
-            description
-            progress
-            locked
-            season {
+            ...BaseEpisode
+            next {
               __typename
-              id
-              title
-              show {
-                __typename
-                id
-                title
-              }
+              ...BaseEpisode
             }
           }
         }
-        """#
+        """#,
+        fragments: [BaseEpisode.self]
       ))
 
     public var id: ID
@@ -65,18 +52,12 @@ public extension API {
         public static var __parentType: Apollo.ParentType { API.Objects.Episode }
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
-          .field("id", API.ID.self),
-          .field("type", GraphQLEnum<API.EpisodeType>.self),
-          .field("title", String.self),
-          .field("image", String?.self),
-          .field("ageRating", String.self),
-          .field("publishDate", API.Date.self),
-          .field("description", String.self),
-          .field("progress", Int?.self),
-          .field("locked", Bool.self),
-          .field("season", Season?.self),
+          .field("next", [Next].self),
+          .fragment(BaseEpisode.self),
         ] }
 
+        /// Should probably be used asynchronously, and retrieved separately from the episode, as it can be slow in some cases (a few db requests can occur)
+        public var next: [Next] { __data["next"] }
         public var id: API.ID { __data["id"] }
         public var type: GraphQLEnum<API.EpisodeType> { __data["type"] }
         public var title: String { __data["title"] }
@@ -86,43 +67,44 @@ public extension API {
         public var description: String { __data["description"] }
         public var progress: Int? { __data["progress"] }
         public var locked: Bool { __data["locked"] }
-        public var season: Season? { __data["season"] }
+        public var season: BaseEpisode.Season? { __data["season"] }
 
-        /// Episode.Season
-        ///
-        /// Parent Type: `Season`
-        public struct Season: API.SelectionSet {
+        public struct Fragments: FragmentContainer {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Season }
+          public var baseEpisode: BaseEpisode { _toFragment() }
+        }
+
+        /// Episode.Next
+        ///
+        /// Parent Type: `Episode`
+        public struct Next: API.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: Apollo.ParentType { API.Objects.Episode }
           public static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
-            .field("id", API.ID.self),
-            .field("title", String.self),
-            .field("show", Show.self),
+            .fragment(BaseEpisode.self),
           ] }
 
           public var id: API.ID { __data["id"] }
+          public var type: GraphQLEnum<API.EpisodeType> { __data["type"] }
           public var title: String { __data["title"] }
-          public var show: Show { __data["show"] }
+          public var image: String? { __data["image"] }
+          public var ageRating: String { __data["ageRating"] }
+          public var publishDate: API.Date { __data["publishDate"] }
+          public var description: String { __data["description"] }
+          public var progress: Int? { __data["progress"] }
+          public var locked: Bool { __data["locked"] }
+          public var season: BaseEpisode.Season? { __data["season"] }
 
-          /// Episode.Season.Show
-          ///
-          /// Parent Type: `Show`
-          public struct Show: API.SelectionSet {
+          public struct Fragments: FragmentContainer {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: Apollo.ParentType { API.Objects.Show }
-            public static var __selections: [Apollo.Selection] { [
-              .field("__typename", String.self),
-              .field("id", API.ID.self),
-              .field("title", String.self),
-            ] }
-
-            public var id: API.ID { __data["id"] }
-            public var title: String { __data["title"] }
+            public var baseEpisode: BaseEpisode { _toFragment() }
           }
         }
       }
