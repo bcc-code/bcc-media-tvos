@@ -9,36 +9,42 @@ import SwiftUI
 
 struct EpisodePlayer: View {
     var playerUrl: URL
-
     var episode: API.GetEpisodeQuery.Data.Episode
-
-    var startFrom: Int
-
+    
     var listener: PlaybackListener
 
-    init(episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, startFrom: Int = 0) {
+    init(episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, next: @escaping () -> Void = {}) {
         self.episode = episode
 
         self.playerUrl = playerUrl
-        self.startFrom = startFrom
 
         listener = PlaybackListener(stateCallback: { state in
             apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { _ in
                 print("updated progress")
                 print(state)
             }
+        }, endCallback: {
+            next()
         })
     }
 
     var body: some View {
-        PlayerViewController(playerUrl, .init(title: episode.title, startFrom: startFrom, isLive: false, content: .init(
-            episodeTitle: episode.title,
-            id: episode.id,
-            seasonTitle: episode.season?.title,
-            seasonId: episode.season?.id,
-            showTitle: episode.season?.show.title,
-            showId: episode.season?.show.id
-        )), listener).ignoresSafeArea()
+        PlayerViewController(
+            playerUrl,
+            .init(
+                title: episode.title,
+                startFrom: episode.progress ?? 0,
+                isLive: false,
+                content: .init(
+                    episodeTitle: episode.title,
+                    id: episode.id,
+                    seasonTitle: episode.season?.title,
+                    seasonId: episode.season?.id,
+                    showTitle: episode.season?.show.title,
+                    showId: episode.season?.show.id
+                )
+            ),
+            listener).ignoresSafeArea()
     }
 }
 

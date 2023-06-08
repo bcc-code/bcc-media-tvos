@@ -39,15 +39,25 @@ struct PlaybackState {
     var time: Double
 }
 
-struct PlaybackListener {
+class PlaybackListener {
     var stateCallback: (PlaybackState) -> Void
+    var endCallback: () -> Void
 
-    init(stateCallback: @escaping (PlaybackState) -> Void) {
+    init(stateCallback: @escaping (PlaybackState) -> Void, endCallback: @escaping () -> Void = {}) {
         self.stateCallback = stateCallback
+        self.endCallback = endCallback
     }
 
     func onStateUpdate(state: PlaybackState) {
         stateCallback(state)
+    }
+    
+    func onEnd() {
+        endCallback()
+    }
+    
+    @objc func playerDidFinishPlaying(note: NSNotification) {
+        onEnd()
     }
 }
 
@@ -59,6 +69,8 @@ struct PlayerViewController: UIViewControllerRepresentable {
     private var plugin: YBPlugin
 
     private var coordinator: Coordinator
+    
+    private var listener: PlaybackListener
 
     init(_ videoURL: URL, _ options: Options = .init(), _ listener: PlaybackListener = PlaybackListener { _ in }) {
         self.videoURL = videoURL
@@ -66,6 +78,8 @@ struct PlayerViewController: UIViewControllerRepresentable {
         player = AVPlayer(url: videoURL)
 
         plugin = YBPlugin(options, player)
+        
+        self.listener = listener
 
         coordinator = Coordinator()
         coordinator.timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [self] _ in
@@ -151,6 +165,13 @@ struct PlayerViewController: UIViewControllerRepresentable {
             controller.player!.seek(to: CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100))
         }
         controller.player!.play()
+        
+        NotificationCenter.default.addObserver(
+            self.listener,
+            selector: #selector(self.listener.playerDidFinishPlaying),
+            name: .AVPlayerItemDidPlayToEndTime,
+            object: controller.player!.currentItem
+        )
 
         if let item = controller.player!.currentItem {
             item.externalMetadata = createMetadataItems()
