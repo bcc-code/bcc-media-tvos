@@ -14,7 +14,7 @@ struct SearchView: View {
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
 
     var clickItem: ClickItem
-    var playCallback: (EpisodePlayer) -> Void
+    var playCallback: PlayCallback
     
     private func _clickItem(_ item: Item, group: String) async {
         Events.trigger(SearchresultClicked(

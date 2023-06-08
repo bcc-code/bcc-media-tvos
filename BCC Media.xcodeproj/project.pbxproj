@@ -48,6 +48,8 @@
 		0943E18729BB36590016348C /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0943E18629BB36590016348C /* ItemSection.swift */; };
 		096CF4432A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */; };
 		096CF4442A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */; };
+		097BE7A52A31F25300F8D309 /* Game.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097BE7A42A31F25300F8D309 /* Game.graphql.swift */; };
+		097BE7A62A31F25300F8D309 /* Game.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097BE7A42A31F25300F8D309 /* Game.graphql.swift */; };
 		097D6EBC29F003310007E4FB /* EpisodePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EBB29F003310007E4FB /* EpisodePlayer.swift */; };
 		097D6EC329F1417E0007E4FB /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D6EC229F1417E0007E4FB /* Languages.swift */; };
 		097D6EC629F149A80007E4FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 097D6EC829F149A80007E4FB /* Localizable.strings */; };
@@ -282,6 +284,7 @@
 		094056E32A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeasonCalendarEntry.graphql.swift; sourceTree = "<group>"; };
 		0943E18629BB36590016348C /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
 		096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetEpisodeStreamsQuery.graphql.swift; sourceTree = "<group>"; };
+		097BE7A42A31F25300F8D309 /* Game.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.graphql.swift; sourceTree = "<group>"; };
 		097D6EBB29F003310007E4FB /* EpisodePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodePlayer.swift; sourceTree = "<group>"; };
 		097D6EC229F1417E0007E4FB /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		097D6EC729F149A80007E4FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -566,6 +569,7 @@
 				094056E02A0CC1D5004781A3 /* Event.graphql.swift */,
 				0990D39929F95AFC00B99D35 /* FAQCategoryPagination.graphql.swift */,
 				0990D37829F95AFC00B99D35 /* FeaturedSection.graphql.swift */,
+				097BE7A42A31F25300F8D309 /* Game.graphql.swift */,
 				0990D38729F95AFC00B99D35 /* IconGridSection.graphql.swift */,
 				0990D39329F95AFC00B99D35 /* IconSection.graphql.swift */,
 				09E17B482A1385AE004CFD28 /* ItemSectionMetadata.graphql.swift */,
@@ -1008,6 +1012,7 @@
 				0990D3D629F95AFC00B99D35 /* Stream.graphql.swift in Sources */,
 				0990D3CA29F95AFC00B99D35 /* TaskPagination.graphql.swift in Sources */,
 				094056EB2A0CC1D5004781A3 /* Event.graphql.swift in Sources */,
+				097BE7A62A31F25300F8D309 /* Game.graphql.swift in Sources */,
 				0990D40029F95AFC00B99D35 /* MessageSection.graphql.swift in Sources */,
 				0990D42E29F95AFC00B99D35 /* GetConfigQuery.graphql.swift in Sources */,
 				0990D3BC29F95AFC00B99D35 /* StreamType.graphql.swift in Sources */,
@@ -1159,6 +1164,7 @@
 				094056E62A0CC1D5004781A3 /* Calendar.graphql.swift in Sources */,
 				094056EC2A0CC1D5004781A3 /* EpisodeCalendarEntry.graphql.swift in Sources */,
 				0990D3C529F95AFC00B99D35 /* CardSection.graphql.swift in Sources */,
+				097BE7A52A31F25300F8D309 /* Game.graphql.swift in Sources */,
 				0990D40529F95AFC00B99D35 /* Application.graphql.swift in Sources */,
 				0998F6F729ED4F2500C74B3F /* PosterSection.swift in Sources */,
 				0990D3F129F95AFC00B99D35 /* Season.graphql.swift in Sources */,

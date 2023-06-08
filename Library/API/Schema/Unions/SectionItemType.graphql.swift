@@ -12,7 +12,8 @@ public extension API.Unions {
       API.Objects.Episode.self,
       API.Objects.Page.self,
       API.Objects.Link.self,
-      API.Objects.StudyTopic.self
+      API.Objects.StudyTopic.self,
+      API.Objects.Game.self
     ]
   )
 }

@@ -48,6 +48,8 @@ enum TabType: Hashable {
     case settings
 }
 
+typealias PlayCallback = (API.GetEpisodeQuery.Data.Episode) async -> Void
+
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var frontPage: API.GetPageQuery.Data.Page? = nil
@@ -99,10 +101,7 @@ struct ContentView: View {
                 if let queryItems = components.queryItems {
                     for q in queryItems {
                         if q.name == "play" {
-                            guard let streams = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: String(str))) else {
-                                return path
-                            }
-                            path.append(EpisodePlayer(episode: data.episode, playerUrl: getPlayerUrl(streams: streams.episode.streams)!))
+                            path.append(EpisodePlayer(episode: data.episode))
                         }
                     }
                 }
@@ -161,8 +160,28 @@ struct ContentView: View {
         cancelLogin = task.cancel
     }
 
-    func playCallback(_ player: EpisodePlayer) {
-        path.append(player)
+    func playCallback(_ episode: API.GetEpisodeQuery.Data.Episode) {
+        path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode)))
+    }
+    
+    func triggerNextEpisode(_ episode: API.GetEpisodeQuery.Data.Episode) -> () -> Void {
+        func trigger() {
+            path.removeLast(1)
+            print("Removed last")
+            Task { @MainActor in
+                if episode.next.isEmpty {
+                    print("No next episode")
+                    return
+                }
+                guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: episode.next[0].id)) else {
+                    return
+                }
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                print("Adding episode player to path")
+                path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode)))
+            }
+        }
+        return trigger
     }
 
     func loadEpisode(_ id: String) async {
@@ -235,6 +254,8 @@ struct ContentView: View {
     @State var tab: TabType = .pages
 
     @State var onboarded = authenticationProvider.isAuthenticated()
+    
+    @State var playEpisode: API.GetEpisodeQuery.Data.Episode? = nil
 
     var body: some View {
         ZStack {
@@ -302,9 +323,6 @@ struct ContentView: View {
                     .navigationDestination(for: API.GetPageQuery.Data.Page.self) { page in
                         PageView(page, clickItem: clickItem)
                     }
-                    .navigationDestination(for: EpisodePlayer.self) { player in
-                        player.ignoresSafeArea()
-                    }
                     .navigationDestination(for: SignInView.self) { view in
                         view
                     }
@@ -320,6 +338,9 @@ struct ContentView: View {
                         default:
                             EmptyView()
                         }
+                    }
+                    .navigationDestination(for: EpisodePlayer.self) { player in
+                        player
                     }
                 }.transition(.opacity)
             }

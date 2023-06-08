@@ -13,7 +13,7 @@ struct EpisodeHeader: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     var season: API.GetEpisodeSeasonQuery.Data.Season?
 
-    var playCallback: (EpisodePlayer) async -> Void
+    var playCallback: PlayCallback
 
     @FocusState var isFocused: Bool
 
@@ -21,12 +21,7 @@ struct EpisodeHeader: View {
         VStack {
             Button {
                 Task {
-                    guard let streams = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id)),
-                            let playerUrl = getPlayerUrl(streams: streams.episode.streams) else {
-                        return
-                    }
-                    
-                    await playCallback(EpisodePlayer(episode: episode, playerUrl: playerUrl))
+                    await playCallback(episode)
                 }
             } label: {
                 ItemImage(episode.image).frame(width: 1280, height: 720).overlay(
@@ -97,7 +92,7 @@ struct EpisodeListItem: View {
 struct EpisodeViewer: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     var viewCallback: (String) async -> Void
-    var playCallback: (EpisodePlayer) async -> Void
+    var playCallback: PlayCallback
 
     @State private var playerUrl: URL?
     @State private var season: API.GetEpisodeSeasonQuery.Data.Season?

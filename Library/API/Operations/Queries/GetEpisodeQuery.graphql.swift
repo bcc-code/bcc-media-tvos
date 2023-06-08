@@ -21,6 +21,10 @@ public extension API {
             description
             progress
             locked
+            next {
+              __typename
+              id
+            }
             season {
               __typename
               id
@@ -74,6 +78,7 @@ public extension API {
           .field("description", String.self),
           .field("progress", Int?.self),
           .field("locked", Bool.self),
+          .field("next", [Next].self),
           .field("season", Season?.self),
         ] }
 
@@ -86,7 +91,25 @@ public extension API {
         public var description: String { __data["description"] }
         public var progress: Int? { __data["progress"] }
         public var locked: Bool { __data["locked"] }
+        /// Should probably be used asynchronously, and retrieved separately from the episode, as it can be slow in some cases (a few db requests can occur)
+        public var next: [Next] { __data["next"] }
         public var season: Season? { __data["season"] }
+
+        /// Episode.Next
+        ///
+        /// Parent Type: `Episode`
+        public struct Next: API.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: Apollo.ParentType { API.Objects.Episode }
+          public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
+            .field("id", API.ID.self),
+          ] }
+
+          public var id: API.ID { __data["id"] }
+        }
 
         /// Episode.Season
         ///

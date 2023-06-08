@@ -9,6 +9,9 @@ query GetEpisode($id: ID!) {
         description
         progress
         locked
+        next {
+            id
+        }
         season {
             id
             title
