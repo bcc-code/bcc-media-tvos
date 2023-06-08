@@ -7,6 +7,7 @@
 "common_settings" = "Paramètres";
 "common_none" = "Aucun";
 "common_back" = "Retour";
+"common_videos" = "Vidéos";
 "shows_description" = "Description de l\'émission";
 "episodes_releaseDate" = "Date de parution";
 "search_noShowsWithCurrentFilter" = "Pas d\'émissions avec le filtre actuel";

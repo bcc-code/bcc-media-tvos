@@ -8,6 +8,7 @@
 "common_settings" = "Indstillinger";
 "common_none" = "Ingen";
 "common_back" = "Tilbage";
+"common_videos" = "Film";
 "shows_description" = "Beskrivelse af udsendelse";
 "episodes_releaseDate" = "Publiceringsdato";
 "search_noShowsWithCurrentFilter" = "Ingen udsendelser med det nuværende filter";

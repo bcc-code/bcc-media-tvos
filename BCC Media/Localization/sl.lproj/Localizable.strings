@@ -7,6 +7,7 @@
 "common_settings" = "Nastavitve";
 "common_none" = "Brez";
 "common_back" = "Nazaj";
+"common_videos" = "Videoposnetki";
 "shows_description" = "Opis oddaje";
 "episodes_releaseDate" = "Datum izida";
 "search_noShowsWithCurrentFilter" = "Ni oddaj s trenutnim filtrom";

@@ -7,6 +7,7 @@
 "common_settings" = "Настройки";
 "common_none" = "Нет";
 "common_back" = "Назад";
+"common_videos" = "Видео";
 "shows_description" = "Описание передач";
 "episodes_releaseDate" = "Дата релиза";
 "search_noShowsWithCurrentFilter" = "Нет передач с текущим фильтром";

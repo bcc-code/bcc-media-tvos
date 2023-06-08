@@ -62,11 +62,11 @@ struct FeaturedCard: View {
 struct FeaturedSection: View {
     var title: String?
     var items: [Item]
-    var clickItem: ClickItem
+    var clickItem: SectionClickItem
 
     var withLiveElement: Bool
 
-    init(_ title: String?, _ items: [Item], clickItem: @escaping ClickItem, withLiveElement: Bool = false) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping SectionClickItem, withLiveElement: Bool = false) {
         self.title = title
         self.items = items
         self.clickItem = clickItem

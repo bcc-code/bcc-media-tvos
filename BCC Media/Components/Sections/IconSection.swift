@@ -58,9 +58,9 @@ struct IconSectionItem: View {
 struct IconSection: View {
     var title: String?
     var items: [Item]
-    var clickItem: ClickItem
+    var clickItem: SectionClickItem
 
-    init(_ title: String?, _ items: [Item], clickItem: @escaping ClickItem) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping SectionClickItem) {
         self.title = title
         self.items = items
         self.clickItem = clickItem

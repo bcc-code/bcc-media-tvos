@@ -7,6 +7,7 @@
 "common_settings" = "Asetukset";
 "common_none" = "Ei mikään";
 "common_back" = "Takaisin";
+"common_videos" = "Videot";
 "shows_description" = "Näytä kuvaus";
 "episodes_releaseDate" = "Julkaisupäivämäärä";
 "search_noShowsWithCurrentFilter" = "Suodatusehdoilla ei löydy esityksiä";

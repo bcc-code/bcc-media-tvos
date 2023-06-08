@@ -1,5 +1,5 @@
-query GetEpisode($id: ID!) {
-    episode(id: $id) {
+query GetEpisode($id: ID!, $context: EpisodeContext) {
+    episode(id: $id, context: $context) {
         id
         type
         title
@@ -35,6 +35,23 @@ query GetEpisodeStreams($id: ID!) {
 query GetEpisodeSeason($id: ID!) {
     season(id: $id) {
         ...EpisodeSeason
+    }
+}
+
+query GetEpisodeContext($id: ID!, $context: EpisodeContext) {
+    episode(id: $id, context: $context) {
+        context {
+            ... on ContextCollection {
+                items(first: 100) {
+                    items {
+                        id
+                        title
+                        description
+                        image
+                    }
+                }
+            }
+        }
     }
 }
 

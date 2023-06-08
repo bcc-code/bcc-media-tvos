@@ -7,6 +7,7 @@
 "common_settings" = "Ayarlar";
 "common_none" = "Hiçbiri";
 "common_back" = "Geri";
+"common_videos" = "Videolar";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";

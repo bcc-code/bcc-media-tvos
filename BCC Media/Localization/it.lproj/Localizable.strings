@@ -7,6 +7,7 @@
 "common_settings" = "Impostazioni";
 "common_none" = "Nessuno";
 "common_back" = "Indietro";
+"common_videos" = "Video";
 "shows_description" = "Show description";
 "episodes_releaseDate" = "Release date";
 "search_noShowsWithCurrentFilter" = "No shows with the current filter";

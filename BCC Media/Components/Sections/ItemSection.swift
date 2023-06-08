@@ -23,7 +23,9 @@ enum ItemType: String {
     case season
 }
 
-typealias ClickItem = (Item) async -> Void
+typealias ClickItem = (Item, API.EpisodeContext?) async -> Void
+
+typealias SectionClickItem = (Item) async -> Void
 
 struct Item: Identifiable {
     var id: String

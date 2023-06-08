@@ -9,8 +9,8 @@ public extension API {
     public static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        query GetEpisode($id: ID!) {
-          episode(id: $id) {
+        query GetEpisode($id: ID!, $context: EpisodeContext) {
+          episode(id: $id, context: $context) {
             __typename
             id
             type
@@ -41,12 +41,20 @@ public extension API {
       ))
 
     public var id: ID
+    public var context: GraphQLNullable<EpisodeContext>
 
-    public init(id: ID) {
+    public init(
+      id: ID,
+      context: GraphQLNullable<EpisodeContext>
+    ) {
       self.id = id
+      self.context = context
     }
 
-    public var __variables: Variables? { ["id": id] }
+    public var __variables: Variables? { [
+      "id": id,
+      "context": context
+    ] }
 
     public struct Data: API.SelectionSet {
       public let __data: DataDict
@@ -54,7 +62,10 @@ public extension API {
 
       public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
       public static var __selections: [Apollo.Selection] { [
-        .field("episode", Episode.self, arguments: ["id": .variable("id")]),
+        .field("episode", Episode.self, arguments: [
+          "id": .variable("id"),
+          "context": .variable("context")
+        ]),
       ] }
 
       public var episode: Episode { __data["episode"] }

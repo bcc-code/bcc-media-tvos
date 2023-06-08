@@ -69,8 +69,6 @@ struct SectionView: View {
     }
 
     func clickItem(item: Item) async {
-        await _clickItem(item)
-
         Events.trigger(SectionClicked(
             sectionId: section.id,
             sectionName: section.title ?? "",
@@ -82,6 +80,12 @@ struct SectionView: View {
             elementName: item.title,
             pageCode: page.code
         ))
+        
+        if let s = section.asItemSection, metadata?.useContext == true, let collectionId = metadata?.collectionId {
+            await _clickItem(item, API.EpisodeContext(collectionId: .init(stringLiteral: collectionId)))
+        } else {
+            await _clickItem(item, nil)
+        }
     }
 
     var body: some View {

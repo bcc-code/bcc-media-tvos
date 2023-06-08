@@ -12,6 +12,8 @@ public extension API {
         metadata {
           __typename
           prependLiveElement
+          useContext
+          collectionId
         }
         items {
           __typename
@@ -60,9 +62,13 @@ public extension API {
       public static var __selections: [Apollo.Selection] { [
         .field("__typename", String.self),
         .field("prependLiveElement", Bool.self),
+        .field("useContext", Bool.self),
+        .field("collectionId", API.ID.self),
       ] }
 
       public var prependLiveElement: Bool { __data["prependLiveElement"] }
+      public var useContext: Bool { __data["useContext"] }
+      public var collectionId: API.ID { __data["collectionId"] }
     }
 
     /// Items

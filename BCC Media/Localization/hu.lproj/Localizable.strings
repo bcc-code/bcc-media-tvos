@@ -7,6 +7,7 @@
 "common_settings" = "Beállítások";
 "common_none" = "Nincs";
 "common_back" = "Vissza";
+"common_videos" = "Videók";
 "shows_description" = "Leírás mutatása";
 "episodes_releaseDate" = "Megjelenési dátum";
 "search_noShowsWithCurrentFilter" = "Az aktuális szűrővel nincs megjelenés";

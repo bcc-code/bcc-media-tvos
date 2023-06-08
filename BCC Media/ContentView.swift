@@ -77,8 +77,8 @@ struct ContentView: View {
         }
     }
 
-    private func viewCallback(_ id: String) async {
-        await loadEpisode(id)
+    private func viewCallback(_ id: String, context: API.EpisodeContext? = nil) async {
+        await loadEpisode(id, context: context)
     }
 
     private func getPathsFromUrl(_ url: URL) async -> [any Hashable] {
@@ -94,7 +94,7 @@ struct ContentView: View {
         if parts[0] == "episode" {
             if parts[1] != "" {
                 let str = parts[1]
-                guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: String(str))) else {
+                guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: String(str), context: nil)) else {
                     return []
                 }
                 path.append(data.episode)
@@ -173,22 +173,21 @@ struct ContentView: View {
                     print("No next episode")
                     return
                 }
-                guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: episode.next[0].id)) else {
-                    return
-                }
-                try? await Task.sleep(for: .seconds(1))
-                print("Adding episode player to path")
-                path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode)))
+                try? await Task.sleep(for: .seconds(0.5))
+                await loadEpisode(episode.next[0].id, play: true)
             }
         }
         return trigger
     }
 
-    func loadEpisode(_ id: String) async {
-        guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id)) else {
+    func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil) async {
+        guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: context != nil ? .init(context!) : .null)) else {
             return
         }
-        path.append(data.episode)
+        path.append(EpisodeViewer(episode: data.episode, context: context, viewCallback: viewCallback, playCallback: playCallback))
+        if (play) {
+            path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode)))
+        }
     }
 
     func loadShow(_ id: String) async {
@@ -226,7 +225,7 @@ struct ContentView: View {
         return data!.page
     }
 
-    func clickItem(item: Item) async {
+    func clickItem(item: Item, context: API.EpisodeContext?) async {
         if item.locked {
             print("Item was locked. Ignoring click")
             return
@@ -236,7 +235,7 @@ struct ContentView: View {
 
         switch item.type {
         case .episode:
-            await loadEpisode(item.id)
+            await loadEpisode(item.id, context: context)
         case .show:
             await loadShow(item.id)
         case .page:
@@ -317,8 +316,8 @@ struct ContentView: View {
                             }.transition(.move(edge: .bottom)).zIndex(2)
                         }
                     }
-                    .navigationDestination(for: API.GetEpisodeQuery.Data.Episode.self) { i in
-                        EpisodeViewer(episode: i, viewCallback: viewCallback, playCallback: playCallback)
+                    .navigationDestination(for: EpisodeViewer.self) { viewer in
+                        viewer
                     }
                     .navigationDestination(for: API.GetPageQuery.Data.Page.self) { page in
                         PageView(page, clickItem: clickItem)

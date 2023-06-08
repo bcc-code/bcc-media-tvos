@@ -24,7 +24,7 @@ struct SearchView: View {
             elementId: item.id,
             group: group
         ))
-        await clickItem(item)
+        await clickItem(item, nil)
     }
 
     func getResult(_ query: String) async {
@@ -109,7 +109,7 @@ struct SearchView_Preview: PreviewProvider {
     @State static var query = ""
 
     static var previews: some View {
-        SearchView(queryString: $query) { _ in
+        SearchView(queryString: $query) { _, _ in
 
         } playCallback: { _ in
         }

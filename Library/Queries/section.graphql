@@ -3,6 +3,8 @@ fragment ItemSectionFragment on ItemSection {
     title
     metadata {
         prependLiveElement
+        useContext
+        collectionId
     }
     items {
         items {
