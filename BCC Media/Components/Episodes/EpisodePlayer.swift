@@ -8,19 +8,11 @@
 import SwiftUI
 
 struct EpisodePlayer: View {
-    var playerUrl: URL
-
     var episode: API.GetEpisodeQuery.Data.Episode
-
-    var startFrom: Int
-
     var listener: PlaybackListener
 
-    init(_ episode: API.GetEpisodeQuery.Data.Episode, playerUrl: URL, startFrom: Int = 0) {
+    init(_ episode: API.GetEpisodeQuery.Data.Episode) {
         self.episode = episode
-
-        self.playerUrl = playerUrl
-        self.startFrom = startFrom
 
         listener = PlaybackListener(stateCallback: { state in
             if state.time.isNaN {
@@ -36,7 +28,7 @@ struct EpisodePlayer: View {
     func getPlayerOptions(_ episode: API.GetEpisodeQuery.Data.Episode) -> PlayerOptions {
         PlayerOptions(
             title: episode.title,
-            startFrom: startFrom,
+            startFrom: episode.progress ?? 0,
             isLive: false,
             content: .init(
                 episodeTitle: episode.title,
@@ -48,22 +40,47 @@ struct EpisodePlayer: View {
             )
         )
     }
-
+    
+    func urlFactory(_ episodeId: String) -> () async -> URL {
+        func getUrl() async -> URL {
+            let data = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id))
+            let playerUrl = getPlayerUrl(streams: data!.episode.streams)
+            return playerUrl!
+        }
+        return getUrl
+    }
+    
+    func getPlayerItem(_ episode: API.GetEpisodeQuery.Data.Episode) -> VideoPlayerItem {
+        let hasNext = episode.next.count > 0
+        
+        return VideoPlayerItem(
+            url: urlFactory(episode.id),
+            options: getPlayerOptions(episode),
+            nextFactory: hasNext ? nextFactory(episode.next[0].id) : nil
+        )
+    }
+    
+    func nextFactory(_ episodeId: String) -> () async -> VideoPlayerItem {
+        func getNext() async -> VideoPlayerItem {
+            let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: episodeId))
+            return getPlayerItem(data!.episode)
+        }
+        return getNext
+    }
+    
     var body: some View {
-        PlayerViewController(
-            playerUrl,
-            getPlayerOptions(episode),
-            listener
+        VideoPlayer(
+            getPlayerItem(episode)
         ).ignoresSafeArea()
     }
 }
 
 extension EpisodePlayer: Hashable {
     static func == (lhs: EpisodePlayer, rhs: EpisodePlayer) -> Bool {
-        lhs.playerUrl == rhs.playerUrl
+        lhs.episode.id == rhs.episode.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(playerUrl)
+        hasher.combine(episode.id)
     }
 }

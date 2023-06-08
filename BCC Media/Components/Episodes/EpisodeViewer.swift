@@ -21,12 +21,7 @@ struct EpisodeHeader: View {
         VStack {
             Button {
                 Task {
-                    guard let streams = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id)),
-                            let playerUrl = getPlayerUrl(streams: streams.episode.streams) else {
-                        return
-                    }
-                    
-                    await playCallback(EpisodePlayer(episode, playerUrl: playerUrl, startFrom: episode.progress ?? 0))
+                    await playCallback(EpisodePlayer(episode))
                 }
             } label: {
                 ItemImage(episode.image).frame(width: 1280, height: 720).overlay(

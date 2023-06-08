@@ -99,10 +99,7 @@ struct ContentView: View {
                 if let queryItems = components.queryItems {
                     for q in queryItems {
                         if q.name == "play" {
-                            guard let streams = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: String(str))) else {
-                                return path
-                            }
-                            path.append(EpisodePlayer(data.episode, playerUrl: getPlayerUrl(streams: streams.episode.streams)!, startFrom: data.episode.progress ?? 0))
+                            path.append(EpisodePlayer(data.episode))
                         }
                     }
                 }
