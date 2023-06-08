@@ -176,7 +176,7 @@ struct ContentView: View {
                 guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: episode.next[0].id)) else {
                     return
                 }
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                try? await Task.sleep(for: .seconds(1))
                 print("Adding episode player to path")
                 path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode)))
             }
