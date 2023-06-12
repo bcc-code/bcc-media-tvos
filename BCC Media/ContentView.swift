@@ -184,7 +184,7 @@ struct ContentView: View {
     }
 
     func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true) async {
-        guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: context != nil ? .init(context!) : .null)) else {
+        guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: context != nil ? .init(context!) : .null), cachePolicy: .fetchIgnoringCacheData) else {
             return
         }
         if (play) {
