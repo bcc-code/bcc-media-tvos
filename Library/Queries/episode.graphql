@@ -1,6 +1,7 @@
 query GetEpisode($id: ID!, $context: EpisodeContext) {
     episode(id: $id, context: $context) {
         id
+        uuid
         type
         title
         image
@@ -9,6 +10,7 @@ query GetEpisode($id: ID!, $context: EpisodeContext) {
         description
         progress
         locked
+        inMyList
         next {
             id
         }
@@ -103,8 +105,20 @@ query GetDefaultEpisodeIdForSeason($id: ID!) {
     }
 }
 
-mutation SetEpisodeProgress($id: ID!, $progress: Int!) {
+mutation SetEpisodeProgress($id: ID!, $progress: Int) {
     setEpisodeProgress(id: $id, progress: $progress) {
+        id
+    }
+}
+
+mutation AddEpisodeToMyList($id: ID!) {
+    addEpisodeToMyList(episodeId: $id) {
+        entryId
+    }
+}
+
+mutation RemoveEpisodeFromMyList($id: UUID!) {
+    removeEntryFromMyList(entryId: $id) {
         id
     }
 }

@@ -9,7 +9,7 @@ public extension API {
     public static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
-        mutation SetEpisodeProgress($id: ID!, $progress: Int!) {
+        mutation SetEpisodeProgress($id: ID!, $progress: Int) {
           setEpisodeProgress(id: $id, progress: $progress) {
             __typename
             id
@@ -19,11 +19,11 @@ public extension API {
       ))
 
     public var id: ID
-    public var progress: Int
+    public var progress: GraphQLNullable<Int>
 
     public init(
       id: ID,
-      progress: Int
+      progress: GraphQLNullable<Int>
     ) {
       self.id = id
       self.progress = progress

@@ -38,6 +38,7 @@ struct Item: Identifiable {
     var type: ItemType = .episode
 
     var locked = false
+    var inMyList = false
 
     var index = 0
     var sectionIndex = 0
@@ -62,26 +63,38 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     var locked = false
     var duration: Int? = nil
     var progress: Int? = nil
+    var inMyList = false
     switch item.item.__typename {
-    case "Show":
+    case API.Objects.Show.typename:
         t = .show
-    case "Episode":
+    case API.Objects.Episode.typename:
         t = .episode
         if let e = item.item.asEpisode {
             locked = e.locked
             duration = e.duration
             progress = e.progress
+            inMyList = e.inMyList
         }
-    case "Page":
+    case API.Objects.Page.typename:
         t = .page
-    case "Season":
+    case API.Objects.Season.typename:
         t = .season
-    case "StudyTopic":
+    case API.Objects.StudyTopic.typename:
         t = .topic
     default:
         t = .episode
     }
-    return Item(id: item.id, title: item.title, description: item.description, image: item.image, duration: duration, progress: progress, type: t, locked: locked)
+    return Item(
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        image: item.image,
+        duration: duration,
+        progress: progress,
+        type: t,
+        locked: locked,
+        inMyList: inMyList
+    )
 }
 
 func mapToItems(_ items: API.ItemSectionFragment.Items, sectionIndex: Int) -> [Item] {

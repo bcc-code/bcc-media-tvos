@@ -29,6 +29,7 @@ public extension API {
                 progress
                 duration
                 locked
+                inMyList
               }
             }
           }
@@ -137,11 +138,13 @@ public extension API {
               .field("progress", Int?.self),
               .field("duration", Int.self),
               .field("locked", Bool.self),
+              .field("inMyList", Bool.self),
             ] }
 
             public var progress: Int? { __data["progress"] }
             public var duration: Int { __data["duration"] }
             public var locked: Bool { __data["locked"] }
+            public var inMyList: Bool { __data["inMyList"] }
           }
         }
       }

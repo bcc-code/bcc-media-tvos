@@ -17,6 +17,8 @@ struct EpisodeHeader: View {
     var playCallback: PlayCallback
 
     @FocusState var isFocused: Bool
+    
+    @State var inMyList: Bool = false
 
     var body: some View {
         VStack {
@@ -33,18 +35,41 @@ struct EpisodeHeader: View {
             }.buttonStyle(SectionItemButton(focused: isFocused)).frame(width: 1280, height: 720).focused($isFocused)
         }
         VStack(alignment: .leading, spacing: 10) {
-            VStack(alignment: .leading, spacing: 5) {
-                Text(episode.title).font(.title2)
-                HStack(spacing: 5) {
-                    Text(episode.ageRating).padding([.horizontal], 10).padding(.vertical, 5).background(
-                        Rectangle().foregroundColor(cardBackgroundColor)).cornerRadius(10)
-                    if let s = season {
-                        Text(s.show.title).font(.subheadline).foregroundColor(.blue)
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(episode.title).font(.title2)
+                    HStack(spacing: 5) {
+                        Text(episode.ageRating).padding([.horizontal], 10).padding(.vertical, 5).background(
+                            Rectangle().foregroundColor(cardBackgroundColor)).cornerRadius(10)
+                        if let s = season {
+                            Text(s.show.title).font(.subheadline).foregroundColor(.blue)
+                        }
                     }
                 }
+                Spacer()
+                Button {
+                    print("add to my list")
+                    inMyList = !inMyList
+                } label: {
+                    if inMyList {
+                        Image(systemName: "heart.fill")
+                    } else {
+                        Image(systemName: "heart")
+                    }
+                }.buttonStyle(.plain)
             }
             Text(episode.description).font(.caption)
         }.padding(.vertical, 20)
+            .onAppear {
+                inMyList = episode.inMyList
+            }
+            .onChange(of: inMyList) { newValue in
+                if inMyList {
+                    apolloClient.perform(mutation: API.AddEpisodeToMyListMutation(id: episode.id))
+                } else {
+                    apolloClient.perform(mutation: API.RemoveEpisodeFromMyListMutation(id: API.UUID(episode.uuid)))
+                }
+            }
     }
 }
 

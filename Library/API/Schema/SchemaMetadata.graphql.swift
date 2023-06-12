@@ -85,6 +85,8 @@ public extension API {
       case "ContextCollection": return API.Objects.ContextCollection
       case "Lesson": return API.Objects.Lesson
       case "MutationRoot": return API.Objects.MutationRoot
+      case "AddToCollectionResult": return API.Objects.AddToCollectionResult
+      case "UserCollection": return API.Objects.UserCollection
       case "User": return API.Objects.User
       case "Analytics": return API.Objects.Analytics
       case "Application": return API.Objects.Application

@@ -32,14 +32,23 @@ struct SectionItemCard: View {
         self.height = height
         self.onClick = onClick
     }
+    
+    func clearProgress() {
+        apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: item.id, progress: .none))
+    }
 
     @State private var loading = false
     @FocusState var isFocused: Bool
+    
+    @State private var showOptions = false
 
     var body: some View {
         if let image = item.image {
             VStack(alignment: .leading, spacing: 20) {
                 Button {
+                    if showOptions {
+                        return
+                    }
                     Task {
                         withAnimation(.easeInOut(duration: 0.1)) {
                             loading.toggle()
@@ -64,6 +73,18 @@ struct SectionItemCard: View {
                             ProgressBar(item: item),
                             alignment: .bottom
                         )
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 1)
+                        .onEnded { _ in
+                            if item.type == .episode {
+                                showOptions = true
+                            }
+                        }
+                ).confirmationDialog("episodes_options", isPresented: $showOptions, titleVisibility: .visible) {
+                    Button("episodes_clearProgress", role: .destructive) {
+                        clearProgress()
+                    }
                 }
                 .buttonStyle(SectionItemButton(focused: isFocused))
                 .accessibilityLabel(item.title)

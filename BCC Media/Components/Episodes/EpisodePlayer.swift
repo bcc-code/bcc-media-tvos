@@ -19,9 +19,8 @@ struct EpisodePlayer: View {
         self.progress = progress
         listener = PlaybackListener(stateCallback: { state in
             if (progress) {
-                apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { _ in
+                apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: .some(Int(state.time)))) { _ in
                     print("updated progress")
-                    print(state)
                 }
             }
         }, endCallback: {
@@ -33,7 +32,6 @@ struct EpisodePlayer: View {
     @State var options: PlayerViewController.Options? = nil
     
     func load() async {
-        print("LOADING")
         let data = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id))
         url = getPlayerUrl(streams: data!.episode.streams)
         options = .init(

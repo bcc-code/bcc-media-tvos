@@ -13,6 +13,7 @@ public extension API {
           episode(id: $id, context: $context) {
             __typename
             id
+            uuid
             type
             title
             image
@@ -21,6 +22,7 @@ public extension API {
             description
             progress
             locked
+            inMyList
             next {
               __typename
               id
@@ -81,6 +83,7 @@ public extension API {
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.ID.self),
+          .field("uuid", String.self),
           .field("type", GraphQLEnum<API.EpisodeType>.self),
           .field("title", String.self),
           .field("image", String?.self),
@@ -89,11 +92,13 @@ public extension API {
           .field("description", String.self),
           .field("progress", Int?.self),
           .field("locked", Bool.self),
+          .field("inMyList", Bool.self),
           .field("next", [Next].self),
           .field("season", Season?.self),
         ] }
 
         public var id: API.ID { __data["id"] }
+        public var uuid: String { __data["uuid"] }
         public var type: GraphQLEnum<API.EpisodeType> { __data["type"] }
         public var title: String { __data["title"] }
         public var image: String? { __data["image"] }
@@ -102,6 +107,7 @@ public extension API {
         public var description: String { __data["description"] }
         public var progress: Int? { __data["progress"] }
         public var locked: Bool { __data["locked"] }
+        public var inMyList: Bool { __data["inMyList"] }
         /// Should probably be used asynchronously, and retrieved separately from the episode, as it can be slow in some cases (a few db requests can occur)
         public var next: [Next] { __data["next"] }
         public var season: Season? { __data["season"] }
