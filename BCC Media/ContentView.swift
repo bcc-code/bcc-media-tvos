@@ -159,12 +159,15 @@ struct ContentView: View {
         }
         cancelLogin = task.cancel
     }
-
-    func playCallback(_ episode: API.GetEpisodeQuery.Data.Episode) {
-        path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode)))
+    
+    func playCallbackWithContext(_ context: API.EpisodeContext?, progress: Bool) -> PlayCallback {
+        func cb(_ episode: API.GetEpisodeQuery.Data.Episode) {
+            path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode, context)))
+        }
+        return cb
     }
     
-    func triggerNextEpisode(_ episode: API.GetEpisodeQuery.Data.Episode) -> () -> Void {
+    func triggerNextEpisode(_ episode: API.GetEpisodeQuery.Data.Episode, _ context: API.EpisodeContext?) -> () -> Void {
         func trigger() {
             path.removeLast(1)
             print("Removed last")
@@ -174,19 +177,20 @@ struct ContentView: View {
                     return
                 }
                 try? await Task.sleep(for: .seconds(0.5))
-                await loadEpisode(episode.next[0].id, play: true)
+                await loadEpisode(episode.next[0].id, play: true, context: context, progress: false)
             }
         }
         return trigger
     }
 
-    func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil) async {
+    func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true) async {
         guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: context != nil ? .init(context!) : .null)) else {
             return
         }
-        path.append(EpisodeViewer(episode: data.episode, context: context, viewCallback: viewCallback, playCallback: playCallback))
         if (play) {
-            path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode)))
+            path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode, context), progress: progress))
+        } else {
+            path.append(EpisodeViewer(episode: data.episode, context: context, viewCallback: viewCallback, playCallback: playCallbackWithContext(context, progress: progress)))
         }
     }
 
@@ -274,7 +278,7 @@ struct ContentView: View {
                                     Label("tab_live", systemImage: "video")
                                 }.tag(TabType.live)
                             }
-                            SearchView(queryString: $searchQuery, clickItem: clickItem, playCallback: playCallback).tabItem {
+                            SearchView(queryString: $searchQuery, clickItem: clickItem, playCallback: playCallbackWithContext(nil, progress: true)).tabItem {
                                 Label("tab_search", systemImage: "magnifyingglass")
                             }.tag(TabType.search)
                             SettingsView(path: $path, authenticated: authenticated, onSave: {

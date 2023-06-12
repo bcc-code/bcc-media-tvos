@@ -11,14 +11,18 @@ struct EpisodePlayer: View {
     var episode: API.GetEpisodeQuery.Data.Episode
     
     var listener: PlaybackListener
+    
+    var progress: Bool
 
-    init(episode: API.GetEpisodeQuery.Data.Episode, next: @escaping () -> Void = {}) {
+    init(episode: API.GetEpisodeQuery.Data.Episode, next: @escaping () -> Void = {}, progress: Bool = true) {
         self.episode = episode
-
+        self.progress = progress
         listener = PlaybackListener(stateCallback: { state in
-            apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { _ in
-                print("updated progress")
-                print(state)
+            if (progress) {
+                apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: Int(state.time))) { _ in
+                    print("updated progress")
+                    print(state)
+                }
             }
         }, endCallback: {
             next()
@@ -34,7 +38,7 @@ struct EpisodePlayer: View {
         url = getPlayerUrl(streams: data!.episode.streams)
         options = .init(
             title: episode.title,
-            startFrom: episode.progress ?? 0,
+            startFrom: self.progress ? episode.progress ?? 0 : 0,
             isLive: false,
             content: .init(
                 episodeTitle: episode.title,
