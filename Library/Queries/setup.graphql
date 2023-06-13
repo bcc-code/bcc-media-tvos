@@ -12,5 +12,8 @@ query getSetup {
         page {
             id
         }
+        searchPage {
+            id
+        }
     }
 }

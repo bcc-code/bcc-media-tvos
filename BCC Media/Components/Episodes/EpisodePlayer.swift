@@ -9,16 +9,16 @@ import SwiftUI
 
 struct EpisodePlayer: View {
     var episode: API.GetEpisodeQuery.Data.Episode
-    
+
     var listener: PlaybackListener
-    
+
     var progress: Bool
 
     init(episode: API.GetEpisodeQuery.Data.Episode, next: @escaping () -> Void = {}, progress: Bool = true) {
         self.episode = episode
         self.progress = progress
         listener = PlaybackListener(stateCallback: { state in
-            if (progress) {
+            if progress {
                 apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: .some(Int(state.time)))) { _ in
                     print("updated progress")
                 }
@@ -27,16 +27,16 @@ struct EpisodePlayer: View {
             next()
         })
     }
-    
+
     @State var url: URL? = nil
     @State var options: PlayerViewController.Options? = nil
-    
+
     func load() async {
         let data = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id))
         url = getPlayerUrl(streams: data!.episode.streams)
         options = .init(
             title: episode.title,
-            startFrom: self.progress ? episode.progress ?? 0 : 0,
+            startFrom: progress ? episode.progress ?? 0 : 0,
             isLive: false,
             content: .init(
                 episodeTitle: episode.title,

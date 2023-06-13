@@ -32,14 +32,14 @@ struct SectionItemCard: View {
         self.height = height
         self.onClick = onClick
     }
-    
+
     func clearProgress() {
         apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: item.id, progress: .none))
     }
 
     @State private var loading = false
     @FocusState var isFocused: Bool
-    
+
     @State private var showOptions = false
 
     var body: some View {

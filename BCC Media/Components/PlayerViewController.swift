@@ -51,12 +51,12 @@ class PlaybackListener {
     func onStateUpdate(state: PlaybackState) {
         stateCallback(state)
     }
-    
+
     func onEnd() {
         endCallback()
     }
-    
-    @objc func playerDidFinishPlaying(note: NSNotification) {
+
+    @objc func playerDidFinishPlaying(note _: NSNotification) {
         onEnd()
     }
 }
@@ -69,7 +69,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
     private var plugin: YBPlugin
 
     private var coordinator: Coordinator
-    
+
     private var listener: PlaybackListener
 
     init(_ videoURL: URL, _ options: Options = .init(), _ listener: PlaybackListener = PlaybackListener { _ in }) {
@@ -78,7 +78,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
         player = AVPlayer(url: videoURL)
 
         plugin = YBPlugin(options, player)
-        
+
         self.listener = listener
 
         coordinator = Coordinator()
@@ -165,10 +165,10 @@ struct PlayerViewController: UIViewControllerRepresentable {
             controller.player!.seek(to: CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100))
         }
         controller.player!.play()
-        
+
         NotificationCenter.default.addObserver(
-            self.listener,
-            selector: #selector(self.listener.playerDidFinishPlaying),
+            listener,
+            selector: #selector(listener.playerDidFinishPlaying),
             name: .AVPlayerItemDidPlayToEndTime,
             object: controller.player!.currentItem
         )

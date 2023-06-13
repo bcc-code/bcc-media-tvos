@@ -16,25 +16,6 @@ var cardBackgroundColor: Color {
     Color(red: 29 / 256, green: 40 / 256, blue: 56 / 256)
 }
 
-// This is a struct to distinguish the first page component from any subpages.
-struct FrontPage: View {
-    var page: API.GetPageQuery.Data.Page?
-    var clickItem: ClickItem
-
-    init(page: API.GetPageQuery.Data.Page?, clickItem: @escaping ClickItem) {
-        self.page = page
-        self.clickItem = clickItem
-    }
-
-    var body: some View {
-        ZStack {
-            if let page = page {
-                PageView(page, clickItem: clickItem)
-            }
-        }
-    }
-}
-
 enum StaticDestination: Hashable {
     case live
     case aboutUs
@@ -63,12 +44,10 @@ struct ContentView: View {
         await AppOptions.load()
         if let pageId = AppOptions.app.pageId {
             frontPage = nil
-            // Assure that the cache is cleared. It's done asynchronously
-            try? await Task.sleep(nanoseconds: 1_000_000)
             frontPage = await getPage(pageId)
             print("FETCHED FRONTPAGE")
-            bccMember = AppOptions.user.bccMember == true
         }
+        bccMember = AppOptions.user.bccMember == true
         authenticationProvider.registerErrorCallback {
             startSignIn()
         }
@@ -81,34 +60,30 @@ struct ContentView: View {
         await loadEpisode(id, context: context)
     }
 
-    private func getPathsFromUrl(_ url: URL) async -> [any Hashable] {
+    private func getPathsFromUrl(_ url: URL) async {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
         let parts = components.path.split(separator: "/")
         if parts.count == 0 {
-            return []
+            return
         }
-
-        var path: [any Hashable] = []
 
         if parts[0] == "episode" {
             if parts[1] != "" {
                 let str = parts[1]
-                guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: String(str), context: nil)) else {
-                    return []
-                }
-                path.append(data.episode)
+
+                var play = false
                 if let queryItems = components.queryItems {
                     for q in queryItems {
                         if q.name == "play" {
-                            path.append(EpisodePlayer(episode: data.episode))
+                            play = true
+                            break
                         }
                     }
                 }
+                await loadEpisode(String(str), play: play)
             }
         }
-
-        return path
     }
 
     func reload() async {
@@ -159,14 +134,14 @@ struct ContentView: View {
         }
         cancelLogin = task.cancel
     }
-    
-    func playCallbackWithContext(_ context: API.EpisodeContext?, progress: Bool) -> PlayCallback {
+
+    func playCallbackWithContext(_ context: API.EpisodeContext?, progress _: Bool) -> PlayCallback {
         func cb(_ episode: API.GetEpisodeQuery.Data.Episode) {
             path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode, context)))
         }
         return cb
     }
-    
+
     func triggerNextEpisode(_ episode: API.GetEpisodeQuery.Data.Episode, _ context: API.EpisodeContext?) -> () -> Void {
         func trigger() {
             path.removeLast(1)
@@ -187,7 +162,7 @@ struct ContentView: View {
         guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: context != nil ? .init(context!) : .null), cachePolicy: .fetchIgnoringCacheData) else {
             return
         }
-        if (play) {
+        if play {
             path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode, context), progress: progress))
         } else {
             path.append(EpisodeViewer(episode: data.episode, context: context, viewCallback: viewCallback, playCallback: playCallbackWithContext(context, progress: progress)))
@@ -257,8 +232,48 @@ struct ContentView: View {
     @State var tab: TabType = .pages
 
     @State var onboarded = authenticationProvider.isAuthenticated()
-    
+
     @State var playEpisode: API.GetEpisodeQuery.Data.Episode? = nil
+
+    var tabs: some View {
+        TabView(selection: $tab) {
+            FrontPage(page: frontPage, clickItem: clickItem)
+                .tabItem {
+                    Label("tab_home", systemImage: "house.fill")
+                }.tag(TabType.pages)
+            if authenticated && bccMember {
+                LiveView {
+                    path.append(StaticDestination.live)
+                }.tabItem {
+                    Label("tab_live", systemImage: "video")
+                }.tag(TabType.live)
+            }
+            SearchView(
+                queryString: $searchQuery,
+                clickItem: clickItem,
+                playCallback: playCallbackWithContext(nil, progress: true)
+            ).tabItem {
+                Label("tab_search", systemImage: "magnifyingglass")
+            }.tag(TabType.search)
+            SettingsView(
+                path: $path,
+                authenticated: authenticated,
+                onSave: {
+                    authenticated = authenticationProvider.isAuthenticated()
+                    Task {
+                        await load()
+                    }
+                },
+                signIn: startSignIn,
+                logout: logout,
+                name: AppOptions.user.name,
+                loading: loading
+            )
+            .tabItem {
+                Label("tab_settings", systemImage: "gearshape.fill")
+            }.tag(TabType.settings)
+        }.disabled(!authenticated && !onboarded)
+    }
 
     var body: some View {
         ZStack {
@@ -266,31 +281,7 @@ struct ContentView: View {
             if loaded {
                 NavigationStack(path: $path) {
                     ZStack {
-                        TabView(selection: $tab) {
-                            FrontPage(page: frontPage, clickItem: clickItem)
-                                .tabItem {
-                                    Label("tab_home", systemImage: "house.fill")
-                                }.tag(TabType.pages)
-                            if authenticated && bccMember {
-                                LiveView {
-                                    path.append(StaticDestination.live)
-                                }.tabItem {
-                                    Label("tab_live", systemImage: "video")
-                                }.tag(TabType.live)
-                            }
-                            SearchView(queryString: $searchQuery, clickItem: clickItem, playCallback: playCallbackWithContext(nil, progress: true)).tabItem {
-                                Label("tab_search", systemImage: "magnifyingglass")
-                            }.tag(TabType.search)
-                            SettingsView(path: $path, authenticated: authenticated, onSave: {
-                                authenticated = authenticationProvider.isAuthenticated()
-                                Task {
-                                    await load()
-                                }
-                            }, signIn: startSignIn, logout: logout, name: AppOptions.user.name, loading: loading)
-                            .tabItem {
-                                Label("tab_settings", systemImage: "gearshape.fill")
-                            }.tag(TabType.settings)
-                        }.disabled(!authenticated && !onboarded)
+                        tabs
                         if !authenticated && !onboarded {
                             Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
                             ZStack {
@@ -354,10 +345,8 @@ struct ContentView: View {
             .onOpenURL(perform: { url in
                 loading = true
                 Task {
-                    let paths = await getPathsFromUrl(url)
-                    for p in paths {
-                        path.append(p)
-                    }
+                    await getPathsFromUrl(url)
+
                     onboarded = true
                     loading = false
                 }

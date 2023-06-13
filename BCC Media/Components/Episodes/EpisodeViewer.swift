@@ -17,7 +17,7 @@ struct EpisodeHeader: View {
     var playCallback: PlayCallback
 
     @FocusState var isFocused: Bool
-    
+
     @State var inMyList: Bool = false
 
     var body: some View {
@@ -63,7 +63,7 @@ struct EpisodeHeader: View {
             .onAppear {
                 inMyList = episode.inMyList
             }
-            .onChange(of: inMyList) { newValue in
+            .onChange(of: inMyList) { _ in
                 if inMyList {
                     apolloClient.perform(mutation: API.AddEpisodeToMyListMutation(id: episode.id))
                 } else {
@@ -131,15 +131,20 @@ struct EpisodeViewer: View {
 
     @State private var tab: Tab = .season
     @State private var seasonId: String = ""
-   
+
+    @State private var loaded = false
+
     func loadSeason(_ id: String) async {
         let data = await apolloClient.getAsync(query: API.GetEpisodeSeasonQuery(id: id))
         if let s = data?.season {
             season = s
         }
     }
-    
+
     func load() async {
+        if loaded {
+            return
+        }
         let data = await apolloClient.getAsync(query: API.GetEpisodeContextQuery(id: episode.id, context: context != nil ? .init(context!) : .null))
         if let c = data?.episode.context?.asContextCollection?.items?.items {
             items = c
@@ -147,6 +152,7 @@ struct EpisodeViewer: View {
         } else {
             seasonId = episode.season?.id ?? ""
         }
+        loaded = true
     }
 
     func toDateString(_ str: String) -> String {
@@ -207,18 +213,16 @@ struct EpisodeViewer: View {
                         }
                     }
                 case .details:
-                    ScrollView(.vertical) {
-                        VStack(alignment: .leading) {
-                            if let s = season {
-                                Text("shows_description").bold().font(.caption)
-                                Text(s.show.description).font(.caption2).foregroundColor(.gray)
-                            }
-                            Spacer()
-                            Text("episodes_releaseDate").bold().font(.caption)
-                            Text(toDateString(episode.publishDate)).font(.caption2).foregroundColor(.gray)
-                            Spacer()
-                        }.focusable()
-                    }
+                    VStack(alignment: .leading) {
+                        if let s = season {
+                            Text("shows_description").bold().font(.caption)
+                            Text(s.show.description).font(.caption2).foregroundColor(.gray)
+                        }
+                        Spacer()
+                        Text("episodes_releaseDate").bold().font(.caption)
+                        Text(toDateString(episode.publishDate)).font(.caption2).foregroundColor(.gray)
+                        Spacer()
+                    }.focusable()
                 }
             }.frame(width: 1280).padding(100)
         }.padding(-100)
@@ -226,6 +230,7 @@ struct EpisodeViewer: View {
                 await load()
             }
             .onChange(of: seasonId) { id in
+                print(id)
                 if !id.isEmpty {
                     Task {
                         await loadSeason(id)

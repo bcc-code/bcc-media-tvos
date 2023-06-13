@@ -27,6 +27,10 @@ public extension API {
               __typename
               id
             }
+            searchPage {
+              __typename
+              id
+            }
           }
         }
         """#
@@ -96,16 +100,34 @@ public extension API {
           .field("code", String.self),
           .field("clientVersion", String.self),
           .field("page", Page?.self),
+          .field("searchPage", SearchPage?.self),
         ] }
 
         public var code: String { __data["code"] }
         public var clientVersion: String { __data["clientVersion"] }
         public var page: Page? { __data["page"] }
+        public var searchPage: SearchPage? { __data["searchPage"] }
 
         /// Application.Page
         ///
         /// Parent Type: `Page`
         public struct Page: API.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: Apollo.ParentType { API.Objects.Page }
+          public static var __selections: [Apollo.Selection] { [
+            .field("__typename", String.self),
+            .field("id", API.ID.self),
+          ] }
+
+          public var id: API.ID { __data["id"] }
+        }
+
+        /// Application.SearchPage
+        ///
+        /// Parent Type: `Page`
+        public struct SearchPage: API.SelectionSet {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 

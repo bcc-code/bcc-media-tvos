@@ -17,9 +17,9 @@ let apolloClient = ApolloClientFactory("https://api.brunstad.tv/query", tokenFac
 @main
 struct BCCMediaApp: App {
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @State private var coldStart = true
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView().onAppear {

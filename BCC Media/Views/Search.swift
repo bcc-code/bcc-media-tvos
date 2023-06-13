@@ -15,7 +15,9 @@ struct SearchView: View {
 
     var clickItem: ClickItem
     var playCallback: PlayCallback
-    
+
+    var searchPage: API.GetPageQuery.Data.Page? = nil
+
     private func _clickItem(_ item: Item, group: String) async {
         Events.trigger(SearchresultClicked(
             searchText: queryString,
@@ -52,7 +54,8 @@ struct SearchView: View {
         Events.trigger(SearchPerformed(
             searchText: query,
             searchLatency: Date.now.timeIntervalSince(start),
-            searchResultCount: (episodeResult?.count ?? 0) + (showResult?.count ?? 0))
+            searchResultCount: (episodeResult?.count ?? 0) + (showResult?.count ?? 0)
+        )
         )
     }
 
@@ -62,46 +65,49 @@ struct SearchView: View {
         }
         return toItem
     }
-        
+
     func mapToItems(_ type: ItemType, _ items: [API.SearchQuery.Data.Search.Result]) -> [Item] {
         var r: [Item] = []
-        
+
         items.indices.forEach { index in
             var item = mapToItem(type)(items[index])
             item.index = index
             r.append(item)
         }
-        
+
         return r
     }
 
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVStack {
-                if let i = showResult, i.count > 0 {
-                    DefaultSection(NSLocalizedString("common_shows", comment: ""), mapToItems(.show, i)) { item in
-                        await _clickItem(item, group: "shows")
-                    }
-                }
-                if let i = episodeResult, i.count > 0 {
-                    DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), mapToItems(.episode, i)) { item in
-                        await _clickItem(item, group: "episodes")
-                    }
-                }
-                if showResult == nil || episodeResult == nil {
-                    Text("search_inputField")
-                }
-            }.padding(100)
-        }.padding(-100)
-            .searchable(text: $queryString)
-            .onChange(of: queryString) { query in
-                Task {
-                    await getResult(query)
-                }
+        VStack {
+            if showResult == nil || episodeResult == nil {
+                Text("search_inputField")
+            } else {
+                ScrollView(.vertical) {
+                    LazyVStack {
+                        if let i = showResult, i.count > 0 {
+                            DefaultSection(NSLocalizedString("common_shows", comment: ""), mapToItems(.show, i)) { item in
+                                await _clickItem(item, group: "shows")
+                            }
+                        }
+                        if let i = episodeResult, i.count > 0 {
+                            DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), mapToItems(.episode, i)) { item in
+                                await _clickItem(item, group: "episodes")
+                            }
+                        }
+                    }.padding(100)
+                }.padding(-100)
             }
-            .onAppear {
-                Events.page("search")
+        }
+        .searchable(text: $queryString)
+        .onChange(of: queryString) { query in
+            Task {
+                await getResult(query)
             }
+        }
+        .onAppear {
+            Events.page("search")
+        }
     }
 }
 

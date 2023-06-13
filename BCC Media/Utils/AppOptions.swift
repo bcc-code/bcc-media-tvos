@@ -19,6 +19,7 @@ public struct UserOptions {
 
 public struct ApplicationOptions {
     var pageId: String?
+    var searchPageId: String?
 }
 
 public struct NpawOptions {
@@ -114,6 +115,7 @@ public extension AppOptions {
         }
 
         AppOptions.standard.app.pageId = data.application.page?.id
+        AppOptions.standard.app.searchPageId = data.application.searchPage?.id
 
         if authenticationProvider.isAuthenticated() {
             let userInfo = await authenticationProvider.userInfo()

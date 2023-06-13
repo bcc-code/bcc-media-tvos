@@ -56,7 +56,7 @@ struct SearchPerformed: Event {
 
 struct SearchresultClicked: Event {
     static let eventName = "searchresult_clicked"
-    
+
     var searchText: String
     var elementPosition: Int
     var elementType: String
@@ -74,7 +74,7 @@ struct LanguageChanged: Event {
 
 struct ApplicationOpened: Event {
     static let eventName = "application_opened"
-    
+
     var reason: String
     var coldStart: Bool
 }

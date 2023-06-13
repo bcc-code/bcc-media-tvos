@@ -80,8 +80,8 @@ struct SectionView: View {
             elementName: item.title,
             pageCode: page.code
         ))
-        
-        if let s = section.asItemSection, metadata?.useContext == true, let collectionId = metadata?.collectionId {
+
+        if metadata?.useContext == true, let collectionId = metadata?.collectionId {
             await _clickItem(item, API.EpisodeContext(collectionId: .init(stringLiteral: collectionId)))
         } else {
             await _clickItem(item, nil)
@@ -125,6 +125,12 @@ struct SectionView: View {
                     )
                 case "IconSection":
                     IconSection(
+                        section.title,
+                        items,
+                        clickItem: clickItem
+                    )
+                case "IconGridSection":
+                    IconGridSection(
                         section.title,
                         items,
                         clickItem: clickItem
