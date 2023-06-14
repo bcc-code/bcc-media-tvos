@@ -47,16 +47,18 @@ struct EpisodeHeader: View {
                     }
                 }
                 Spacer()
-                Button {
-                    print("add to my list")
-                    inMyList = !inMyList
-                } label: {
-                    if inMyList {
-                        Image(systemName: "heart.fill")
-                    } else {
-                        Image(systemName: "heart")
-                    }
-                }.buttonStyle(.plain)
+                if authenticationProvider.isAuthenticated() {
+                    Button {
+                        print("add to my list")
+                        inMyList = !inMyList
+                    } label: {
+                        if inMyList {
+                            Image(systemName: "heart.fill")
+                        } else {
+                            Image(systemName: "heart")
+                        }
+                    }.buttonStyle(.plain)
+                }
             }
             Text(episode.description).font(.caption)
         }.padding(.vertical, 20)

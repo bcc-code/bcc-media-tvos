@@ -38,7 +38,6 @@ struct Item: Identifiable {
     var type: ItemType = .episode
 
     var locked = false
-    var inMyList = false
 
     var index = 0
     var sectionIndex = 0
@@ -63,7 +62,6 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
     var locked = false
     var duration: Int? = nil
     var progress: Int? = nil
-    var inMyList = false
     switch item.item.__typename {
     case API.Objects.Show.typename:
         t = .show
@@ -73,7 +71,6 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
             locked = e.locked
             duration = e.duration
             progress = e.progress
-            inMyList = e.inMyList
         }
     case API.Objects.Page.typename:
         t = .page
@@ -92,8 +89,7 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
         duration: duration,
         progress: progress,
         type: t,
-        locked: locked,
-        inMyList: inMyList
+        locked: locked
     )
 }
 

@@ -18,7 +18,6 @@ fragment ItemSectionFragment on ItemSection {
                     progress
                     duration
                     locked
-                    inMyList
                 }
             }
         }
