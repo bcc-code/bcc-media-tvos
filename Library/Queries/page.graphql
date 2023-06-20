@@ -15,3 +15,29 @@ query GetPage($id: ID!) {
         }
     }
 }
+
+fragment ItemSectionFragment on ItemSection {
+    __typename
+    title
+    metadata {
+        prependLiveElement
+        useContext
+        collectionId
+    }
+    items {
+        items {
+            id
+            title
+            description
+            image
+            item {
+                __typename
+                ... on Episode {
+                    progress
+                    duration
+                    locked
+                }
+            }
+        }
+    }
+}
