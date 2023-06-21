@@ -115,6 +115,8 @@ struct ContentView: View {
     func startSignIn() {
         let task = Task {
             do {
+                _ = await authenticationProvider.logout()
+                
                 try await authenticationProvider.login { code in
                     path.append(
                         SignInView(
