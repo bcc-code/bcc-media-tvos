@@ -116,7 +116,7 @@ struct ContentView: View {
         let task = Task {
             do {
                 _ = await authenticationProvider.logout()
-                
+
                 try await authenticationProvider.login { code in
                     path.append(
                         SignInView(
@@ -211,8 +211,6 @@ struct ContentView: View {
             print("Item was locked. Ignoring click")
             return
         }
-
-        print("LOADING: \(item.type) \(item.id)")
 
         switch item.type {
         case .episode:

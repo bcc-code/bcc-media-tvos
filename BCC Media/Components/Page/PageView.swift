@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-struct MissingContent: View {
-    var annotation: String
-
-    init(_ annotation: String) {
-        self.annotation = annotation
-    }
-
-    var body: some View {
-        Button {
-            print("oopsi")
-        } label: {
-            Text("Oops. Seems there is some missing content here. Work in progress.")
-            Text(annotation).foregroundColor(.gray)
-        }.buttonStyle(.plain)
-    }
-}
-
 struct PageDetailsSection: View {
     var title: String?
     var description: String?
@@ -41,128 +24,8 @@ struct PageDetailsSection: View {
             if let d = description {
                 Text(d).font(.caption).foregroundColor(.gray)
             }
-        }.focusable()
-    }
-}
-
-struct SectionView: View {
-    var page: API.GetPageQuery.Data.Page
-    var index: Int
-    var section: API.GetPageQuery.Data.Page.Sections.Item
-
-    private var _clickItem: ClickItem
-
-    var metadata: API.ItemSectionFragment.Metadata?
-    var items: [Item]?
-
-    init(_ page: API.GetPageQuery.Data.Page, _ index: Int, clickItem: @escaping ClickItem) {
-        self.page = page
-        self.index = index
-
-        section = page.sections.items[index]
-        _clickItem = clickItem
-
-        if let itemSection = section.asItemSection {
-            metadata = itemSection.metadata
-            items = mapToItems(itemSection.items, sectionIndex: index)
         }
-    }
-
-    func clickItem(item: Item) async {
-        Events.trigger(SectionClicked(
-            sectionId: section.id,
-            sectionName: section.title ?? "",
-            sectionPosition: index,
-            sectionType: section.__typename ?? "",
-            elementPosition: item.index,
-            elementType: item.type.rawValue,
-            elementId: item.id,
-            elementName: item.title,
-            pageCode: page.code
-        ))
-
-        if metadata?.useContext == true, let collectionId = metadata?.collectionId {
-            await _clickItem(item, API.EpisodeContext(collectionId: .init(stringLiteral: collectionId)))
-        } else {
-            await _clickItem(item, nil)
-        }
-    }
-
-    var body: some View {
-        if let items = items {
-            if !items.isEmpty {
-                switch section.__typename! {
-                case "PosterSection":
-                    PosterSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "PosterGridSection":
-                    PosterGridSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "FeaturedSection":
-                    FeaturedSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem,
-                        withLiveElement: metadata?.prependLiveElement == true
-                    )
-                case "DefaultSection":
-                    DefaultSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "DefaultGridSection":
-                    DefaultGridSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "IconSection":
-                    IconSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "IconGridSection":
-                    IconGridSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "CardSection":
-                    CardSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "LabelSection":
-                    LabelSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                default:
-                    MissingContent(section.__typename ?? "unknown type")
-                }
-            }
-        } else {
-            switch section.__typename {
-            case "MessageSection":
-                EmptyView()
-            case "PageDetailsSection":
-                PageDetailsSection(section.title, section.description)
-            case "AchievementSection":
-                EmptyView()
-            default:
-                MissingContent(section.__typename ?? "unknown type")
-            }
-        }
+        .focusable()
     }
 }
 
@@ -182,11 +45,13 @@ struct PageView: View {
                 ForEach(page.sections.items.indices, id: \.self) { index in
                     SectionView(page, index, clickItem: clickItem)
                 }
-            }.padding(100)
-        }.padding(-100)
-            .navigationTitle(page.title)
-            .onAppear {
-                Events.page(page.code)
             }
+            .padding(100)
+        }
+        .padding(-100)
+        .navigationTitle(page.title)
+        .onAppear {
+            Events.page(page.code)
+        }
     }
 }
