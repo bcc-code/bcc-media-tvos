@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class GetDefaultEpisodeIdForSeasonQuery: GraphQLQuery {
-    public static let operationName: String = "GetDefaultEpisodeIdForSeason"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "GetDefaultEpisodeIdForSeason"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         query GetDefaultEpisodeIdForSeason($id: ID!) {
@@ -29,48 +29,48 @@ public extension API {
 
     public var __variables: Variables? { ["id": id] }
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("season", Season.self, arguments: ["id": .variable("id")]),
       ] }
 
-      public var season: Season { __data["season"] }
+      var season: Season { __data["season"] }
 
       /// Season
       ///
       /// Parent Type: `Season`
-      public struct Season: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct Season: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.Season }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.Season }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("defaultEpisode", DefaultEpisode.self),
         ] }
 
         /// The default episode.
         /// Should not be used actively in lists, as it could affect query speeds.
-        public var defaultEpisode: DefaultEpisode { __data["defaultEpisode"] }
+        var defaultEpisode: DefaultEpisode { __data["defaultEpisode"] }
 
         /// Season.DefaultEpisode
         ///
         /// Parent Type: `Episode`
-        public struct DefaultEpisode: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct DefaultEpisode: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Episode }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Objects.Episode }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),
           ] }
 
-          public var id: API.ID { __data["id"] }
+          var id: API.ID { __data["id"] }
         }
       }
     }

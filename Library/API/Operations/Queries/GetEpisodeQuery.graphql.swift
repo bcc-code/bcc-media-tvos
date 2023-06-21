@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class GetEpisodeQuery: GraphQLQuery {
-    public static let operationName: String = "GetEpisode"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "GetEpisode"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         query GetEpisode($id: ID!, $context: EpisodeContext) {
@@ -58,29 +58,29 @@ public extension API {
       "context": context
     ] }
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("episode", Episode.self, arguments: [
           "id": .variable("id"),
           "context": .variable("context")
         ]),
       ] }
 
-      public var episode: Episode { __data["episode"] }
+      var episode: Episode { __data["episode"] }
 
       /// Episode
       ///
       /// Parent Type: `Episode`
-      public struct Episode: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct Episode: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.Episode }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.Episode }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.ID.self),
           .field("uuid", String.self),
@@ -97,72 +97,72 @@ public extension API {
           .field("season", Season?.self),
         ] }
 
-        public var id: API.ID { __data["id"] }
-        public var uuid: String { __data["uuid"] }
-        public var type: GraphQLEnum<API.EpisodeType> { __data["type"] }
-        public var title: String { __data["title"] }
-        public var image: String? { __data["image"] }
-        public var ageRating: String { __data["ageRating"] }
-        public var publishDate: API.Date { __data["publishDate"] }
-        public var description: String { __data["description"] }
-        public var progress: Int? { __data["progress"] }
-        public var locked: Bool { __data["locked"] }
-        public var inMyList: Bool { __data["inMyList"] }
+        var id: API.ID { __data["id"] }
+        var uuid: String { __data["uuid"] }
+        var type: GraphQLEnum<API.EpisodeType> { __data["type"] }
+        var title: String { __data["title"] }
+        var image: String? { __data["image"] }
+        var ageRating: String { __data["ageRating"] }
+        var publishDate: API.Date { __data["publishDate"] }
+        var description: String { __data["description"] }
+        var progress: Int? { __data["progress"] }
+        var locked: Bool { __data["locked"] }
+        var inMyList: Bool { __data["inMyList"] }
         /// Should probably be used asynchronously, and retrieved separately from the episode, as it can be slow in some cases (a few db requests can occur)
-        public var next: [Next] { __data["next"] }
-        public var season: Season? { __data["season"] }
+        var next: [Next] { __data["next"] }
+        var season: Season? { __data["season"] }
 
         /// Episode.Next
         ///
         /// Parent Type: `Episode`
-        public struct Next: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct Next: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Episode }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Objects.Episode }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),
           ] }
 
-          public var id: API.ID { __data["id"] }
+          var id: API.ID { __data["id"] }
         }
 
         /// Episode.Season
         ///
         /// Parent Type: `Season`
-        public struct Season: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct Season: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Season }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Objects.Season }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),
             .field("title", String.self),
             .field("show", Show.self),
           ] }
 
-          public var id: API.ID { __data["id"] }
-          public var title: String { __data["title"] }
-          public var show: Show { __data["show"] }
+          var id: API.ID { __data["id"] }
+          var title: String { __data["title"] }
+          var show: Show { __data["show"] }
 
           /// Episode.Season.Show
           ///
           /// Parent Type: `Show`
-          public struct Show: API.SelectionSet {
-            public let __data: DataDict
-            public init(_dataDict: DataDict) { __data = _dataDict }
+          struct Show: API.SelectionSet {
+            let __data: DataDict
+            init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: Apollo.ParentType { API.Objects.Show }
-            public static var __selections: [Apollo.Selection] { [
+            static var __parentType: Apollo.ParentType { API.Objects.Show }
+            static var __selections: [Apollo.Selection] { [
               .field("__typename", String.self),
               .field("id", API.ID.self),
               .field("title", String.self),
             ] }
 
-            public var id: API.ID { __data["id"] }
-            public var title: String { __data["title"] }
+            var id: API.ID { __data["id"] }
+            var title: String { __data["title"] }
           }
         }
       }

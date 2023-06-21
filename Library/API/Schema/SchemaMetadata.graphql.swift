@@ -3,19 +3,19 @@
 
 import Apollo
 
-public protocol API_SelectionSet: Apollo.SelectionSet & Apollo.RootSelectionSet
+protocol API_SelectionSet: Apollo.SelectionSet & Apollo.RootSelectionSet
 where Schema == API.SchemaMetadata {}
 
-public protocol API_InlineFragment: Apollo.SelectionSet & Apollo.InlineFragment
+protocol API_InlineFragment: Apollo.SelectionSet & Apollo.InlineFragment
 where Schema == API.SchemaMetadata {}
 
-public protocol API_MutableSelectionSet: Apollo.MutableRootSelectionSet
+protocol API_MutableSelectionSet: Apollo.MutableRootSelectionSet
 where Schema == API.SchemaMetadata {}
 
-public protocol API_MutableInlineFragment: Apollo.MutableSelectionSet & Apollo.InlineFragment
+protocol API_MutableInlineFragment: Apollo.MutableSelectionSet & Apollo.InlineFragment
 where Schema == API.SchemaMetadata {}
 
-public extension API {
+extension API {
   typealias ID = String
 
   typealias SelectionSet = API_SelectionSet
@@ -27,9 +27,9 @@ public extension API {
   typealias MutableInlineFragment = API_MutableInlineFragment
 
   enum SchemaMetadata: Apollo.SchemaMetadata {
-    public static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
+    static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
 
-    public static func objectType(forTypename typename: String) -> Object? {
+    static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       case "QueryRoot": return API.Objects.QueryRoot
       case "Calendar": return API.Objects.Calendar

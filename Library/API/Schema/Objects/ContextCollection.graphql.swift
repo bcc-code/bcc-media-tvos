@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API.Objects {
+extension API.Objects {
   static let ContextCollection = Object(
     typename: "ContextCollection",
     implementedInterfaces: []

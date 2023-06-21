@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API.Objects {
+extension API.Objects {
   static let FAQCategoryPagination = Object(
     typename: "FAQCategoryPagination",
     implementedInterfaces: [API.Interfaces.Pagination.self]

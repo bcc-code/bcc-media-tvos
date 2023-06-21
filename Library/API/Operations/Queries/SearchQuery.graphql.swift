@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class SearchQuery: GraphQLQuery {
-    public static let operationName: String = "Search"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "Search"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         query Search($query: String!, $collection: String!) {
@@ -42,44 +42,44 @@ public extension API {
       "collection": collection
     ] }
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("search", Search.self, arguments: [
           "queryString": .variable("query"),
           "type": .variable("collection")
         ]),
       ] }
 
-      public var search: Search { __data["search"] }
+      var search: Search { __data["search"] }
 
       /// Search
       ///
       /// Parent Type: `SearchResult`
-      public struct Search: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct Search: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.SearchResult }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.SearchResult }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("result", [Result].self),
         ] }
 
-        public var result: [Result] { __data["result"] }
+        var result: [Result] { __data["result"] }
 
         /// Search.Result
         ///
         /// Parent Type: `SearchResultItem`
-        public struct Result: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct Result: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Interfaces.SearchResultItem }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Interfaces.SearchResultItem }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),
             .field("title", String.self),
@@ -89,12 +89,12 @@ public extension API {
             .field("url", String.self),
           ] }
 
-          public var id: API.ID { __data["id"] }
-          public var title: String { __data["title"] }
-          public var description: String? { __data["description"] }
-          public var image: String? { __data["image"] }
-          public var highlight: String? { __data["highlight"] }
-          public var url: String { __data["url"] }
+          var id: API.ID { __data["id"] }
+          var title: String { __data["title"] }
+          var description: String? { __data["description"] }
+          var image: String? { __data["image"] }
+          var highlight: String? { __data["highlight"] }
+          var url: String { __data["url"] }
         }
       }
     }

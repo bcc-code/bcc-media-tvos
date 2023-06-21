@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class GetSetupQuery: GraphQLQuery {
-    public static let operationName: String = "getSetup"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "getSetup"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         query getSetup {
@@ -38,64 +38,64 @@ public extension API {
 
     public init() {}
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("me", Me.self),
         .field("application", Application.self),
       ] }
 
-      public var me: Me { __data["me"] }
-      public var application: Application { __data["application"] }
+      var me: Me { __data["me"] }
+      var application: Application { __data["application"] }
 
       /// Me
       ///
       /// Parent Type: `User`
-      public struct Me: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct Me: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.User }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.User }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.ID?.self),
           .field("bccMember", Bool.self),
           .field("analytics", Analytics.self),
         ] }
 
-        public var id: API.ID? { __data["id"] }
-        public var bccMember: Bool { __data["bccMember"] }
-        public var analytics: Analytics { __data["analytics"] }
+        var id: API.ID? { __data["id"] }
+        var bccMember: Bool { __data["bccMember"] }
+        var analytics: Analytics { __data["analytics"] }
 
         /// Me.Analytics
         ///
         /// Parent Type: `Analytics`
-        public struct Analytics: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct Analytics: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Analytics }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Objects.Analytics }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("anonymousId", String.self),
           ] }
 
-          public var anonymousId: String { __data["anonymousId"] }
+          var anonymousId: String { __data["anonymousId"] }
         }
       }
 
       /// Application
       ///
       /// Parent Type: `Application`
-      public struct Application: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct Application: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.Application }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.Application }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("code", String.self),
           .field("clientVersion", String.self),
@@ -103,41 +103,41 @@ public extension API {
           .field("searchPage", SearchPage?.self),
         ] }
 
-        public var code: String { __data["code"] }
-        public var clientVersion: String { __data["clientVersion"] }
-        public var page: Page? { __data["page"] }
-        public var searchPage: SearchPage? { __data["searchPage"] }
+        var code: String { __data["code"] }
+        var clientVersion: String { __data["clientVersion"] }
+        var page: Page? { __data["page"] }
+        var searchPage: SearchPage? { __data["searchPage"] }
 
         /// Application.Page
         ///
         /// Parent Type: `Page`
-        public struct Page: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct Page: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Page }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Objects.Page }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),
           ] }
 
-          public var id: API.ID { __data["id"] }
+          var id: API.ID { __data["id"] }
         }
 
         /// Application.SearchPage
         ///
         /// Parent Type: `Page`
-        public struct SearchPage: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct SearchPage: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.Page }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Objects.Page }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("id", API.ID.self),
           ] }
 
-          public var id: API.ID { __data["id"] }
+          var id: API.ID { __data["id"] }
         }
       }
     }

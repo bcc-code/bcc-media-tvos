@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API {
+extension API {
   enum StreamType: String, EnumType {
     case hlsTs = "hls_ts"
     case hlsCmaf = "hls_cmaf"

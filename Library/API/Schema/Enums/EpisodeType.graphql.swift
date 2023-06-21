@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API {
+extension API {
   enum EpisodeType: String, EnumType {
     case episode = "episode"
     case standalone = "standalone"

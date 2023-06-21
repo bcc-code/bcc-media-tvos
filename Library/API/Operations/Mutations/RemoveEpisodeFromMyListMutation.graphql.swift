@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class RemoveEpisodeFromMyListMutation: GraphQLMutation {
-    public static let operationName: String = "RemoveEpisodeFromMyList"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "RemoveEpisodeFromMyList"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         mutation RemoveEpisodeFromMyList($id: UUID!) {
@@ -26,31 +26,31 @@ public extension API {
 
     public var __variables: Variables? { ["id": id] }
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.MutationRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.MutationRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("removeEntryFromMyList", RemoveEntryFromMyList.self, arguments: ["entryId": .variable("id")]),
       ] }
 
-      public var removeEntryFromMyList: RemoveEntryFromMyList { __data["removeEntryFromMyList"] }
+      var removeEntryFromMyList: RemoveEntryFromMyList { __data["removeEntryFromMyList"] }
 
       /// RemoveEntryFromMyList
       ///
       /// Parent Type: `UserCollection`
-      public struct RemoveEntryFromMyList: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct RemoveEntryFromMyList: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.UserCollection }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.UserCollection }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.UUID.self),
         ] }
 
-        public var id: API.UUID { __data["id"] }
+        var id: API.UUID { __data["id"] }
       }
     }
   }

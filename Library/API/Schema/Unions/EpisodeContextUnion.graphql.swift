@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API.Unions {
+extension API.Unions {
   static let EpisodeContextUnion = Union(
     name: "EpisodeContextUnion",
     possibleTypes: [

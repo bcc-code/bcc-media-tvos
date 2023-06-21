@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API.Objects {
+extension API.Objects {
   static let EpisodeSearchItem = Object(
     typename: "EpisodeSearchItem",
     implementedInterfaces: [API.Interfaces.SearchResultItem.self]

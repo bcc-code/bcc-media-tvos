@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API.Objects {
+extension API.Objects {
   static let WebSection = Object(
     typename: "WebSection",
     implementedInterfaces: [API.Interfaces.Section.self]

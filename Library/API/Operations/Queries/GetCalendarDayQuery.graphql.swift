@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class GetCalendarDayQuery: GraphQLQuery {
-    public static let operationName: String = "GetCalendarDay"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "GetCalendarDay"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         query GetCalendarDay($day: Date!) {
@@ -40,74 +40,74 @@ public extension API {
 
     public var __variables: Variables? { ["day": day] }
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.QueryRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("calendar", Calendar?.self),
       ] }
 
-      public var calendar: Calendar? { __data["calendar"] }
+      var calendar: Calendar? { __data["calendar"] }
 
       /// Calendar
       ///
       /// Parent Type: `Calendar`
-      public struct Calendar: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct Calendar: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.Calendar }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.Calendar }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("day", Day.self, arguments: ["day": .variable("day")]),
         ] }
 
-        public var day: Day { __data["day"] }
+        var day: Day { __data["day"] }
 
         /// Calendar.Day
         ///
         /// Parent Type: `CalendarDay`
-        public struct Day: API.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+        struct Day: API.SelectionSet {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: Apollo.ParentType { API.Objects.CalendarDay }
-          public static var __selections: [Apollo.Selection] { [
+          static var __parentType: Apollo.ParentType { API.Objects.CalendarDay }
+          static var __selections: [Apollo.Selection] { [
             .field("__typename", String.self),
             .field("events", [Event].self),
             .field("entries", [Entry].self),
           ] }
 
-          public var events: [Event] { __data["events"] }
-          public var entries: [Entry] { __data["entries"] }
+          var events: [Event] { __data["events"] }
+          var entries: [Entry] { __data["entries"] }
 
           /// Calendar.Day.Event
           ///
           /// Parent Type: `Event`
-          public struct Event: API.SelectionSet {
-            public let __data: DataDict
-            public init(_dataDict: DataDict) { __data = _dataDict }
+          struct Event: API.SelectionSet {
+            let __data: DataDict
+            init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: Apollo.ParentType { API.Objects.Event }
-            public static var __selections: [Apollo.Selection] { [
+            static var __parentType: Apollo.ParentType { API.Objects.Event }
+            static var __selections: [Apollo.Selection] { [
               .field("__typename", String.self),
               .field("title", String.self),
             ] }
 
-            public var title: String { __data["title"] }
+            var title: String { __data["title"] }
           }
 
           /// Calendar.Day.Entry
           ///
           /// Parent Type: `CalendarEntry`
-          public struct Entry: API.SelectionSet {
-            public let __data: DataDict
-            public init(_dataDict: DataDict) { __data = _dataDict }
+          struct Entry: API.SelectionSet {
+            let __data: DataDict
+            init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: Apollo.ParentType { API.Interfaces.CalendarEntry }
-            public static var __selections: [Apollo.Selection] { [
+            static var __parentType: Apollo.ParentType { API.Interfaces.CalendarEntry }
+            static var __selections: [Apollo.Selection] { [
               .field("__typename", String.self),
               .field("id", API.ID.self),
               .field("title", String.self),
@@ -116,11 +116,11 @@ public extension API {
               .field("description", String.self),
             ] }
 
-            public var id: API.ID { __data["id"] }
-            public var title: String { __data["title"] }
-            public var start: API.Date { __data["start"] }
-            public var end: API.Date { __data["end"] }
-            public var description: String { __data["description"] }
+            var id: API.ID { __data["id"] }
+            var title: String { __data["title"] }
+            var start: API.Date { __data["start"] }
+            var end: API.Date { __data["end"] }
+            var description: String { __data["description"] }
           }
         }
       }

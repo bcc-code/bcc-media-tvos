@@ -3,15 +3,15 @@
 
 import Apollo
 
-public extension API {
+extension API {
   struct EpisodeContext: InputObject {
-    public private(set) var __data: InputDict
+    private(set) var __data: InputDict
 
-    public init(_ data: InputDict) {
+    init(_ data: InputDict) {
       __data = data
     }
 
-    public init(
+    init(
       collectionId: GraphQLNullable<String> = nil
     ) {
       __data = InputDict([
@@ -19,7 +19,7 @@ public extension API {
       ])
     }
 
-    public var collectionId: GraphQLNullable<String> {
+    var collectionId: GraphQLNullable<String> {
       get { __data["collectionId"] }
       set { __data["collectionId"] = newValue }
     }

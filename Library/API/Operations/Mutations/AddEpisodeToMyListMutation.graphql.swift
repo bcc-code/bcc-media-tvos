@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class AddEpisodeToMyListMutation: GraphQLMutation {
-    public static let operationName: String = "AddEpisodeToMyList"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "AddEpisodeToMyList"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         mutation AddEpisodeToMyList($id: ID!) {
@@ -26,31 +26,31 @@ public extension API {
 
     public var __variables: Variables? { ["id": id] }
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.MutationRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.MutationRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("addEpisodeToMyList", AddEpisodeToMyList.self, arguments: ["episodeId": .variable("id")]),
       ] }
 
-      public var addEpisodeToMyList: AddEpisodeToMyList { __data["addEpisodeToMyList"] }
+      var addEpisodeToMyList: AddEpisodeToMyList { __data["addEpisodeToMyList"] }
 
       /// AddEpisodeToMyList
       ///
       /// Parent Type: `AddToCollectionResult`
-      public struct AddEpisodeToMyList: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct AddEpisodeToMyList: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.AddToCollectionResult }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.AddToCollectionResult }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("entryId", API.UUID.self),
         ] }
 
-        public var entryId: API.UUID { __data["entryId"] }
+        var entryId: API.UUID { __data["entryId"] }
       }
     }
   }

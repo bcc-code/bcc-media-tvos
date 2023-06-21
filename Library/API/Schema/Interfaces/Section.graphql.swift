@@ -3,6 +3,6 @@
 
 import Apollo
 
-public extension API.Interfaces {
+extension API.Interfaces {
   static let Section = Interface(name: "Section")
 }

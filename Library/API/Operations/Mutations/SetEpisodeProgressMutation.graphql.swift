@@ -3,10 +3,10 @@
 
 @_exported import Apollo
 
-public extension API {
+extension API {
   class SetEpisodeProgressMutation: GraphQLMutation {
-    public static let operationName: String = "SetEpisodeProgress"
-    public static let document: Apollo.DocumentType = .notPersisted(
+    static let operationName: String = "SetEpisodeProgress"
+    static let document: Apollo.DocumentType = .notPersisted(
       definition: .init(
         #"""
         mutation SetEpisodeProgress($id: ID!, $progress: Int) {
@@ -34,34 +34,34 @@ public extension API {
       "progress": progress
     ] }
 
-    public struct Data: API.SelectionSet {
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+    struct Data: API.SelectionSet {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: Apollo.ParentType { API.Objects.MutationRoot }
-      public static var __selections: [Apollo.Selection] { [
+      static var __parentType: Apollo.ParentType { API.Objects.MutationRoot }
+      static var __selections: [Apollo.Selection] { [
         .field("setEpisodeProgress", SetEpisodeProgress.self, arguments: [
           "id": .variable("id"),
           "progress": .variable("progress")
         ]),
       ] }
 
-      public var setEpisodeProgress: SetEpisodeProgress { __data["setEpisodeProgress"] }
+      var setEpisodeProgress: SetEpisodeProgress { __data["setEpisodeProgress"] }
 
       /// SetEpisodeProgress
       ///
       /// Parent Type: `Episode`
-      public struct SetEpisodeProgress: API.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
+      struct SetEpisodeProgress: API.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: Apollo.ParentType { API.Objects.Episode }
-        public static var __selections: [Apollo.Selection] { [
+        static var __parentType: Apollo.ParentType { API.Objects.Episode }
+        static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .field("id", API.ID.self),
         ] }
 
-        public var id: API.ID { __data["id"] }
+        var id: API.ID { __data["id"] }
       }
     }
   }

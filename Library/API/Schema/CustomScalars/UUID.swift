@@ -7,7 +7,7 @@
 
 import Apollo
 
-public extension API {
+extension API {
   typealias UUID = String
 
 }

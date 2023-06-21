@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API.Objects {
+extension API.Objects {
   static let AchievementSection = Object(
     typename: "AchievementSection",
     implementedInterfaces: [API.Interfaces.Section.self]

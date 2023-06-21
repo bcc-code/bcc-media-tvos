@@ -31,17 +31,20 @@ private class NetworkInterceptorProvider: DefaultInterceptorProvider {
 }
 
 private class CustomInterceptor: ApolloInterceptor {
+    var id: String
+    
     var tokenFactory: TokenFactory
 
     init(tokenFactory: @escaping TokenFactory) {
         self.tokenFactory = tokenFactory
+        self.id = "custom"
     }
 
     func interceptAsync<Operation: GraphQLOperation>(
-            chain: RequestChain,
-            request: HTTPRequest<Operation>,
-            response: HTTPResponse<Operation>?,
-            completion: @escaping (Swift.Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        chain: RequestChain,
+        request: HTTPRequest<Operation>,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
 
         Task {
             do {
@@ -54,6 +57,7 @@ private class CustomInterceptor: ApolloInterceptor {
                 
                 chain.proceedAsync(request: request,
                         response: response,
+                        interceptor: self,
                         completion: completion)
             } catch {
                 print(error)

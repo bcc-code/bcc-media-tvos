@@ -3,7 +3,7 @@
 
 import Apollo
 
-public extension API.Objects {
+extension API.Objects {
   static let SimpleCalendarEntry = Object(
     typename: "SimpleCalendarEntry",
     implementedInterfaces: [API.Interfaces.CalendarEntry.self]
