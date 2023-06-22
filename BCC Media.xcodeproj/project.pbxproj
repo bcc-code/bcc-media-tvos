@@ -208,6 +208,10 @@
 		09A41BA72A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */; };
 		09BAF1A12A445F9B00DDE27E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A02A445F9B00DDE27E /* Utils.swift */; };
 		09BAF1A22A445F9B00DDE27E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A02A445F9B00DDE27E /* Utils.swift */; };
+		09BAF1A52A446F2C00DDE27E /* YouboraPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A42A446F2C00DDE27E /* YouboraPlugin.swift */; };
+		09BAF1A72A446F3F00DDE27E /* PlayerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A62A446F3F00DDE27E /* PlayerOptions.swift */; };
+		09BAF1A92A446FE900DDE27E /* PlayerListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A82A446FE900DDE27E /* PlayerListener.swift */; };
+		09BAF1AB2A44707800DDE27E /* PlayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1AA2A44707800DDE27E /* PlayerExtensions.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CB225A29F7D82300201AAE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221429F7D82300201AAE /* Client.swift */; };
@@ -409,6 +413,10 @@
 		09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.graphql.swift; sourceTree = "<group>"; };
 		09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSetupQuery.graphql.swift; sourceTree = "<group>"; };
 		09BAF1A02A445F9B00DDE27E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		09BAF1A42A446F2C00DDE27E /* YouboraPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouboraPlugin.swift; sourceTree = "<group>"; };
+		09BAF1A62A446F3F00DDE27E /* PlayerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOptions.swift; sourceTree = "<group>"; };
+		09BAF1A82A446FE900DDE27E /* PlayerListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListener.swift; sourceTree = "<group>"; };
+		09BAF1AA2A44707800DDE27E /* PlayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerExtensions.swift; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -514,12 +522,12 @@
 		0943E18429BB363F0016348C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				09BAF1A32A446F0100DDE27E /* Player */,
 				09113AFE29C081710087B9A2 /* Page */,
 				0943E18529BB364B0016348C /* Sections */,
 				2D64EACA7247B2B605E740B3 /* Episodes */,
 				09083C3E2A03B02000A61EF9 /* ItemImage.swift */,
 				09083C402A03B04400A61EF9 /* LockView.swift */,
-				09083C422A03B06800A61EF9 /* PlayerViewController.swift */,
 				09E17B892A1755C2004CFD28 /* CalendarDay.swift */,
 			);
 			path = Components;
@@ -710,6 +718,18 @@
 				0990D3AF29F95AFC00B99D35 /* SearchQuery.graphql.swift */,
 			);
 			path = Queries;
+			sourceTree = "<group>";
+		};
+		09BAF1A32A446F0100DDE27E /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				09083C422A03B06800A61EF9 /* PlayerViewController.swift */,
+				09BAF1A62A446F3F00DDE27E /* PlayerOptions.swift */,
+				09BAF1A82A446FE900DDE27E /* PlayerListener.swift */,
+				09BAF1AA2A44707800DDE27E /* PlayerExtensions.swift */,
+				09BAF1A42A446F2C00DDE27E /* YouboraPlugin.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		09CB211729F7BD9900201AAE /* Frameworks */ = {
@@ -1221,11 +1241,13 @@
 				0990D3DF29F95AFC00B99D35 /* IconGridSection.graphql.swift in Sources */,
 				0990D3DD29F95AFC00B99D35 /* EpisodePagination.graphql.swift in Sources */,
 				09CB225B29F7D82300201AAE /* AuthenticationProvider.swift in Sources */,
+				09BAF1AB2A44707800DDE27E /* PlayerExtensions.swift in Sources */,
 				094056DB2A0CC1C7004781A3 /* CalendarEntry.graphql.swift in Sources */,
 				09D7C0CC2A388E0D00766C82 /* FrontPage.swift in Sources */,
 				2D64E1490AEFDC0AFB644FD8 /* Settings.swift in Sources */,
 				0990D3C129F95AFC00B99D35 /* FeaturedSection.graphql.swift in Sources */,
 				09083C2F2A01237E00A61EF9 /* GetDefaultEpisodeIdForStudyTopicQuery.graphql.swift in Sources */,
+				09BAF1A92A446FE900DDE27E /* PlayerListener.swift in Sources */,
 				09E17B092A126985004CFD28 /* ProgressBar.swift in Sources */,
 				0990D3E529F95AFC00B99D35 /* QueryRoot.graphql.swift in Sources */,
 				09083C342A0123B500A61EF9 /* Lesson.graphql.swift in Sources */,
@@ -1242,6 +1264,7 @@
 				094056D82A0CC1B8004781A3 /* GetCalendarDayQuery.graphql.swift in Sources */,
 				094056E62A0CC1D5004781A3 /* Calendar.graphql.swift in Sources */,
 				094056EC2A0CC1D5004781A3 /* EpisodeCalendarEntry.graphql.swift in Sources */,
+				09BAF1A72A446F3F00DDE27E /* PlayerOptions.swift in Sources */,
 				0990D3C529F95AFC00B99D35 /* CardSection.graphql.swift in Sources */,
 				097BE7A52A31F25300F8D309 /* Game.graphql.swift in Sources */,
 				0990D40529F95AFC00B99D35 /* Application.graphql.swift in Sources */,
@@ -1258,6 +1281,7 @@
 				096CF4432A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift in Sources */,
 				09083C3B2A0263D800A61EF9 /* DefaultGridSection.swift in Sources */,
 				0990D42B29F95AFC00B99D35 /* GetEpisodeSeasonQuery.graphql.swift in Sources */,
+				09BAF1A52A446F2C00DDE27E /* YouboraPlugin.swift in Sources */,
 				0990D42929F95AFC00B99D35 /* GetEpisodeQuery.graphql.swift in Sources */,
 				0990D42729F95AFC00B99D35 /* SearchQuery.graphql.swift in Sources */,
 				2D64EE9D3AD5A212F3087105 /* SectionView.swift in Sources */,
@@ -1320,7 +1344,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.0.9;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1349,7 +1373,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.0.9;
+				MARKETING_VERSION = 4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
