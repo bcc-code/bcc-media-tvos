@@ -41,10 +41,10 @@ struct FeaturedCard: View {
                 .padding(.zero)
                 .overlay(
                     VStack(alignment: .leading, spacing: 20) {
-                        Text(item.title).font(.title3)
+                        Text(item.title).font(.barlowTitle)
 
                         if item.description != "" {
-                            Text(item.description).font(.caption).foregroundColor(.gray)
+                            Text(item.description).font(.barlowCaption).foregroundColor(.gray)
                         }
                     }.padding([.bottom, .horizontal], 50),
 
@@ -81,7 +81,7 @@ struct FeaturedSection: View {
                 LazyHStack(alignment: .top, spacing: 20) {
                     if withLiveElement {
                         VStack(alignment: .leading) {
-                            Text("common_live").font(.title3)
+                            Text("common_live").font(.barlowTitle)
                             NavigationLink {
                                 LivePlayer().ignoresSafeArea()
                             } label: {

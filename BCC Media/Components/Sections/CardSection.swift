@@ -32,8 +32,8 @@ private struct CardSectionItem: View {
                     ItemImage(item.image)
                         .frame(width: 400, height: 225).cornerRadius(10)
                     VStack(alignment: .leading) {
-                        Text(item.title)
-                        Text(item.description).font(.caption2).foregroundColor(.gray)
+                        Text(item.title).font(.barlow)
+                        Text(item.description).font(.barlowCaption).foregroundColor(.gray)
                     }.padding(.horizontal, 20).padding(.bottom, 10)
                     Spacer()
                 }.background(cardBackgroundColor).frame(width: 400).cornerRadius(10)
@@ -66,7 +66,7 @@ struct CardSection: View {
     var body: some View {
         VStack {
             if let t = title {
-                Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+                SectionTitle(t)
             }
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 40) {

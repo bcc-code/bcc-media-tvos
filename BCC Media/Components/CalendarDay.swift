@@ -64,12 +64,12 @@ struct EntryView: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                Text(isoStringHours(entry.start)).bold()
-                Text(isoStringDuration(entry.start, entry.end)).font(.caption2).foregroundColor(.gray)
+                Text(isoStringHours(entry.start)).font(.barlowCaption).bold()
+                Text(isoStringDuration(entry.start, entry.end)).font(.barlowCaption).foregroundColor(.gray)
             }
             VStack(alignment: .leading) {
-                Text(entry.title).bold()
-                Text(entry.description).font(.caption2).foregroundColor(.blue)
+                Text(entry.title).font(.barlowCaption).bold()
+                Text(entry.description).font(.barlowCaption).foregroundColor(.blue)
             }
         }
         .padding(10)
@@ -126,10 +126,10 @@ struct CalendarDay: View {
                     }.padding(-20).padding(.vertical, 5)
                 }
                 Spacer()
-                Text("calendar_timetableInLocalTime")
+                Text("calendar_timetableInLocalTime").font(.barlowCaption)
             } else {
                 HStack(alignment: .top) {
-                    Text("calendar_noScheduledEvents").foregroundColor(.gray).bold()
+                    Text("calendar_noScheduledEvents").font(.barlowCaption).foregroundColor(.gray).bold()
                 }.padding(.top, 40)
                 Spacer()
             }

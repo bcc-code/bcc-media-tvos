@@ -23,7 +23,7 @@ struct PosterGridSection: View {
     var body: some View {
         VStack {
             if let t = title {
-                Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+                SectionTitle(t)
             }
             ScrollView(.vertical) {
                 LazyVGrid(columns: columns, spacing: 20) {

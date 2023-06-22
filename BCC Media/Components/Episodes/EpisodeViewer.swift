@@ -37,12 +37,12 @@ struct EpisodeHeader: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(episode.title).font(.title2)
+                    Text(episode.title).font(.barlowTitle)
                     HStack(spacing: 5) {
-                        Text(episode.ageRating).padding([.horizontal], 10).padding(.vertical, 5).background(
+                        Text(episode.ageRating).font(.barlow).padding([.horizontal], 10).padding(.vertical, 5).background(
                             Rectangle().foregroundColor(cardBackgroundColor)).cornerRadius(10)
                         if let s = season {
-                            Text(s.show.title).font(.subheadline).foregroundColor(.blue)
+                            Text(s.show.title).font(.barlow).foregroundColor(.blue)
                         }
                     }
                 }
@@ -60,7 +60,7 @@ struct EpisodeHeader: View {
                     }.buttonStyle(.plain)
                 }
             }
-            Text(episode.description).font(.caption)
+            Text(episode.description).font(.barlowCaption)
         }.padding(.vertical, 20)
             .onAppear {
                 inMyList = episode.inMyList
@@ -71,7 +71,7 @@ struct EpisodeHeader: View {
                 } else {
                     apolloClient.perform(mutation: API.RemoveEpisodeFromMyListMutation(id: API.UUID(episode.uuid)))
                 }
-            }
+            }.font(.barlow)
     }
 }
 
@@ -110,8 +110,8 @@ struct EpisodeListItem: View {
                     }
                 )
                 VStack(alignment: .leading) {
-                    Text(title).font(.subheadline)
-                    Text(description).font(.caption2).foregroundColor(.gray)
+                    Text(title).font(.barlow)
+                    Text(description).font(.barlowCaption).foregroundColor(.gray)
                 }.padding(20)
                 Spacer()
             }.frame(maxWidth: .infinity).background(cardBackgroundColor)
@@ -177,12 +177,12 @@ struct EpisodeViewer: View {
                 HStack {
                     Picker(String(localized: "common_tab"), selection: $tab) {
                         if items != nil {
-                            Text("common_videos").tag(Tab.collection)
+                            Text("common_videos").tag(Tab.collection).font(.barlow)
                         } else if episode.type == .episode {
-                            Text("common_episodes").tag(Tab.season)
+                            Text("common_episodes").tag(Tab.season).font(.barlow)
                         }
                         Text("common_details").tag(Tab.details)
-                    }.pickerStyle(.segmented)
+                    }.pickerStyle(.segmented).font(.barlow)
                 }
                 switch tab {
                 case .collection:
@@ -202,9 +202,9 @@ struct EpisodeViewer: View {
                         if let s = season {
                             Picker(String(localized: "common_seasons"), selection: $seasonId) {
                                 ForEach(s.show.seasons.items, id: \.id) { se in
-                                    Text(se.title).tag(se.id)
+                                    Text(se.title).tag(se.id).font(.barlow)
                                 }
-                            }.pickerStyle(.navigationLink).disabled(s.show.seasons.items.count <= 1)
+                            }.pickerStyle(.navigationLink).font(.barlow).disabled(s.show.seasons.items.count <= 1)
                             VStack(alignment: .leading, spacing: 20) {
                                 ForEach(s.episodes.items, id: \.id) { ep in
                                     EpisodeListItem(title: ep.title, description: ep.description, image: ep.image) {
@@ -217,12 +217,12 @@ struct EpisodeViewer: View {
                 case .details:
                     VStack(alignment: .leading) {
                         if let s = season {
-                            Text("shows_description").bold().font(.caption)
-                            Text(s.show.description).font(.caption2).foregroundColor(.gray)
+                            Text("shows_description").bold().font(.barlow)
+                            Text(s.show.description).font(.barlowCaption).foregroundColor(.gray)
                         }
                         Spacer()
-                        Text("episodes_releaseDate").bold().font(.caption)
-                        Text(toDateString(episode.publishDate)).font(.caption2).foregroundColor(.gray)
+                        Text("episodes_releaseDate").bold().font(.barlow)
+                        Text(toDateString(episode.publishDate)).font(.barlowCaption).foregroundColor(.gray)
                         Spacer()
                     }.focusable()
                 }

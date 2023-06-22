@@ -26,7 +26,7 @@ struct AboutUsView: View {
                     + Text(contactString.split(separator: "$email")[1])
                 Text(privacyPolicyString.split(separator: "$url")[0])
                     + Text("bcc.media/no/personvern").foregroundColor(.blue)
-            }.focusable().font(.callout)
+            }.focusable().font(.barlow)
             HStack {
                 Spacer()
                 Button {

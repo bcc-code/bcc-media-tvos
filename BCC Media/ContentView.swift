@@ -234,13 +234,13 @@ struct ContentView: View {
         TabView(selection: $tab) {
             FrontPage(page: frontPage, clickItem: clickItem)
                 .tabItem {
-                    Label("tab_home", systemImage: "house.fill")
+                    Label("tab_home", systemImage: "house.fill").font(.barlow)
                 }.tag(TabType.pages)
             if authenticated && bccMember {
                 LiveView {
                     path.append(StaticDestination.live)
                 }.tabItem {
-                    Label("tab_live", systemImage: "video")
+                    Label("tab_live", systemImage: "video").font(.barlow)
                 }.tag(TabType.live)
             }
             SearchView(
@@ -248,7 +248,7 @@ struct ContentView: View {
                 clickItem: clickItem,
                 playCallback: playCallbackWithContext(nil, progress: true)
             ).tabItem {
-                Label("tab_search", systemImage: "magnifyingglass")
+                Label("tab_search", systemImage: "magnifyingglass").font(.barlow)
             }.tag(TabType.search)
             SettingsView(
                 path: $path,
@@ -265,9 +265,9 @@ struct ContentView: View {
                 loading: loading
             )
             .tabItem {
-                Label("tab_settings", systemImage: "gearshape.fill")
+                Label("tab_settings", systemImage: "gearshape.fill").font(.barlow)
             }.tag(TabType.settings)
-        }.disabled(!authenticated && !onboarded)
+        }.disabled(!authenticated && !onboarded).font(.barlow)
     }
 
     var body: some View {
@@ -285,8 +285,8 @@ struct ContentView: View {
                                     VStack(alignment: .leading) {
                                         Spacer()
                                         VStack(alignment: .leading) {
-                                            Text("onboard_title").font(.title2)
-                                            Text("onboard_description").foregroundColor(.gray)
+                                            Text("onboard_title").font(.barlowTitle)
+                                            Text("onboard_description").font(.barlow).foregroundColor(.gray)
                                         }
                                         Spacer()
                                         Button("onboard_login") {

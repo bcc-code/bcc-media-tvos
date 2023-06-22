@@ -40,7 +40,7 @@ struct SignInView: View {
                         Text(localizedGotoString.split(separator: "$url")[1].split(separator: "$code")[0])
                 }
                 Spacer().frame(height: 30)
-                Text(code).font(.title)
+                Text(code).font(.barlowTitle)
                 Spacer().frame(height: 100)
                 Button("Cancel") {
                     dismiss()

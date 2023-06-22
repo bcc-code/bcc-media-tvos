@@ -38,7 +38,7 @@ struct ProgressBar: View {
                 } else {
                     Spacer()
                 }
-                Text(durationToString(duration)).font(.caption2).shadow(color: .black, radius: 2)
+                Text(durationToString(duration)).font(.barlowCaption).shadow(color: .black, radius: 2)
             }
         }.padding([.bottom, .horizontal], 10)
     }

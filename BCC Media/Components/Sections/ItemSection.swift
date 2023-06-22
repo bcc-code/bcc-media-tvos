@@ -52,8 +52,20 @@ struct ItemTitle: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(item.title).font(.caption2)
+            Text(item.title).font(.barlowCaption)
         }
+    }
+}
+
+struct SectionTitle: View {
+    var title: String
+
+    init(_ title: String) {
+        self.title = title
+    }
+
+    var body: some View {
+        Text(title).font(.barlowTitle).frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

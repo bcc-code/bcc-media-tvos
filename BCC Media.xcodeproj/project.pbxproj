@@ -212,6 +212,9 @@
 		09BAF1A72A446F3F00DDE27E /* PlayerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A62A446F3F00DDE27E /* PlayerOptions.swift */; };
 		09BAF1A92A446FE900DDE27E /* PlayerListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A82A446FE900DDE27E /* PlayerListener.swift */; };
 		09BAF1AB2A44707800DDE27E /* PlayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1AA2A44707800DDE27E /* PlayerExtensions.swift */; };
+		09BAF1B22A4472FD00DDE27E /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09BAF1B02A4472FD00DDE27E /* Barlow-Regular.ttf */; };
+		09BAF1B32A4472FD00DDE27E /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09BAF1B12A4472FD00DDE27E /* Barlow-Bold.ttf */; };
+		09BAF1B52A44735900DDE27E /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1B42A44735900DDE27E /* Font.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CB225A29F7D82300201AAE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221429F7D82300201AAE /* Client.swift */; };
@@ -417,6 +420,9 @@
 		09BAF1A62A446F3F00DDE27E /* PlayerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOptions.swift; sourceTree = "<group>"; };
 		09BAF1A82A446FE900DDE27E /* PlayerListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListener.swift; sourceTree = "<group>"; };
 		09BAF1AA2A44707800DDE27E /* PlayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerExtensions.swift; sourceTree = "<group>"; };
+		09BAF1B02A4472FD00DDE27E /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
+		09BAF1B12A4472FD00DDE27E /* Barlow-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Bold.ttf"; sourceTree = "<group>"; };
+		09BAF1B42A44735900DDE27E /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -484,6 +490,7 @@
 		09083C442A03DAB600A61EF9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				09BAF1AF2A4472E300DDE27E /* Fonts */,
 				09F655612A1CC57400625555 /* OnboardBackground.png */,
 				09F6555F2A1CA00D00625555 /* OnboardArt.png */,
 				09E17B4D2A13893A004CFD28 /* Live.png */,
@@ -567,6 +574,7 @@
 				09083C362A0254D600A61EF9 /* Episodes.swift */,
 				09A41AF12A0E619300C737D0 /* AppOptions.swift */,
 				09E17AF42A124726004CFD28 /* Events.swift */,
+				09BAF1B42A44735900DDE27E /* Font.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -730,6 +738,15 @@
 				09BAF1A42A446F2C00DDE27E /* YouboraPlugin.swift */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		09BAF1AF2A4472E300DDE27E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				09BAF1B12A4472FD00DDE27E /* Barlow-Bold.ttf */,
+				09BAF1B02A4472FD00DDE27E /* Barlow-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		09CB211729F7BD9900201AAE /* Frameworks */ = {
@@ -971,9 +988,11 @@
 				09E17B472A137BE2004CFD28 /* LogoBanner.png in Resources */,
 				09F655622A1CC57400625555 /* OnboardBackground.png in Resources */,
 				09E17B4E2A13893A004CFD28 /* Live.png in Resources */,
+				09BAF1B22A4472FD00DDE27E /* Barlow-Regular.ttf in Resources */,
 				2D64ED9F85682E932301E953 /* Assets.xcassets in Resources */,
 				09F655602A1CA00D00625555 /* OnboardArt.png in Resources */,
 				09F503FB29ED3C2900D09674 /* Auth0.plist in Resources */,
+				09BAF1B32A4472FD00DDE27E /* Barlow-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1172,6 +1191,7 @@
 				0990D41329F95AFC00B99D35 /* SchemaConfiguration.swift in Sources */,
 				09083C432A03B06800A61EF9 /* PlayerViewController.swift in Sources */,
 				09F655652A260C8100625555 /* CI.swift in Sources */,
+				09BAF1B52A44735900DDE27E /* Font.swift in Sources */,
 				0990D42129F95AFC00B99D35 /* API.graphql.swift in Sources */,
 				2D64E760D19676027A4A33F5 /* ContentView.swift in Sources */,
 				0990D3B529F95AFC00B99D35 /* SectionItemType.graphql.swift in Sources */,
@@ -1332,7 +1352,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
@@ -1361,7 +1381,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
@@ -1391,7 +1411,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;
@@ -1399,6 +1419,7 @@
 				INFOPLIST_FILE = "BCC-Media-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arm64;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1537,7 +1558,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
 				ENABLE_PREVIEWS = YES;
@@ -1545,6 +1566,7 @@
 				INFOPLIST_FILE = "BCC-Media-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arm64;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -75,7 +75,7 @@ struct LiveView: View {
                 .focused($isFocused)
                 .accessibilityLabel(Text("common_live"))
                 VStack {
-                    Text("common_live").font(.title).bold()
+                    Text("common_live").font(.barlowTitle).bold()
                 }
                 Spacer()
             }

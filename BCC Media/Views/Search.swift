@@ -99,7 +99,7 @@ struct SearchView: View {
                 }.padding(-100)
             }
         }
-        .searchable(text: $queryString)
+        .searchable(text: $queryString).font(.barlow)
         .onChange(of: queryString) { query in
             Task {
                 await getResult(query)

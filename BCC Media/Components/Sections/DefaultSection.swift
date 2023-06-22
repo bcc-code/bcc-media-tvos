@@ -23,7 +23,7 @@ struct DefaultSection: View {
     var body: some View {
         VStack {
             if let t = title {
-                Text(t).font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+                SectionTitle(t)
             }
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 20) {

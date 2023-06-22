@@ -120,7 +120,7 @@ struct SettingsView: View {
         }.frame(maxWidth: 800)
             .onAppear {
                 Events.page("settings")
-            }
+            }.font(.barlow)
     }
 }
 

@@ -19,10 +19,10 @@ struct PageDetailsSection: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let t = title {
-                Text(t).font(.title3)
+                Text(t).font(.barlowTitle)
             }
             if let d = description {
-                Text(d).font(.caption).foregroundColor(.gray)
+                Text(d).font(.barlowCaption).foregroundColor(.gray)
             }
         }
         .focusable()
