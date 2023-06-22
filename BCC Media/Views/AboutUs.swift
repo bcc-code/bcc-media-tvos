@@ -43,14 +43,6 @@ struct AboutUsView: View {
     }
 }
 
-extension AboutUsView: Hashable {
-    static func == (_: AboutUsView, _: AboutUsView) -> Bool {
-        true
-    }
-
-    func hash(into _: inout Hasher) {}
-}
-
 struct AboutUsView_Previews: PreviewProvider {
     static var previews: some View {
         AboutUsView()

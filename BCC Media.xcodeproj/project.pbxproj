@@ -206,6 +206,8 @@
 		09A41BA42A0E6AEA00C737D0 /* Analytics.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */; };
 		09A41BA62A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */; };
 		09A41BA72A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */; };
+		09BAF1A12A445F9B00DDE27E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A02A445F9B00DDE27E /* Utils.swift */; };
+		09BAF1A22A445F9B00DDE27E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A02A445F9B00DDE27E /* Utils.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CB225A29F7D82300201AAE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221429F7D82300201AAE /* Client.swift */; };
@@ -406,6 +408,7 @@
 		09A41B9F2A0E6AE900C737D0 /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
 		09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.graphql.swift; sourceTree = "<group>"; };
 		09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSetupQuery.graphql.swift; sourceTree = "<group>"; };
+		09BAF1A02A445F9B00DDE27E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -735,6 +738,7 @@
 				09F655632A260C7300625555 /* Environment */,
 				09CB21CC29F7D82300201AAE /* API */,
 				09CB221529F7D82300201AAE /* AuthenticationProvider.swift */,
+				09BAF1A02A445F9B00DDE27E /* Utils.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -1091,6 +1095,7 @@
 				092175FE2A4302EB00166885 /* Date.swift in Sources */,
 				0990D41029F95AFC00B99D35 /* LessonPagination.graphql.swift in Sources */,
 				0990D3D429F95AFC00B99D35 /* AchievementGroupPagination.graphql.swift in Sources */,
+				09BAF1A22A445F9B00DDE27E /* Utils.swift in Sources */,
 				0990D3E429F95AFC00B99D35 /* DefaultGridSection.graphql.swift in Sources */,
 				0990D42829F95AFC00B99D35 /* SearchQuery.graphql.swift in Sources */,
 				0990D3F629F95AFC00B99D35 /* Episode.graphql.swift in Sources */,
@@ -1198,6 +1203,7 @@
 				094056EE2A0CC1D5004781A3 /* SimpleCalendarEntry.graphql.swift in Sources */,
 				09E17B062A125A3F004CFD28 /* MutationRoot.graphql.swift in Sources */,
 				09083C412A03B04400A61EF9 /* LockView.swift in Sources */,
+				09BAF1A12A445F9B00DDE27E /* Utils.swift in Sources */,
 				09083C2B2A01111300A61EF9 /* GetDefaultEpisodeIdForShowQuery.graphql.swift in Sources */,
 				0990D41D29F95AFC00B99D35 /* ItemSection.graphql.swift in Sources */,
 				09083C312A01237E00A61EF9 /* GetDefaultEpisodeIdForSeasonQuery.graphql.swift in Sources */,

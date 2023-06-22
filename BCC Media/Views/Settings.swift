@@ -111,7 +111,7 @@ struct SettingsView: View {
                 }
                 Section(header: Text("settings_information")) {
                     Button("settings_aboutUs") {
-                        path.append(AboutUsView())
+                        path.append(StaticDestination.aboutUs)
                     }
                 }
             }

@@ -123,6 +123,8 @@ public extension AppOptions {
             AppOptions.user.anonymousId = data.me.analytics.anonymousId
             AppOptions.user.ageGroup = userInfo?.ageGroup
             AppOptions.user.bccMember = data.me.bccMember
+        } else {
+            AppOptions.user = .init()
         }
 
         let processInfo = ProcessInfo.processInfo

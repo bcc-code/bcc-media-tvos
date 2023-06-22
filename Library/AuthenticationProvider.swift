@@ -137,14 +137,14 @@ struct AuthenticationProvider {
         return true
     }
 
-    func login(codeCallback: (DeviceTokenRequestResponse) -> Void) async throws {
+    func login(codeCallback: (DeviceTokenRequestResponse) -> Void) async {
         guard let response = try? await fetchDeviceCode() else {
             return
         }
 
         codeCallback(response)
 
-        let result = try await listenToResolve(deviceToken: response)
+        let result = await listenToResolve(deviceToken: response)
 
         if let r = result {
             let stored = credentialsManager.store(credentials: r)
@@ -176,22 +176,27 @@ struct AuthenticationProvider {
         return try JSONDecoder().decode(DeviceTokenRequestResponse.self, from: data)
     }
 
-    private func listenToResolve(deviceToken: DeviceTokenRequestResponse) async throws -> Credentials? {
-        let tokenRequest = GetTokenRequest(deviceCode: deviceToken.deviceCode, clientId: options.client_id)
+    private func listenToResolve(deviceToken: DeviceTokenRequestResponse) async -> Credentials? {
+        do {
+            let tokenRequest = GetTokenRequest(deviceCode: deviceToken.deviceCode, clientId: options.client_id)
 
-        var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/token")!,
-                                 cachePolicy: .reloadIgnoringCacheData,
-                                 timeoutInterval: 10.0)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "content-type")
-        request.httpBody = try? JSONEncoder().encode(tokenRequest)
+            var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/token")!,
+                                     cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
+                                     timeoutInterval: 10.0)
+            
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "content-type")
+            request.httpBody = try JSONEncoder().encode(tokenRequest)
 
-        var creds: Credentials? = nil
+            var creds: Credentials? = nil
 
-        while true, !Task.isCancelled {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode < 200 || httpResponse.statusCode >= 300 {
+            while true, !Task.isCancelled {
+                let (data, response) = try await URLSession.shared.data(for: request)
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        creds = try JSONDecoder().decode(Credentials.self, from: data)
+                        break
+                    }
                     let err = try JSONDecoder().decode(FailedTokenRetrieval.self, from: data)
                     print(err)
                     if err.error != "authorization_pending" {
@@ -201,35 +206,14 @@ struct AuthenticationProvider {
                     try await Task.sleep(nanoseconds: UInt64(deviceToken.interval * Double(NSEC_PER_SEC)))
                     continue
                 }
-                creds = try JSONDecoder().decode(Credentials.self, from: data)
+                break
             }
-            break
-        }
 
-        return creds
-    }
-}
-
-func getAgeGroup(_ age: Int?) -> String {
-    let breakpoints: [Int: String] = [
-        9: "< 10",
-        12: "10 - 12",
-        18: "13 - 18",
-        25: "19 - 25",
-        36: "26 - 36",
-        50: "37 - 50",
-        64: "51 - 64",
-    ]
-    
-    if let age = age {
-        for (key, value) in breakpoints {
-            if age <= key {
-                return value
-            }
+            return creds
+        } catch {
+            return nil
         }
-        return "65+"
     }
-    return "UNKNOWN"
 }
 
 // Profile/UserInfo

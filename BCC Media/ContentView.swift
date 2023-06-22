@@ -45,7 +45,6 @@ struct ContentView: View {
         if let pageId = AppOptions.app.pageId {
             frontPage = nil
             frontPage = await getPage(pageId)
-            print("FETCHED FRONTPAGE")
         }
         bccMember = AppOptions.user.bccMember == true
         authenticationProvider.registerErrorCallback {
@@ -114,25 +113,21 @@ struct ContentView: View {
     @State var cancelLogin: (() -> Void)? = nil
     func startSignIn() {
         let task = Task {
-            do {
-                _ = await authenticationProvider.logout()
+            _ = await authenticationProvider.logout()
 
-                try await authenticationProvider.login { code in
-                    path.append(
-                        SignInView(
-                            cancel: {
-                                cancelLogin?()
-                            },
-                            verificationUri: code.verificationUri,
-                            verificationUriComplete: code.verificationUriComplete,
-                            code: code.userCode
-                        )
+            await authenticationProvider.login { code in
+                path.append(
+                    SignInView(
+                        cancel: {
+                            cancelLogin?()
+                        },
+                        verificationUri: code.verificationUri,
+                        verificationUriComplete: code.verificationUriComplete,
+                        code: code.userCode
                     )
-                }
-                authStateUpdate()
-            } catch {
-                print(error)
+                )
             }
+            authStateUpdate()
         }
         cancelLogin = task.cancel
     }
@@ -318,9 +313,6 @@ struct ContentView: View {
                         PageView(page, clickItem: clickItem)
                     }
                     .navigationDestination(for: SignInView.self) { view in
-                        view
-                    }
-                    .navigationDestination(for: AboutUsView.self) { view in
                         view
                     }
                     .navigationDestination(for: StaticDestination.self) { dest in
