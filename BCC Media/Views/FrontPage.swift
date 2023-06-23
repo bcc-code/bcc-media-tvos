@@ -9,11 +9,13 @@ import SwiftUI
 
 // This is a struct to distinguish the first page component from any subpages.
 struct FrontPage: View {
-    var page: API.GetPageQuery.Data.Page?
+    var pageId: String?
     var clickItem: ClickItem
+    
+    @State var page: API.GetPageQuery.Data.Page?
 
-    init(page: API.GetPageQuery.Data.Page?, clickItem: @escaping ClickItem) {
-        self.page = page
+    init(pageId: String?, clickItem: @escaping ClickItem) {
+        self.pageId = pageId
         self.clickItem = clickItem
     }
 
@@ -21,6 +23,10 @@ struct FrontPage: View {
         ZStack {
             if let page = page {
                 PageView(page, clickItem: clickItem)
+            }
+        }.task {
+            if let pageId = pageId {
+                page = await getPage(pageId)
             }
         }
     }

@@ -33,7 +33,7 @@ typealias PlayCallback = (API.GetEpisodeQuery.Data.Episode) async -> Void
 
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
-    @State var frontPage: API.GetPageQuery.Data.Page? = nil
+    @State var frontPageId: String? = nil
     @State var bccMember = false
 
     @State var loaded = false
@@ -42,10 +42,7 @@ struct ContentView: View {
 
     func load() async {
         await AppOptions.load()
-        if let pageId = AppOptions.app.pageId {
-            frontPage = nil
-            frontPage = await getPage(pageId)
-        }
+        frontPageId = AppOptions.app.pageId
         bccMember = AppOptions.user.bccMember == true
         authenticationProvider.registerErrorCallback {
             startSignIn()
@@ -196,11 +193,6 @@ struct ContentView: View {
         path.append(data.page)
     }
 
-    func getPage(_ id: String) async -> API.GetPageQuery.Data.Page {
-        let data = await apolloClient.getAsync(query: API.GetPageQuery(id: id))
-        return data!.page
-    }
-
     func clickItem(item: Item, context: API.EpisodeContext?) async {
         if item.locked {
             print("Item was locked. Ignoring click")
@@ -232,7 +224,7 @@ struct ContentView: View {
 
     var tabs: some View {
         TabView(selection: $tab) {
-            FrontPage(page: frontPage, clickItem: clickItem)
+            FrontPage(pageId: frontPageId, clickItem: clickItem)
                 .tabItem {
                     Label("tab_home", systemImage: "house.fill").font(.barlow)
                 }.tag(TabType.pages)

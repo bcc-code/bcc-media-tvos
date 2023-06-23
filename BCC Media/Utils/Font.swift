@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Font {
-    static let barlow = Font.custom("Barlow-Regular", size: 32)
+    static let barlow = Font.custom("Barlow-Medium", size: 32)
     static let barlowTitle = Font.custom("Barlow-Bold", size: 46)
-    static let barlowCaption = Font.custom("Barlow-Regular", size: 28)
+    static let barlowCaption = Font.custom("Barlow-Medium", size: 28)
 }

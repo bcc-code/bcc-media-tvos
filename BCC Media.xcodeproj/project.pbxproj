@@ -215,6 +215,7 @@
 		09BAF1B22A4472FD00DDE27E /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09BAF1B02A4472FD00DDE27E /* Barlow-Regular.ttf */; };
 		09BAF1B32A4472FD00DDE27E /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09BAF1B12A4472FD00DDE27E /* Barlow-Bold.ttf */; };
 		09BAF1B52A44735900DDE27E /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1B42A44735900DDE27E /* Font.swift */; };
+		09BAF1B72A459D0E00DDE27E /* Loaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1B62A459D0E00DDE27E /* Loaders.swift */; };
 		09CB211C29F7BD9900201AAE /* ContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB211B29F7BD9900201AAE /* ContentProvider.swift */; };
 		09CB212029F7BD9900201AAE /* Top Shelf.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CB211629F7BD9900201AAE /* Top Shelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CB225A29F7D82300201AAE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CB221429F7D82300201AAE /* Client.swift */; };
@@ -423,6 +424,8 @@
 		09BAF1B02A4472FD00DDE27E /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
 		09BAF1B12A4472FD00DDE27E /* Barlow-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Bold.ttf"; sourceTree = "<group>"; };
 		09BAF1B42A44735900DDE27E /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		09BAF1B62A459D0E00DDE27E /* Loaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loaders.swift; sourceTree = "<group>"; };
+		09BAF1B82A459D8900DDE27E /* Barlow-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Medium.ttf"; sourceTree = "<group>"; };
 		09CB211629F7BD9900201AAE /* Top Shelf.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Top Shelf.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CB211B29F7BD9900201AAE /* ContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProvider.swift; sourceTree = "<group>"; };
 		09CB211D29F7BD9900201AAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -575,6 +578,7 @@
 				09A41AF12A0E619300C737D0 /* AppOptions.swift */,
 				09E17AF42A124726004CFD28 /* Events.swift */,
 				09BAF1B42A44735900DDE27E /* Font.swift */,
+				09BAF1B62A459D0E00DDE27E /* Loaders.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -744,6 +748,7 @@
 			isa = PBXGroup;
 			children = (
 				09BAF1B12A4472FD00DDE27E /* Barlow-Bold.ttf */,
+				09BAF1B82A459D8900DDE27E /* Barlow-Medium.ttf */,
 				09BAF1B02A4472FD00DDE27E /* Barlow-Regular.ttf */,
 			);
 			path = Fonts;
@@ -1219,6 +1224,7 @@
 				0990D3CB29F95AFC00B99D35 /* SeasonPagination.graphql.swift in Sources */,
 				0990D3F929F95AFC00B99D35 /* Page.graphql.swift in Sources */,
 				0990D3C329F95AFC00B99D35 /* SectionPagination.graphql.swift in Sources */,
+				09BAF1B72A459D0E00DDE27E /* Loaders.swift in Sources */,
 				0990D42529F95AFC00B99D35 /* EpisodeSeason.graphql.swift in Sources */,
 				0943E18729BB36590016348C /* ItemSection.swift in Sources */,
 				2D64EA29005F0263D6C3B55E /* EpisodeViewer.swift in Sources */,
