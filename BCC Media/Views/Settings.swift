@@ -46,13 +46,6 @@ struct SettingsView: View {
         apolloClient.clearCache()
     }
 
-    func getVersion() -> String {
-        let versionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
-        let buildString = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
-
-        return "\(versionString) (\(buildString))"
-    }
-
     @State var logoutPopup = false
 
     var body: some View {

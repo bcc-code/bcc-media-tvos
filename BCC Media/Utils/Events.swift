@@ -135,7 +135,13 @@ struct Events {
 
     public static func trigger<T: Event>(_ event: T) {
         print(event)
-        standard.client.track(T.eventName, properties: event.dictionary)
+        
+        var dict = event.dictionary
+        dict["channel"] = "tv"
+        dict["appLanguage"] = Locale.current.identifier
+        dict["releaseVersion"] = getVersion()
+        
+        standard.client.track(T.eventName, properties: dict)
     }
 
     public static func page(_ pageCode: String) {
