@@ -32,7 +32,7 @@ struct EpisodePlayer: View {
     @State var options: PlayerOptions? = nil
 
     func load() async {
-        let data = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id))
+        let data = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id), cachePolicy: .fetchIgnoringCacheCompletely)
         url = getPlayerUrl(streams: data!.episode.streams)
         options = .init(
             title: episode.title,
