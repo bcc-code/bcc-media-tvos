@@ -13,6 +13,8 @@ struct ItemImage: View {
     init(_ image: String?) {
         self.image = image
     }
+    
+    @State var url: URL? = nil
 
     func getImg(_ img: String, _ size: CGSize) -> URL? {
         URL(string: img + "?w=\(Int(size.width))&h=\(Int(size.height))&fit=crop&crop=faces")
@@ -21,17 +23,21 @@ struct ItemImage: View {
     var body: some View {
         GeometryReader { proxy in
             if proxy.size != .zero, let img = image {
-                AsyncImage(url: getImg(img, proxy.size)) { phase in
+                AsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
                         Rectangle().fill(cardBackgroundColor)
                     case let .success(image):
                         image.transition(.opacity)
                     case .failure:
-                        Image(systemName: "wifi.slash")
+                        Image(systemName: "wifi.slash").onAppear {
+                            Events.trigger(ErrorOccured(error: "image failed to load"))
+                        }
                     @unknown default:
                         EmptyView()
                     }
+                }.onAppear {
+                    url = getImg(img, proxy.size)
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
