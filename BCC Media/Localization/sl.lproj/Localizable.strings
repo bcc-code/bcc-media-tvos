@@ -10,6 +10,8 @@
 "common_videos" = "Videoposnetki";
 "shows_description" = "Opis oddaje";
 "episodes_releaseDate" = "Datum izida";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "Ni oddaj s trenutnim filtrom";
 "search_noEpisodesWithCurrentFilter" = "Ni delov s trenutnim filtrom";
 "search_inputField" = "Za začetek iskanja vnesi besede v iskalno polje";

@@ -10,6 +10,8 @@
 "common_videos" = "Video\'s";
 "shows_description" = "Toon beschrijving";
 "episodes_releaseDate" = "Publicatiedatum";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "Geen series die aan het filter voldoen";
 "search_noEpisodesWithCurrentFilter" = "Geen afleveringen die aan het filter voldoen";
 "search_inputField" = "Vul iets in het zoekveld in om het zoeken te beginnen";

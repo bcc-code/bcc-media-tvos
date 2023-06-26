@@ -10,6 +10,8 @@
 "common_videos" = "Videók";
 "shows_description" = "Leírás mutatása";
 "episodes_releaseDate" = "Megjelenési dátum";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "Az aktuális szűrővel nincs megjelenés";
 "search_noEpisodesWithCurrentFilter" = "Nincsenek epizódok a jelenlegi szűrővel";
 "search_inputField" = "A keresés megkezdéséhez írj be valamit a keresőmezőbe";

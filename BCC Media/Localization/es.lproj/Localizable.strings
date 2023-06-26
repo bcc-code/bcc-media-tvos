@@ -10,6 +10,8 @@
 "common_videos" = "Videos";
 "shows_description" = "Descripción de shows";
 "episodes_releaseDate" = "Fecha de estreno";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "No existen shows con el ese filtro";
 "search_noEpisodesWithCurrentFilter" = "No existen episodios con el ese filtro";
 "search_inputField" = "Ingrese algo en el campo de búsqueda para comenzar a buscar";

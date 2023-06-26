@@ -10,6 +10,8 @@
 "common_videos" = "Видео";
 "shows_description" = "Описание передач";
 "episodes_releaseDate" = "Дата релиза";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "Нет передач с текущим фильтром";
 "search_noEpisodesWithCurrentFilter" = "Нет эпизодов с текущим фильтром";
 "search_inputField" = "Введите что-нибудь в поле поиска, чтобы начать поиск";

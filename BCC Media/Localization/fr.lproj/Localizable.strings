@@ -10,6 +10,8 @@
 "common_videos" = "Vidéos";
 "shows_description" = "Description de l\'émission";
 "episodes_releaseDate" = "Date de parution";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "Pas d\'émissions avec le filtre actuel";
 "search_noEpisodesWithCurrentFilter" = "Aucun épisode avec le filtre actuel";
 "search_inputField" = "Entrer quelque chose dans le champ de recherche pour commencer la recherche";

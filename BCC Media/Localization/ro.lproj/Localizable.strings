@@ -10,6 +10,8 @@
 "common_videos" = "Videouri";
 "shows_description" = "Arată descrierea";
 "episodes_releaseDate" = "Data de lansare";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "Nu există programe cu filtrul actual";
 "search_noEpisodesWithCurrentFilter" = "Nici un episod cu filtrul actual";
 "search_inputField" = "Scrie ceva în câmpul de căutare pentru a începe căutarea";

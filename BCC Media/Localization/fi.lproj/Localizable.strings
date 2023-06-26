@@ -10,6 +10,8 @@
 "common_videos" = "Videot";
 "shows_description" = "Näytä kuvaus";
 "episodes_releaseDate" = "Julkaisupäivämäärä";
+"episodes_clearProgress" = "Clear episode progress";
+"episodes_options" = "Episode options";
 "search_noShowsWithCurrentFilter" = "Suodatusehdoilla ei löydy esityksiä";
 "search_noEpisodesWithCurrentFilter" = "Suodatusehdoilla ei löyty jaksoja";
 "search_inputField" = "Aloita haku syöttämällä jotain hakukenttään";
