@@ -123,6 +123,11 @@ struct Events {
     private let client = RSClient.sharedInstance()
 
     private init() {
+        let processInfo = ProcessInfo.processInfo
+
+        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? CI.rudderWriteKey
+        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? CI.rudderDataplaneURL
+        
         let config = RSConfig(writeKey: AppOptions.rudder.writeKey)
             .dataPlaneURL(AppOptions.rudder.dataPlaneUrl)
 //            .trackLifecycleEvents(true)
