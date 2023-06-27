@@ -19,7 +19,6 @@ struct PlayerViewController: UIViewControllerRepresentable {
     var options: PlayerOptions
 
     private var player: AVPlayer
-    private var plugin: YBPlugin
 
     private var coordinator: Coordinator
 
@@ -30,18 +29,18 @@ struct PlayerViewController: UIViewControllerRepresentable {
         self.options = options
         player = AVPlayer(url: videoURL)
 
-        plugin = YBPlugin(options, player)
-
         self.listener = listener
 
         coordinator = Coordinator()
         coordinator.timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [self] _ in
             listener.onStateUpdate(state: self.getState())
         }
+        coordinator.plugin = YBPlugin(options, player)
     }
 
     class Coordinator {
         var timer: Timer?
+        var plugin: YBPlugin?
     }
 
     func makeCoordinator() -> Coordinator {
@@ -109,6 +108,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
 
     static func dismantleUIViewController(_: AVPlayerViewController, coordinator: Coordinator) {
         coordinator.timer?.invalidate()
+        coordinator.plugin?.fireStop()
     }
 }
 
