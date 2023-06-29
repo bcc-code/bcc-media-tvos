@@ -19,36 +19,54 @@ struct PlayerViewController: UIViewControllerRepresentable {
     var options: PlayerOptions
 
     private var player: AVPlayer
-
-    private var coordinator: Coordinator
+    
+    private var expiresAt: Date?
 
     private var listener: PlayerListener
+    
+    public var plugin: YBPlugin
 
     init(_ videoURL: URL, _ options: PlayerOptions = .init(), _ listener: PlayerListener = PlayerListener { _ in }) {
         self.videoURL = videoURL
         self.options = options
         player = AVPlayer(url: videoURL)
+        plugin = YBPlugin(options, player)
+        
+        self.expiresAt = Calendar.current.date(byAdding: .hour, value: 1, to: .now)
 
         self.listener = listener
-
-        coordinator = Coordinator()
-        coordinator.timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [self] _ in
-            listener.onStateUpdate(state: self.getState())
-        }
-        coordinator.plugin = YBPlugin(options, player)
     }
 
-    class Coordinator {
-        var timer: Timer?
-        var plugin: YBPlugin?
+    final class Coordinator {
+        let parent: PlayerViewController
+        let timer: Timer
+        
+        init(_ parent: PlayerViewController) {
+            self.parent = parent
+            
+            timer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { _ in
+                parent.listener.stateCallback(parent.getState())
+                if parent.expired() {
+                    parent.listener.onExpire()
+                }
+            }
+        }
+        
+        deinit {
+            timer.invalidate()
+        }
     }
 
     func makeCoordinator() -> Coordinator {
-        coordinator
+        Coordinator(self)
     }
 
     func getState() -> PlaybackState {
         PlaybackState(time: player.currentTime().seconds)
+    }
+    
+    func expired() -> Bool {
+        expiresAt != nil && expiresAt! < .now
     }
 
     private func createMetadataItem(for identifier: AVMetadataIdentifier,
@@ -106,9 +124,16 @@ struct PlayerViewController: UIViewControllerRepresentable {
 
     func updateUIViewController(_: AVPlayerViewController, context _: Context) {}
 
-    static func dismantleUIViewController(_: AVPlayerViewController, coordinator: Coordinator) {
-        coordinator.timer?.invalidate()
-        coordinator.plugin?.fireStop()
+    static func dismantleUIViewController(_: PlayerViewController, coordinator: Coordinator) {
+        coordinator.parent.plugin.fireStop()
+        
+        print("DISMANTLED VIEW")
     }
 }
 
+
+class PlayerViewControllerImplementation: AVPlayerViewController {
+    weak var coordinator: PlayerViewController.Coordinator?
+    
+    
+}

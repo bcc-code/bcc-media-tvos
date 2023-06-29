@@ -11,10 +11,12 @@ import Foundation
 class PlayerListener {
     var stateCallback: (PlaybackState) -> Void
     var endCallback: () -> Void
+    var expireCallback: () -> Void
 
-    init(stateCallback: @escaping (PlaybackState) -> Void, endCallback: @escaping () -> Void = {}) {
+    init(stateCallback: @escaping (PlaybackState) -> Void = { _ in }, endCallback: @escaping () -> Void = {}, expireCallback: @escaping () -> Void = {}) {
         self.stateCallback = stateCallback
         self.endCallback = endCallback
+        self.expireCallback = expireCallback
     }
 
     func onStateUpdate(state: PlaybackState) {
@@ -23,6 +25,10 @@ class PlayerListener {
 
     func onEnd() {
         endCallback()
+    }
+    
+    func onExpire() {
+        expireCallback()
     }
 
     @objc func playerDidFinishPlaying(note _: NSNotification) {

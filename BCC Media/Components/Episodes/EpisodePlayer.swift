@@ -8,30 +8,36 @@
 import SwiftUI
 
 struct EpisodePlayer: View {
+    @Environment(\.dismiss) var dismiss
+ 
     var episode: API.GetEpisodeQuery.Data.Episode
+    var next: () -> Void
 
-    var listener: PlayerListener
-
+    @State var listener = PlayerListener()
+    
     var progress: Bool
+    var stateCallback: (PlaybackState) -> Void
 
     init(episode: API.GetEpisodeQuery.Data.Episode, next: @escaping () -> Void = {}, progress: Bool = true) {
         self.episode = episode
         self.progress = progress
-        listener = PlayerListener(stateCallback: { state in
+        self.next = next
+        self.stateCallback = { state in
             if progress {
                 apolloClient.perform(mutation: API.SetEpisodeProgressMutation(id: episode.id, progress: .some(Int(state.time)))) { _ in
                     print("updated progress")
                 }
             }
-        }, endCallback: {
-            next()
-        })
+        }
     }
 
     @State var url: URL? = nil
     @State var options: PlayerOptions? = nil
 
     func load() async {
+        listener = PlayerListener(stateCallback: stateCallback, endCallback: next, expireCallback: {
+            dismiss()
+        })
         let data = await apolloClient.getAsync(query: API.GetEpisodeStreamsQuery(id: episode.id), cachePolicy: .fetchIgnoringCacheCompletely)
         url = getPlayerUrl(streams: data!.episode.streams)
         options = .init(
