@@ -42,7 +42,7 @@ struct EpisodePlayer: View {
         url = getPlayerUrl(streams: data!.episode.streams)
         options = .init(
             title: episode.title,
-            startFrom: progress ? episode.progress ?? 0 : 0,
+            startFrom: progress ? data!.episode.progress ?? 0 : 0,
             isLive: false,
             content: .init(
                 episodeTitle: episode.title,

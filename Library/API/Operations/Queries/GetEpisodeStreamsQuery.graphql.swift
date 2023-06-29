@@ -12,6 +12,7 @@ extension API {
         query GetEpisodeStreams($id: ID!) {
           episode(id: $id) {
             __typename
+            progress
             streams {
               __typename
               url
@@ -51,9 +52,11 @@ extension API {
         static var __parentType: Apollo.ParentType { API.Objects.Episode }
         static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
+          .field("progress", Int?.self),
           .field("streams", [Stream].self),
         ] }
 
+        var progress: Int? { __data["progress"] }
         var streams: [Stream] { __data["streams"] }
 
         /// Episode.Stream

@@ -32,7 +32,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
         player = AVPlayer(url: videoURL)
         plugin = YBPlugin(options, player)
         
-        self.expiresAt = Calendar.current.date(byAdding: .hour, value: 1, to: .now)
+        self.expiresAt = Calendar.current.date(byAdding: .hour, value: 5, to: .now)
 
         self.listener = listener
     }

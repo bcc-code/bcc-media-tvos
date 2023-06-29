@@ -27,6 +27,7 @@ query GetEpisode($id: ID!, $context: EpisodeContext) {
 
 query GetEpisodeStreams($id: ID!) {
     episode(id: $id) {
+        progress
         streams {
             url
             type
