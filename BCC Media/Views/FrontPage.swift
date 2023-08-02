@@ -21,7 +21,7 @@ struct FrontPage: View {
 
     var body: some View {
         ZStack {
-            if let page = page {
+            if pageId != nil, let page = page {
                 PageView(page, clickItem: clickItem)
             }
         }.task {

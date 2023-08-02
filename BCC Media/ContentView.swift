@@ -41,6 +41,8 @@ struct ContentView: View {
     @State var loading = false
 
     func load() async {
+        frontPageId = nil
+        try? await Task.sleep(for: .seconds(1))
         await AppOptions.load()
         frontPageId = AppOptions.app.pageId
         bccMember = AppOptions.user.bccMember == true
@@ -261,6 +263,8 @@ struct ContentView: View {
             }.tag(TabType.settings)
         }.disabled(!authenticated && !onboarded).font(.barlow)
     }
+    
+    @FocusState var focusedLogin
 
     var body: some View {
         ZStack {
@@ -270,7 +274,7 @@ struct ContentView: View {
                     ZStack {
                         tabs
                         if !authenticated && !onboarded {
-                            Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea()
+                            Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea().focusable(false)
                             ZStack {
                                 HStack {
                                     Image(uiImage: UIImage(named: "OnboardArt")!)
@@ -286,7 +290,9 @@ struct ContentView: View {
                                                 startSignIn()
                                                 onboarded.toggle()
                                             }
-                                        }.tint(.blue)
+                                        }.tint(.blue).focused($focusedLogin).onAppear {
+                                            focusedLogin = true
+                                        }
                                         Button("onboard_explorePublic") {
                                             withAnimation {
                                                 onboarded.toggle()
