@@ -113,7 +113,7 @@ extension ApolloClient {
         }
     }
     
-    func getAsync<Q: GraphQLQuery>(query: Q, cachePolicy: CachePolicy = .default) async -> Q.Data? {
+    func getAsync<Q: GraphQLQuery>(query: Q, cachePolicy: CachePolicy = .fetchIgnoringCacheCompletely) async -> Q.Data? {
         return await withCheckedContinuation { c in
             apolloClient.fetch(query: query, cachePolicy: cachePolicy) { result in
                 switch result {

@@ -39,6 +39,7 @@ struct ContentView: View {
     @State var loaded = false
 
     @State var loading = false
+    @Environment(\.scenePhase) private var scenePhase
 
     func load() async {
         frontPageId = nil
@@ -340,7 +341,17 @@ struct ContentView: View {
                     onboarded = true
                     loading = false
                 }
-            })
+            }).onChange(of: scenePhase) { phase in
+                switch phase {
+                case .active:
+                    print("reload")
+                    Task {
+                        await load()
+                    }
+                default:
+                    print("do nothing")
+                }
+            }
     }
 }
 
