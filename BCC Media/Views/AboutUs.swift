@@ -12,6 +12,7 @@ struct AboutUsView: View {
 
     var contactString = NSLocalizedString("aboutUs_contact", comment: "")
     var privacyPolicyString = NSLocalizedString("aboutUs_privacyPolicy", comment: "")
+    var termsOfUseString = NSLocalizedString("aboutUs_termsOfUse", comment: "")
 
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
@@ -25,7 +26,9 @@ struct AboutUsView: View {
                     + Text("support@bcc.media").foregroundColor(.blue)
                     + Text(contactString.split(separator: "$email")[1])
                 Text(privacyPolicyString.split(separator: "$url")[0])
-                    + Text("bcc.media/no/personvern").foregroundColor(.blue)
+                    + Text("bcc.media/en/privacy").foregroundColor(.blue)
+                Text(termsOfUseString.split(separator: "$url")[0])
+                    + Text("bcc.media/en/terms-of-use").foregroundColor(.blue)
             }.focusable().font(.barlow)
             HStack {
                 Spacer()

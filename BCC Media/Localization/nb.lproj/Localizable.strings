@@ -10,8 +10,8 @@
 "common_videos" = "Filmer";
 "shows_description" = "Serie beskrivelse";
 "episodes_releaseDate" = "Utgivelsesdato";
-"episodes_clearProgress" = "Clear episode progress";
-"episodes_options" = "Episode options";
+"episodes_clearProgress" = "Tilbakestill avspilling av episode";
+"episodes_options" = "Episode alternativer";
 "search_noShowsWithCurrentFilter" = "Ingen serier med nåværende filter";
 "search_noEpisodesWithCurrentFilter" = "Ingen episoder med nåværende filter";
 "search_inputField" = "Skriv noe i søkefeltet for å søke";
@@ -37,6 +37,7 @@
 "aboutUs_description" = "BCC Media er en mediestiftelse i BCC-forbundet som produserer og distribuerer innhold med positive og kristne verdier";
 "aboutUs_contact" = "Kontakt oss på $email eller i BCC Media-mobilappen";
 "aboutUs_privacyPolicy" = "Personvernerklæringen kan leses på $url";
+"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
 "onboard_title" = "Det kraftigste budskapet i verden";
 "onboard_description" = "Se serier, programmer og filmer basert på kristne verdier";
 "onboard_login" = "Logg på";

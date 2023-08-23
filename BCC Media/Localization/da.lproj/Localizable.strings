@@ -11,8 +11,8 @@
 "common_videos" = "Film";
 "shows_description" = "Beskrivelse af udsendelse";
 "episodes_releaseDate" = "Publiceringsdato";
-"episodes_clearProgress" = "Clear episode progress";
-"episodes_options" = "Episode options";
+"episodes_clearProgress" = "Ryd episodeforløb";
+"episodes_options" = "Episode-indstillinger";
 "search_noShowsWithCurrentFilter" = "Ingen udsendelser med det nuværende filter";
 "search_noEpisodesWithCurrentFilter" = "Ingen episoder med det nuværende filter";
 "search_inputField" = "Indtast noget i søgefeltet for at begynde at søge";
@@ -38,6 +38,7 @@
 "aboutUs_description" = "BCC Media er en fond i BCC-forbundet, som producerer og distribuerer indhold med positive og kristne værdier.";
 "aboutUs_contact" = "Kontakt os på $email eller i BCC Medias mobilapp";
 "aboutUs_privacyPolicy" = "Privatlivspolitikken kan læses på $url";
+"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
 "onboard_title" = "Det kraftigste budskab i verden";
 "onboard_description" = "Se serier, shows og film baseret på kristne værdier";
 "onboard_login" = "Log ind";

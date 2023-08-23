@@ -10,8 +10,8 @@
 "common_videos" = "Видео";
 "shows_description" = "Описание передач";
 "episodes_releaseDate" = "Дата релиза";
-"episodes_clearProgress" = "Clear episode progress";
-"episodes_options" = "Episode options";
+"episodes_clearProgress" = "Очистить прогресс серии";
+"episodes_options" = "Варианты серий";
 "search_noShowsWithCurrentFilter" = "Нет передач с текущим фильтром";
 "search_noEpisodesWithCurrentFilter" = "Нет эпизодов с текущим фильтром";
 "search_inputField" = "Введите что-нибудь в поле поиска, чтобы начать поиск";
@@ -37,6 +37,7 @@
 "aboutUs_description" = "BCC Media — это медиа-фонд в организации BCC, который производит и распространяет контент с позитивными и христианскими ценностями";
 "aboutUs_contact" = "Свяжитесь с нами по электронной почте $email или в мобильном приложении BCC Media";
 "aboutUs_privacyPolicy" = "Политику конфиденциальности можно прочитать на сайте $url";
+"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
 "onboard_title" = "Самая могущественная весть в мире";
 "onboard_description" = "Смотрите сериалы, шоу и фильмы, основанные на христианских ценностях";
 "onboard_login" = "Войти";

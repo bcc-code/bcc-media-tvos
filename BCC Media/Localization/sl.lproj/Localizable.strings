@@ -10,8 +10,8 @@
 "common_videos" = "Videoposnetki";
 "shows_description" = "Opis oddaje";
 "episodes_releaseDate" = "Datum izida";
-"episodes_clearProgress" = "Clear episode progress";
-"episodes_options" = "Episode options";
+"episodes_clearProgress" = "Počisti napredek dela";
+"episodes_options" = "Možnosti dela";
 "search_noShowsWithCurrentFilter" = "Ni oddaj s trenutnim filtrom";
 "search_noEpisodesWithCurrentFilter" = "Ni delov s trenutnim filtrom";
 "search_inputField" = "Za začetek iskanja vnesi besede v iskalno polje";
@@ -37,6 +37,7 @@
 "aboutUs_description" = "BCC Media je fundacija v BCC zvezi, ki proizvaja in širi vsebino s pozitivnimi in krščanskimi vrednotami";
 "aboutUs_contact" = "Kontaktiraj nas na $email ali v mobilni aplikaciji BCC Media";
 "aboutUs_privacyPolicy" = "Politika zasebnosti je na strani $url";
+"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
 "onboard_title" = "Najmočnejše sporočilo na svetu";
 "onboard_description" = "Oglej si serije in filme, narejene na podlagi krščanskih vrednot";
 "onboard_login" = "Prijava";

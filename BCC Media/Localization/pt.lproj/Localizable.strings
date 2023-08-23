@@ -10,8 +10,8 @@
 "common_videos" = "Vídeos";
 "shows_description" = "Sem descrição";
 "episodes_releaseDate" = "Datas de lançamento";
-"episodes_clearProgress" = "Clear episode progress";
-"episodes_options" = "Episode options";
+"episodes_clearProgress" = "Limpar progresso do episódio";
+"episodes_options" = "Opções do episódio";
 "search_noShowsWithCurrentFilter" = "Não aparece com o filtro atual";
 "search_noEpisodesWithCurrentFilter" = "Não aparece com o filtro atual";
 "search_inputField" = "Digite algo no campo de pesquisa para começar a pesquisar";
@@ -37,6 +37,7 @@
 "aboutUs_description" = "BCC Media é uma fundação da Federação BCC que produz e distribui conteúdo com valores positivos e cristãos";
 "aboutUs_contact" = "Contate-nos em $email ou no aplicativo móvel BCC Media";
 "aboutUs_privacyPolicy" = "A Política de Privacidade pode ser lida em $url";
+"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
 "onboard_title" = "A mensagem mais poderosa do mundo";
 "onboard_description" = "Assistir séries, programas e filmes baseados nos valores cristãos";
 "onboard_login" = "Entrar";

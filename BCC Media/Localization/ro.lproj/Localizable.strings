@@ -10,8 +10,8 @@
 "common_videos" = "Videouri";
 "shows_description" = "Arată descrierea";
 "episodes_releaseDate" = "Data de lansare";
-"episodes_clearProgress" = "Clear episode progress";
-"episodes_options" = "Episode options";
+"episodes_clearProgress" = "Curăță progresul episodului";
+"episodes_options" = "Opțiunile episodului";
 "search_noShowsWithCurrentFilter" = "Nu există programe cu filtrul actual";
 "search_noEpisodesWithCurrentFilter" = "Nici un episod cu filtrul actual";
 "search_inputField" = "Scrie ceva în câmpul de căutare pentru a începe căutarea";
@@ -37,6 +37,7 @@
 "aboutUs_description" = "BCC Media este o fundație din cadrul Federației BCC care produce și distribuie conținut cu valori pozitive și creștine";
 "aboutUs_contact" = "Contactează-ne pe $email sau în aplicația mobilă BCC Media";
 "aboutUs_privacyPolicy" = "Politica de confidențialitate poate fi citită pe $url";
+"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
 "onboard_title" = "Cel mai puternic mesaj din lume";
 "onboard_description" = "Vezi seriale, emisiuni și filme bazate pe valori Creștine";
 "onboard_login" = "Autentificare";
