@@ -207,6 +207,8 @@
 		09A41BA42A0E6AEA00C737D0 /* Analytics.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */; };
 		09A41BA62A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */; };
 		09A41BA72A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */; };
+		09B561672AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B561662AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift */; };
+		09B561682AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B561662AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift */; };
 		09BAF1A12A445F9B00DDE27E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A02A445F9B00DDE27E /* Utils.swift */; };
 		09BAF1A22A445F9B00DDE27E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A02A445F9B00DDE27E /* Utils.swift */; };
 		09BAF1A52A446F2C00DDE27E /* YouboraPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BAF1A42A446F2C00DDE27E /* YouboraPlugin.swift */; };
@@ -419,6 +421,7 @@
 		09A41B9F2A0E6AE900C737D0 /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
 		09A41BA02A0E6AE900C737D0 /* Analytics.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.graphql.swift; sourceTree = "<group>"; };
 		09A41BA52A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSetupQuery.graphql.swift; sourceTree = "<group>"; };
+		09B561662AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNextEpisodeQuery.graphql.swift; sourceTree = "<group>"; };
 		09BAF1A02A445F9B00DDE27E /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		09BAF1A42A446F2C00DDE27E /* YouboraPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouboraPlugin.swift; sourceTree = "<group>"; };
 		09BAF1A62A446F3F00DDE27E /* PlayerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOptions.swift; sourceTree = "<group>"; };
@@ -722,6 +725,7 @@
 		0990D3AE29F95AFC00B99D35 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				09B561662AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift */,
 				097BE7AB2A3203FF00F8D309 /* GetEpisodeContextQuery.graphql.swift */,
 				096CF4422A3073AD005524AD /* GetEpisodeStreamsQuery.graphql.swift */,
 				094056D72A0CC1B8004781A3 /* GetCalendarDayQuery.graphql.swift */,
@@ -1133,6 +1137,7 @@
 				094056EB2A0CC1D5004781A3 /* Event.graphql.swift in Sources */,
 				097BE7A62A31F25300F8D309 /* Game.graphql.swift in Sources */,
 				0990D40029F95AFC00B99D35 /* MessageSection.graphql.swift in Sources */,
+				09B561682AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift in Sources */,
 				0990D42E29F95AFC00B99D35 /* GetConfigQuery.graphql.swift in Sources */,
 				0990D3BC29F95AFC00B99D35 /* StreamType.graphql.swift in Sources */,
 				0990D41E29F95AFC00B99D35 /* ItemSection.graphql.swift in Sources */,
@@ -1197,6 +1202,7 @@
 				0990D3E129F95AFC00B99D35 /* UserCollectionEntryPagination.graphql.swift in Sources */,
 				0990D3C729F95AFC00B99D35 /* SectionItem.graphql.swift in Sources */,
 				094056F02A0CC1D5004781A3 /* SeasonCalendarEntry.graphql.swift in Sources */,
+				09B561672AD402BC00F40385 /* GetNextEpisodeQuery.graphql.swift in Sources */,
 				09A41BA62A0E6AFA00C737D0 /* GetSetupQuery.graphql.swift in Sources */,
 				0990D3ED29F95AFC00B99D35 /* EpisodeSearchItem.graphql.swift in Sources */,
 				09E17B8A2A1755C2004CFD28 /* CalendarDay.swift in Sources */,

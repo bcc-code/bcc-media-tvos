@@ -16,6 +16,10 @@ var cardBackgroundColor: Color {
     Color(red: 29 / 256, green: 40 / 256, blue: 56 / 256)
 }
 
+var cardActiveBackgroundColor: Color {
+    Color(red: 58 / 256, green: 80 / 256, blue: 112 / 256)
+}
+
 enum StaticDestination: Hashable {
     case live
     case aboutUs
@@ -29,7 +33,7 @@ enum TabType: Hashable {
     case settings
 }
 
-typealias PlayCallback = (API.GetEpisodeQuery.Data.Episode) async -> Void
+typealias PlayCallback = (Bool, API.GetEpisodeQuery.Data.Episode) async -> Void
 
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
@@ -133,36 +137,46 @@ struct ContentView: View {
     }
 
     func playCallbackWithContext(_ context: API.EpisodeContext?, progress _: Bool) -> PlayCallback {
-        func cb(_ episode: API.GetEpisodeQuery.Data.Episode) {
-            path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode, context)))
+        func cb(_ shuffle: Bool, _ episode: API.GetEpisodeQuery.Data.Episode) {
+            var ctx = context ?? API.EpisodeContext.init()
+            ctx.shuffle = .init(booleanLiteral: shuffle)
+            path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode, ctx)))
         }
         return cb
     }
 
-    func triggerNextEpisode(_ episode: API.GetEpisodeQuery.Data.Episode, _ context: API.EpisodeContext?) -> () -> Void {
+    func triggerNextEpisode(_ episode: API.GetEpisodeQuery.Data.Episode, _ context: API.EpisodeContext) -> () -> Void {
         func trigger() {
             path.removeLast(1)
-            print("Removed last")
             Task { @MainActor in
-                if episode.next.isEmpty {
-                    print("No next episode")
+                guard let data = await apolloClient.getAsync(query: API.GetNextEpisodeQuery(id: episode.id, context: context), cachePolicy: .fetchIgnoringCacheCompletely) else {
                     return
                 }
+                if data.episode.next.isEmpty {
+                    return
+                }
+                var ctx = API.EpisodeContext.init(context.__data)
+                ctx.cursor = .init(stringLiteral: data.episode.cursor)
+                print(ctx)
                 try? await Task.sleep(for: .seconds(0.5))
-                await loadEpisode(episode.next[0].id, play: true, context: context, progress: false)
+                await loadEpisode(data.episode.next[0].id, play: true, context: ctx, progress: false)
             }
         }
         return trigger
     }
 
     func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true) async {
-        guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: context != nil ? .init(context!) : .null), cachePolicy: .fetchIgnoringCacheData) else {
+        var ctx = API.EpisodeContext.init(
+            collectionId: context?.collectionId ?? .null,
+            shuffle: context?.shuffle ?? .null,
+            cursor: context?.cursor ?? .null)
+        guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: .init(ctx)), cachePolicy: .fetchIgnoringCacheData) else {
             return
         }
         if play {
-            path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode, context), progress: progress))
+            path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode, ctx), progress: progress))
         } else {
-            path.append(EpisodeViewer(episode: data.episode, context: context, viewCallback: viewCallback, playCallback: playCallbackWithContext(context, progress: progress)))
+            path.append(EpisodeViewer(episode: data.episode, context: ctx, viewCallback: viewCallback, playCallback: playCallbackWithContext(ctx, progress: progress)))
         }
     }
 

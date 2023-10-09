@@ -117,7 +117,7 @@ struct SearchView_Preview: PreviewProvider {
     static var previews: some View {
         SearchView(queryString: $query) { _, _ in
 
-        } playCallback: { _ in
+        } playCallback: { _, _ in
         }
     }
 }

@@ -24,7 +24,7 @@ struct EpisodeHeader: View {
         VStack {
             Button {
                 Task {
-                    await playCallback(episode)
+                    await playCallback(false, episode)
                 }
             } label: {
                 ItemImage(episode.image).frame(width: 1280, height: 720).overlay(
@@ -47,6 +47,13 @@ struct EpisodeHeader: View {
                     }
                 }
                 Spacer()
+                Button {
+                    Task {
+                        await playCallback(true, episode)
+                    }
+                } label: {
+                    Image(systemName: "shuffle")
+                }
                 if authenticationProvider.isAuthenticated() {
                     Button {
                         print("add to my list")
@@ -80,13 +87,15 @@ struct EpisodeListItem: View {
     var description: String
     var image: String?
     var click: () async -> Void
+    var active: Bool
 
     @State private var loading = false
 
-    init(title: String, description: String, image: String?, click: @escaping () async -> Void) {
+    init(title: String, description: String, image: String?, active: Bool, click: @escaping () async -> Void) {
         self.title = title
         self.description = description
         self.image = image
+        self.active = active
         self.click = click
     }
 
@@ -114,7 +123,8 @@ struct EpisodeListItem: View {
                     Text(description).font(.barlowCaption).foregroundColor(.gray)
                 }.padding(20)
                 Spacer()
-            }.frame(maxWidth: .infinity).background(cardBackgroundColor)
+            }.frame(maxWidth: .infinity)
+                .background(active ? cardActiveBackgroundColor : cardBackgroundColor)
         }.buttonStyle(SectionItemButton(focused: isFocused))
             .padding(.zero)
             .focused($isFocused)
@@ -190,7 +200,7 @@ struct EpisodeViewer: View {
                         if let items = items {
                             VStack(alignment: .leading, spacing: 20) {
                                 ForEach(items, id: \.id) { ep in
-                                    EpisodeListItem(title: ep.title, description: ep.description, image: ep.image) {
+                                    EpisodeListItem(title: ep.title, description: ep.description, image: ep.image, active: ep.id == episode.id) {
                                         await viewCallback(ep.id, context)
                                     }.disabled(ep.id == episode.id)
                                 }.frame(width: 1280, height: 180)
@@ -207,7 +217,7 @@ struct EpisodeViewer: View {
                             }.pickerStyle(.navigationLink).font(.barlow).disabled(s.show.seasons.items.count <= 1)
                             VStack(alignment: .leading, spacing: 20) {
                                 ForEach(s.episodes.items, id: \.id) { ep in
-                                    EpisodeListItem(title: ep.title, description: ep.description, image: ep.image) {
+                                    EpisodeListItem(title: ep.title, description: ep.description, image: ep.image, active: ep.id == episode.id) {
                                         await viewCallback(ep.id, context)
                                     }.disabled(ep.id == episode.id)
                                 }.frame(width: 1280, height: 180)

@@ -23,6 +23,7 @@ extension API {
             progress
             locked
             inMyList
+            cursor
             next {
               __typename
               id
@@ -93,6 +94,7 @@ extension API {
           .field("progress", Int?.self),
           .field("locked", Bool.self),
           .field("inMyList", Bool.self),
+          .field("cursor", String.self),
           .field("next", [Next].self),
           .field("season", Season?.self),
         ] }
@@ -108,6 +110,7 @@ extension API {
         var progress: Int? { __data["progress"] }
         var locked: Bool { __data["locked"] }
         var inMyList: Bool { __data["inMyList"] }
+        var cursor: String { __data["cursor"] }
         /// Should probably be used asynchronously, and retrieved separately from the episode, as it can be slow in some cases (a few db requests can occur)
         var next: [Next] { __data["next"] }
         var season: Season? { __data["season"] }
