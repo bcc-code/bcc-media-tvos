@@ -47,24 +47,26 @@ struct EpisodeHeader: View {
                     }
                 }
                 Spacer()
-                Button {
-                    Task {
-                        await playCallback(true, episode)
-                    }
-                } label: {
-                    Image(systemName: "shuffle")
-                }
-                if authenticationProvider.isAuthenticated() {
+                HStack {
                     Button {
-                        print("add to my list")
-                        inMyList = !inMyList
-                    } label: {
-                        if inMyList {
-                            Image(systemName: "heart.fill")
-                        } else {
-                            Image(systemName: "heart")
+                        Task {
+                            await playCallback(true, episode)
                         }
+                    } label: {
+                        Image(systemName: "shuffle")
                     }.buttonStyle(.plain)
+                    if authenticationProvider.isAuthenticated() {
+                        Button {
+                            print("add to my list")
+                            inMyList = !inMyList
+                        } label: {
+                            if inMyList {
+                                Image(systemName: "heart.fill")
+                            } else {
+                                Image(systemName: "heart")
+                            }
+                        }.buttonStyle(.plain)
+                    }
                 }
             }
             Text(episode.description).font(.barlowCaption)
