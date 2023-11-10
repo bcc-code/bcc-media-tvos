@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let DefaultGridSection = Object(
+  static let DefaultGridSection = Apollo.Object(
     typename: "DefaultGridSection",
     implementedInterfaces: [
       API.Interfaces.Section.self,

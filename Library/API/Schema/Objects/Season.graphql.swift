@@ -4,8 +4,8 @@
 import Apollo
 
 extension API.Objects {
-  static let Season = Object(
+  static let Season = Apollo.Object(
     typename: "Season",
-    implementedInterfaces: []
+    implementedInterfaces: [API.Interfaces.CollectionItem.self]
   )
 }

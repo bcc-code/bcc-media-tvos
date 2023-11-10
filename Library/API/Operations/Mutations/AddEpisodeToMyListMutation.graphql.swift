@@ -6,16 +6,9 @@
 extension API {
   class AddEpisodeToMyListMutation: GraphQLMutation {
     static let operationName: String = "AddEpisodeToMyList"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        mutation AddEpisodeToMyList($id: ID!) {
-          addEpisodeToMyList(episodeId: $id) {
-            __typename
-            entryId
-          }
-        }
-        """#
+        #"mutation AddEpisodeToMyList($id: ID!) { addEpisodeToMyList(episodeId: $id) { __typename entryId } }"#
       ))
 
     public var id: ID

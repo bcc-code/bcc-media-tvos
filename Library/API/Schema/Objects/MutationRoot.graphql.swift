@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let MutationRoot = Object(
+  static let MutationRoot = Apollo.Object(
     typename: "MutationRoot",
     implementedInterfaces: []
   )

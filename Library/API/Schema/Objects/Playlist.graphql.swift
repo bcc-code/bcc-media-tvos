@@ -4,8 +4,8 @@
 import Apollo
 
 extension API.Objects {
-  static let Game = Apollo.Object(
-    typename: "Game",
+  static let Playlist = Apollo.Object(
+    typename: "Playlist",
     implementedInterfaces: [API.Interfaces.CollectionItem.self]
   )
 }

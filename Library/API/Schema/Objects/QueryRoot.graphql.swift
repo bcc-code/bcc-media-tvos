@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let QueryRoot = Object(
+  static let QueryRoot = Apollo.Object(
     typename: "QueryRoot",
     implementedInterfaces: []
   )

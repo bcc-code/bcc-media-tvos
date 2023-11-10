@@ -109,6 +109,16 @@ query GetDefaultEpisodeIdForStudyTopic($id: ID!) {
     }
 }
 
+query GetFirstEpisodeInPlaylist($id: ID!) {
+    playlist(id: $id) {
+        items(first: 1) {
+            items {
+                id
+            }
+        }
+    }
+}
+
 query GetDefaultEpisodeIdForSeason($id: ID!) {
     season(id: $id) {
         defaultEpisode {

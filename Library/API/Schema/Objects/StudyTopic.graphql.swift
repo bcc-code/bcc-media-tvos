@@ -4,8 +4,8 @@
 import Apollo
 
 extension API.Objects {
-  static let StudyTopic = Object(
+  static let StudyTopic = Apollo.Object(
     typename: "StudyTopic",
-    implementedInterfaces: []
+    implementedInterfaces: [API.Interfaces.CollectionItem.self]
   )
 }

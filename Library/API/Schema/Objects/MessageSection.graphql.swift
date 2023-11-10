@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let MessageSection = Object(
+  static let MessageSection = Apollo.Object(
     typename: "MessageSection",
     implementedInterfaces: [API.Interfaces.Section.self]
   )

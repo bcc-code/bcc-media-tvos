@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let TaskPagination = Object(
+  static let TaskPagination = Apollo.Object(
     typename: "TaskPagination",
     implementedInterfaces: [API.Interfaces.Pagination.self]
   )

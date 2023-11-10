@@ -6,30 +6,9 @@
 extension API {
   class GetEpisodeContextQuery: GraphQLQuery {
     static let operationName: String = "GetEpisodeContext"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetEpisodeContext($id: ID!, $context: EpisodeContext) {
-          episode(id: $id, context: $context) {
-            __typename
-            context {
-              __typename
-              ... on ContextCollection {
-                items(first: 100) {
-                  __typename
-                  items {
-                    __typename
-                    id
-                    title
-                    description
-                    image
-                  }
-                }
-              }
-            }
-          }
-        }
-        """#
+        #"query GetEpisodeContext($id: ID!, $context: EpisodeContext) { episode(id: $id, context: $context) { __typename context { __typename ... on ContextCollection { items(first: 100) { __typename items { __typename id title description image } } } } } }"#
       ))
 
     public var id: ID

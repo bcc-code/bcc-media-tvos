@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let LabelSection = Object(
+  static let LabelSection = Apollo.Object(
     typename: "LabelSection",
     implementedInterfaces: [
       API.Interfaces.Section.self,

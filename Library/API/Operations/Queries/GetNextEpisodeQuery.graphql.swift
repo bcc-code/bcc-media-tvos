@@ -6,21 +6,9 @@
 extension API {
   class GetNextEpisodeQuery: GraphQLQuery {
     static let operationName: String = "GetNextEpisode"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetNextEpisode($id: ID!, $context: EpisodeContext!) {
-          episode(id: $id, context: $context) {
-            __typename
-            id
-            cursor
-            next {
-              __typename
-              id
-            }
-          }
-        }
-        """#
+        #"query GetNextEpisode($id: ID!, $context: EpisodeContext!) { episode(id: $id, context: $context) { __typename id cursor next { __typename id } } }"#
       ))
 
     public var id: ID

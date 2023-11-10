@@ -6,34 +6,9 @@
 extension API {
   class GetSetupQuery: GraphQLQuery {
     static let operationName: String = "getSetup"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query getSetup {
-          me {
-            __typename
-            id
-            bccMember
-            analytics {
-              __typename
-              anonymousId
-            }
-          }
-          application {
-            __typename
-            code
-            clientVersion
-            page {
-              __typename
-              id
-            }
-            searchPage {
-              __typename
-              id
-            }
-          }
-        }
-        """#
+        #"query getSetup { me { __typename id bccMember analytics { __typename anonymousId } } application { __typename code clientVersion page { __typename id } searchPage { __typename id } } }"#
       ))
 
     public init() {}

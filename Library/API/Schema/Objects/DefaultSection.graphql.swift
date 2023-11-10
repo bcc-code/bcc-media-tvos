@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let DefaultSection = Object(
+  static let DefaultSection = Apollo.Object(
     typename: "DefaultSection",
     implementedInterfaces: [
       API.Interfaces.Section.self,

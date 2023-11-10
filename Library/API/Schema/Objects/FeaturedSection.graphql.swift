@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let FeaturedSection = Object(
+  static let FeaturedSection = Apollo.Object(
     typename: "FeaturedSection",
     implementedInterfaces: [
       API.Interfaces.Section.self,

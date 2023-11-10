@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let ItemSectionMetadata = Object(
+  static let ItemSectionMetadata = Apollo.Object(
     typename: "ItemSectionMetadata",
     implementedInterfaces: []
   )

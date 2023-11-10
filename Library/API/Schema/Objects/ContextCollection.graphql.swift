@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let ContextCollection = Object(
+  static let ContextCollection = Apollo.Object(
     typename: "ContextCollection",
     implementedInterfaces: []
   )

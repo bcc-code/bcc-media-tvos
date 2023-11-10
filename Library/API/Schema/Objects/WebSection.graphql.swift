@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let WebSection = Object(
+  static let WebSection = Apollo.Object(
     typename: "WebSection",
     implementedInterfaces: [API.Interfaces.Section.self]
   )

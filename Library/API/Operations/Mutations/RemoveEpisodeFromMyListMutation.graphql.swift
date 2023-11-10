@@ -6,16 +6,9 @@
 extension API {
   class RemoveEpisodeFromMyListMutation: GraphQLMutation {
     static let operationName: String = "RemoveEpisodeFromMyList"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        mutation RemoveEpisodeFromMyList($id: UUID!) {
-          removeEntryFromMyList(entryId: $id) {
-            __typename
-            id
-          }
-        }
-        """#
+        #"mutation RemoveEpisodeFromMyList($id: UUID!) { removeEntryFromMyList(entryId: $id) { __typename id } }"#
       ))
 
     public var id: UUID

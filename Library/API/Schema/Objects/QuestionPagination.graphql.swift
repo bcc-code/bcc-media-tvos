@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let QuestionPagination = Object(
+  static let QuestionPagination = Apollo.Object(
     typename: "QuestionPagination",
     implementedInterfaces: [API.Interfaces.Pagination.self]
   )

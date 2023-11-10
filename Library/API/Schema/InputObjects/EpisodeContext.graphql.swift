@@ -13,11 +13,13 @@ extension API {
 
     init(
       collectionId: GraphQLNullable<String> = nil,
+      playlistId: GraphQLNullable<String> = nil,
       shuffle: GraphQLNullable<Bool> = nil,
       cursor: GraphQLNullable<String> = nil
     ) {
       __data = InputDict([
         "collectionId": collectionId,
+        "playlistId": playlistId,
         "shuffle": shuffle,
         "cursor": cursor
       ])
@@ -26,6 +28,11 @@ extension API {
     var collectionId: GraphQLNullable<String> {
       get { __data["collectionId"] }
       set { __data["collectionId"] = newValue }
+    }
+
+    var playlistId: GraphQLNullable<String> {
+      get { __data["playlistId"] }
+      set { __data["playlistId"] = newValue }
     }
 
     var shuffle: GraphQLNullable<Bool> {

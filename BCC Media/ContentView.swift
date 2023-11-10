@@ -155,7 +155,7 @@ struct ContentView: View {
                 if data.episode.next.isEmpty {
                     return
                 }
-                var ctx = API.EpisodeContext.init(context.__data)
+                var ctx = context
                 ctx.cursor = .init(stringLiteral: data.episode.cursor)
                 print(ctx)
                 try? await Task.sleep(for: .seconds(0.5))
@@ -166,8 +166,9 @@ struct ContentView: View {
     }
 
     func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true) async {
-        var ctx = API.EpisodeContext.init(
+        let ctx = API.EpisodeContext.init(
             collectionId: context?.collectionId ?? .null,
+            playlistId: context?.playlistId ?? .null,
             shuffle: context?.shuffle ?? .null,
             cursor: context?.cursor ?? .null)
         guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: .init(ctx)), cachePolicy: .fetchIgnoringCacheData) else {
@@ -180,6 +181,13 @@ struct ContentView: View {
         }
     }
 
+    func loadPlaylist(_ id: String) async {
+        guard let data = await apolloClient.getAsync(query: API.GetFirstEpisodeInPlaylistQuery(id: id)) else {
+            return
+        }
+        await loadEpisode(data.playlist.items.items[0].id, context: .init(.init(collectionId: .null, playlistId: .init(stringLiteral: id),  shuffle: .null, cursor: .null)))
+    }
+    
     func loadShow(_ id: String) async {
         guard let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) else {
             return
@@ -227,6 +235,8 @@ struct ContentView: View {
             await loadTopic(item.id)
         case .season:
             await loadSeason(item.id)
+        case .playlist:
+            await loadPlaylist(item.id)
         }
     }
 

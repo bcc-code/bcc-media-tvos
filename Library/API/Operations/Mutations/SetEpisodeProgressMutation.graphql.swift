@@ -6,16 +6,9 @@
 extension API {
   class SetEpisodeProgressMutation: GraphQLMutation {
     static let operationName: String = "SetEpisodeProgress"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        mutation SetEpisodeProgress($id: ID!, $progress: Int) {
-          setEpisodeProgress(id: $id, progress: $progress) {
-            __typename
-            id
-          }
-        }
-        """#
+        #"mutation SetEpisodeProgress($id: ID!, $progress: Int) { setEpisodeProgress(id: $id, progress: $progress) { __typename id } }"#
       ))
 
     public var id: ID

@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let Event = Object(
+  static let Event = Apollo.Object(
     typename: "Event",
     implementedInterfaces: []
   )

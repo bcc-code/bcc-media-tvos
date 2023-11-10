@@ -4,8 +4,11 @@
 import Apollo
 
 extension API.Objects {
-  static let Episode = Object(
+  static let Episode = Apollo.Object(
     typename: "Episode",
-    implementedInterfaces: []
+    implementedInterfaces: [
+      API.Interfaces.CollectionItem.self,
+      API.Interfaces.PlaylistItem.self
+    ]
   )
 }

@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let EpisodeCalendarEntry = Object(
+  static let EpisodeCalendarEntry = Apollo.Object(
     typename: "EpisodeCalendarEntry",
     implementedInterfaces: [API.Interfaces.CalendarEntry.self]
   )

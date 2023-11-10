@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let AchievementSection = Object(
+  static let AchievementSection = Apollo.Object(
     typename: "AchievementSection",
     implementedInterfaces: [API.Interfaces.Section.self]
   )

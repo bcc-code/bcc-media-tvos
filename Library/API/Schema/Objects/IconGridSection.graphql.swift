@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let IconGridSection = Object(
+  static let IconGridSection = Apollo.Object(
     typename: "IconGridSection",
     implementedInterfaces: [
       API.Interfaces.Section.self,

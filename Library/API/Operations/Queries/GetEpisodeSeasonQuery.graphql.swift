@@ -6,16 +6,9 @@
 extension API {
   class GetEpisodeSeasonQuery: GraphQLQuery {
     static let operationName: String = "GetEpisodeSeason"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetEpisodeSeason($id: ID!) {
-          season(id: $id) {
-            __typename
-            ...EpisodeSeason
-          }
-        }
-        """#,
+        #"query GetEpisodeSeason($id: ID!) { season(id: $id) { __typename ...EpisodeSeason } }"#,
         fragments: [EpisodeSeason.self]
       ))
 

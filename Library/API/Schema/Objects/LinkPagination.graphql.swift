@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let LinkPagination = Object(
+  static let LinkPagination = Apollo.Object(
     typename: "LinkPagination",
     implementedInterfaces: [API.Interfaces.Pagination.self]
   )

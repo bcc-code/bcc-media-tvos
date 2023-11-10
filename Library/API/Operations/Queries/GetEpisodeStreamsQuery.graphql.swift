@@ -6,21 +6,9 @@
 extension API {
   class GetEpisodeStreamsQuery: GraphQLQuery {
     static let operationName: String = "GetEpisodeStreams"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetEpisodeStreams($id: ID!) {
-          episode(id: $id) {
-            __typename
-            progress
-            streams {
-              __typename
-              url
-              type
-            }
-          }
-        }
-        """#
+        #"query GetEpisodeStreams($id: ID!) { episode(id: $id) { __typename progress streams { __typename url type } } }"#
       ))
 
     public var id: ID

@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let CalendarDay = Object(
+  static let CalendarDay = Apollo.Object(
     typename: "CalendarDay",
     implementedInterfaces: []
   )

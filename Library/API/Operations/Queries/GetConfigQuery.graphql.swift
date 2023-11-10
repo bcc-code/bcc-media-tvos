@@ -6,20 +6,9 @@
 extension API {
   class GetConfigQuery: GraphQLQuery {
     static let operationName: String = "GetConfig"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetConfig {
-          application {
-            __typename
-            page {
-              __typename
-              code
-            }
-          }
-          languages
-        }
-        """#
+        #"query GetConfig { application { __typename page { __typename code } } languages }"#
       ))
 
     public init() {}

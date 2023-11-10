@@ -6,24 +6,9 @@
 extension API {
   class SearchQuery: GraphQLQuery {
     static let operationName: String = "Search"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query Search($query: String!, $collection: String!) {
-          search(queryString: $query, type: $collection) {
-            __typename
-            result {
-              __typename
-              id
-              title
-              description
-              image
-              highlight
-              url
-            }
-          }
-        }
-        """#
+        #"query Search($query: String!, $collection: String!) { search(queryString: $query, type: $collection) { __typename result { __typename id title description image highlight url } } }"#
       ))
 
     public var query: String

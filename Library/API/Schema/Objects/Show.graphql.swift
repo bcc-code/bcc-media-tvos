@@ -4,8 +4,8 @@
 import Apollo
 
 extension API.Objects {
-  static let Show = Object(
+  static let Show = Apollo.Object(
     typename: "Show",
-    implementedInterfaces: []
+    implementedInterfaces: [API.Interfaces.CollectionItem.self]
   )
 }

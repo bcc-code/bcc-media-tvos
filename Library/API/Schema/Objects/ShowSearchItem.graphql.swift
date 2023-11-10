@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let ShowSearchItem = Object(
+  static let ShowSearchItem = Apollo.Object(
     typename: "ShowSearchItem",
     implementedInterfaces: [API.Interfaces.SearchResultItem.self]
   )

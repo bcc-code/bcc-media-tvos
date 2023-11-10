@@ -29,7 +29,7 @@ extension API {
   enum SchemaMetadata: Apollo.SchemaMetadata {
     static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
 
-    static func objectType(forTypename typename: String) -> Object? {
+    static func objectType(forTypename typename: String) -> Apollo.Object? {
       switch typename {
       case "QueryRoot": return API.Objects.QueryRoot
       case "Calendar": return API.Objects.Calendar
@@ -43,11 +43,11 @@ extension API {
       case "SectionPagination": return API.Objects.SectionPagination
       case "AchievementGroupPagination": return API.Objects.AchievementGroupPagination
       case "AchievementPagination": return API.Objects.AchievementPagination
-      case "CollectionItemPagination": return API.Objects.CollectionItemPagination
       case "EpisodePagination": return API.Objects.EpisodePagination
       case "FAQCategoryPagination": return API.Objects.FAQCategoryPagination
       case "LessonPagination": return API.Objects.LessonPagination
       case "LinkPagination": return API.Objects.LinkPagination
+      case "PlaylistItemPagination": return API.Objects.PlaylistItemPagination
       case "QuestionPagination": return API.Objects.QuestionPagination
       case "SeasonPagination": return API.Objects.SeasonPagination
       case "SectionItemPagination": return API.Objects.SectionItemPagination
@@ -72,11 +72,12 @@ extension API {
       case "ItemSectionMetadata": return API.Objects.ItemSectionMetadata
       case "SectionItem": return API.Objects.SectionItem
       case "Show": return API.Objects.Show
-      case "Season": return API.Objects.Season
       case "Episode": return API.Objects.Episode
-      case "Link": return API.Objects.Link
-      case "StudyTopic": return API.Objects.StudyTopic
       case "Game": return API.Objects.Game
+      case "Playlist": return API.Objects.Playlist
+      case "Season": return API.Objects.Season
+      case "StudyTopic": return API.Objects.StudyTopic
+      case "Link": return API.Objects.Link
       case "SearchResult": return API.Objects.SearchResult
       case "EpisodeSearchItem": return API.Objects.EpisodeSearchItem
       case "SeasonSearchItem": return API.Objects.SeasonSearchItem

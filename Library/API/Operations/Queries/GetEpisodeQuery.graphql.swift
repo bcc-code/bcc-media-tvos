@@ -6,41 +6,9 @@
 extension API {
   class GetEpisodeQuery: GraphQLQuery {
     static let operationName: String = "GetEpisode"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetEpisode($id: ID!, $context: EpisodeContext) {
-          episode(id: $id, context: $context) {
-            __typename
-            id
-            uuid
-            type
-            title
-            image
-            ageRating
-            publishDate
-            description
-            progress
-            locked
-            inMyList
-            cursor
-            next {
-              __typename
-              id
-            }
-            season {
-              __typename
-              id
-              title
-              show {
-                __typename
-                id
-                title
-              }
-            }
-          }
-        }
-        """#
+        #"query GetEpisode($id: ID!, $context: EpisodeContext) { episode(id: $id, context: $context) { __typename id uuid type title image ageRating publishDate description progress locked inMyList cursor next { __typename id } season { __typename id title show { __typename id title } } } }"#
       ))
 
     public var id: ID

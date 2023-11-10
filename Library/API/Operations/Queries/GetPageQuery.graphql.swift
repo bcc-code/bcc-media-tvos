@@ -6,29 +6,9 @@
 extension API {
   class GetPageQuery: GraphQLQuery {
     static let operationName: String = "GetPage"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetPage($id: ID!) {
-          page(id: $id) {
-            __typename
-            id
-            code
-            title
-            description
-            sections(first: 100) {
-              __typename
-              items {
-                __typename
-                id
-                title
-                description
-                ...ItemSectionFragment
-              }
-            }
-          }
-        }
-        """#,
+        #"query GetPage($id: ID!) { page(id: $id) { __typename id code title description sections(first: 100) { __typename items { __typename id title description ...ItemSectionFragment } } } }"#,
         fragments: [ItemSectionFragment.self]
       ))
 

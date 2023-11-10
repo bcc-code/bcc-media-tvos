@@ -5,35 +5,9 @@
 
 extension API {
   struct EpisodeSeason: API.SelectionSet, Fragment {
-    static var fragmentDefinition: StaticString { """
-      fragment EpisodeSeason on Season {
-        __typename
-        title
-        show {
-          __typename
-          title
-          description
-          seasons(first: 100) {
-            __typename
-            items {
-              __typename
-              id
-              title
-            }
-          }
-        }
-        episodes(first: 100) {
-          __typename
-          items {
-            __typename
-            id
-            title
-            description
-            image
-          }
-        }
-      }
-      """ }
+    static var fragmentDefinition: StaticString {
+      #"fragment EpisodeSeason on Season { __typename title show { __typename title description seasons(first: 100) { __typename items { __typename id title } } } episodes(first: 100) { __typename items { __typename id title description image } } }"#
+    }
 
     let __data: DataDict
     init(_dataDict: DataDict) { __data = _dataDict }

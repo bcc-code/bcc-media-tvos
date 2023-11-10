@@ -5,36 +5,9 @@
 
 extension API {
   struct ItemSectionFragment: API.SelectionSet, Fragment {
-    static var fragmentDefinition: StaticString { """
-      fragment ItemSectionFragment on ItemSection {
-        __typename
-        title
-        metadata {
-          __typename
-          prependLiveElement
-          useContext
-          collectionId
-        }
-        items {
-          __typename
-          items {
-            __typename
-            id
-            title
-            description
-            image
-            item {
-              __typename
-              ... on Episode {
-                progress
-                duration
-                locked
-              }
-            }
-          }
-        }
-      }
-      """ }
+    static var fragmentDefinition: StaticString {
+      #"fragment ItemSectionFragment on ItemSection { __typename title metadata { __typename prependLiveElement useContext collectionId } items { __typename items { __typename id title description image item { __typename ... on Episode { progress duration locked } } } } }"#
+    }
 
     let __data: DataDict
     init(_dataDict: DataDict) { __data = _dataDict }

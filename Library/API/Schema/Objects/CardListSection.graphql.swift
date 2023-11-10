@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let CardListSection = Object(
+  static let CardListSection = Apollo.Object(
     typename: "CardListSection",
     implementedInterfaces: [
       API.Interfaces.Section.self,

@@ -6,30 +6,9 @@
 extension API {
   class GetCalendarDayQuery: GraphQLQuery {
     static let operationName: String = "GetCalendarDay"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetCalendarDay($day: Date!) {
-          calendar {
-            __typename
-            day(day: $day) {
-              __typename
-              events {
-                __typename
-                title
-              }
-              entries {
-                __typename
-                id
-                title
-                start
-                end
-                description
-              }
-            }
-          }
-        }
-        """#
+        #"query GetCalendarDay($day: Date!) { calendar { __typename day(day: $day) { __typename events { __typename title } entries { __typename id title start end description } } } }"#
       ))
 
     public var day: Date

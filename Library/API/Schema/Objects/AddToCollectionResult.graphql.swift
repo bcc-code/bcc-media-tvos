@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let AddToCollectionResult = Object(
+  static let AddToCollectionResult = Apollo.Object(
     typename: "AddToCollectionResult",
     implementedInterfaces: []
   )

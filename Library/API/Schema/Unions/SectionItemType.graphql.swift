@@ -13,7 +13,8 @@ extension API.Unions {
       API.Objects.Page.self,
       API.Objects.Link.self,
       API.Objects.StudyTopic.self,
-      API.Objects.Game.self
+      API.Objects.Game.self,
+      API.Objects.Playlist.self
     ]
   )
 }

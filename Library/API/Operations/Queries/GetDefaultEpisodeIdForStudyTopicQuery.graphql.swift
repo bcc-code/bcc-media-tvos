@@ -6,22 +6,9 @@
 extension API {
   class GetDefaultEpisodeIdForStudyTopicQuery: GraphQLQuery {
     static let operationName: String = "GetDefaultEpisodeIdForStudyTopic"
-    static let document: Apollo.DocumentType = .notPersisted(
+    static let operationDocument: Apollo.OperationDocument = .init(
       definition: .init(
-        #"""
-        query GetDefaultEpisodeIdForStudyTopic($id: ID!) {
-          studyTopic(id: $id) {
-            __typename
-            defaultLesson {
-              __typename
-              defaultEpisode {
-                __typename
-                id
-              }
-            }
-          }
-        }
-        """#
+        #"query GetDefaultEpisodeIdForStudyTopic($id: ID!) { studyTopic(id: $id) { __typename defaultLesson { __typename defaultEpisode { __typename id } } } }"#
       ))
 
     public var id: ID

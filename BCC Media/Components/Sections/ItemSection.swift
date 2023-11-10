@@ -21,6 +21,7 @@ enum ItemType: String {
     case page
     case topic
     case season
+    case playlist
 }
 
 typealias ClickItem = (Item, API.EpisodeContext?) async -> Void
@@ -90,6 +91,8 @@ func mapToItem(_ item: API.ItemSectionFragment.Items.Item) -> Item {
         t = .season
     case API.Objects.StudyTopic.typename:
         t = .topic
+    case API.Objects.Playlist.typename:
+        t = .playlist
     default:
         t = .episode
     }

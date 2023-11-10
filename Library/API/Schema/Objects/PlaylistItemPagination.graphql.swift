@@ -4,8 +4,8 @@
 import Apollo
 
 extension API.Objects {
-  static let CollectionItemPagination = Object(
-    typename: "CollectionItemPagination",
+  static let PlaylistItemPagination = Apollo.Object(
+    typename: "PlaylistItemPagination",
     implementedInterfaces: [API.Interfaces.Pagination.self]
   )
 }

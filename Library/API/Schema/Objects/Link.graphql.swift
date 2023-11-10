@@ -4,7 +4,7 @@
 import Apollo
 
 extension API.Objects {
-  static let Link = Object(
+  static let Link = Apollo.Object(
     typename: "Link",
     implementedInterfaces: []
   )
