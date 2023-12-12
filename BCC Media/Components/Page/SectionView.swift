@@ -70,7 +70,7 @@ struct SectionView: View {
                         clickItem: clickItem,
                         withLiveElement: metadata?.prependLiveElement == true
                     )
-                case "DefaultSection":
+                case "DefaultSection", "ListSection":
                     DefaultSection(
                         section.title,
                         items,
@@ -107,7 +107,8 @@ struct SectionView: View {
                         clickItem: clickItem
                     )
                 default:
-                    MissingContent(section.__typename ?? "unknown type")
+                    EmptyView()
+                    //MissingContent(section.__typename ?? "unknown type")
                 }
             }
         } else {
@@ -119,7 +120,8 @@ struct SectionView: View {
             case "AchievementSection":
                 EmptyView()
             default:
-                MissingContent(section.__typename ?? "unknown type")
+                EmptyView()
+                //MissingContent(section.__typename ?? "unknown type")
             }
         }
     }
