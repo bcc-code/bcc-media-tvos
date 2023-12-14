@@ -972,6 +972,12 @@
 				TargetAttributes = {
 					09CB211529F7BD9900201AAE = {
 						CreatedOnToolsVersion = 14.3;
+						DevelopmentTeam = 6734NUF6AV;
+						ProvisioningStyle = Automatic;
+					};
+					2D64EA587FBE70E8C0392EF8 = {
+						DevelopmentTeam = 6734NUF6AV;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1403,9 +1409,10 @@
 			baseConfigurationReference = C378207C865F97E3EFF39A95 /* Pods-Top Shelf.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
-				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
+				CURRENT_PROJECT_VERSION = 75;
+				DEVELOPMENT_TEAM = 6734NUF6AV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Top Shelf";
@@ -1416,9 +1423,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.1.7;
-				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
+				MARKETING_VERSION = 4.1.8;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1432,9 +1440,10 @@
 			baseConfigurationReference = EC47F071FDF2F73048259466 /* Pods-Top Shelf.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Top Shelf/Top Shelf.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
-				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
+				CURRENT_PROJECT_VERSION = 75;
+				DEVELOPMENT_TEAM = 6734NUF6AV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Top Shelf/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Top Shelf";
@@ -1445,9 +1454,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.1.7;
-				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf;
+				MARKETING_VERSION = 4.1.8;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.topshelf2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1463,9 +1473,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 62;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 75;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
+				DEVELOPMENT_TEAM = 6734NUF6AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BCC-Media-Info.plist";
@@ -1477,9 +1489,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1.7;
+				MARKETING_VERSION = 4.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1610,9 +1623,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media/BCC Media.entitlements";
-				CURRENT_PROJECT_VERSION = 62;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 75;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = KJ6LCYQ3A8;
+				DEVELOPMENT_TEAM = 6734NUF6AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BCC-Media-Info.plist";
@@ -1624,9 +1639,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1.7;
+				MARKETING_VERSION = 4.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;

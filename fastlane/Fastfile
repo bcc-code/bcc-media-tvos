@@ -16,12 +16,18 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Push a new beta build to TestFlight"
   lane :beta do
-    increment_build_number(xcodeproj: "BCC Media.xcodeproj")
+    desc "Push a new beta build to TestFlight"
+    increment_build_number(
+      xcodeproj: "BCC Media.xcodeproj"
+    )
     sh("cd .. && ./scripts/build.sh pre")
-    build_app(workspace: "BCC Media.xcworkspace", scheme: "BCC Media")
+    enable_automatic_code_signing(
+      team_id: "6734NUF6AV"
+    )
+  
+    build_app(workspace: "BCC Media.xcworkspace", scheme: "BCC Media", xcargs: "-allowProvisioningUpdates")
     sh("cd .. && ./scripts/build.sh post")
-    upload_to_testflight
+    upload_to_testflight(team_id: "123760447")
   end
 end
