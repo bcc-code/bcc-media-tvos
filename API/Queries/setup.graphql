@@ -1,0 +1,19 @@
+query getSetup {
+    me {
+        id
+        bccMember
+        analytics {
+            anonymousId
+        }
+    }
+    application {
+        code
+        clientVersion
+        page {
+            id
+        }
+        searchPage {
+            id
+        }
+    }
+}

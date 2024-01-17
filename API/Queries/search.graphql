@@ -1,0 +1,12 @@
+query Search($query: String!, $collection: String!) {
+    search(queryString: $query, type: $collection) {
+        result {
+            id
+            title
+            description
+            image
+            highlight
+            url
+        }
+    }
+}

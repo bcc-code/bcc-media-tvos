@@ -1,5 +1,0 @@
-schema: "https://api.brunstad.tv/query"
-documents: "src/**/*.{graphql,js,ts,jsx,tsx}"
-extensions:
-    languageService:
-        cacheSchemaFileForLookup: true
