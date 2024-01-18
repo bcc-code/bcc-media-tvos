@@ -14,18 +14,7 @@
 		090559AC2B57F9810019FB9A /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 090559AB2B57F9810019FB9A /* API */; };
 		090559AF2B57F9960019FB9A /* Authentication in Frameworks */ = {isa = PBXBuildFile; productRef = 090559AE2B57F9960019FB9A /* Authentication */; };
 		090559B22B57FB560019FB9A /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 090559B12B57FB560019FB9A /* Apollo */; };
-		090559B42B57FB560019FB9A /* Apollo-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 090559B32B57FB560019FB9A /* Apollo-Dynamic */; };
-		090559B62B57FB560019FB9A /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 090559B52B57FB560019FB9A /* ApolloAPI */; };
-		090559B82B57FB560019FB9A /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 090559B72B57FB560019FB9A /* ApolloSQLite */; };
-		090559BA2B57FB560019FB9A /* ApolloTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 090559B92B57FB560019FB9A /* ApolloTestSupport */; };
-		090559BC2B57FB560019FB9A /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 090559BB2B57FB560019FB9A /* ApolloWebSocket */; };
 		090559BF2B57FB600019FB9A /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 090559BE2B57FB600019FB9A /* Auth0 */; };
-		090559C12B57FBE40019FB9A /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 090559C02B57FBE40019FB9A /* Apollo */; };
-		090559C32B57FBE40019FB9A /* Apollo-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 090559C22B57FBE40019FB9A /* Apollo-Dynamic */; };
-		090559C52B57FBE40019FB9A /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 090559C42B57FBE40019FB9A /* ApolloAPI */; };
-		090559C72B57FBE40019FB9A /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 090559C62B57FBE40019FB9A /* ApolloSQLite */; };
-		090559C92B57FBE40019FB9A /* ApolloTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 090559C82B57FBE40019FB9A /* ApolloTestSupport */; };
-		090559CB2B57FBE40019FB9A /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 090559CA2B57FBE40019FB9A /* ApolloWebSocket */; };
 		09055A112B57FC540019FB9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 090559CD2B57FC540019FB9A /* Localizable.strings */; };
 		09055A122B57FC540019FB9A /* .crowdin_token.example in Resources */ = {isa = PBXBuildFile; fileRef = 090559D62B57FC540019FB9A /* .crowdin_token.example */; };
 		09055A132B57FC540019FB9A /* crowdin.yml in Resources */ = {isa = PBXBuildFile; fileRef = 090559D72B57FC540019FB9A /* crowdin.yml */; };
@@ -76,10 +65,8 @@
 		09055A622B580A6B0019FB9A /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A612B580A6B0019FB9A /* VideoPlayerView.swift */; };
 		09055A6B2B59247A0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A6A2B59247A0019FB9A /* FeatureFlags */; };
 		09055A6D2B593FE90019FB9A /* CI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A6C2B593FE90019FB9A /* CI.swift */; };
-		09055A6F2B5943A70019FB9A /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A6E2B5943A70019FB9A /* API */; };
-		09055A722B594E6B0019FB9A /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A712B594E6B0019FB9A /* API */; };
-		09055A752B594E740019FB9A /* Authentication in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A742B594E740019FB9A /* Authentication */; };
 		09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A772B594E7F0019FB9A /* FeatureFlags */; };
+		09055A7E2B5956AA0019FB9A /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A7D2B5956AA0019FB9A /* ApolloAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,25 +149,12 @@
 			files = (
 				090559AF2B57F9960019FB9A /* Authentication in Frameworks */,
 				09055A6B2B59247A0019FB9A /* FeatureFlags in Frameworks */,
-				09055A752B594E740019FB9A /* Authentication in Frameworks */,
-				090559C92B57FBE40019FB9A /* ApolloTestSupport in Frameworks */,
-				090559C72B57FBE40019FB9A /* ApolloSQLite in Frameworks */,
-				090559BA2B57FB560019FB9A /* ApolloTestSupport in Frameworks */,
+				09055A7E2B5956AA0019FB9A /* ApolloAPI in Frameworks */,
 				090559B22B57FB560019FB9A /* Apollo in Frameworks */,
 				090559BF2B57FB600019FB9A /* Auth0 in Frameworks */,
 				090559AC2B57F9810019FB9A /* API in Frameworks */,
-				090559CB2B57FBE40019FB9A /* ApolloWebSocket in Frameworks */,
-				090559C12B57FBE40019FB9A /* Apollo in Frameworks */,
 				09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */,
-				09055A6F2B5943A70019FB9A /* API in Frameworks */,
-				090559C52B57FBE40019FB9A /* ApolloAPI in Frameworks */,
-				090559B42B57FB560019FB9A /* Apollo-Dynamic in Frameworks */,
-				09055A722B594E6B0019FB9A /* API in Frameworks */,
-				090559BC2B57FB560019FB9A /* ApolloWebSocket in Frameworks */,
 				09055A462B57FEF30019FB9A /* Rudder in Frameworks */,
-				090559B62B57FB560019FB9A /* ApolloAPI in Frameworks */,
-				090559C32B57FBE40019FB9A /* Apollo-Dynamic in Frameworks */,
-				090559B82B57FB560019FB9A /* ApolloSQLite in Frameworks */,
 				09055A602B5807920019FB9A /* NpawPlugin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,28 +335,14 @@
 			);
 			name = "BCC Media tvOS";
 			packageProductDependencies = (
-				090559AB2B57F9810019FB9A /* API */,
-				090559AE2B57F9960019FB9A /* Authentication */,
+				09055A7D2B5956AA0019FB9A /* ApolloAPI */,
 				090559B12B57FB560019FB9A /* Apollo */,
-				090559B32B57FB560019FB9A /* Apollo-Dynamic */,
-				090559B52B57FB560019FB9A /* ApolloAPI */,
-				090559B72B57FB560019FB9A /* ApolloSQLite */,
-				090559B92B57FB560019FB9A /* ApolloTestSupport */,
-				090559BB2B57FB560019FB9A /* ApolloWebSocket */,
 				090559BE2B57FB600019FB9A /* Auth0 */,
-				090559C02B57FBE40019FB9A /* Apollo */,
-				090559C22B57FBE40019FB9A /* Apollo-Dynamic */,
-				090559C42B57FBE40019FB9A /* ApolloAPI */,
-				090559C62B57FBE40019FB9A /* ApolloSQLite */,
-				090559C82B57FBE40019FB9A /* ApolloTestSupport */,
-				090559CA2B57FBE40019FB9A /* ApolloWebSocket */,
 				09055A452B57FEF30019FB9A /* Rudder */,
 				09055A5F2B5807920019FB9A /* NpawPlugin */,
+				090559AE2B57F9960019FB9A /* Authentication */,
+				090559AB2B57F9810019FB9A /* API */,
 				09055A6A2B59247A0019FB9A /* FeatureFlags */,
-				09055A6E2B5943A70019FB9A /* API */,
-				09055A712B594E6B0019FB9A /* API */,
-				09055A742B594E740019FB9A /* Authentication */,
-				09055A772B594E7F0019FB9A /* FeatureFlags */,
 			);
 			productName = "BCC Media tvOS";
 			productReference = 090559992B57F22F0019FB9A /* BCC Media tvOS.app */;
@@ -581,10 +541,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 83;
+				CURRENT_PROJECT_VERSION = 84;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -647,7 +606,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 83;
+				CURRENT_PROJECT_VERSION = 84;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -811,65 +770,10 @@
 			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
 		};
-		090559B32B57FB560019FB9A /* Apollo-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = "Apollo-Dynamic";
-		};
-		090559B52B57FB560019FB9A /* ApolloAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloAPI;
-		};
-		090559B72B57FB560019FB9A /* ApolloSQLite */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloSQLite;
-		};
-		090559B92B57FB560019FB9A /* ApolloTestSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloTestSupport;
-		};
-		090559BB2B57FB560019FB9A /* ApolloWebSocket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloWebSocket;
-		};
 		090559BE2B57FB600019FB9A /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
 			productName = Auth0;
-		};
-		090559C02B57FBE40019FB9A /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
-		};
-		090559C22B57FBE40019FB9A /* Apollo-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = "Apollo-Dynamic";
-		};
-		090559C42B57FBE40019FB9A /* ApolloAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloAPI;
-		};
-		090559C62B57FBE40019FB9A /* ApolloSQLite */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloSQLite;
-		};
-		090559C82B57FBE40019FB9A /* ApolloTestSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloTestSupport;
-		};
-		090559CA2B57FBE40019FB9A /* ApolloWebSocket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloWebSocket;
 		};
 		09055A452B57FEF30019FB9A /* Rudder */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -885,21 +789,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureFlags;
 		};
-		09055A6E2B5943A70019FB9A /* API */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = API;
-		};
-		09055A712B594E6B0019FB9A /* API */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = API;
-		};
-		09055A742B594E740019FB9A /* Authentication */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Authentication;
-		};
 		09055A772B594E7F0019FB9A /* FeatureFlags */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureFlags;
+		};
+		09055A7D2B5956AA0019FB9A /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

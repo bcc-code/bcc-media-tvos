@@ -1,10 +1,11 @@
+import ApolloAPI
 import Apollo
 import Foundation
 
 public typealias TokenFactory = () async throws -> String?
 
 public extension Client {
-    func getThrowingAsync<Q: API.GraphQLQuery>(query: Q, cachePolicy: CachePolicy = .default) async throws -> Q.Data {
+    func getThrowingAsync<Q: API.GraphQLQuery>(query: Q, cachePolicy: Apollo.CachePolicy = .default) async throws -> Q.Data {
         return try await withCheckedThrowingContinuation { c in
             self.apollo.fetch(query: query, cachePolicy: cachePolicy) { result in
                 switch result {
@@ -22,7 +23,7 @@ public extension Client {
         }
     }
     
-    func getAsync<Q: GraphQLQuery>(query: Q, cachePolicy: CachePolicy = .fetchIgnoringCacheCompletely) async -> Q.Data? {
+    func getAsync<Q: GraphQLQuery>(query: Q, cachePolicy: Apollo.CachePolicy = .fetchIgnoringCacheCompletely) async -> Q.Data? {
         return await withCheckedContinuation { c in
             self.apollo.fetch(query: query, cachePolicy: cachePolicy) { result in
                 switch result {

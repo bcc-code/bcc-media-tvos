@@ -9,9 +9,9 @@
             "none": {}
         },
         "schemaTypes": {
-            "path": "./Sources",
+            "path": ".",
             "moduleType": {
-                "other": {}
+                "swiftPackageManager": {}
             }
         },
         "operations": {

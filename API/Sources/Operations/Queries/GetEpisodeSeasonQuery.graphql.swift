@@ -44,8 +44,8 @@ public class GetEpisodeSeasonQuery: GraphQLQuery {
       ] }
 
       public var title: String { __data["title"] }
-      public var show: EpisodeSeason.Show { __data["show"] }
-      public var episodes: EpisodeSeason.Episodes { __data["episodes"] }
+      public var show: Show { __data["show"] }
+      public var episodes: Episodes { __data["episodes"] }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
@@ -53,6 +53,10 @@ public class GetEpisodeSeasonQuery: GraphQLQuery {
 
         public var episodeSeason: EpisodeSeason { _toFragment() }
       }
+
+      public typealias Show = EpisodeSeason.Show
+
+      public typealias Episodes = EpisodeSeason.Episodes
     }
   }
 }
