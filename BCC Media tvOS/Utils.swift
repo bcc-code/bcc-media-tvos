@@ -43,4 +43,6 @@ struct CI {
     static var rudderWriteKey = "$RUDDER_WRITEKEY"
     static var rudderDataplaneURL = "$RUDDER_DATAPLANEURL"
     static var npawAccountCode = "$NPAW_ACCOUNTCODE"
+    static var unleashUrl = "$UNLEASH_URL"
+    static var unleashClientKey = "$UNLEASH_CLIENTKEY"
 }

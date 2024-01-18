@@ -8,6 +8,7 @@
 
 import SwiftUI
 import API
+import FeatureFlags
 
 var backgroundColor: Color {
     Color(red: 13 / 256, green: 22 / 256, blue: 35 / 256)
@@ -57,6 +58,9 @@ struct ContentView: View {
         }
         withAnimation {
             loaded = true
+        }
+        if let id = AppOptions.user.anonymousId {
+            FeatureFlags.setup(unleashUrl: "", clientKey: "", anonymousId: id)
         }
     }
 
