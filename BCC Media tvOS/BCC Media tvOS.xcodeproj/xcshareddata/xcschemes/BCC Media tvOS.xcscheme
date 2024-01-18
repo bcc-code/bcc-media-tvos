@@ -62,7 +62,12 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "UNLEASH_URL"
-            value = "https://unleash-server-prod-t5xl3eo6wq-ez.a.run.app/api/"
+            value = "https://unleash-server-prod-t5xl3eo6wq-ez.a.run.app/api/frontend"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "UNLEASH_CLIENTKEY3"
+            value = "*:development.a3062f5e37168ae5daae567033b408f6b41b22234d07bff9dac424e2"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

@@ -5,10 +5,23 @@ import UnleashProxyClientSwift
 
 private var client: UnleashProxyClientSwift.UnleashClient? = nil
 
+private func handleReady() {
+    loaded = true
+    onLoadCallback()
+}
+
 public func setup(unleashUrl: String, clientKey: String, anonymousId: String) {
+    print(clientKey)
     client = UnleashProxyClientSwift.UnleashClient(unleashUrl: unleashUrl, clientKey: clientKey, context: ["userId": anonymousId])
-    client!.subscribe(name: "ready") {
-        loaded = true
+    client!.start() { err in
+        if err != nil {
+            print(err as Any)
+        }
+        handleReady()
+    }
+    
+    client!.subscribe(name: "update") {
+        onUpdateCallback()
     }
 }
 
@@ -25,3 +38,15 @@ public func variant(_ key: String) -> String? {
 }
 
 public var loaded = false
+
+private var onLoadCallback: () -> Void = {}
+
+public func onLoad(callback: @escaping () -> Void) {
+    onLoadCallback = callback
+}
+
+private var onUpdateCallback: () -> Void = {}
+
+public func onUpdate(callback: @escaping () -> Void) {
+    onUpdateCallback = callback
+}

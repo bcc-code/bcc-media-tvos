@@ -46,6 +46,8 @@ struct ContentView: View {
 
     @State var loading = false
     @Environment(\.scenePhase) private var scenePhase
+    
+    @State var hideLive = false
 
     func load() async {
         frontPageId = nil
@@ -56,11 +58,21 @@ struct ContentView: View {
         authenticationProvider.registerErrorCallback {
             startSignIn()
         }
-        withAnimation {
-            loaded = true
-        }
         if let id = AppOptions.user.anonymousId {
+            FeatureFlags.onLoad {
+                hideLive = FeatureFlags.has("remove-live-tab")
+                withAnimation {
+                    loaded = true
+                }
+            }
+            FeatureFlags.onUpdate {
+                hideLive = FeatureFlags.has("remove-live-tab")
+            }
             FeatureFlags.setup(unleashUrl: AppOptions.unleash.url, clientKey: AppOptions.unleash.clientKey, anonymousId: id)
+        } else {
+            withAnimation {
+                loaded = true
+            }
         }
     }
 
@@ -253,46 +265,6 @@ struct ContentView: View {
     @State var onboarded = authenticationProvider.isAuthenticated()
 
     @State var playEpisode: API.GetEpisodeQuery.Data.Episode? = nil
-
-    var tabs: some View {
-        TabView(selection: $tab) {
-            FrontPage(pageId: frontPageId, clickItem: clickItem)
-                .tabItem {
-                    Label("tab_home", systemImage: "house.fill").font(.barlow)
-                }.tag(TabType.pages)
-            if !FeatureFlags.has("remove-live-tab") && authenticated && bccMember {
-                LiveView {
-                    path.append(StaticDestination.live)
-                }.tabItem {
-                    Label("tab_live", systemImage: "video").font(.barlow)
-                }.tag(TabType.live)
-            }
-            SearchView(
-                queryString: $searchQuery,
-                clickItem: clickItem,
-                playCallback: playCallbackWithContext(nil, progress: true)
-            ).tabItem {
-                Label("tab_search", systemImage: "magnifyingglass").font(.barlow)
-            }.tag(TabType.search)
-            SettingsView(
-                path: $path,
-                authenticated: authenticated,
-                onSave: {
-                    authenticated = authenticationProvider.isAuthenticated()
-                    Task {
-                        await load()
-                    }
-                },
-                signIn: startSignIn,
-                logout: logout,
-                name: AppOptions.user.name,
-                loading: loading
-            )
-            .tabItem {
-                Label("tab_settings", systemImage: "gearshape.fill").font(.barlow)
-            }.tag(TabType.settings)
-        }.disabled(!authenticated && !onboarded).font(.barlow)
-    }
     
     @FocusState var focusedLogin
 
@@ -302,7 +274,43 @@ struct ContentView: View {
             if loaded {
                 NavigationStack(path: $path) {
                     ZStack {
-                        tabs
+                        TabView(selection: $tab) {
+                            FrontPage(pageId: frontPageId, clickItem: clickItem)
+                                .tabItem {
+                                    Label("tab_home", systemImage: "house.fill").font(.barlow)
+                                }.tag(TabType.pages)
+                            if !hideLive && authenticated && bccMember {
+                                LiveView {
+                                    path.append(StaticDestination.live)
+                                }.tabItem {
+                                    Label("tab_live", systemImage: "video").font(.barlow)
+                                }.tag(TabType.live)
+                            }
+                            SearchView(
+                                queryString: $searchQuery,
+                                clickItem: clickItem,
+                                playCallback: playCallbackWithContext(nil, progress: true)
+                            ).tabItem {
+                                Label("tab_search", systemImage: "magnifyingglass").font(.barlow)
+                            }.tag(TabType.search)
+                            SettingsView(
+                                path: $path,
+                                authenticated: authenticated,
+                                onSave: {
+                                    authenticated = authenticationProvider.isAuthenticated()
+                                    Task {
+                                        await load()
+                                    }
+                                },
+                                signIn: startSignIn,
+                                logout: logout,
+                                name: AppOptions.user.name,
+                                loading: loading
+                            )
+                            .tabItem {
+                                Label("tab_settings", systemImage: "gearshape.fill").font(.barlow)
+                            }.tag(TabType.settings)
+                        }.disabled(!authenticated && !onboarded).font(.barlow)
                         if !authenticated && !onboarded {
                             Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea().focusable(false)
                             ZStack {
