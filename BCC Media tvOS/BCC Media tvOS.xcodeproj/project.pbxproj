@@ -75,6 +75,8 @@
 		09055A602B5807920019FB9A /* NpawPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A5F2B5807920019FB9A /* NpawPlugin */; };
 		09055A622B580A6B0019FB9A /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A612B580A6B0019FB9A /* VideoPlayerView.swift */; };
 		09055A6B2B59247A0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A6A2B59247A0019FB9A /* FeatureFlags */; };
+		09055A6D2B593FE90019FB9A /* CI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A6C2B593FE90019FB9A /* CI.swift */; };
+		09055A6F2B5943A70019FB9A /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A6E2B5943A70019FB9A /* API */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +149,7 @@
 		09055A5C2B5805C30019FB9A /* BCC-Media-tvOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BCC-Media-tvOS-Info.plist"; sourceTree = "<group>"; };
 		09055A5D2B58064E0019FB9A /* BCC Media tvOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BCC Media tvOS.entitlements"; sourceTree = "<group>"; };
 		09055A612B580A6B0019FB9A /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		09055A6C2B593FE90019FB9A /* CI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +167,7 @@
 				090559AC2B57F9810019FB9A /* API in Frameworks */,
 				090559CB2B57FBE40019FB9A /* ApolloWebSocket in Frameworks */,
 				090559C12B57FBE40019FB9A /* Apollo in Frameworks */,
+				09055A6F2B5943A70019FB9A /* API in Frameworks */,
 				090559C52B57FBE40019FB9A /* ApolloAPI in Frameworks */,
 				090559B42B57FB560019FB9A /* Apollo-Dynamic in Frameworks */,
 				090559BC2B57FB560019FB9A /* ApolloWebSocket in Frameworks */,
@@ -192,6 +196,7 @@
 				0905599C2B57F22F0019FB9A /* BCC_Media_tvOSApp.swift */,
 				0905599E2B57F22F0019FB9A /* ContentView.swift */,
 				09055A3B2B57FD450019FB9A /* Utils.swift */,
+				09055A6C2B593FE90019FB9A /* CI.swift */,
 				090559A02B57F2300019FB9A /* Assets.xcassets */,
 				090559A22B57F2300019FB9A /* Preview Content */,
 				0905599A2B57F22F0019FB9A /* Products */,
@@ -368,6 +373,7 @@
 				09055A452B57FEF30019FB9A /* Rudder */,
 				09055A5F2B5807920019FB9A /* NpawPlugin */,
 				09055A6A2B59247A0019FB9A /* FeatureFlags */,
+				09055A6E2B5943A70019FB9A /* API */,
 			);
 			productName = "BCC Media tvOS";
 			productReference = 090559992B57F22F0019FB9A /* BCC Media tvOS.app */;
@@ -385,6 +391,8 @@
 				TargetAttributes = {
 					090559982B57F22F0019FB9A = {
 						CreatedOnToolsVersion = 15.2;
+						DevelopmentTeam = 6734NUF6AV;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -414,13 +422,13 @@
 			);
 			mainGroup = 090559902B57F22F0019FB9A;
 			packageReferences = (
-				090559AA2B57F9810019FB9A /* XCLocalSwiftPackageReference "../API" */,
-				090559AD2B57F9960019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
-				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */,
+				090559AA2B57F9810019FB9A /* XCLocalSwiftPackageReference "API" */,
+				090559AD2B57F9960019FB9A /* XCLocalSwiftPackageReference "Authentication" */,
+				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */,
+				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */,
 				09055A442B57FEF30019FB9A /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
-				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */,
-				09055A692B59247A0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
+				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios.git" */,
+				09055A692B59247A0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */,
 			);
 			productRefGroup = 0905599A2B57F22F0019FB9A /* Products */;
 			projectDirPath = "";
@@ -464,6 +472,7 @@
 				09055A2E2B57FC540019FB9A /* LockView.swift in Sources */,
 				09055A512B57FF550019FB9A /* Episodes.swift in Sources */,
 				09055A332B57FC540019FB9A /* PlayerOptions.swift in Sources */,
+				09055A6D2B593FE90019FB9A /* CI.swift in Sources */,
 				0905599F2B57F22F0019FB9A /* ContentView.swift in Sources */,
 				09055A282B57FC540019FB9A /* SectionView.swift in Sources */,
 				09055A4F2B57FF550019FB9A /* AppOptions.swift in Sources */,
@@ -655,7 +664,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media tvOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 77;
+				CURRENT_PROJECT_VERSION = 91;
 				DEVELOPMENT_TEAM = 6734NUF6AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -682,7 +691,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media tvOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 77;
+				CURRENT_PROJECT_VERSION = 91;
 				DEVELOPMENT_TEAM = 6734NUF6AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -726,22 +735,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		090559AA2B57F9810019FB9A /* XCLocalSwiftPackageReference "../API" */ = {
+		090559AA2B57F9810019FB9A /* XCLocalSwiftPackageReference "API" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../API;
 		};
-		090559AD2B57F9960019FB9A /* XCLocalSwiftPackageReference "../Authentication" */ = {
+		090559AD2B57F9960019FB9A /* XCLocalSwiftPackageReference "Authentication" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Authentication;
 		};
-		09055A692B59247A0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */ = {
+		09055A692B59247A0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../FeatureFlags;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+		090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
@@ -749,7 +758,7 @@
 				minimumVersion = 1.8.0;
 			};
 		};
-		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */ = {
+		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/Auth0.swift";
 			requirement = {
@@ -765,7 +774,7 @@
 				minimumVersion = 2.4.2;
 			};
 		};
-		09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */ = {
+		09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://repo.plugin.npaw.com/release/plugin-ios.git";
 			requirement = {
@@ -786,67 +795,67 @@
 		};
 		090559B12B57FB560019FB9A /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = Apollo;
 		};
 		090559B32B57FB560019FB9A /* Apollo-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = "Apollo-Dynamic";
 		};
 		090559B52B57FB560019FB9A /* ApolloAPI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloAPI;
 		};
 		090559B72B57FB560019FB9A /* ApolloSQLite */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloSQLite;
 		};
 		090559B92B57FB560019FB9A /* ApolloTestSupport */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloTestSupport;
 		};
 		090559BB2B57FB560019FB9A /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloWebSocket;
 		};
 		090559BE2B57FB600019FB9A /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
+			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */;
 			productName = Auth0;
 		};
 		090559C02B57FBE40019FB9A /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = Apollo;
 		};
 		090559C22B57FBE40019FB9A /* Apollo-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = "Apollo-Dynamic";
 		};
 		090559C42B57FBE40019FB9A /* ApolloAPI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloAPI;
 		};
 		090559C62B57FBE40019FB9A /* ApolloSQLite */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloSQLite;
 		};
 		090559C82B57FBE40019FB9A /* ApolloTestSupport */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloTestSupport;
 		};
 		090559CA2B57FBE40019FB9A /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
 			productName = ApolloWebSocket;
 		};
 		09055A452B57FEF30019FB9A /* Rudder */ = {
@@ -856,12 +865,16 @@
 		};
 		09055A5F2B5807920019FB9A /* NpawPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */;
+			package = 09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios.git" */;
 			productName = NpawPlugin;
 		};
 		09055A6A2B59247A0019FB9A /* FeatureFlags */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureFlags;
+		};
+		09055A6E2B5943A70019FB9A /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

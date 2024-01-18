@@ -19,14 +19,15 @@ platform :ios do
   lane :beta do
     desc "Push a new beta build to TestFlight"
     increment_build_number(
-      xcodeproj: "BCC Media.xcodeproj"
+      xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj"
     )
     sh("cd .. && ./scripts/build.sh pre")
     enable_automatic_code_signing(
-      team_id: "6734NUF6AV"
+      team_id: "6734NUF6AV",
+      path: "./BCC Media tvOS/BCC Media tvOS.xcodeproj"
     )
   
-    build_app(workspace: "BCC Media.xcworkspace", scheme: "BCC Media", xcargs: "-allowProvisioningUpdates")
+    build_app(workspace: "BCC Media.xcworkspace", scheme: "BCC Media tvOS", xcargs: "-allowProvisioningUpdates", destination: "platform=tvOS")
     sh("cd .. && ./scripts/build.sh post")
     upload_to_testflight(team_id: "123760447")
   end
