@@ -6,9 +6,9 @@
 //
 
 struct CI {
-    static var rudderWriteKey = ""
-    static var rudderDataplaneURL = ""
-    static var npawAccountCode = ""
-    static var unleashUrl = ""
-    static var unleashClientKey = ""
+    static var rudderWriteKey = "$RUDDER_WRITE_KEY"
+    static var rudderDataplaneURL = "$RUDDER_DATAPLANE_URL"
+    static var npawAccountCode = "$NPAW_ACCOUNT_CODE"
+    static var unleashUrl = "$UNLEASH_URL"
+    static var unleashClientKey = "$UNLEASH_CLIENT_KEY"
 }
