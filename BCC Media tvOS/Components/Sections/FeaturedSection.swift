@@ -79,22 +79,22 @@ struct FeaturedSection: View {
         VStack {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 20) {
-                    if withLiveElement {
-                        VStack(alignment: .leading) {
-                            Text("common_live").font(.barlowTitle)
-                            NavigationLink {
-                                LivePlayer().ignoresSafeArea()
-                            } label: {
-                                Image(uiImage: UIImage(named: "Live.png")!).resizable().frame(width: 450)
-                            }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20).accessibilityLabel(Text("common_live"))
-                            CalendarDay(horizontal: false)
-                        }.padding(0).frame(width: 450)
-                    }
+//                    if withLiveElement {
+//                        VStack(alignment: .leading) {
+//                            Text("common_live").font(.barlowTitle)
+//                            NavigationLink {
+//                                LivePlayer().ignoresSafeArea()
+//                            } label: {
+//                                Image(uiImage: UIImage(named: "Live.png")!).resizable().frame(width: 450)
+//                            }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20).accessibilityLabel(Text("common_live"))
+//                            CalendarDay(horizontal: false)
+//                        }.padding(0).frame(width: 450)
+//                    }
                     ForEach(items.indices, id: \.self) { index in
                         FeaturedCard(item: items[index]) {
                             await clickItem(items[index])
                         }
-                    }.frame(width: withLiveElement ? 1200 : 1760)
+                    }.frame(width: 1760)
                 }.padding(100)
             }.padding(-100)
                 .frame(width: 1760, height: withLiveElement ? 600 : 800)

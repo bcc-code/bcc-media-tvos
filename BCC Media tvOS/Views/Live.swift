@@ -5,6 +5,7 @@
 import AVKit
 import Foundation
 import SwiftUI
+import FeatureFlags
 
 struct LiveView: View {
     var play: () -> Void
@@ -19,21 +20,27 @@ struct LiveView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top) {
-                Button {
-                    play()
-                } label: {
-                    Image(uiImage: UIImage(named: "Live.png")!)
+            if !FeatureFlags.has("force-bcc-live") {
+                HStack(alignment: .top) {
+                    Button {
+                        play()
+                    } label: {
+                        Image(uiImage: UIImage(named: "Live.png")!)
+                    }
+                    .buttonStyle(SectionItemButton(focused: isFocused))
+                    .focused($isFocused)
+                    .accessibilityLabel(Text("common_live"))
+                    VStack {
+                        Text("common_live").font(.barlowTitle).bold()
+                    }
+                    Spacer()
                 }
-                .buttonStyle(SectionItemButton(focused: isFocused))
-                .focused($isFocused)
-                .accessibilityLabel(Text("common_live"))
-                VStack {
-                    Text("common_live").font(.barlowTitle).bold()
-                }
-                Spacer()
             }
-            CalendarDay()
+            if FeatureFlags.has("link-to-bcc-live") {
+                Text("go_to_bcc_live_app")
+            } else {
+                CalendarDay()
+            }
         }
         .onAppear {
             Events.page("live")

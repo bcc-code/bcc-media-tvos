@@ -13,11 +13,9 @@ struct PlaybackState {
     var time: Double
 }
 
-private let npawAccountCode = ProcessInfo.processInfo.environment["NPAW_ACCOUNT_CODE"] ?? CI.npawAccountCode
-
 extension NpawPluginProvider {
     static func setup() {
-        self.initialize(accountCode: npawAccountCode, logLevel: .info)
+        self.initialize(accountCode: AppOptions.npaw.accountCode ?? "", logLevel: .info)
     }
 }
 

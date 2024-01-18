@@ -55,6 +55,16 @@
             value = "bccmediadev"
             isEnabled = "YES">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "UNLEASH_CLIENTKEY"
+            value = "*:production.d9eb81b114976b9cc29b156390b779828bd690825d602b1231b5158a"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "UNLEASH_URL"
+            value = "https://unleash-server-prod-t5xl3eo6wq-ez.a.run.app/api/"
+            isEnabled = "YES">
+         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction

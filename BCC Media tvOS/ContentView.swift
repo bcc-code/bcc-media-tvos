@@ -60,7 +60,7 @@ struct ContentView: View {
             loaded = true
         }
         if let id = AppOptions.user.anonymousId {
-            FeatureFlags.setup(unleashUrl: "", clientKey: "", anonymousId: id)
+            FeatureFlags.setup(unleashUrl: AppOptions.unleash.url, clientKey: AppOptions.unleash.clientKey, anonymousId: id)
         }
     }
 
@@ -260,7 +260,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("tab_home", systemImage: "house.fill").font(.barlow)
                 }.tag(TabType.pages)
-            if authenticated && bccMember {
+            if !FeatureFlags.has("remove-live-tab") && authenticated && bccMember {
                 LiveView {
                     path.append(StaticDestination.live)
                 }.tabItem {

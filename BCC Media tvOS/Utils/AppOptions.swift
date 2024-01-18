@@ -32,6 +32,11 @@ public struct RudderOptions {
     var writeKey: String = ""
 }
 
+public struct UnleashOptions {
+    var url: String = ""
+    var clientKey: String = ""
+}
+
 public struct AppOptions {
     private init() {}
 
@@ -68,6 +73,8 @@ public struct AppOptions {
     public var npaw: NpawOptions = .init()
 
     public var rudder: RudderOptions = .init()
+    
+    public var unleash: UnleashOptions = .init()
 }
 
 // Implement standard things
@@ -109,6 +116,10 @@ public extension AppOptions {
     static var rudder: RudderOptions {
         AppOptions.standard.rudder
     }
+    
+    static var unleash: UnleashOptions {
+        AppOptions.standard.unleash
+    }
 
     static func load() async {
         guard let data = await apolloClient.getAsync(query: API.GetSetupQuery()) else {
@@ -133,5 +144,7 @@ public extension AppOptions {
         AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"] ?? CI.npawAccountCode
         AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? CI.rudderWriteKey
         AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? CI.rudderDataplaneURL
+        AppOptions.standard.unleash.url = processInfo.environment["UNLEASH_URL"] ?? CI.unleashUrl
+        AppOptions.standard.unleash.clientKey = processInfo.environment["UNLEASH_CLIENTKEY"] ?? CI.unleashClientKey
     }
 }
