@@ -9,6 +9,18 @@ import SwiftUI
 import AVKit
 import NpawPlugin
 
+struct PlaybackState {
+    var time: Double
+}
+
+private let npawAccountCode = ProcessInfo.processInfo.environment["NPAW_ACCOUNT_CODE"] ?? CI.npawAccountCode
+
+extension NpawPluginProvider {
+    static func setup() {
+        self.initialize(accountCode: npawAccountCode, logLevel: .info)
+    }
+}
+
 class PlayerControls: ObservableObject {
     var player = AVPlayer()
     var currentUrl: URL?
@@ -24,6 +36,8 @@ class PlayerControls: ObservableObject {
     var observers: [NSKeyValueObservation] = []
     
     var expiresAt: Date?
+
+    var timer: Timer?
     
     init(player: AVPlayer = AVPlayer()) {
         self.player = player
@@ -96,6 +110,15 @@ class PlayerControls: ObservableObject {
             name: .AVPlayerItemDidPlayToEndTime,
             object: current.player.currentItem
         )
+
+        DispatchQueue.main.async {
+            self.current.timer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { _ in
+                listener.stateCallback(PlaybackState(time: player.currentTime().seconds))
+                if expired() {
+                    listener.onExpire()
+                }
+            }
+        }
         
         Task {
             if let l = options.audioLanguage, await current.player.currentItem!.setAudioLanguage(l) {
@@ -153,6 +176,17 @@ class PlayerControls: ObservableObject {
     static func setUrl(url: URL) {
         current.setUrl(url: url)
     }
+    
+    static func stop() {
+        player.pause()
+        player.replaceCurrentItem(with: nil)
+        adapter?.destroy()
+        current.timer?.invalidate()
+    }
+    
+    static func expired() -> Bool {
+        current.expiresAt != nil && current.expiresAt! < .now
+    }
 }
 
 struct VideoPlayerControllerView: UIViewControllerRepresentable {
@@ -177,16 +211,14 @@ struct VideoPlayerView : View {
 //            }
         .onChange(of: fullscreen) { v in
             if v {
-                Events.page("fullscreen")
                 PlayerControls.unmute()
             } else {
-                Events.page("live")
                 PlayerControls.mute()
             }
         }.onAppear() {
             PlayerControls.player.play()
         }.onDisappear() {
-            PlayerControls.player.pause()
+            PlayerControls.stop()
         }
     }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class PlayerListener {
     var stateCallback: (PlaybackState) -> Void
     var endCallback: () -> Void
