@@ -8,6 +8,8 @@ import SwiftUI
 import FeatureFlags
 
 struct LiveView: View {
+    @EnvironmentObject var flags: Flags
+    
     var play: () -> Void
 
     init(_ play: @escaping () -> Void) {
@@ -20,7 +22,7 @@ struct LiveView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            if !FeatureFlags.has("force-bcc-live") {
+            if !flags.forceBccLive {
                 HStack(alignment: .top) {
                     Button {
                         play()
@@ -36,7 +38,7 @@ struct LiveView: View {
                     Spacer()
                 }
             }
-            if FeatureFlags.has("link-to-bcc-live") {
+            if flags.linkToBccLive {
                 Text("go_to_bcc_live_app")
             } else {
                 CalendarDay()

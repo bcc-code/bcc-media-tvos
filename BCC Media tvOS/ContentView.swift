@@ -37,6 +37,18 @@ enum TabType: Hashable {
 
 typealias PlayCallback = (Bool, API.GetEpisodeQuery.Data.Episode) async -> Void
 
+class Flags: ObservableObject {
+    @Published var removeLiveTab = false
+    @Published var forceBccLive = false
+    @Published var linkToBccLive = false
+    
+    func load() {
+        removeLiveTab = FeatureFlags.has("remove-live-tab")
+        forceBccLive = FeatureFlags.has("force-bcc-live")
+        linkToBccLive = FeatureFlags.has("link-to-bcc-live")
+    }
+}
+
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var frontPageId: String? = nil
@@ -47,7 +59,7 @@ struct ContentView: View {
     @State var loading = false
     @Environment(\.scenePhase) private var scenePhase
     
-    @State var hideLive = false
+    @StateObject var flags = Flags()
 
     func load() async {
         frontPageId = nil
@@ -60,15 +72,24 @@ struct ContentView: View {
         }
         if let id = AppOptions.user.anonymousId {
             FeatureFlags.onLoad {
-                hideLive = FeatureFlags.has("remove-live-tab")
+                DispatchQueue.main.sync {
+                    flags.load()
+                }
                 withAnimation {
                     loaded = true
                 }
             }
             FeatureFlags.onUpdate {
-                hideLive = FeatureFlags.has("remove-live-tab")
+                DispatchQueue.main.sync {
+                    flags.load()
+                }
             }
-            FeatureFlags.setup(unleashUrl: AppOptions.unleash.url, clientKey: AppOptions.unleash.clientKey, anonymousId: id)
+            FeatureFlags.setup(unleashUrl: AppOptions.unleash.url, clientKey: AppOptions.unleash.clientKey, context: [
+                "anonymousId": id,
+                "ageGroup": AppOptions.user.ageGroup ?? "unknown",
+                "gender": AppOptions.user.gender ?? "unknown",
+                "userId": AppOptions.user.personId ?? "unknown"
+            ])
         } else {
             withAnimation {
                 loaded = true
@@ -279,7 +300,7 @@ struct ContentView: View {
                                 .tabItem {
                                     Label("tab_home", systemImage: "house.fill").font(.barlow)
                                 }.tag(TabType.pages)
-                            if !hideLive && authenticated && bccMember {
+                            if !flags.removeLiveTab && authenticated && bccMember {
                                 LiveView {
                                     path.append(StaticDestination.live)
                                 }.tabItem {
@@ -370,6 +391,7 @@ struct ContentView: View {
             .task {
                 await load()
             }
+            .environmentObject(flags)
             .onOpenURL(perform: { url in
                 loading = true
                 Task {

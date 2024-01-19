@@ -52,3 +52,5 @@
 "onboard_description" = "Watch series, shows and films based on Christian values";
 "onboard_login" = "Log in";
 "onboard_explorePublic" = "Explore public content";
+
+"go_to_bcc_live_app" = "Open and watch on Live by BCC Connect";

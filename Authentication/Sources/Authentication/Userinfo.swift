@@ -28,6 +28,7 @@ extension Provider {
     public struct Profile: Codable {
         public let name: String?
         public let ageGroup: String?
+        public let personId: Int?
     }
     
     private static let profileKey = "profile"
@@ -53,6 +54,11 @@ extension Provider {
             }
             let userInfo = try await authentication().userInfo(withAccessToken: token!).start()
             
+            var personId: Int? = nil
+            if let appMetadata = userInfo.customClaims?["https://members.bcc.no/app_metadata"] as? [String:Any] {
+                personId = appMetadata["personId"] as? Int
+            }
+            
             let formatter = ISO8601DateFormatter()
             formatter.formatOptions = .withFractionalSeconds
             var age: Int? = nil
@@ -65,7 +71,8 @@ extension Provider {
             
             let profile = Profile(
                 name: userInfo.name,
-                ageGroup: getAgeGroup(age)
+                ageGroup: getAgeGroup(age),
+                personId: personId
             )
             if let encoded = try? JSONEncoder().encode(profile) {
                 ud.set(encoded, forKey: Provider.profileKey)

@@ -10,14 +10,14 @@ private func handleReady() {
     onLoadCallback()
 }
 
-public func setup(unleashUrl: String, clientKey: String, anonymousId: String) {
-    print(clientKey)
-    client = UnleashProxyClientSwift.UnleashClient(unleashUrl: unleashUrl, clientKey: clientKey, context: ["userId": anonymousId])
+public func setup(unleashUrl: String, clientKey: String, context: [String:String]) {
+    client = UnleashProxyClientSwift.UnleashClient(unleashUrl: unleashUrl, clientKey: clientKey, refreshInterval: 60, appName: "bcc.media tvOS", context: context)
     client!.start() { err in
         if err != nil {
             print(err as Any)
+        } else {
+            handleReady()
         }
-        handleReady()
     }
     
     client!.subscribe(name: "update") {

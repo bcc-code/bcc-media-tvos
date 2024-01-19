@@ -16,6 +16,8 @@ public struct UserOptions {
     var anonymousId: String?
     var ageGroup: String?
     var bccMember: Bool?
+    var gender: String?
+    var personId: String?
 }
 
 public struct ApplicationOptions {
@@ -135,16 +137,17 @@ public extension AppOptions {
             AppOptions.user.anonymousId = data.me.analytics.anonymousId
             AppOptions.user.ageGroup = userInfo?.ageGroup
             AppOptions.user.bccMember = data.me.bccMember
+            AppOptions.user.personId = userInfo?.personId?.formatted()
         } else {
             AppOptions.user = .init()
         }
 
         let processInfo = ProcessInfo.processInfo
 
-        AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNTCODE"] ?? CI.npawAccountCode
-        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? CI.rudderWriteKey
-        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? CI.rudderDataplaneURL
+        AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNT_CODE"] ?? CI.npawAccountCode
+        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITE_KEY"] ?? CI.rudderWriteKey
+        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATA_PLANE_URL"] ?? CI.rudderDataplaneURL
         AppOptions.standard.unleash.url = processInfo.environment["UNLEASH_URL"] ?? CI.unleashUrl
-        AppOptions.standard.unleash.clientKey = processInfo.environment["UNLEASH_CLIENTKEY"] ?? CI.unleashClientKey
+        AppOptions.standard.unleash.clientKey = processInfo.environment["UNLEASH_CLIENT_KEY"] ?? CI.unleashClientKey
     }
 }
