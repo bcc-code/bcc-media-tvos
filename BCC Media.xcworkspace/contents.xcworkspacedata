@@ -2,9 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:BCC Media.xcodeproj">
+      location = "group:API">
    </FileRef>
    <FileRef
-      location = "group:Pods/Pods.xcodeproj">
+      location = "group:Authentication">
+   </FileRef>
+   <FileRef
+      location = "group:FeatureFlags">
+   </FileRef>
+   <FileRef
+      location = "group:BCC Media tvOS/BCC Media tvOS.xcodeproj">
    </FileRef>
 </Workspace>

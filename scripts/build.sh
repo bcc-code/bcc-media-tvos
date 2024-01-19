@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ./Library/Environment
+cd ./BCC\ Media\ tvOS
 
 if [ $1 == 'pre' ]
 then

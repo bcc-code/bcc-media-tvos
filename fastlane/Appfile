@@ -1,8 +1,8 @@
 app_identifier("tv.brunstad.app") # The bundle identifier of your app
 apple_id("fredrik@vedvik.tech") # Your Apple Developer Portal username
 
-itc_team_id("105827805") # App Store Connect Team ID
-team_id("KJ6LCYQ3A8") # Developer Portal Team ID
+itc_team_id("123760447") # App Store Connect Team ID
+team_id("6734NUF6AV") # Developer Portal Team ID
 
 # For more information about the Appfile, see:
 #     https://docs.fastlane.tools/advanced/#appfile

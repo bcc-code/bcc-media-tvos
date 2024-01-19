@@ -1,12 +1,3 @@
-Pods
-
-/**/xcshareddata
-/**/xcuserdata
-.DS_Store
-.crowdin_token
-
-build/
-BCC Media.app.dSYM.zip
-BCC Media.ipa
-
+xcuserdata/
 .env
+.DS_Store
