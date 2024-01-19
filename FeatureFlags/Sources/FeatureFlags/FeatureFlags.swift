@@ -11,7 +11,7 @@ private func handleReady() {
 }
 
 public func setup(unleashUrl: String, clientKey: String, context: [String:String]) {
-    client = UnleashProxyClientSwift.UnleashClient(unleashUrl: unleashUrl, clientKey: clientKey, refreshInterval: 60, appName: "bcc.media tvOS", context: context)
+    client = UnleashProxyClientSwift.UnleashClient(unleashUrl: unleashUrl, clientKey: clientKey, refreshInterval: 60, appName: "bccm-tvos", context: context)
     client!.start() { err in
         if err != nil {
             print(err as Any)
