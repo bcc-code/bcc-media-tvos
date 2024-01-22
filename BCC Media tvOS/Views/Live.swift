@@ -19,6 +19,8 @@ struct LiveView: View {
     private var columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     @FocusState var isFocused
+    
+    @FocusState var newAppFocused
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,7 +29,7 @@ struct LiveView: View {
                     Button {
                         play()
                     } label: {
-                        Image(uiImage: UIImage(named: "Live.png")!)
+                        Image(uiImage: UIImage(named: "Live.png")!).frame(width: 1280/2, height: 720/2)
                     }
                     .buttonStyle(SectionItemButton(focused: isFocused))
                     .focused($isFocused)
@@ -39,19 +41,35 @@ struct LiveView: View {
                 }
             }
             if flags.linkToBccLive {
-                Text("go_to_bcc_live_app")
+                Text("new_live_app").font(.barlowTitle)
+                Text("go_to_bcc_live_app").font(.barlow)
+                Button {
+                    
+                } label: {
+                    Image(uiImage: UIImage(named: "tvos_icon_large.png")!).resizable()
+                }
+                .buttonStyle(SectionItemButton(focused: newAppFocused))
+                .focused($newAppFocused)
+                .accessibilityLabel(Text("new_live_app")).frame(width: 1280/2, height: 720/2)
             } else {
                 CalendarDay()
             }
-        }
+        }.frame(width: 1280)
         .onAppear {
             Events.page("live")
         }
     }
 }
 
+func getFlags() -> Flags {
+    let flags = Flags();
+//    flags.forceBccLive = true;
+    flags.linkToBccLive = true;
+    return flags
+}
+
 struct LiveView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveView {}
+        LiveView {}.environmentObject(getFlags())
     }
 }
