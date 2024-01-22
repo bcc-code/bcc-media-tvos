@@ -37,8 +37,10 @@
 "aboutUs_description" = "BCC Media é uma fundação da Federação BCC que produz e distribui conteúdo com valores positivos e cristãos";
 "aboutUs_contact" = "Contate-nos em $email ou no aplicativo móvel BCC Media";
 "aboutUs_privacyPolicy" = "A Política de Privacidade pode ser lida em $url";
-"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
+"aboutUs_termsOfUse" = "Nossos Termos de Uso estão localizados em $url";
 "onboard_title" = "A mensagem mais poderosa do mundo";
 "onboard_description" = "Assistir séries, programas e filmes baseados nos valores cristãos";
 "onboard_login" = "Entrar";
 "onboard_explorePublic" = "Explorar conteúdo público";
+"new_live_app" = "New livestream app";
+"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";

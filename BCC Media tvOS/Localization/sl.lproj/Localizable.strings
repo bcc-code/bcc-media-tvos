@@ -37,8 +37,10 @@
 "aboutUs_description" = "BCC Media je fundacija v BCC zvezi, ki proizvaja in širi vsebino s pozitivnimi in krščanskimi vrednotami";
 "aboutUs_contact" = "Kontaktiraj nas na $email ali v mobilni aplikaciji BCC Media";
 "aboutUs_privacyPolicy" = "Politika zasebnosti je na strani $url";
-"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
+"aboutUs_termsOfUse" = "Naša pravila uporabe se nahajajo na $url";
 "onboard_title" = "Najmočnejše sporočilo na svetu";
 "onboard_description" = "Oglej si serije in filme, narejene na podlagi krščanskih vrednot";
 "onboard_login" = "Prijava";
 "onboard_explorePublic" = "Razišči javno vsebino";
+"new_live_app" = "New livestream app";
+"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";

@@ -37,8 +37,10 @@
 "aboutUs_description" = "BCC Media on BCC Liitossa oleva yhdistys, joka tuottaa ja toimittaa positiivista Kristillisten arvojen mukaista sisältöä";
 "aboutUs_contact" = "Meihin saa yhteyde sähköpostilla: $email tai BCC Media kännykkäsovelluksella";
 "aboutUs_privacyPolicy" = "Tietosuojakäytännöistä voi lukea $url";
-"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
+"aboutUs_termsOfUse" = "Käyttöehdot löytyvät täältä: $url";
 "onboard_title" = "Kaikista maailman sanomista voimakkain";
 "onboard_description" = "Katsele Kristillisten arvojen mukaisia videoita, esityksiä, ja sarjoja";
 "onboard_login" = "Kirjaudu sisään";
 "onboard_explorePublic" = "Tutustu avoimeen sisältöön";
+"new_live_app" = "New livestream app";
+"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";

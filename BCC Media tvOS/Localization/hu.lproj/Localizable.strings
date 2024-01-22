@@ -37,8 +37,10 @@
 "aboutUs_description" = "A BCC Media a BCC szövetség médiaalapítványa, amely pozitív és keresztény értékeket tartalmazó tartalmakat gyárt és terjeszt";
 "aboutUs_contact" = "Lépj velünk kapcsolatba a $email címen vagy a BCC Media mobilalkalmazáson keresztül";
 "aboutUs_privacyPolicy" = "Az adatvédelmi irányelvek a $url oldalon olvashatók";
-"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
+"aboutUs_termsOfUse" = "Felhasználási feltételeink a $url oldalon találhatók";
 "onboard_title" = "A világ legerősebb üzenete";
 "onboard_description" = "Keresztény értékeken alapuló sorozatok, műsorok és filmek megtekintése";
 "onboard_login" = "Bejelentkezés";
 "onboard_explorePublic" = "Nyilvános tartalmak felfedezése";
+"new_live_app" = "New livestream app";
+"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";

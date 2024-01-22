@@ -37,8 +37,10 @@
 "aboutUs_description" = "BCC Media is een media-stichting binnen de BCC-federatie, die content met positieve en christelijke waarden produceert en verspreidt";
 "aboutUs_contact" = "Neem contact op via $email of via de BCC Media mobiele app";
 "aboutUs_privacyPolicy" = "De privacy voorwaarden kun je lezen op $url";
-"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
+"aboutUs_termsOfUse" = "Onze Gebruiksvoorwaarden zijn te vinden op $url";
 "onboard_title" = "De krachtigste boodschap in de wereld";
 "onboard_description" = "Bekijk series, shows en films gebasseerd op Christelijke waarden";
 "onboard_login" = "Inloggen";
 "onboard_explorePublic" = "Verken publieke content";
+"new_live_app" = "New livestream app";
+"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";

@@ -38,8 +38,10 @@
 "aboutUs_description" = "BCC Media er en fond i BCC-forbundet, som producerer og distribuerer indhold med positive og kristne værdier.";
 "aboutUs_contact" = "Kontakt os på $email eller i BCC Medias mobilapp";
 "aboutUs_privacyPolicy" = "Privatlivspolitikken kan læses på $url";
-"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
+"aboutUs_termsOfUse" = "Vores betingelser for brug findes på $url";
 "onboard_title" = "Det kraftigste budskab i verden";
 "onboard_description" = "Se serier, shows og film baseret på kristne værdier";
 "onboard_login" = "Log ind";
 "onboard_explorePublic" = "Udforsk offentligt indhold";
+"new_live_app" = "New livestream app";
+"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";

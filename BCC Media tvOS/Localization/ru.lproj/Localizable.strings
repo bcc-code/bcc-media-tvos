@@ -37,8 +37,10 @@
 "aboutUs_description" = "BCC Media — это медиа-фонд в организации BCC, который производит и распространяет контент с позитивными и христианскими ценностями";
 "aboutUs_contact" = "Свяжитесь с нами по электронной почте $email или в мобильном приложении BCC Media";
 "aboutUs_privacyPolicy" = "Политику конфиденциальности можно прочитать на сайте $url";
-"aboutUs_termsOfUse" = "Our Terms of Use is located at $url";
+"aboutUs_termsOfUse" = "Наши условия использования расположены по адресу $url";
 "onboard_title" = "Самая могущественная весть в мире";
 "onboard_description" = "Смотрите сериалы, шоу и фильмы, основанные на христианских ценностях";
 "onboard_login" = "Войти";
 "onboard_explorePublic" = "Исследовать открытый контент";
+"new_live_app" = "New livestream app";
+"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
