@@ -44,7 +44,9 @@ struct LiveView: View {
                 Text("new_live_app").font(.barlowTitle)
                 Text("go_to_bcc_live_app").font(.barlow)
                 Button {
+                    let url = URL(string: "https://itunes.apple.com/app/id6476551025")
                     
+                    UIApplication.shared.open(url!)
                 } label: {
                     Image(uiImage: UIImage(named: "tvos_icon_large.png")!).resizable()
                 }
