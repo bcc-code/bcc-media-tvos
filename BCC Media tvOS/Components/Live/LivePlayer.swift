@@ -38,7 +38,7 @@ struct LivePlayer: View {
                 let resp = try JSONDecoder().decode(LiveResponse.self, from: data)
                 url = URL(string: resp.url)!
                 
-                PlayerControls.setItem(url!, .init(title: "Live", isLive: true, content: .init(id: "livestream")), playerListener)
+                PlayerControls.setItem(url!, .init(title: "Live", audioLanguage: AppOptions.audioLanguage, subtitleLanguage: AppOptions.subtitleLanguage, isLive: true, content: .init(id: "livestream")), playerListener)
             }
             loaded = true
         }

@@ -119,12 +119,14 @@ class PlayerControls: ObservableObject {
         }
         
         Task {
-            if let l = options.audioLanguage, await current.player.currentItem!.setAudioLanguage(l) {
+            let l = options.audioLanguage ?? "no"
+            if await current.player.currentItem!.setAudioLanguage(l) {
                 print("Successfully set initial audio language")
             }
         }
         Task {
-            if let l = options.subtitleLanguage, await current.player.currentItem!.setSubtitleLanguage(l) {
+            let l = options.subtitleLanguage ?? "no"
+            if await current.player.currentItem!.setSubtitleLanguage(l) {
                 print("Successfully set initial subtitle language")
             }
         }

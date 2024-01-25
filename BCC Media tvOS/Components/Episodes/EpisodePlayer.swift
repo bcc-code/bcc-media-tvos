@@ -43,6 +43,8 @@ struct EpisodePlayer: View {
         options = .init(
             title: episode.title,
             startFrom: progress ? data!.episode.progress ?? 0 : 0,
+            audioLanguage: AppOptions.audioLanguage,
+            subtitleLanguage: AppOptions.subtitleLanguage,
             isLive: false,
             content: .init(
                 episodeTitle: episode.title,
