@@ -7,7 +7,7 @@ public class GetEpisodeStreamsQuery: GraphQLQuery {
   public static let operationName: String = "GetEpisodeStreams"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query GetEpisodeStreams($id: ID!) { episode(id: $id) { __typename progress streams { __typename url type } } }"#
+      #"query GetEpisodeStreams($id: ID!) { episode(id: $id) { __typename progress streams { __typename videoLanguage url type } } }"#
     ))
 
   public var id: ID
@@ -56,10 +56,12 @@ public class GetEpisodeStreamsQuery: GraphQLQuery {
         public static var __parentType: ApolloAPI.ParentType { API.Objects.Stream }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
+          .field("videoLanguage", API.Language?.self),
           .field("url", String.self),
           .field("type", GraphQLEnum<API.StreamType>.self),
         ] }
 
+        public var videoLanguage: API.Language? { __data["videoLanguage"] }
         public var url: String { __data["url"] }
         public var type: GraphQLEnum<API.StreamType> { __data["type"] }
       }

@@ -42,5 +42,8 @@
 "onboard_description" = "Katsele Kristillisten arvojen mukaisia videoita, esityksiä, ja sarjoja";
 "onboard_login" = "Kirjaudu sisään";
 "onboard_explorePublic" = "Tutustu avoimeen sisältöön";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
+"new_live_app" = "Uusi suoratoistosovellus";
+"go_to_bcc_live_app" = "Suoratoistoa nähdäksesi siirry \"BCC Connect\" -sovellukseen. Napsauta avataksesi tai ladataksesi sovelluksen App Storesta tai Google Playsta.";
+"select_video_language" = "Select video language";
+"original" = "Original";
+"video_language_on_screen_graphics" = "Language used for on screen graphics";

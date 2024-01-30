@@ -42,5 +42,8 @@
 "onboard_description" = "Vezi seriale, emisiuni și filme bazate pe valori Creștine";
 "onboard_login" = "Autentificare";
 "onboard_explorePublic" = "Explorează conținut public";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
+"new_live_app" = "Aplicație nouă pentru transmisiuni în direct";
+"go_to_bcc_live_app" = "Accesați Live din BCC Connect pentru a continua să urmăriți transmisiunile în direct. Dați clic pentru a deschide sau descărca aplicația din App Store sau Google Play.";
+"select_video_language" = "Select video language";
+"original" = "Original";
+"video_language_on_screen_graphics" = "Language used for on screen graphics";

@@ -42,5 +42,8 @@
 "onboard_description" = "Bekijk series, shows en films gebasseerd op Christelijke waarden";
 "onboard_login" = "Inloggen";
 "onboard_explorePublic" = "Verken publieke content";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
+"new_live_app" = "Nieuwe livestream app";
+"go_to_bcc_live_app" = "Ga naar Live by BCC Connect om livestreams te kunnen kijken. Klik om te openen of download de app vanuit de App Store of Google Play.";
+"select_video_language" = "Select video language";
+"original" = "Original";
+"video_language_on_screen_graphics" = "Language used for on screen graphics";

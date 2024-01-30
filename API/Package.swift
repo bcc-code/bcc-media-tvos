@@ -19,9 +19,7 @@ let package = Package(
       dependencies: [
         .product(name: "Apollo", package: "apollo-ios"),
       ],
-      path: "./Sources",
-      swiftSettings: [
-        .define("COCOAPODS")]
+      path: "./Sources"
     ),
   ]
 )

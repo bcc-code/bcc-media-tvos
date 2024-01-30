@@ -42,5 +42,8 @@
 "onboard_description" = "Oglej si serije in filme, narejene na podlagi krščanskih vrednot";
 "onboard_login" = "Prijava";
 "onboard_explorePublic" = "Razišči javno vsebino";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
+"new_live_app" = "Nova aplikacija za prenos v živo";
+"go_to_bcc_live_app" = "Če želite še naprej gledati prenose v živo, pojdi na Live od BCC Connect. Klikni, da odpreš ali preneseš aplikacijo iz App Store ali Google Play.";
+"select_video_language" = "Select video language";
+"original" = "Original";
+"video_language_on_screen_graphics" = "Language used for on screen graphics";

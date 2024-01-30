@@ -42,5 +42,8 @@
 "onboard_description" = "Assistir séries, programas e filmes baseados nos valores cristãos";
 "onboard_login" = "Entrar";
 "onboard_explorePublic" = "Explorar conteúdo público";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
+"new_live_app" = "Novo aplicativo de transmissão ao vivo";
+"go_to_bcc_live_app" = "Acesse Live by BCC Connect para continuar assistindo às transmissões ao vivo. Clique para abrir ou baixar o aplicativo na App Store ou Google Play.";
+"select_video_language" = "Select video language";
+"original" = "Original";
+"video_language_on_screen_graphics" = "Language used for on screen graphics";

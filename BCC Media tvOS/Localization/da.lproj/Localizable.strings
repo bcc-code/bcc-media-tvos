@@ -43,5 +43,8 @@
 "onboard_description" = "Se serier, shows og film baseret på kristne værdier";
 "onboard_login" = "Log ind";
 "onboard_explorePublic" = "Udforsk offentligt indhold";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
+"new_live_app" = "Ny livestreaming app";
+"go_to_bcc_live_app" = "Gå til Live by BCC Connect for at fortsætte med at se livestreaming. Klik for at åbne eller downloade appen fra App Store eller Google Play.";
+"select_video_language" = "Select video language";
+"original" = "Original";
+"video_language_on_screen_graphics" = "Language used for on screen graphics";

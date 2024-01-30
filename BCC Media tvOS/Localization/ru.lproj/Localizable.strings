@@ -42,5 +42,8 @@
 "onboard_description" = "Смотрите сериалы, шоу и фильмы, основанные на христианских ценностях";
 "onboard_login" = "Войти";
 "onboard_explorePublic" = "Исследовать открытый контент";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
+"new_live_app" = "Новое приложение для трансляций";
+"go_to_bcc_live_app" = "Перейдите в раздел Live by BCC Connect, чтобы продолжить просмотр прямых трансляций. Нажмите, чтобы открыть или загрузить приложение из App Store или Google Play.";
+"select_video_language" = "Select video language";
+"original" = "Original";
+"video_language_on_screen_graphics" = "Language used for on screen graphics";
