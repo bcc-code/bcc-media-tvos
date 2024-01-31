@@ -22,7 +22,7 @@ platform :ios do
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj"
     )
     sh("cd .. && ./scripts/build.sh pre")
-    build_app(scheme: "BCC Media tvOS")
+    build_app(scheme: "BCC Media tvOS", cloned_source_packages_path: "./tmp/build")
     sh("cd .. && ./scripts/build.sh post")
     upload_to_testflight
   end
