@@ -43,7 +43,7 @@
 "onboard_login" = "Connexion";
 "onboard_explorePublic" = "Explorer le contenu public";
 "new_live_app" = "Nouvelle application de diffusion en direct";
-"go_to_bcc_live_app" = "Accédez à Live by BCC Connect pour continuer à regarder les diffusions en direct. Cliquez pour ouvrir ou télécharger l\'application depuis l\'App Store ou Google Play.";
-"select_video_language" = "Select video language";
+"go_to_bcc_live_app" = "We\'re sorry! You are no longer able to watch livestreams in this app. Download \"Live by BCC Connect\" in the App Store to continue watching livestreams from Brunstad.";
+"select_video_language" = "Sélection de la langue de la vidéo";
 "original" = "Original";
-"video_language_on_screen_graphics" = "Language used for on screen graphics";
+"video_language_on_screen_graphics" = "Langue utilisée pour les graphiques à l\'écran";

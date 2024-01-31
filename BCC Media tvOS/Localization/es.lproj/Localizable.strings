@@ -42,8 +42,8 @@
 "onboard_description" = "Ver series, espectáculos y películas basadas en Valores cristianos";
 "onboard_login" = "Inicio de sesión";
 "onboard_explorePublic" = "Explora el contenido público";
-"new_live_app" = "New livestream app";
-"go_to_bcc_live_app" = "Go to Live by BCC Connect to continue watching livestreams. Click to open or download the app from App Store or Google Play.";
-"select_video_language" = "Select video language";
+"new_live_app" = "Nueva aplicación de transmisión en vivo";
+"go_to_bcc_live_app" = "We\'re sorry! You are no longer able to watch livestreams in this app. Download \"Live by BCC Connect\" in the App Store to continue watching livestreams from Brunstad.";
+"select_video_language" = "Seleccionar idioma del vídeo";
 "original" = "Original";
-"video_language_on_screen_graphics" = "Language used for on screen graphics";
+"video_language_on_screen_graphics" = "Idioma utilizado para los gráficos en pantalla";

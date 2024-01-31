@@ -43,7 +43,7 @@
 "onboard_login" = "Prijava";
 "onboard_explorePublic" = "Razišči javno vsebino";
 "new_live_app" = "Nova aplikacija za prenos v živo";
-"go_to_bcc_live_app" = "Če želite še naprej gledati prenose v živo, pojdi na Live od BCC Connect. Klikni, da odpreš ali preneseš aplikacijo iz App Store ali Google Play.";
-"select_video_language" = "Select video language";
-"original" = "Original";
-"video_language_on_screen_graphics" = "Language used for on screen graphics";
+"go_to_bcc_live_app" = "We\'re sorry! You are no longer able to watch livestreams in this app. Download \"Live by BCC Connect\" in the App Store to continue watching livestreams from Brunstad.";
+"select_video_language" = "Izberi jezik videoposnetka";
+"original" = "Izvirnik";
+"video_language_on_screen_graphics" = "Jezik, ki je uporabljen za grafiko na zaslonu";
