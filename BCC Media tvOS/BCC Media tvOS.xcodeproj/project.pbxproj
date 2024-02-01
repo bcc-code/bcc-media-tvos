@@ -52,7 +52,6 @@
 		09055A392B57FC540019FB9A /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A0F2B57FC540019FB9A /* Live.swift */; };
 		09055A3A2B57FC540019FB9A /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A102B57FC540019FB9A /* Search.swift */; };
 		09055A3C2B57FD450019FB9A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A3B2B57FD450019FB9A /* Utils.swift */; };
-		09055A462B57FEF30019FB9A /* Rudder in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A452B57FEF30019FB9A /* Rudder */; };
 		09055A4F2B57FF550019FB9A /* AppOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A482B57FF550019FB9A /* AppOptions.swift */; };
 		09055A502B57FF550019FB9A /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A492B57FF550019FB9A /* Languages.swift */; };
 		09055A512B57FF550019FB9A /* Episodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A4A2B57FF550019FB9A /* Episodes.swift */; };
@@ -67,6 +66,7 @@
 		09055A6D2B593FE90019FB9A /* CI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A6C2B593FE90019FB9A /* CI.swift */; };
 		09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A772B594E7F0019FB9A /* FeatureFlags */; };
 		09055A7E2B5956AA0019FB9A /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A7D2B5956AA0019FB9A /* ApolloAPI */; };
+		09DDD6C72B6BB05000E56631 /* Rudder in Frameworks */ = {isa = PBXBuildFile; productRef = 09DDD6C62B6BB05000E56631 /* Rudder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -150,11 +150,11 @@
 				090559AF2B57F9960019FB9A /* Authentication in Frameworks */,
 				09055A6B2B59247A0019FB9A /* FeatureFlags in Frameworks */,
 				09055A7E2B5956AA0019FB9A /* ApolloAPI in Frameworks */,
+				09DDD6C72B6BB05000E56631 /* Rudder in Frameworks */,
 				090559B22B57FB560019FB9A /* Apollo in Frameworks */,
 				090559BF2B57FB600019FB9A /* Auth0 in Frameworks */,
 				090559AC2B57F9810019FB9A /* API in Frameworks */,
 				09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */,
-				09055A462B57FEF30019FB9A /* Rudder in Frameworks */,
 				09055A602B5807920019FB9A /* NpawPlugin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,11 +338,11 @@
 				09055A7D2B5956AA0019FB9A /* ApolloAPI */,
 				090559B12B57FB560019FB9A /* Apollo */,
 				090559BE2B57FB600019FB9A /* Auth0 */,
-				09055A452B57FEF30019FB9A /* Rudder */,
 				09055A5F2B5807920019FB9A /* NpawPlugin */,
 				090559AE2B57F9960019FB9A /* Authentication */,
 				090559AB2B57F9810019FB9A /* API */,
 				09055A6A2B59247A0019FB9A /* FeatureFlags */,
+				09DDD6C62B6BB05000E56631 /* Rudder */,
 			);
 			productName = "BCC Media tvOS";
 			productReference = 090559992B57F22F0019FB9A /* BCC Media tvOS.app */;
@@ -393,11 +393,11 @@
 			packageReferences = (
 				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */,
-				09055A442B57FEF30019FB9A /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
 				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */,
 				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */,
 				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
 				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
+				09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
 			);
 			productRefGroup = 0905599A2B57F22F0019FB9A /* Products */;
 			projectDirPath = "";
@@ -541,7 +541,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 102;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -606,7 +606,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 102;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -650,7 +650,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 4.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -678,7 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 4.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -742,20 +742,20 @@
 				minimumVersion = 2.5.0;
 			};
 		};
-		09055A442B57FEF30019FB9A /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rudderlabs/rudder-sdk-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.2;
-			};
-		};
 		09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://repo.plugin.npaw.com/release/plugin-ios.git";
 			requirement = {
 				kind = exactVersion;
 				version = 7.2.2;
+			};
+		};
+		09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rudderlabs/rudder-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.15.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -779,11 +779,6 @@
 			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
 			productName = Auth0;
 		};
-		09055A452B57FEF30019FB9A /* Rudder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09055A442B57FEF30019FB9A /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */;
-			productName = Rudder;
-		};
 		09055A5F2B5807920019FB9A /* NpawPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */;
@@ -801,6 +796,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
+		};
+		09DDD6C62B6BB05000E56631 /* Rudder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */;
+			productName = Rudder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
