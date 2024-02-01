@@ -19,12 +19,30 @@
       }
     },
     {
+      "identity" : "crash-reporter-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/crash-reporter-ios",
+      "state" : {
+        "revision" : "ee563535b64d9d5feacd0fa243663b2658033a19",
+        "version" : "1.0.1"
+      }
+    },
+    {
       "identity" : "jwtdecode.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/auth0/JWTDecode.swift.git",
       "state" : {
         "revision" : "58af7278797871e460d79496621b3e5366b865b2",
         "version" : "3.1.0"
+      }
+    },
+    {
+      "identity" : "metrics-reporter-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/metrics-reporter-ios",
+      "state" : {
+        "revision" : "c5fe7cc861a83ec75978a516c02398c2a2cb1f20",
+        "version" : "1.2.1"
       }
     },
     {
@@ -37,12 +55,21 @@
       }
     },
     {
+      "identity" : "rudder-ios-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/rudder-ios-kit",
+      "state" : {
+        "revision" : "8a557a80cc1b0e0bc948c2b17fe0fd3809bcfd61",
+        "version" : "1.4.0"
+      }
+    },
+    {
       "identity" : "rudder-sdk-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rudderlabs/rudder-sdk-ios",
       "state" : {
-        "revision" : "17627074e149b024a960e7a475747b90743bb6ab",
-        "version" : "2.4.2"
+        "revision" : "9aad33e18dad0ea782424ff875e46b343223b4fa",
+        "version" : "2.4.3"
       }
     },
     {

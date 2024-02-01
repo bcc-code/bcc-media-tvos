@@ -5,8 +5,8 @@
 //  Created by Fredrik Vedvik on 15/05/2023.
 //
 
-import Foundation
 import Rudder
+import Foundation
 
 protocol Event: Encodable {
     static var eventName: String { get }
@@ -120,7 +120,7 @@ class ErrorOccured: Event {
 }
 
 struct Events {
-    private let client = RSClient.sharedInstance()
+    private var client: RSClient
 
     private init() {
         let processInfo = ProcessInfo.processInfo
@@ -128,12 +128,10 @@ struct Events {
         AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? CI.rudderWriteKey
         AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? CI.rudderDataplaneURL
         
-        let config = RSConfig(writeKey: AppOptions.rudder.writeKey)
-            .dataPlaneURL(AppOptions.rudder.dataPlaneUrl)
-//            .trackLifecycleEvents(true)
-//            .recordScreenViews(true)
+        let builder: RSConfigBuilder = RSConfigBuilder()
+            .withDataPlaneUrl(AppOptions.rudder.dataPlaneUrl)
 
-        client.configure(with: config)
+        client = RSClient.getInstance(AppOptions.rudder.writeKey, config: builder.build())
     }
 
     public static let standard = Events()
