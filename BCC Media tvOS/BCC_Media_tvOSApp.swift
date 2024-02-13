@@ -28,7 +28,6 @@ struct BCC_Media_tvOSApp: App {
             ContentView().onAppear {
                 // Initialize rudder SDK
                 _ = Events.standard
-                NpawPluginProvider.setup()
             }.onChange(of: scenePhase) { phase in
                 switch phase {
                 case .background:

@@ -15,7 +15,10 @@ struct PlaybackState {
 
 extension NpawPluginProvider {
     static func setup() {
-        self.initialize(accountCode: AppOptions.npaw.accountCode ?? "", logLevel: .info)
+        var options = AnalyticsOptions()
+        options.appName = "bccm-tvos"
+        options.userAnonymousId = AppOptions.user.anonymousId
+        self.initialize(accountCode: AppOptions.npaw.accountCode ?? "", analyticsOptions: options, logLevel: .info)
     }
 }
 
@@ -65,6 +68,7 @@ class PlayerControls: ObservableObject {
                 adapter = NpawPluginProvider.shared!.videoBuilder()
                     .setPlayerAdapter(playerAdapter: AVPlayerAdapter(player: player))
                     .setOptions(options: videoOptions)
+                    .setIdentifier(identifier: "bccm-tvos")
                     .build()
             }
             

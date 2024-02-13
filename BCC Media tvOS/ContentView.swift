@@ -9,6 +9,7 @@
 import SwiftUI
 import API
 import FeatureFlags
+import NpawPlugin
 
 var backgroundColor: Color {
     Color(red: 13 / 256, green: 22 / 256, blue: 35 / 256)
@@ -70,6 +71,7 @@ struct ContentView: View {
         authenticationProvider.registerErrorCallback {
             startSignIn()
         }
+        NpawPluginProvider.setup()
         if let id = AppOptions.user.anonymousId {
             FeatureFlags.onLoad {
                 DispatchQueue.main.sync {
