@@ -150,4 +150,6 @@ struct Events {
     public static func page(_ pageCode: String) {
         standard.client.screen(pageCode)
     }
+    
+    public static let sessionId = standard.client.sessionId
 }

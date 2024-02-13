@@ -15,9 +15,11 @@ struct PlaybackState {
 
 extension NpawPluginProvider {
     static func setup() {
-        var options = AnalyticsOptions()
+        let options = AnalyticsOptions()
         options.appName = "bccm-tvos"
         options.userAnonymousId = AppOptions.user.anonymousId
+        options.contentCustomDimension1 = Events.sessionId?.stringValue
+        options.contentCustomDimension2 = AppOptions.user.ageGroup
         self.initialize(accountCode: AppOptions.npaw.accountCode ?? "", analyticsOptions: options, logLevel: .info)
     }
 }
