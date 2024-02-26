@@ -70,7 +70,9 @@ struct EpisodeHeader: View {
                     }
                 }
             }
-            Text(episode.description).font(.barlowCaption)
+            if let desc = try? AttributedString(markdown: episode.description, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+                Text(desc).font(.barlowCaption)
+            }
         }.padding(.vertical, 20)
             .onAppear {
                 inMyList = episode.inMyList
@@ -123,7 +125,9 @@ struct EpisodeListItem: View {
                 )
                 VStack(alignment: .leading) {
                     Text(title).font(.barlow)
-                    Text(description).font(.barlowCaption).foregroundColor(.gray)
+                    if let desc = try? AttributedString(markdown: description, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) {
+                        Text(desc).font(.barlowCaption).foregroundColor(.gray)
+                    }
                 }.padding(20)
                 Spacer()
             }.frame(maxWidth: .infinity)
