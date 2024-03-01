@@ -14,7 +14,8 @@ public func getAgeGroup(_ age: Int?) -> String {
     ]
     
     if let age = age {
-        for (key, value) in breakpoints {
+        for key in breakpoints.keys {
+            let value = breakpoints[key]!
             if age <= key {
                 return value
             }
@@ -41,6 +42,7 @@ extension Provider {
             if expiry > Date.now {
                 if let data = ud.object(forKey: Provider.profileKey) as? Data, let profile = try? JSONDecoder().decode(Profile.self, from: data) {
                     print("returning cached profile")
+                    print(profile)
                     return profile
                 }
             }

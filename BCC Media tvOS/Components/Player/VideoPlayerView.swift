@@ -17,6 +17,7 @@ extension NpawPluginProvider {
     static func setup() {
         let options = AnalyticsOptions()
         options.appName = "bccm-tvos"
+        options.userName = AppOptions.user.anonymousId
         options.userAnonymousId = AppOptions.user.anonymousId
         options.contentCustomDimension1 = Events.sessionId?.stringValue
         options.contentCustomDimension2 = AppOptions.user.ageGroup
