@@ -14,7 +14,7 @@ public func getAgeGroup(_ age: Int?) -> String {
     ]
     
     if let age = age {
-        for key in breakpoints.keys {
+        for key in breakpoints.keys.sorted() {
             let value = breakpoints[key]!
             if age <= key {
                 return value
