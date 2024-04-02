@@ -18,7 +18,6 @@
 		09055A112B57FC540019FB9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 090559CD2B57FC540019FB9A /* Localizable.strings */; };
 		09055A122B57FC540019FB9A /* .crowdin_token.example in Resources */ = {isa = PBXBuildFile; fileRef = 090559D62B57FC540019FB9A /* .crowdin_token.example */; };
 		09055A132B57FC540019FB9A /* crowdin.yml in Resources */ = {isa = PBXBuildFile; fileRef = 090559D72B57FC540019FB9A /* crowdin.yml */; };
-		09055A142B57FC540019FB9A /* .crowdin_token in Resources */ = {isa = PBXBuildFile; fileRef = 090559D82B57FC540019FB9A /* .crowdin_token */; };
 		09055A182B57FC540019FB9A /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090559E72B57FC540019FB9A /* Barlow-Bold.ttf */; };
 		09055A192B57FC540019FB9A /* Barlow-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090559E82B57FC540019FB9A /* Barlow-Medium.ttf */; };
 		09055A1A2B57FC540019FB9A /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090559E92B57FC540019FB9A /* Barlow-Regular.ttf */; };
@@ -85,7 +84,6 @@
 		090559D52B57FC540019FB9A /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
 		090559D62B57FC540019FB9A /* .crowdin_token.example */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .crowdin_token.example; sourceTree = "<group>"; };
 		090559D72B57FC540019FB9A /* crowdin.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = crowdin.yml; sourceTree = "<group>"; };
-		090559D82B57FC540019FB9A /* .crowdin_token */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .crowdin_token; sourceTree = "<group>"; };
 		090559D92B57FC540019FB9A /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		090559DA2B57FC540019FB9A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		090559DB2B57FC540019FB9A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				090559CD2B57FC540019FB9A /* Localizable.strings */,
 				090559D62B57FC540019FB9A /* .crowdin_token.example */,
 				090559D72B57FC540019FB9A /* crowdin.yml */,
-				090559D82B57FC540019FB9A /* .crowdin_token */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -413,7 +410,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09055A142B57FC540019FB9A /* .crowdin_token in Resources */,
 				09055A122B57FC540019FB9A /* .crowdin_token.example in Resources */,
 				09055A1A2B57FC540019FB9A /* Barlow-Regular.ttf in Resources */,
 				09055A192B57FC540019FB9A /* Barlow-Medium.ttf in Resources */,
