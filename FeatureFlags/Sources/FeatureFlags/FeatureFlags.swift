@@ -3,23 +3,22 @@
 
 import UnleashProxyClientSwift
 
-private var client: UnleashProxyClientSwift.UnleashClient? = nil
+private var client: UnleashProxyClientSwift.UnleashClient?
 
 private func handleReady() {
     loaded = true
     onLoadCallback()
 }
 
-public func setup(unleashUrl: String, clientKey: String, context: [String:String]) {
+public func setup(unleashUrl: String, clientKey: String, context: [String: String]) {
     client = UnleashProxyClientSwift.UnleashClient(unleashUrl: unleashUrl, clientKey: clientKey, refreshInterval: 60, appName: "bccm-tvos", context: context)
-    client!.start() { err in
+    client!.start { err in
         if err != nil {
             print(err as Any)
-        } else {
-            handleReady()
         }
+        handleReady()
     }
-    
+
     client!.subscribe(name: "update") {
         onUpdateCallback()
     }
