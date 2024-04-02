@@ -5,9 +5,9 @@
 //  Created by Fredrik Vedvik on 19/12/2023.
 //
 
-import SwiftUI
 import AVKit
 import NpawPlugin
+import SwiftUI
 
 struct PlaybackState {
     var time: Double
@@ -18,10 +18,13 @@ extension NpawPluginProvider {
         let options = AnalyticsOptions()
         options.appName = "bccm-tvos"
         options.userName = AppOptions.user.anonymousId
-        options.userAnonymousId = AppOptions.user.anonymousId
         options.contentCustomDimension1 = Events.sessionId?.stringValue
         options.contentCustomDimension2 = AppOptions.user.ageGroup
-        self.initialize(accountCode: AppOptions.npaw.accountCode ?? "", analyticsOptions: options, logLevel: .info)
+        options.parseManifest = true
+        options.autoDetectBackground = true
+        options.userObfuscateIp = "true"
+        options.appReleaseVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        initialize(accountCode: AppOptions.npaw.accountCode ?? "", analyticsOptions: options, logLevel: .info)
     }
 }
 
@@ -47,10 +50,10 @@ class PlayerControls: ObservableObject {
         self.player = player
         
         observers = [
-            player.observe(\.status, options: [.new]) { item, change in
+            player.observe(\.status, options: [.new]) { item, _ in
                 self.loading = item.status != .readyToPlay
             },
-            player.observe(\.timeControlStatus, options: [.new]) { item, change in
+            player.observe(\.timeControlStatus, options: [.new]) { item, _ in
                 self.playing = item.timeControlStatus != .playing
             },
         ]
@@ -93,9 +96,7 @@ class PlayerControls: ObservableObject {
             videoOptions.live = options.isLive
             videoOptions.contentTitle = options.title
             videoOptions.contentTvShow = c.showId
-            videoOptions.contentSeason = c.seasonId != nil && c.seasonTitle != nil ? "\(c.seasonId!) - \(c.seasonTitle!)" : nil
-            videoOptions.program = c.showTitle ?? options.title
-            videoOptions.contentEpisodeTitle = c.episodeTitle
+            videoOptions.contentSeason = c.seasonId
             
             videoOptions.contentResource = videoURL.absoluteString
             
@@ -144,7 +145,7 @@ class PlayerControls: ObservableObject {
     }
     
     private static func createMetadataItem(for identifier: AVMetadataIdentifier,
-                                    value: Any) -> AVMetadataItem
+                                           value: Any) -> AVMetadataItem
     {
         let item = AVMutableMetadataItem()
         item.identifier = identifier
@@ -208,7 +209,7 @@ struct VideoPlayerControllerView: UIViewControllerRepresentable {
     func updateUIViewController(_ _: AVPlayerViewController, context _: Context) {}
 }
 
-struct VideoPlayerView : View {
+struct VideoPlayerView: View {
     @Binding var fullscreen: Bool
     
     var body: some View {
@@ -216,16 +217,16 @@ struct VideoPlayerView : View {
 //            .fullScreenCover(isPresented: $fullscreen) {
 //                VideoPlayerControllerView().ignoresSafeArea(.all)
 //            }
-        .onChange(of: fullscreen) { v in
-            if v {
-                PlayerControls.unmute()
-            } else {
-                PlayerControls.mute()
+            .onChange(of: fullscreen) { v in
+                if v {
+                    PlayerControls.unmute()
+                } else {
+                    PlayerControls.mute()
+                }
+            }.onAppear {
+                PlayerControls.player.play()
+            }.onDisappear {
+                PlayerControls.stop()
             }
-        }.onAppear() {
-            PlayerControls.player.play()
-        }.onDisappear() {
-            PlayerControls.stop()
-        }
     }
 }
