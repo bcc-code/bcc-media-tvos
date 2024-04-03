@@ -1,147 +1,148 @@
 query GetEpisode($id: ID!, $context: EpisodeContext) {
-    episode(id: $id, context: $context) {
-        id
-        uuid
-        type
-        title
-        image
-        ageRating
-        publishDate
-        description
-        progress
-        locked
-        inMyList
-        cursor
-        next {
-            id
-        }
-        season {
-            id
-            title
-            show {
-                id
-                title
-            }
-        }
+  episode(id: $id, context: $context) {
+    id
+    uuid
+    type
+    title
+    originalTitle
+    image
+    ageRating
+    publishDate
+    description
+    progress
+    locked
+    inMyList
+    cursor
+    next {
+      id
     }
+    season {
+      id
+      title
+      show {
+        id
+        title
+      }
+    }
+  }
 }
 
 query GetNextEpisode($id: ID!, $context: EpisodeContext!) {
-    episode(id: $id, context: $context) {
-        id
-        cursor
-        next {
-            id
-        }
+  episode(id: $id, context: $context) {
+    id
+    cursor
+    next {
+      id
     }
+  }
 }
 
 query GetEpisodeStreams($id: ID!) {
-    episode(id: $id) {
-        progress
-        streams {
-            videoLanguage
-            url
-            type
-        }
+  episode(id: $id) {
+    progress
+    streams {
+      videoLanguage
+      url
+      type
     }
+  }
 }
 
 query GetEpisodeSeason($id: ID!) {
-    season(id: $id) {
-        ...EpisodeSeason
-    }
+  season(id: $id) {
+    ...EpisodeSeason
+  }
 }
 
 query GetEpisodeContext($id: ID!, $context: EpisodeContext) {
-    episode(id: $id, context: $context) {
-        context {
-            ... on ContextCollection {
-                items(first: 100) {
-                    items {
-                        id
-                        title
-                        description
-                        image
-                    }
-                }
-            }
-        }
-    }
-}
-
-fragment EpisodeSeason on Season {
-    title
-    show {
-        title
-        description
-        seasons(first: 100) {
-            items {
-                id
-                title
-            }
-        }
-    }
-    episodes(first: 100) {
-        items {
+  episode(id: $id, context: $context) {
+    context {
+      ... on ContextCollection {
+        items(first: 100) {
+          items {
             id
             title
             description
             image
+          }
         }
+      }
     }
+  }
+}
+
+fragment EpisodeSeason on Season {
+  title
+  show {
+    title
+    description
+    seasons(first: 100) {
+      items {
+        id
+        title
+      }
+    }
+  }
+  episodes(first: 100) {
+    items {
+      id
+      title
+      description
+      image
+    }
+  }
 }
 
 query GetDefaultEpisodeIdForShow($id: ID!) {
-    show(id: $id) {
-        defaultEpisode {
-            id
-        }
+  show(id: $id) {
+    defaultEpisode {
+      id
     }
+  }
 }
 
 query GetDefaultEpisodeIdForStudyTopic($id: ID!) {
-    studyTopic(id: $id) {
-        defaultLesson {
-            defaultEpisode {
-                id
-            }
-        }
+  studyTopic(id: $id) {
+    defaultLesson {
+      defaultEpisode {
+        id
+      }
     }
+  }
 }
 
 query GetFirstEpisodeInPlaylist($id: ID!) {
-    playlist(id: $id) {
-        items(first: 1) {
-            items {
-                id
-            }
-        }
+  playlist(id: $id) {
+    items(first: 1) {
+      items {
+        id
+      }
     }
+  }
 }
 
 query GetDefaultEpisodeIdForSeason($id: ID!) {
-    season(id: $id) {
-        defaultEpisode {
-            id
-        }
+  season(id: $id) {
+    defaultEpisode {
+      id
     }
+  }
 }
 
 mutation SetEpisodeProgress($id: ID!, $progress: Int) {
-    setEpisodeProgress(id: $id, progress: $progress) {
-        id
-    }
+  setEpisodeProgress(id: $id, progress: $progress) {
+    id
+  }
 }
 
 mutation AddEpisodeToMyList($id: ID!) {
-    addEpisodeToMyList(episodeId: $id) {
-        entryId
-    }
+  addEpisodeToMyList(episodeId: $id) {
+    entryId
+  }
 }
 
 mutation RemoveEpisodeFromMyList($id: UUID!) {
-    removeEntryFromMyList(entryId: $id) {
-        id
-    }
+  removeEntryFromMyList(entryId: $id) {
+    id
+  }
 }

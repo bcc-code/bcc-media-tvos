@@ -14,7 +14,8 @@ public extension Unions {
       Objects.Link.self,
       Objects.StudyTopic.self,
       Objects.Game.self,
-      Objects.Playlist.self
+      Objects.Playlist.self,
+      Objects.Short.self
     ]
   )
 }

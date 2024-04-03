@@ -7,7 +7,7 @@ public class GetEpisodeQuery: GraphQLQuery {
   public static let operationName: String = "GetEpisode"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query GetEpisode($id: ID!, $context: EpisodeContext) { episode(id: $id, context: $context) { __typename id uuid type title image ageRating publishDate description progress locked inMyList cursor next { __typename id } season { __typename id title show { __typename id title } } } }"#
+      #"query GetEpisode($id: ID!, $context: EpisodeContext) { episode(id: $id, context: $context) { __typename id uuid type title originalTitle image ageRating publishDate description progress locked inMyList cursor next { __typename id } season { __typename id title show { __typename id title } } } }"#
     ))
 
   public var id: ID
@@ -54,6 +54,7 @@ public class GetEpisodeQuery: GraphQLQuery {
         .field("uuid", String.self),
         .field("type", GraphQLEnum<API.EpisodeType>.self),
         .field("title", String.self),
+        .field("originalTitle", String.self),
         .field("image", String?.self),
         .field("ageRating", String.self),
         .field("publishDate", API.Date.self),
@@ -70,6 +71,7 @@ public class GetEpisodeQuery: GraphQLQuery {
       public var uuid: String { __data["uuid"] }
       public var type: GraphQLEnum<API.EpisodeType> { __data["type"] }
       public var title: String { __data["title"] }
+      public var originalTitle: String { __data["originalTitle"] }
       public var image: String? { __data["image"] }
       public var ageRating: String { __data["ageRating"] }
       public var publishDate: API.Date { __data["publishDate"] }
