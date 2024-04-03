@@ -59,30 +59,6 @@ class PlayerControls: ObservableObject {
         ]
     }
     
-    func setUrl(url: URL) {
-        if url != currentUrl {
-            currentUrl = url
-            if NpawPluginProvider.shared?.accountCode != "" {
-                adapter?.destroy()
-
-                let videoOptions = VideoOptions()
-                
-                videoOptions.contentResource = url.absoluteString
-                videoOptions.contentTitle = "Live"
-                videoOptions.live = true
-                
-                adapter = NpawPluginProvider.shared!.videoBuilder()
-                    .setPlayerAdapter(playerAdapter: AVPlayerAdapter(player: player))
-                    .setOptions(options: videoOptions)
-                    .setIdentifier(identifier: "bccm-tvos")
-                    .build()
-            }
-            
-            player.replaceCurrentItem(with: AVPlayerItem(url: url))
-            player.isMuted = true
-        }
-    }
-    
     static func setItem(_ videoURL: URL, _ options: PlayerOptions = .init(), _ listener: PlayerListener = PlayerListener { _ in }) {
         current.player.replaceCurrentItem(with: AVPlayerItem(url: videoURL))
         current.player.currentItem?.externalMetadata = createMetadataItems(options)
@@ -94,10 +70,9 @@ class PlayerControls: ObservableObject {
             let c = options.content
             videoOptions.contentId = c.id
             videoOptions.live = options.isLive
-            videoOptions.contentTitle = options.title
+            videoOptions.contentTitle = c.title
             videoOptions.contentTvShow = c.showId
             videoOptions.contentSeason = c.seasonId
-            
             videoOptions.contentResource = videoURL.absoluteString
             
             current.adapter = NpawPluginProvider.shared!.videoBuilder()
@@ -179,10 +154,6 @@ class PlayerControls: ObservableObject {
     
     static func unmute() {
         player.isMuted = false
-    }
-    
-    static func setUrl(url: URL) {
-        current.setUrl(url: url)
     }
     
     static func stop() {

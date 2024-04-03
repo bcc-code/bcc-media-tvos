@@ -5,17 +5,17 @@
 //  Created by Fredrik Vedvik on 19/04/2023.
 //
 
-import SwiftUI
 import API
+import SwiftUI
 
 struct EpisodePlayer: View {
     @Environment(\.dismiss) var dismiss
- 
+
     var episode: API.GetEpisodeQuery.Data.Episode
     var next: () -> Void
 
     @State var listener = PlayerListener()
-    
+
     var progress: Bool
     var stateCallback: (PlaybackState) -> Void
 
@@ -56,7 +56,7 @@ struct EpisodePlayer: View {
         }
         showLanguageSelector = true
     }
-    
+
     func setUrl(url: URL) {
         guard let q = query else {
             return
@@ -68,7 +68,7 @@ struct EpisodePlayer: View {
             subtitleLanguage: AppOptions.subtitleLanguage,
             isLive: false,
             content: .init(
-                episodeTitle: episode.title,
+                title: episode.originalTitle,
                 id: episode.id,
                 seasonTitle: episode.season?.title,
                 seasonId: episode.season?.id,
@@ -78,7 +78,7 @@ struct EpisodePlayer: View {
         ), listener)
         loaded = true
     }
-    
+
     func setLanguage(language: String?) {
         showLanguageSelector = false
         let url = urls!.get(language: language)!

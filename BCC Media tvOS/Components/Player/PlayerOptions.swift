@@ -17,7 +17,7 @@ struct PlayerOptions {
 
     var content: Content
     struct Content {
-        var episodeTitle: String?
+        var title: String?
         var id: String?
         var seasonTitle: String?
         var seasonId: String?
