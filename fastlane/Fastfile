@@ -61,7 +61,7 @@ platform :ios do
       postfix: "+"+current_build_number,
     )
     push_git_tags(
-      tags: tag,
+      tag: tag,
     )
   end
   
