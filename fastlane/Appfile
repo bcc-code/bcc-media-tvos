@@ -1,5 +1,4 @@
 app_identifier("tv.brunstad.app") # The bundle identifier of your app
-apple_id("fredrik@vedvik.tech") # Your Apple Developer Portal username
 
 itc_team_id("123760447") # App Store Connect Team ID
 team_id("6734NUF6AV") # Developer Portal Team ID

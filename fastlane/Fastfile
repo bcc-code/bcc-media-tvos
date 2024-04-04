@@ -15,15 +15,47 @@
 
 default_platform(:ios)
 
+lane :setup do
+  match(platform: "tvos", type: "development", app_identifier: "tv.brunstad.app", api_key_path: 'fastlane/api_key.json')
+  match(platform: "tvos", type: "appstore", app_identifier: "tv.brunstad.app", api_key_path: 'fastlane/api_key.json')
+end
+
 platform :ios do
+
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    increment_build_number(
-      xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj"
-    )
+    setup_ci
+    match(platform: "tvos", type: "appstore", api_key_path: 'fastlane/api_key.json')
     sh("cd .. && ./scripts/build.sh pre")
-    build_app(scheme: "BCC Media tvOS", cloned_source_packages_path: "./tmp/build")
-    sh("cd .. && ./scripts/build.sh post")
-    upload_to_testflight
+    begin
+      build_app(scheme: "BCC Media tvOS", cloned_source_packages_path: "./tmp/build", skip_profile_detection: true)
+    ensure
+      sh("cd .. && ./scripts/build.sh post")
+    end
+    upload_to_testflight(
+      distribute_external: true,
+      changelog: "See the betatester group on telegram.",
+      api_key_path: 'fastlane/api_key.json',
+      groups: [
+        "Testers"
+      ]
+    )
   end
+
+  lane :release do
+    current_build_number = increment_version_number_in_xcodeproj(
+      xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+    )
+    commit_version_bump(
+      message: "chore(tvos): bump version to #{current_build_number}",
+      xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+    )
+    add_git_tag(
+      grouping: "tvos",
+      includes_lane: false,
+      prefix: "v",
+      build_number: current_build_number,
+    )
+  end
+  
 end
