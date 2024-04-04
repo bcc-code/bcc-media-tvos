@@ -1,4 +1,4 @@
-name: build-ios-app
+name: deploy-tvos
 on:
   workflow_dispatch:
   push:
