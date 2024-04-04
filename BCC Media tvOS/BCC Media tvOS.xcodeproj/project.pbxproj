@@ -388,12 +388,12 @@
 			);
 			mainGroup = 090559902B57F22F0019FB9A;
 			packageReferences = (
-				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */,
-				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */,
-				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios.git" */,
-				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */,
-				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */,
-				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */,
+				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */,
+				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */,
+				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */,
+				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
+				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
 				09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
 			);
 			productRefGroup = 0905599A2B57F22F0019FB9A /* Products */;
@@ -634,6 +634,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media tvOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = 6734NUF6AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -646,7 +647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.7;
+				MARKETING_VERSION = 4.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -662,6 +663,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BCC Media tvOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = 6734NUF6AV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -674,7 +676,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.7;
+				MARKETING_VERSION = 4.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -707,22 +709,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */ = {
+		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../API;
 		};
-		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */ = {
+		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Authentication;
 		};
-		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */ = {
+		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../FeatureFlags;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */ = {
+		090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
@@ -730,7 +732,7 @@
 				minimumVersion = 1.8.0;
 			};
 		};
-		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
+		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/Auth0.swift";
 			requirement = {
@@ -738,7 +740,7 @@
 				minimumVersion = 2.5.0;
 			};
 		};
-		09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios.git" */ = {
+		09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://repo.plugin.npaw.com/release/plugin-ios.git";
 			requirement = {
@@ -767,17 +769,17 @@
 		};
 		090559B12B57FB560019FB9A /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
 		};
 		090559BE2B57FB600019FB9A /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */;
+			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
 			productName = Auth0;
 		};
 		09055A5F2B5807920019FB9A /* NpawPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios.git" */;
+			package = 09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */;
 			productName = NpawPlugin;
 		};
 		09055A6A2B59247A0019FB9A /* FeatureFlags */ = {
@@ -790,7 +792,7 @@
 		};
 		09055A7D2B5956AA0019FB9A /* ApolloAPI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios.git" */;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
 		};
 		09DDD6C62B6BB05000E56631 /* Rudder */ = {
