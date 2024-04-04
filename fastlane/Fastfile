@@ -24,12 +24,15 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    setup_ci
     app_store_connect_api_key(
       key_id: "5U2YBV363X",
       issuer_id: "06076aaf-4461-4441-8091-5d372b544eb5",
       key_filepath: "fastlane/api_key.p8"
     )
-    setup_ci
+    import_certificate(
+      certificate_path: "fastlane/certificate.cer",
+    )
     cert
     sigh
     sh("cd .. && ./scripts/build.sh pre")
