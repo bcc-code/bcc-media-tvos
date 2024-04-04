@@ -24,7 +24,15 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    setup_ci
+    create_keychain(
+      name: "temp_keychain",
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      password: "",
+      lock_when_sleeps: true,
+      add_to_search_list: true
+    )
     app_store_connect_api_key(
       key_id: "5U2YBV363X",
       issuer_id: "06076aaf-4461-4441-8091-5d372b544eb5",
@@ -32,6 +40,8 @@ platform :ios do
     )
     import_certificate(
       certificate_path: "fastlane/certificate.cer",
+      keychain_name: "temp_keychain",
+      keychain_password: "",
     )
     cert
     sigh
