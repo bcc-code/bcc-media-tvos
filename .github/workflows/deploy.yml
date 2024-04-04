@@ -37,4 +37,4 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${MATCH_DEPLOY_KEY}"
           bundle install
-          MATCH_PASSWORD="${MATCH_PASSWORD}" bundle exec fastlane beta --verbose
+          MATCH_PASSWORD="${MATCH_PASSWORD}" fastlane beta --verbose
