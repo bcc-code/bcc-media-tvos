@@ -6,3 +6,6 @@ BCC Media tvOS.ipa
 BCC Media tvOS/Localization/.crowdin_token
 tmp/
 BCC Media tvOS/BCC Media tvOS.xcodeproj/xcshareddata/xcschemes/BCC Media tvOS.xcscheme
+
+*.cer
+*.mobileprovision
