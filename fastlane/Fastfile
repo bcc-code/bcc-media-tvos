@@ -41,7 +41,6 @@ platform :ios do
     upload_to_testflight(
       distribute_external: true,
       changelog: "See the betatester group on telegram.",
-      api_key_path: 'fastlane/api_key.json',
       groups: [
         "Testers"
       ]
