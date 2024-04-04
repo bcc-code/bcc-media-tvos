@@ -53,12 +53,15 @@ platform :ios do
       message: "chore(tvos): bump version to #{current_version_number}+#{current_build_number}",
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
     )
-    add_git_tag(
+    tag = add_git_tag(
       grouping: "tvos",
       includes_lane: false,
       prefix: "v",
       build_number: current_version_number,
       postfix: "+"+current_build_number,
+    )
+    push_to_git_remote(
+      tag: tag,
     )
   end
   
