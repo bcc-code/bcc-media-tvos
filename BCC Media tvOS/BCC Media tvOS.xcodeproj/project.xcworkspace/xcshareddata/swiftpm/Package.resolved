@@ -1,0 +1,113 @@
+{
+  "pins" : [
+    {
+      "identity" : "apollo-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apollographql/apollo-ios.git",
+      "state" : {
+        "revision" : "eedde2151859011a44bb7cb05388deb2bf532644",
+        "version" : "1.9.3"
+      }
+    },
+    {
+      "identity" : "auth0.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/Auth0.swift",
+      "state" : {
+        "revision" : "a4da5b3f8c962357b67620dae8d5e2a4f9ca02fd",
+        "version" : "2.6.0"
+      }
+    },
+    {
+      "identity" : "crash-reporter-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/crash-reporter-ios",
+      "state" : {
+        "revision" : "ee563535b64d9d5feacd0fa243663b2658033a19",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "jwtdecode.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/JWTDecode.swift.git",
+      "state" : {
+        "revision" : "58af7278797871e460d79496621b3e5366b865b2",
+        "version" : "3.1.0"
+      }
+    },
+    {
+      "identity" : "metrics-reporter-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/metrics-reporter-ios",
+      "state" : {
+        "revision" : "c5fe7cc861a83ec75978a516c02398c2a2cb1f20",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "plugin-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
+      "state" : {
+        "revision" : "7376b24a5738a589d82584fe969a2cf09a6dad67",
+        "version" : "7.2.2"
+      }
+    },
+    {
+      "identity" : "rudder-ios-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/rudder-ios-kit",
+      "state" : {
+        "revision" : "8a557a80cc1b0e0bc948c2b17fe0fd3809bcfd61",
+        "version" : "1.4.0"
+      }
+    },
+    {
+      "identity" : "rudder-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/rudder-sdk-ios",
+      "state" : {
+        "revision" : "e7f6d2ed7138598df96c23cec551d42359e80190",
+        "version" : "1.26.1"
+      }
+    },
+    {
+      "identity" : "simplekeychain",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/SimpleKeychain.git",
+      "state" : {
+        "revision" : "f082494aab8056139a4fe234c920a9f92f681aff",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "sqlite.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stephencelis/SQLite.swift.git",
+      "state" : {
+        "revision" : "e78ae0220e17525a15ac68c697a155eb7a672a8e",
+        "version" : "0.15.0"
+      }
+    },
+    {
+      "identity" : "swifteventbus",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cesarferreira/SwiftEventBus.git",
+      "state" : {
+        "revision" : "a30ff35e616f507d8a8d122dac32a2150371a87e",
+        "version" : "5.1.0"
+      }
+    },
+    {
+      "identity" : "unleash-proxy-client-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Unleash/unleash-proxy-client-swift",
+      "state" : {
+        "revision" : "4578bb9cca31fc60ba45a07b6f608b9ed666512c",
+        "version" : "1.2.1"
+      }
+    }
+  ],
+  "version" : 2
+}
