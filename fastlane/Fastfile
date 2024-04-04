@@ -43,18 +43,22 @@ platform :ios do
   end
 
   lane :release do
-    current_build_number = increment_version_number_in_xcodeproj(
+    current_version_number = increment_version_number_in_xcodeproj(
+      xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+    )
+    current_build_number = increment_build_number_in_xcodeproj(
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
     )
     commit_version_bump(
-      message: "chore(tvos): bump version to #{current_build_number}",
+      message: "chore(tvos): bump version to #{current_version_number}+#{current_build_number}",
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
     )
     add_git_tag(
       grouping: "tvos",
       includes_lane: false,
       prefix: "v",
-      build_number: current_build_number,
+      build_number: current_version_number,
+      postfix: "+"+current_build_number,
     )
   end
   
