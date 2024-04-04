@@ -1,0 +1,40 @@
+name: build-ios-app
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "tvos/v*.*"
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v2
+      - name: List Xcode installations for debugging
+        run: sudo ls -1 /Applications | grep "Xcode"
+      - name: Select Xcode 15.2
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+      - run: |
+          cat <<EOF > fastlane/api_key.json
+          {
+            "key_id": "${{ vars.APPLE_STORE_API_KEY_ID }}",
+            "issuer_id": "${{ vars.APPLE_STORE_API_ISSUER_ID }}",
+            "key": "${{ secrets.APPLE_STORE_API_KEY }}",
+            "duration": "1200",
+            "in_house": false
+          }
+          EOF
+      - env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY  }}
+          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+          MATCH_READONLY: true
+          RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
+          RUDDER_DATAPLANE_URL: ${{ secrets.RUDDER_DATAPLANE_URL }}
+          NPAW_ACCOUNT_CODE: ${{ secrets.NPAW_ACCOUNT_CODE }}
+          UNLEASH_URL: ${{ vars.UNLEASH_URL }}
+          UNLEASH_CLIENT_KEY: ${{ vars.UNLEASH_CLIENT_KEY }}
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${MATCH_DEPLOY_KEY}"
+          bundle install
+          MATCH_PASSWORD="${MATCH_PASSWORD}" bundle exec fastlane beta --verbose
