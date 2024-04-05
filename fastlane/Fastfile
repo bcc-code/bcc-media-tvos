@@ -49,7 +49,7 @@ platform :ios do
       filename: "dist.mobileprovision",
     )
     update_project_provisioning(
-      xcodeproj: "./BCC Media/BCC Media.xcodeproj",
+      xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
       profile: "dist.mobileprovision",
     )
     sh("cd .. && ./scripts/build.sh pre")
