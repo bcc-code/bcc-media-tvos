@@ -19,5 +19,7 @@
 		<string>Barlow-Bold.ttf</string>
 		<string>Barlow-Regular.ttf</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false />
 </dict>
 </plist>
