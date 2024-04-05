@@ -8,4 +8,5 @@ tmp/
 BCC Media tvOS/BCC Media tvOS.xcodeproj/xcshareddata/xcschemes/BCC Media tvOS.xcscheme
 
 *.cer
+*.p12
 *.mobileprovision
