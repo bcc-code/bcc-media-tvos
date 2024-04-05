@@ -23,7 +23,7 @@ end
 platform :ios do
 
   desc "Push a new beta build to TestFlight"
-  lane :beta do
+  lane :beta do |options|
     create_keychain(
       name: "temp_keychain",
       default_keychain: true,
