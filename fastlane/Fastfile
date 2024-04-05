@@ -51,8 +51,6 @@ platform :ios do
     begin
       build_app(
         scheme: "BCC Media tvOS", cloned_source_packages_path: "./tmp/build", skip_profile_detection: true,
-        keychain_name: "temp_keychain",
-        keychain_password: "",
       )
     ensure
       sh("cd .. && ./scripts/build.sh post")
