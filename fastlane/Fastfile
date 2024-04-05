@@ -43,7 +43,10 @@ platform :ios do
       keychain_name: "temp_keychain",
       keychain_password: "",
     )
-    sigh
+    sigh(
+      keychain_name: "temp_keychain",
+      keychain_password: "",
+    )
     sh("cd .. && ./scripts/build.sh pre")
     begin
       build_app(
