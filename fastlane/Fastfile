@@ -55,6 +55,11 @@ platform :ios do
     update_project_provisioning(
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
       profile: "dist.mobileprovision",
+      code_signing_identity: "Apple Distribution"
+    )
+    update_project_team(
+      path: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+      teamid: options[:team_id],
     )
     sh("cd .. && ./scripts/build.sh pre")
     begin
