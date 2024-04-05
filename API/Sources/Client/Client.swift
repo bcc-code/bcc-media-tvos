@@ -1,5 +1,5 @@
-import ApolloAPI
 import Apollo
+import ApolloAPI
 import Foundation
 
 public typealias TokenFactory = () async throws -> String?
@@ -22,7 +22,7 @@ public extension Client {
             }
         }
     }
-    
+
     func getAsync<Q: GraphQLQuery>(query: Q, cachePolicy: Apollo.CachePolicy = .fetchIgnoringCacheCompletely) async -> Q.Data? {
         return await withCheckedContinuation { c in
             self.apollo.fetch(query: query, cachePolicy: cachePolicy) { result in
@@ -41,20 +41,21 @@ public extension Client {
             }
         }
     }
-    
-    func perform<M : GraphQLMutation>(mutation: M) {
+
+    func perform<M: GraphQLMutation>(mutation: M) {
         apollo.perform(mutation: mutation)
     }
-    
+
     func clearCache(callbackQueue: DispatchQueue = .main, callback: @escaping () -> Void) {
-        apollo.clearCache() { _ in
+        apollo.clearCache { _ in
             callback()
         }
     }
 }
+
 public struct Client {
     internal var apollo: ApolloClient
-    
+
     internal init(apollo: ApolloClient) {
         self.apollo = apollo
     }
@@ -71,9 +72,8 @@ public func NewClient(apiUrl: String, tokenFactory: @escaping TokenFactory) -> C
     let url = URL(string: apiUrl)!
 
     let requestChainTransport = RequestChainNetworkTransport(interceptorProvider: provider,
-            endpointURL: url)
+                                                             endpointURL: url)
 
     return Client(apollo: ApolloClient(networkTransport: requestChainTransport,
                                        store: store))
 }
-
