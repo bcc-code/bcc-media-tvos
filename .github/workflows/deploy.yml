@@ -2,8 +2,10 @@ name: deploy-tvos
 on:
   workflow_dispatch:
   push:
-    tags:
-      - "tvos/v*"
+    branches:
+      - main
+#    tags:
+#      - "tvos/v*"
 jobs:
   build:
     runs-on: macos-13
