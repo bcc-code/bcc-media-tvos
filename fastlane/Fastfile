@@ -39,7 +39,7 @@ platform :ios do
       key_filepath: "fastlane/api_key.p8",
     )
     import_certificate(
-      certificate_path: "fastlane/certificate.cer",
+      certificate_path: "fastlane/certificate.p12",
       keychain_name: "temp_keychain",
       keychain_password: "",
     )

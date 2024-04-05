@@ -15,8 +15,8 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
       - name: Put api key into .p8 file
         run: echo "${{ secrets.APPLE_STORE_API_KEY_RAW }}" > fastlane/api_key.p8
-      - name: Put cert into .cer file
-        run: echo "${{ secrets.CERTIFICATE_BASE64 }}" | base64 -d > fastlane/certificate.cer
+      - name: Put cert into .p12 file
+        run: echo "${{ secrets.CERTIFICATE_BASE64 }}" | base64 -d > fastlane/certificate.p12
       - env:
           GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
