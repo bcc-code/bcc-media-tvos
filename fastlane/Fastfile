@@ -47,6 +47,7 @@ platform :ios do
     get_provisioning_profile(
       api_key: api_key,
       filename: "dist.mobileprovision",
+      platform: "tvos",
     )
     disable_automatic_code_signing(
       path:  "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
