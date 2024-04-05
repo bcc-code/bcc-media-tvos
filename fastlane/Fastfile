@@ -48,6 +48,9 @@ platform :ios do
       api_key: api_key,
       filename: "dist.mobileprovision",
     )
+    disable_automatic_code_signing(
+      xcodeproj:  "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+    )
     update_project_provisioning(
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
       profile: "dist.mobileprovision",
