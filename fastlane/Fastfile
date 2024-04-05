@@ -40,6 +40,7 @@ platform :ios do
     )
     import_certificate(
       certificate_path: "fastlane/certificate.p12",
+      certificate_password: "1",
       keychain_name: "temp_keychain",
       keychain_password: "",
     )
