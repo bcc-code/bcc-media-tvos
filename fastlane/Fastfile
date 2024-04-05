@@ -59,7 +59,10 @@ platform :ios do
     sh("cd .. && ./scripts/build.sh pre")
     begin
       build_app(
-        scheme: "BCC Media tvOS", cloned_source_packages_path: "./tmp/build", skip_profile_detection: true,
+        scheme: "BCC Media tvOS", 
+        cloned_source_packages_path: "./tmp/build",
+        skip_profile_detection: true,
+        code_signing_identity: "Apple Distribution",
       )
     ensure
       sh("cd .. && ./scripts/build.sh post")
