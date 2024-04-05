@@ -15,11 +15,6 @@
 
 default_platform(:ios)
 
-lane :setup do
-  match(platform: "tvos", type: "development", app_identifier: "tv.brunstad.app", api_key_path: 'fastlane/api_key.json')
-  match(platform: "tvos", type: "appstore", app_identifier: "tv.brunstad.app", api_key_path: 'fastlane/api_key.json')
-end
-
 platform :ios do
 
   desc "Push a new beta build to TestFlight"
