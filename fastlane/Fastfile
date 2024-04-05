@@ -62,7 +62,7 @@ platform :ios do
         scheme: "BCC Media tvOS", 
         cloned_source_packages_path: "./tmp/build",
         skip_profile_detection: true,
-        code_signing_identity: "Apple Distribution",
+        codesigning_identity: "Apple Distribution",
       )
     ensure
       sh("cd .. && ./scripts/build.sh post")
