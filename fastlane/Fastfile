@@ -33,10 +33,10 @@ platform :ios do
       lock_when_sleeps: true,
       add_to_search_list: true
     )
-    app_store_connect_api_key(
+    api_key = app_store_connect_api_key(
       key_id: "5U2YBV363X",
       issuer_id: "06076aaf-4461-4441-8091-5d372b544eb5",
-      key_filepath: "fastlane/api_key.p8"
+      key_filepath: "fastlane/api_key.p8",
     )
     import_certificate(
       certificate_path: "fastlane/certificate.cer",
@@ -44,8 +44,7 @@ platform :ios do
       keychain_password: "",
     )
     sigh(
-      keychain_name: "temp_keychain",
-      keychain_password: "",
+      api_key: api_key
     )
     sh("cd .. && ./scripts/build.sh pre")
     begin
