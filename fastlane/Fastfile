@@ -77,7 +77,7 @@ platform :ios do
       distribute_external: true,
       changelog: "See the betatester group on telegram.",
       groups: [
-        "Testers"
+        "Open beta"
       ]
     )
   end
