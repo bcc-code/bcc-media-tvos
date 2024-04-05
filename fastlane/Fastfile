@@ -68,6 +68,7 @@ platform :ios do
         cloned_source_packages_path: "./tmp/build",
         skip_profile_detection: true,
         codesigning_identity: "Apple Distribution",
+        xcargs: "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=#{options[:team_id]}"
       )
     ensure
       sh("cd .. && ./scripts/build.sh post")
