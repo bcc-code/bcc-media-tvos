@@ -44,8 +44,13 @@ platform :ios do
       keychain_name: "temp_keychain",
       keychain_password: "",
     )
-    sigh(
-      api_key: api_key
+    get_provisioning_profile(
+      api_key: api_key,
+      filename: "dist.mobileprovision",
+    )
+    update_project_provisioning(
+      xcodeproj: "./BCC Media/BCC Media.xcodeproj",
+      profile: "dist.mobileprovision",
     )
     sh("cd .. && ./scripts/build.sh pre")
     begin
