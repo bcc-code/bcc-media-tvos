@@ -49,7 +49,7 @@ platform :ios do
       filename: "dist.mobileprovision",
     )
     disable_automatic_code_signing(
-      xcodeproj:  "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+      path:  "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
     )
     update_project_provisioning(
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
