@@ -23,7 +23,7 @@ jobs:
           xcrun simctl create "Apple TV" "Apple TV"
           xcrun simctl boot "Apple TV"
           xcrun xcodebuild test \
-            -workspace tvos.xcworkspace \
+            -workspace BCC Media.xcworkspace \
             -scheme uitest \
             -destination 'platform=tvOS Simulator,name=Apple TV,OS=16.1' \
             LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
