@@ -13,4 +13,7 @@
    <FileRef
       location = "group:BCC Media tvOS/BCC Media tvOS.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:BCC Media tvOS/uitests.xctestplan">
+   </FileRef>
 </Workspace>

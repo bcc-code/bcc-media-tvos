@@ -1,0 +1,47 @@
+{
+  "configurations" : [
+    {
+      "id" : "6B0758D1-BFB8-458E-AC0D-1BE63D122889",
+      "name" : "Test Scheme Action",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "LOGIN_API_KEY",
+            "value" : "$(LOGIN_API_KEY)"
+          },
+          {
+            "key" : "AUTOLOGIN_HOST",
+            "value" : "$(AUTOLOGIN_HOST)"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "key" : "LOGIN_API_KEY",
+        "value" : "$(LOGIN_API_KEY)"
+      },
+      {
+        "key" : "AUTOLOGIN_HOST",
+        "value" : "$(AUTOLOGIN_HOST)"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:BCC Media tvOS.xcodeproj",
+      "identifier" : "090559982B57F22F0019FB9A",
+      "name" : "BCC Media tvOS"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:BCC Media tvOS.xcodeproj",
+        "identifier" : "81F594B02BC6ED9300A3BFC0",
+        "name" : "uitests"
+      }
+    }
+  ],
+  "version" : 1
+}

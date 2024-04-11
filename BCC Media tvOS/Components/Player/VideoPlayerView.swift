@@ -35,12 +35,13 @@ class PlayerControls: ObservableObject {
     var adapter: NpawPlugin.VideoAdapter?
     
     var loading = false
-    
     var playing = false
+    var error: Error?
     
     private var listener: PlayerListener?
     
     var observers: [NSKeyValueObservation] = []
+    var currentItemObservers: [NSKeyValueObservation] = []
     
     var expiresAt: Date?
 
@@ -56,11 +57,27 @@ class PlayerControls: ObservableObject {
             player.observe(\.timeControlStatus, options: [.new]) { item, _ in
                 self.playing = item.timeControlStatus != .playing
             },
+            player.observe(\.error, options: [.new]) { item, _ in
+                debugPrint("bccm: error occured: \(item.error?.localizedDescription ?? "nil")")
+                DispatchQueue.main.async {
+                    self.error = item.error
+                }
+            },
         ]
     }
     
     static func setItem(_ videoURL: URL, _ options: PlayerOptions = .init(), _ listener: PlayerListener = PlayerListener { _ in }) {
-        current.player.replaceCurrentItem(with: AVPlayerItem(url: videoURL))
+        let playerItem = AVPlayerItem(url: videoURL)
+        current.error = nil
+        current.currentItemObservers = [
+            playerItem.observe(\.error, options: [.new]) { item, _ in
+                debugPrint("bccc: playeritem error")
+                DispatchQueue.main.async {
+                    current.error = item.error
+                }
+            },
+        ]
+        current.player.replaceCurrentItem(with: playerItem)
         current.player.currentItem?.externalMetadata = createMetadataItems(options)
         if NpawPluginProvider.shared?.accountCode != "" {
             current.adapter?.destroy()
@@ -184,20 +201,20 @@ struct VideoPlayerView: View {
     @Binding var fullscreen: Bool
     
     var body: some View {
-        VideoPlayerControllerView().ignoresSafeArea()
-//            .fullScreenCover(isPresented: $fullscreen) {
-//                VideoPlayerControllerView().ignoresSafeArea(.all)
-//            }
-            .onChange(of: fullscreen) { v in
-                if v {
-                    PlayerControls.unmute()
-                } else {
-                    PlayerControls.mute()
+        ZStack {
+            VideoPlayerControllerView().ignoresSafeArea()
+                .onChange(of: fullscreen) { v in
+                    if v {
+                        PlayerControls.unmute()
+                    } else {
+                        PlayerControls.mute()
+                    }
+                }.onAppear {
+                    PlayerControls.player.play()
+                }.onDisappear {
+                    PlayerControls.stop()
                 }
-            }.onAppear {
-                PlayerControls.player.play()
-            }.onDisappear {
-                PlayerControls.stop()
-            }
+            InvisibleAVPlayerStatusIndicator(controls: PlayerControls.current, identifier: "CurrentPlayerStatus")
+        }
     }
 }
