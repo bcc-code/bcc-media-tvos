@@ -24,7 +24,7 @@ jobs:
           xcrun simctl boot "Apple TV"
           xcrun xcodebuild test \
             -workspace "BCC Media.xcworkspace" \
-            -scheme uitest \
+            -scheme uitests \
             -destination 'platform=tvOS Simulator,name=Apple TV,OS=16.1' \
             LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
             AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }}
