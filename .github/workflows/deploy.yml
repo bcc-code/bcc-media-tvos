@@ -17,15 +17,24 @@ jobs:
         run: echo "${{ secrets.APPLE_STORE_API_KEY_RAW }}" > fastlane/api_key.p8
       - name: Put cert into .p12 file
         run: echo "${{ secrets.CERTIFICATE_BASE64 }}" | base64 -d > fastlane/certificate.p12
+      - name: Run tests
+        run: |
+          xcrun simctl runtime list
+          xcrun simctl create "Apple TV" "Apple TV"
+          xcrun simctl boot "Apple TV"
+          xcrun xcodebuild test \
+            -workspace tvos.xcworkspace \
+            -scheme uitest \
+            -destination 'platform=tvOS Simulator,name=Apple TV,OS=16.1' \
+            LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
+            AUTOLOGIN_HOST=${{ variables.AUTOLOGIN_HOST }}
       - name: Run fastlane
         env:
-          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
           RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
           RUDDER_DATAPLANE_URL: ${{ secrets.RUDDER_DATAPLANE_URL }}
           NPAW_ACCOUNT_CODE: ${{ secrets.NPAW_ACCOUNT_CODE }}
           UNLEASH_URL: ${{ vars.UNLEASH_URL }}
           UNLEASH_CLIENT_KEY: ${{ vars.UNLEASH_CLIENT_KEY }}
         run: |
-          eval "$(ssh-agent -s)"
           bundle install
           fastlane beta --verbose
