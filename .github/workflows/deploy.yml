@@ -17,7 +17,18 @@ jobs:
         run: echo "${{ secrets.APPLE_STORE_API_KEY_RAW }}" > fastlane/api_key.p8
       - name: Put cert into .p12 file
         run: echo "${{ secrets.CERTIFICATE_BASE64 }}" | base64 -d > fastlane/certificate.p12
-
+      - name: Run tests
+        run: |
+          xcrun simctl runtime list
+          xcrun simctl create "Apple TV" "Apple TV"
+          xcrun simctl boot "Apple TV"
+          gem install xcpretty
+          set -o pipefail && xcrun xcodebuild test | xcpretty \
+            -workspace "./BCC Media.xcworkspace" \
+            -scheme uitests \
+            -destination 'platform=tvOS Simulator,name=Apple TV,OS=16.1' \
+            LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
+            AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }}
       - name: Run fastlane
         env:
           RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
