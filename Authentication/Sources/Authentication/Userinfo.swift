@@ -1,6 +1,6 @@
 
-import Foundation
 import Auth0
+import Foundation
 
 public func getAgeGroup(_ age: Int?) -> String {
     let breakpoints: [Int: String] = [
@@ -25,8 +25,8 @@ public func getAgeGroup(_ age: Int?) -> String {
     return "UNKNOWN"
 }
 
-extension Provider {
-    public struct Profile: Codable {
+public extension Provider {
+    struct Profile: Codable {
         public let name: String?
         public let ageGroup: String?
         public let personId: Int?
@@ -35,7 +35,7 @@ extension Provider {
     private static let profileKey = "profile"
     private static let profileExpiryKey = "profile_expiry"
     
-    public func userInfo() async -> Profile? {
+    func userInfo() async -> Profile? {
         let ud = UserDefaults.standard
         
         if let expiry = ud.object(forKey: Provider.profileExpiryKey) as? Date {
@@ -56,19 +56,24 @@ extension Provider {
             }
             let userInfo = try await authentication().userInfo(withAccessToken: token!).start()
             
-            var personId: Int? = nil
-            if let appMetadata = userInfo.customClaims?["https://members.bcc.no/app_metadata"] as? [String:Any] {
+            var personId: Int?
+            if let appMetadata = userInfo.customClaims?["https://members.bcc.no/app_metadata"] as? [String: Any] {
                 personId = appMetadata["personId"] as? Int
             }
             
             let formatter = ISO8601DateFormatter()
-            formatter.formatOptions = .withFractionalSeconds
-            var age: Int? = nil
+            formatter.formatOptions = [
+                .withFractionalSeconds,
+                .withFullDate, // Make time always 00.00.00. This is the only way to get fractional seconds to be optional. See https://forums.swift.org/t/iso8601dateformatter-fails-to-parse-a-valid-iso-8601-date/22999/19
+            ]
+            var age: Int?
             
             if let bd = userInfo.birthdate {
-                let date = formatter.date(from: bd)!
-                let ageComponents = Calendar.current.dateComponents([.year], from: date, to: Date.now)
-                age = ageComponents.year
+                let date = formatter.date(from: bd)
+                if let date = date {
+                    let ageComponents = Calendar.current.dateComponents([.year], from: date, to: Date.now)
+                    age = ageComponents.year
+                }
             }
             
             let profile = Profile(
@@ -88,7 +93,7 @@ extension Provider {
         return nil
     }
     
-    public func clearUserInfoCache() {
+    func clearUserInfoCache() {
         UserDefaults.standard.removeObject(forKey: Provider.profileExpiryKey)
         UserDefaults.standard.removeObject(forKey: Provider.profileKey)
     }
