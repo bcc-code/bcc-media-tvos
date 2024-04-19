@@ -23,12 +23,13 @@ jobs:
           xcrun simctl create "Apple TV" "Apple TV"
           xcrun simctl boot "Apple TV"
           gem install xcpretty
-          set -o pipefail && xcrun xcodebuild test | xcpretty \
+          set -o pipefail && xcrun xcodebuild test \
             -workspace "./BCC Media.xcworkspace" \
             -scheme uitests \
             -destination 'platform=tvOS Simulator,name=Apple TV,OS=16.1' \
             LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
-            AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }}
+            AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }} \
+            | xcpretty
       - name: Run fastlane
         env:
           RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
