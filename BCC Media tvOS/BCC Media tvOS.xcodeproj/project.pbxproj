@@ -66,6 +66,7 @@
 		09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A772B594E7F0019FB9A /* FeatureFlags */; };
 		09055A7E2B5956AA0019FB9A /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A7D2B5956AA0019FB9A /* ApolloAPI */; };
 		09DDD6C72B6BB05000E56631 /* Rudder in Frameworks */ = {isa = PBXBuildFile; productRef = 09DDD6C62B6BB05000E56631 /* Rudder */; };
+		7E31D57B2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */; };
 		81F594BC2BC6EDC500A3BFC0 /* MainUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F594BB2BC6EDC500A3BFC0 /* MainUITest.swift */; };
 		81F828772BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F828762BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift */; };
 /* End PBXBuildFile section */
@@ -150,6 +151,7 @@
 		09055A5D2B58064E0019FB9A /* BCC Media tvOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BCC Media tvOS.entitlements"; sourceTree = "<group>"; };
 		09055A612B580A6B0019FB9A /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		09055A6C2B593FE90019FB9A /* CI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CI.swift; sourceTree = "<group>"; };
+		7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		81F594B12BC6ED9300A3BFC0 /* uitests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uitests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81F594BA2BC6EDC500A3BFC0 /* uitests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "uitests-Bridging-Header.h"; sourceTree = "<group>"; };
 		81F594BB2BC6EDC500A3BFC0 /* MainUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUITest.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		090559902B57F22F0019FB9A = {
 			isa = PBXGroup;
 			children = (
+				7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */,
 				81F594AC2BC6ED6E00A3BFC0 /* Tests */,
 				09055A5D2B58064E0019FB9A /* BCC Media tvOS.entitlements */,
 				090559E62B57FC540019FB9A /* Fonts */,
@@ -447,11 +450,11 @@
 			mainGroup = 090559902B57F22F0019FB9A;
 			packageReferences = (
 				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */,
+				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */,
 				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */,
-				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */,
-				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */,
-				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */,
+				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */,
+				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
+				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
 				09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
 			);
 			productRefGroup = 0905599A2B57F22F0019FB9A /* Products */;
@@ -477,6 +480,7 @@
 				09055A182B57FC540019FB9A /* Barlow-Bold.ttf in Resources */,
 				09055A112B57FC540019FB9A /* Localizable.strings in Resources */,
 				090559A12B57F2300019FB9A /* Assets.xcassets in Resources */,
+				7E31D57B2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy in Resources */,
 				09055A572B5801560019FB9A /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -857,15 +861,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */ = {
+		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../API;
 		};
-		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */ = {
+		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Authentication;
 		};
-		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */ = {
+		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../FeatureFlags;
 		};
@@ -880,7 +884,7 @@
 				minimumVersion = 1.8.0;
 			};
 		};
-		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
+		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/Auth0.swift";
 			requirement = {
@@ -922,7 +926,7 @@
 		};
 		090559BE2B57FB600019FB9A /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */;
+			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
 			productName = Auth0;
 		};
 		09055A5F2B5807920019FB9A /* NpawPlugin */ = {
