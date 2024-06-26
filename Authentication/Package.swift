@@ -28,6 +28,10 @@ let package = Package(
                 .product(name: "Auth0", package: "auth0.swift"),
                 .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk")
             ]
+        ),
+        .testTarget(
+            name: "UnitTests",
+            dependencies: ["Authentication"]
         )
     ]
 )

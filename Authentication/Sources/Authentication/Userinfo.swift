@@ -62,19 +62,9 @@ public extension Provider {
                 personId = appMetadata["personId"] as? Int
             }
             
-            let formatter = ISO8601DateFormatter()
-            formatter.formatOptions = [
-                .withFractionalSeconds,
-                .withFullDate, // Make time always 00.00.00. This is the only way to get fractional seconds to be optional. See https://forums.swift.org/t/iso8601dateformatter-fails-to-parse-a-valid-iso-8601-date/22999/19
-            ]
             var age: Int?
-            
             if let bd = userInfo.birthdate {
-                let date = formatter.date(from: bd)
-                if let date = date {
-                    let ageComponents = Calendar.current.dateComponents([.year], from: date, to: Date.now)
-                    age = ageComponents.year
-                }
+                age = calculateAge(from: bd)
             }
             
             let profile = Profile(
@@ -105,4 +95,19 @@ public extension Provider {
         UserDefaults.standard.removeObject(forKey: Provider.profileExpiryKey)
         UserDefaults.standard.removeObject(forKey: Provider.profileKey)
     }
+}
+
+public func calculateAge(from birthdate: String) -> Int? {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [
+        .withFractionalSeconds,
+        .withFullDate, // Forces 00.00.00. This is the only way to allow fractional seconds without it being *required*. See https://forums.swift.org/t/iso8601dateformatter-fails-to-parse-a-valid-iso-8601-date/22999/19
+    ]
+    
+    guard let date = formatter.date(from: birthdate) else {
+        return nil
+    }
+    
+    let ageComponents = Calendar.current.dateComponents([.year], from: date, to: Date())
+    return ageComponents.year
 }
