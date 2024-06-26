@@ -919,7 +919,7 @@
 			repositoryURL = "https://repo.plugin.npaw.com/release/plugin-ios.git";
 			requirement = {
 				kind = exactVersion;
-				version = 7.2.2;
+				version = 7.2.26;
 			};
 		};
 		09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */ = {

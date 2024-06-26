@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apollographql/apollo-ios.git",
       "state" : {
-        "revision" : "99dfbdb869dbba16bd09e086b2b669bfcab811ec",
-        "version" : "1.12.2"
+        "revision" : "8dd101dfd6c5becc658c33580e49aaac085ba327",
+        "version" : "1.13.0"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/app-check.git",
       "state" : {
-        "revision" : "076b241a625e25eac22f8849be256dfb960fcdfe",
-        "version" : "10.19.1"
+        "revision" : "3b62f154d00019ae29a71e9738800bb6f18b236d",
+        "version" : "10.19.2"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/auth0/Auth0.swift",
       "state" : {
-        "revision" : "8ea170b214d2447f525b25ac27ca4874e142451c",
-        "version" : "2.7.2"
+        "revision" : "024503207ea5e8b4a0edb38125723f4a1c386139",
+        "version" : "2.8.0"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
-        "revision" : "9d17b500cd98d9a7009751ad62f802e152e97021",
-        "version" : "10.26.0"
+        "revision" : "e57841b296d04370ea23580f908881b0ccab17b9",
+        "version" : "10.28.1"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
       "state" : {
-        "revision" : "16244d177c4e989f87b25e9db1012b382cfedc55",
-        "version" : "10.25.0"
+        "revision" : "fe727587518729046fc1465625b9afd80b5ab361",
+        "version" : "10.28.0"
       }
     },
     {
@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
       "state" : {
-        "revision" : "7376b24a5738a589d82584fe969a2cf09a6dad67",
-        "version" : "7.2.2"
+        "revision" : "f74df623bbcfd4acdca3300e6720222283b8140d",
+        "version" : "7.2.26"
       }
     },
     {
@@ -176,8 +176,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rudderlabs/rudder-sdk-ios",
       "state" : {
-        "revision" : "bdff8a73bac6aa74a02979e49a46defbc121f000",
-        "version" : "1.26.3"
+        "revision" : "24a8704175571208848f5febad8806169ca17a8e",
+        "version" : "1.27.0"
       }
     },
     {
