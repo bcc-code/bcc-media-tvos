@@ -1,5 +1,6 @@
 
 import Auth0
+import FirebaseCrashlytics
 import Foundation
 
 public func getAgeGroup(_ age: Int?) -> String {
@@ -88,7 +89,14 @@ public extension Provider {
             return profile
         } catch {
             print("Failed to fetch userinfo")
-            print(error)
+            // Create and report a custom error with detailed log information
+            let customErrorInfo = [
+                NSLocalizedDescriptionKey: "Failed to fetch user info",
+                "original_error": error.localizedDescription,
+            ]
+            let customError = NSError(domain: "tv.brunstad.app", code: 9999, userInfo: customErrorInfo)
+            // Report the custom error to Crashlytics
+            Crashlytics.crashlytics().record(error: customError)
         }
         return nil
     }

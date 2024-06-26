@@ -6,10 +6,11 @@
 //
 //
 
-import SwiftUI
 import API
 import Authentication
+import Firebase
 import NpawPlugin
+import SwiftUI
 
 let authenticationProvider = Authentication.Provider(serviceName: "bcc.media", accessGroup: "group.tv.brunstad.app.tvos", logger: { err in
     Events.trigger(ErrorOccured(error: err.localizedDescription))
@@ -17,8 +18,20 @@ let authenticationProvider = Authentication.Provider(serviceName: "bcc.media", a
 
 let apolloClient = API.NewClient(apiUrl: "https://api.brunstad.tv/query", tokenFactory: authenticationProvider.getAccessToken)
 
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_: UIApplication,
+                     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
+    {
+        FirebaseApp.configure()
+        return true
+    }
+}
+
 @main
 struct BCC_Media_tvOSApp: App {
+    // register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var coldStart = true
