@@ -5,9 +5,9 @@
 //  Created by Fredrik Vedvik on 19/05/2023.
 //
 
-import SwiftUI
 import API
 import Foundation
+import SwiftUI
 
 private func toISOString(_ date: Foundation.Date) -> String {
     let formatter = ISO8601DateFormatter()
@@ -81,7 +81,7 @@ struct EntryView: View {
         )
         .cornerRadius(10)
         .scaleEffect(focused ? 1.02 : 1)
-        .animation(.easeOut(duration: 0.1), value: focused)
+        .animation(.easeOutExpo(duration: 0.1), value: focused)
         .focusable()
         .focused($focused)
     }

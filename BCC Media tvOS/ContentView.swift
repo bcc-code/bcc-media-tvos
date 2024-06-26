@@ -6,10 +6,10 @@
 //
 //
 
-import SwiftUI
 import API
 import FeatureFlags
 import NpawPlugin
+import SwiftUI
 
 var backgroundColor: Color {
     Color(red: 13 / 256, green: 22 / 256, blue: 35 / 256)
@@ -59,7 +59,7 @@ struct ContentView: View {
 
     @State var loading = false
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @StateObject var flags = Flags()
 
     func load() async {
@@ -129,11 +129,6 @@ struct ContentView: View {
         }
     }
 
-    func reload() async {
-        authenticationProvider.clearUserInfoCache()
-        await load()
-    }
-
     func authStateUpdate() {
         apolloClient.clearCache(callbackQueue: .main) {
             print("CLEARED APOLLO CACHE")
@@ -141,7 +136,8 @@ struct ContentView: View {
             loading = false
             path.removeLast(path.count)
             Task {
-                await reload()
+                authenticationProvider.clearUserInfoCache()
+                await load()
             }
         }
     }
@@ -178,7 +174,7 @@ struct ContentView: View {
 
     func playCallbackWithContext(_ context: API.EpisodeContext?, progress _: Bool) -> PlayCallback {
         func cb(_ shuffle: Bool, _ episode: API.GetEpisodeQuery.Data.Episode) {
-            var ctx = context ?? API.EpisodeContext.init()
+            var ctx = context ?? API.EpisodeContext()
             ctx.shuffle = .init(booleanLiteral: shuffle)
             path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode, ctx)))
         }
@@ -206,11 +202,12 @@ struct ContentView: View {
     }
 
     func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true) async {
-        let ctx = API.EpisodeContext.init(
+        let ctx = API.EpisodeContext(
             collectionId: context?.collectionId ?? .null,
             playlistId: context?.playlistId ?? .null,
             shuffle: context?.shuffle ?? .null,
-            cursor: context?.cursor ?? .null)
+            cursor: context?.cursor ?? .null
+        )
         guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: .init(ctx)), cachePolicy: .fetchIgnoringCacheData) else {
             return
         }
@@ -225,9 +222,9 @@ struct ContentView: View {
         guard let data = await apolloClient.getAsync(query: API.GetFirstEpisodeInPlaylistQuery(id: id)) else {
             return
         }
-        await loadEpisode(data.playlist.items.items[0].id, context: .init(.init(collectionId: .null, playlistId: .init(stringLiteral: id),  shuffle: .null, cursor: .null)))
+        await loadEpisode(data.playlist.items.items[0].id, context: .init(.init(collectionId: .null, playlistId: .init(stringLiteral: id), shuffle: .null, cursor: .null)))
     }
-    
+
     func loadShow(_ id: String) async {
         guard let data = await apolloClient.getAsync(query: API.GetDefaultEpisodeIdForShowQuery(id: id)) else {
             return
@@ -288,7 +285,7 @@ struct ContentView: View {
     @State var onboarded = authenticationProvider.isAuthenticated()
 
     @State var playEpisode: API.GetEpisodeQuery.Data.Episode? = nil
-    
+
     @FocusState var focusedLogin
 
     var body: some View {

@@ -1,7 +1,3 @@
-//
-// Created by Fredrik Vedvik on 21/03/2023.
-//
-
 import SwiftUI
 
 struct FeaturedButton: ButtonStyle {
@@ -12,7 +8,10 @@ struct FeaturedButton: ButtonStyle {
             .padding(.zero)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 4 : 0))
             .scaleEffect(configuration.isPressed ? 0.98 : focused ? 1.02 : 1)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
+            .animation(
+                configuration.isPressed || focused ? .easeOutCirc(duration: 0.4) : .easeOutCirc(duration: 0.2),
+                value: configuration.isPressed || focused
+            )
     }
 }
 
@@ -26,11 +25,11 @@ struct FeaturedCard: View {
     var body: some View {
         Button(action: {
             Task {
-                withAnimation(.easeInOut(duration: 0.1)) {
+                withAnimation(.easeOut(duration: 0.25)) {
                     loading.toggle()
                 }
                 await clicked()
-                withAnimation(.easeInOut(duration: 0.1)) {
+                withAnimation(.easeOut(duration: 0.25)) {
                     loading.toggle()
                 }
             }
@@ -42,10 +41,6 @@ struct FeaturedCard: View {
                 .overlay(
                     VStack(alignment: .leading, spacing: 20) {
                         Text(item.title).font(.barlowTitle)
-
-                        if item.description != "" {
-                            Text(item.description).font(.barlowCaption).foregroundColor(.gray)
-                        }
                     }.padding([.bottom, .horizontal], 50),
 
                     alignment: .bottomLeading
@@ -79,22 +74,11 @@ struct FeaturedSection: View {
         VStack {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 20) {
-//                    if withLiveElement {
-//                        VStack(alignment: .leading) {
-//                            Text("common_live").font(.barlowTitle)
-//                            NavigationLink {
-//                                LivePlayer().ignoresSafeArea()
-//                            } label: {
-//                                Image(uiImage: UIImage(named: "Live.png")!).resizable().frame(width: 450)
-//                            }.buttonStyle(SectionItemButton(focused: liveFocused)).focused($liveFocused).shadow(color: .black, radius: 20).accessibilityLabel(Text("common_live"))
-//                            CalendarDay(horizontal: false)
-//                        }.padding(0).frame(width: 450)
-//                    }
                     ForEach(items.indices, id: \.self) { index in
                         FeaturedCard(item: items[index]) {
                             await clickItem(items[index])
                         }
-                    }.frame(width: 1760)
+                    }.frame(width: 1000)
                 }.padding(100)
             }.padding(-100)
                 .frame(width: 1760, height: withLiveElement ? 600 : 800)

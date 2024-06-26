@@ -5,8 +5,8 @@
 //  Created by Fredrik Vedvik on 16/05/2023.
 //
 
-import SwiftUI
 import API
+import SwiftUI
 
 struct SectionItemButton: ButtonStyle {
     let focused: Bool
@@ -17,7 +17,10 @@ struct SectionItemButton: ButtonStyle {
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white, lineWidth: configuration.isPressed || focused ? 6 : 0))
             .cornerRadius(10)
             .scaleEffect(configuration.isPressed ? 1.02 : focused ? 1.05 : 1)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed || focused)
+            .animation(
+                configuration.isPressed || focused ? .easeOutCirc(duration: 0.4) : .easeOutCirc(duration: 0.2),
+                value: configuration.isPressed || focused
+            )
     }
 }
 
@@ -51,11 +54,11 @@ struct SectionItemCard: View {
                         return
                     }
                     Task {
-                        withAnimation(.easeInOut(duration: 0.1)) {
+                        withAnimation(.easeOut(duration: 0.25)) {
                             loading.toggle()
                         }
                         await onClick()
-                        withAnimation(.easeInOut(duration: 0.1)) {
+                        withAnimation(.easeOut(duration: 0.25)) {
                             loading.toggle()
                         }
                     }

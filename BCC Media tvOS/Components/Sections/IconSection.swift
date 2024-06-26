@@ -23,11 +23,11 @@ struct IconSectionItem: View {
         VStack(spacing: 10) {
             Button {
                 Task {
-                    withAnimation(.easeInOut(duration: 0.1)) {
+                    withAnimation(.easeOutExpo(duration: 0.25)) {
                         loading.toggle()
                     }
                     await onClick()
-                    withAnimation(.easeInOut(duration: 0.1)) {
+                    withAnimation(.easeOutExpo(duration: 0.25)) {
                         loading.toggle()
                     }
                 }
