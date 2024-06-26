@@ -37,15 +37,6 @@
       }
     },
     {
-      "identity" : "crash-reporter-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rudderlabs/crash-reporter-ios",
-      "state" : {
-        "revision" : "ee563535b64d9d5feacd0fa243663b2658033a19",
-        "version" : "1.0.1"
-      }
-    },
-    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
@@ -127,15 +118,6 @@
       }
     },
     {
-      "identity" : "metrics-reporter-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rudderlabs/metrics-reporter-ios",
-      "state" : {
-        "revision" : "c5fe7cc861a83ec75978a516c02398c2a2cb1f20",
-        "version" : "1.2.1"
-      }
-    },
-    {
       "identity" : "nanopb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/nanopb.git",
@@ -145,39 +127,12 @@
       }
     },
     {
-      "identity" : "plugin-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
-      "state" : {
-        "revision" : "7376b24a5738a589d82584fe969a2cf09a6dad67",
-        "version" : "7.2.2"
-      }
-    },
-    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
-      }
-    },
-    {
-      "identity" : "rudder-ios-kit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rudderlabs/rudder-ios-kit",
-      "state" : {
-        "revision" : "8a557a80cc1b0e0bc948c2b17fe0fd3809bcfd61",
-        "version" : "1.4.0"
-      }
-    },
-    {
-      "identity" : "rudder-sdk-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rudderlabs/rudder-sdk-ios",
-      "state" : {
-        "revision" : "bdff8a73bac6aa74a02979e49a46defbc121f000",
-        "version" : "1.26.3"
       }
     },
     {

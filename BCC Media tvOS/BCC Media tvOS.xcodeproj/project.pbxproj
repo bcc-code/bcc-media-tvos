@@ -66,6 +66,9 @@
 		09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A772B594E7F0019FB9A /* FeatureFlags */; };
 		09055A7E2B5956AA0019FB9A /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A7D2B5956AA0019FB9A /* ApolloAPI */; };
 		09DDD6C72B6BB05000E56631 /* Rudder in Frameworks */ = {isa = PBXBuildFile; productRef = 09DDD6C62B6BB05000E56631 /* Rudder */; };
+		816CD9F82C2C38C600D536B4 /* Animation+CustomTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CD9F72C2C38C600D536B4 /* Animation+CustomTimingFunctions.swift */; };
+		817A8CEA2C05BCDE00E48E23 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 817A8CE92C05BCDE00E48E23 /* GoogleService-Info.plist */; };
+		817A8CEC2C05BD6200E48E23 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 817A8CEB2C05BD6200E48E23 /* FirebaseCrashlytics */; };
 		7E31D57B2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */; };
 		81F594BC2BC6EDC500A3BFC0 /* MainUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F594BB2BC6EDC500A3BFC0 /* MainUITest.swift */; };
 		81F828772BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F828762BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift */; };
@@ -151,6 +154,8 @@
 		09055A5D2B58064E0019FB9A /* BCC Media tvOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BCC Media tvOS.entitlements"; sourceTree = "<group>"; };
 		09055A612B580A6B0019FB9A /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		09055A6C2B593FE90019FB9A /* CI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CI.swift; sourceTree = "<group>"; };
+		816CD9F72C2C38C600D536B4 /* Animation+CustomTimingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Animation+CustomTimingFunctions.swift"; sourceTree = "<group>"; };
+		817A8CE92C05BCDE00E48E23 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		81F594B12BC6ED9300A3BFC0 /* uitests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uitests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81F594BA2BC6EDC500A3BFC0 /* uitests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "uitests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -170,6 +175,7 @@
 				090559B22B57FB560019FB9A /* Apollo in Frameworks */,
 				090559BF2B57FB600019FB9A /* Auth0 in Frameworks */,
 				090559AC2B57F9810019FB9A /* API in Frameworks */,
+				817A8CEC2C05BD6200E48E23 /* FirebaseCrashlytics in Frameworks */,
 				09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */,
 				09055A602B5807920019FB9A /* NpawPlugin in Frameworks */,
 			);
@@ -188,6 +194,7 @@
 		090559902B57F22F0019FB9A = {
 			isa = PBXGroup;
 			children = (
+				817A8CE92C05BCDE00E48E23 /* GoogleService-Info.plist */,
 				7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */,
 				81F594AC2BC6ED6E00A3BFC0 /* Tests */,
 				09055A5D2B58064E0019FB9A /* BCC Media tvOS.entitlements */,
@@ -205,6 +212,7 @@
 				090559A02B57F2300019FB9A /* Assets.xcassets */,
 				090559A22B57F2300019FB9A /* Preview Content */,
 				0905599A2B57F22F0019FB9A /* Products */,
+				817A8CED2C05BF7600E48E23 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -340,8 +348,16 @@
 				09055A4D2B57FF550019FB9A /* Loaders.swift */,
 				09055A4E2B57FF550019FB9A /* Version.swift */,
 				81F828762BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift */,
+				816CD9F72C2C38C600D536B4 /* Animation+CustomTimingFunctions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		817A8CED2C05BF7600E48E23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		81F594AC2BC6ED6E00A3BFC0 /* Tests */ = {
@@ -378,6 +394,7 @@
 				090559AB2B57F9810019FB9A /* API */,
 				09055A6A2B59247A0019FB9A /* FeatureFlags */,
 				09DDD6C62B6BB05000E56631 /* Rudder */,
+				817A8CEB2C05BD6200E48E23 /* FirebaseCrashlytics */,
 			);
 			productName = "BCC Media tvOS";
 			productReference = 090559992B57F22F0019FB9A /* BCC Media tvOS.app */;
@@ -456,6 +473,7 @@
 				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
 				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
 				09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
+				817A8CE72C05BCA300E48E23 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0905599A2B57F22F0019FB9A /* Products */;
 			projectDirPath = "";
@@ -479,6 +497,7 @@
 				09055A132B57FC540019FB9A /* crowdin.yml in Resources */,
 				09055A182B57FC540019FB9A /* Barlow-Bold.ttf in Resources */,
 				09055A112B57FC540019FB9A /* Localizable.strings in Resources */,
+				817A8CEA2C05BCDE00E48E23 /* GoogleService-Info.plist in Resources */,
 				090559A12B57F2300019FB9A /* Assets.xcassets in Resources */,
 				7E31D57B2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy in Resources */,
 				09055A572B5801560019FB9A /* Auth0.plist in Resources */,
@@ -501,6 +520,7 @@
 			files = (
 				09055A522B57FF550019FB9A /* Events.swift in Sources */,
 				09055A3A2B57FC540019FB9A /* Search.swift in Sources */,
+				816CD9F82C2C38C600D536B4 /* Animation+CustomTimingFunctions.swift in Sources */,
 				09055A1F2B57FC540019FB9A /* LabelSection.swift in Sources */,
 				09055A292B57FC540019FB9A /* PageView.swift in Sources */,
 				09055A552B57FF550019FB9A /* Version.swift in Sources */,
@@ -738,6 +758,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.2.9;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -768,6 +789,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.2.9;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -908,6 +930,14 @@
 				minimumVersion = 1.15.1;
 			};
 		};
+		817A8CE72C05BCA300E48E23 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.26.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -951,6 +981,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */;
 			productName = Rudder;
+		};
+		817A8CEB2C05BD6200E48E23 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 817A8CE72C05BCA300E48E23 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
