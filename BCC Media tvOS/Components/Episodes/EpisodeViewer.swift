@@ -2,8 +2,8 @@
 // Created by Fredrik Vedvik on 13/03/2023.
 //
 
-import SwiftUI
 import API
+import SwiftUI
 
 internal enum Tab {
     case collection
@@ -208,8 +208,9 @@ struct EpisodeViewer: View {
                             VStack(alignment: .leading, spacing: 20) {
                                 ForEach(items, id: \.id) { ep in
                                     EpisodeListItem(title: ep.title, description: ep.description, image: ep.image, active: ep.id == episode.id) {
+                                        if ep.id == episode.id { return }
                                         await viewCallback(ep.id, context)
-                                    }.disabled(ep.id == episode.id)
+                                    }
                                 }.frame(width: 1280, height: 180)
                             }.focusSection()
                         }
@@ -225,8 +226,9 @@ struct EpisodeViewer: View {
                             VStack(alignment: .leading, spacing: 20) {
                                 ForEach(s.episodes.items, id: \.id) { ep in
                                     EpisodeListItem(title: ep.title, description: ep.description, image: ep.image, active: ep.id == episode.id) {
+                                        if ep.id == episode.id { return }
                                         await viewCallback(ep.id, context)
-                                    }.disabled(ep.id == episode.id)
+                                    }
                                 }.frame(width: 1280, height: 180)
                             }.focusSection()
                         }
