@@ -92,6 +92,7 @@ struct ContentView: View {
                 "gender": AppOptions.user.gender ?? "unknown",
                 "userId": AppOptions.user.personId ?? "unknown"
             ])
+            await Events.standard.identify()
         } else {
             withAnimation {
                 loaded = true

@@ -5,8 +5,8 @@
 //  Created by Fredrik Vedvik on 12/05/2023.
 //
 
-import Foundation
 import API
+import Foundation
 
 private let audioLanguageKey = "audioLanguage"
 private let subtitleLanguageKey = "subtitleLanguage"
@@ -17,7 +17,9 @@ public struct UserOptions {
     var ageGroup: String?
     var bccMember: Bool?
     var gender: String?
+    var countryISOCode: String?
     var personId: String?
+    var churchId: String?
 }
 
 public struct ApplicationOptions {
@@ -75,7 +77,7 @@ public struct AppOptions {
     public var npaw: NpawOptions = .init()
 
     public var rudder: RudderOptions = .init()
-    
+
     public var unleash: UnleashOptions = .init()
 }
 
@@ -118,7 +120,7 @@ public extension AppOptions {
     static var rudder: RudderOptions {
         AppOptions.standard.rudder
     }
-    
+
     static var unleash: UnleashOptions {
         AppOptions.standard.unleash
     }
@@ -138,6 +140,8 @@ public extension AppOptions {
             AppOptions.user.ageGroup = userInfo?.ageGroup
             AppOptions.user.bccMember = data.me.bccMember
             AppOptions.user.personId = userInfo?.personId?.formatted()
+            AppOptions.user.countryISOCode = userInfo?.countryISOCode
+            AppOptions.user.churchId = userInfo?.churchId?.formatted()
         } else {
             AppOptions.user = .init()
         }

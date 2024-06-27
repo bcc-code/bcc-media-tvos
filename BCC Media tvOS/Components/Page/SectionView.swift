@@ -2,8 +2,8 @@
 // Created by Fredrik Vedvik on 21/06/2023.
 //
 
-import SwiftUI
 import API
+import SwiftUI
 
 struct SectionView: View {
     var page: API.GetPageQuery.Data.Page
@@ -68,8 +68,7 @@ struct SectionView: View {
                     FeaturedSection(
                         section.title,
                         items,
-                        clickItem: clickItem,
-                        withLiveElement: metadata?.prependLiveElement == true
+                        clickItem: clickItem
                     )
                 case "DefaultSection", "ListSection":
                     DefaultSection(
@@ -109,7 +108,7 @@ struct SectionView: View {
                     )
                 default:
                     EmptyView()
-                    //MissingContent(section.__typename ?? "unknown type")
+                    // MissingContent(section.__typename ?? "unknown type")
                 }
             }
         } else {
@@ -122,7 +121,7 @@ struct SectionView: View {
                 EmptyView()
             default:
                 EmptyView()
-                //MissingContent(section.__typename ?? "unknown type")
+                // MissingContent(section.__typename ?? "unknown type")
             }
         }
     }

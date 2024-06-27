@@ -5,8 +5,8 @@
 //  Created by Fredrik Vedvik on 15/05/2023.
 //
 
-import Rudder
 import Foundation
+import Rudder
 
 protocol Event: Encodable {
     static var eventName: String { get }
@@ -127,8 +127,8 @@ struct Events {
 
         AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? CI.rudderWriteKey
         AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? CI.rudderDataplaneURL
-        
-        let builder: RSConfigBuilder = RSConfigBuilder()
+
+        let builder = RSConfigBuilder()
             .withDataPlaneUrl(AppOptions.rudder.dataPlaneUrl)
 
         client = RSClient.getInstance(AppOptions.rudder.writeKey, config: builder.build())
@@ -138,18 +138,33 @@ struct Events {
 
     public static func trigger<T: Event>(_ event: T) {
         print(event)
-        
+
         var dict = event.dictionary
         dict["channel"] = "tv"
         dict["appLanguage"] = Locale.current.identifier
         dict["releaseVersion"] = getVersion()
-        
+
         standard.client.track(T.eventName, properties: dict)
     }
 
     public static func page(_ pageCode: String) {
         standard.client.screen(pageCode)
     }
-    
+
+    func identify() async {
+        guard let userId = AppOptions.user.anonymousId else {
+            return
+        }
+
+        var traits = [String: Any]()
+        traits["tv"] = true
+        traits["ageGroup"] = AppOptions.user.ageGroup
+        traits["country"] = AppOptions.user.countryISOCode
+        traits["churchId"] = AppOptions.user.churchId
+        traits["gender"] = AppOptions.user.gender
+
+        client.identify(userId, traits: traits)
+    }
+
     public static let sessionId = standard.client.sessionId
 }

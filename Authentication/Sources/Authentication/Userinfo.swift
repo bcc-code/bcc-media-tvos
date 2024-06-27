@@ -29,8 +29,11 @@ public func getAgeGroup(_ age: Int?) -> String {
 public extension Provider {
     struct Profile: Codable {
         public let name: String?
+        public let gender: String?
         public let ageGroup: String?
         public let personId: Int?
+        public let churchId: Int?
+        public let countryISOCode: String?
     }
     
     private static let profileKey = "profile"
@@ -69,8 +72,11 @@ public extension Provider {
             
             let profile = Profile(
                 name: userInfo.name,
+                gender: userInfo.gender,
                 ageGroup: getAgeGroup(age),
-                personId: personId
+                personId: personId,
+                churchId: userInfo.customClaims?["https://login.bcc.no/claims/churchId"] as? Int,
+                countryISOCode: userInfo.customClaims?["https://login.bcc.no/claims/CountryIso2Code"] as? String
             )
             if let encoded = try? JSONEncoder().encode(profile) {
                 ud.set(encoded, forKey: Provider.profileKey)
