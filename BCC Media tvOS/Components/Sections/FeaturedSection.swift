@@ -59,13 +59,10 @@ struct FeaturedSection: View {
     var items: [Item]
     var clickItem: SectionClickItem
 
-    var withLiveElement: Bool
-
-    init(_ title: String?, _ items: [Item], clickItem: @escaping SectionClickItem, withLiveElement: Bool = false) {
+    init(_ title: String?, _ items: [Item], clickItem: @escaping SectionClickItem) {
         self.title = title
         self.items = items
         self.clickItem = clickItem
-        self.withLiveElement = withLiveElement && authenticationProvider.isAuthenticated()
     }
 
     @FocusState var liveFocused: Bool
@@ -78,10 +75,10 @@ struct FeaturedSection: View {
                         FeaturedCard(item: items[index]) {
                             await clickItem(items[index])
                         }
-                    }.frame(width: 1000)
+                    }.frame(width: 800)
                 }.padding(100)
             }.padding(-100)
-                .frame(width: 1760, height: withLiveElement ? 600 : 800)
+                .frame(width: 1760, height: 500)
         }
     }
 }
