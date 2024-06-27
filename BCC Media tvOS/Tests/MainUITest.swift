@@ -10,7 +10,7 @@ final class MainUITest: XCTestCase {
     // This method is called after the invocation of each test method in the class.
     override func tearDownWithError() throws {}
 
-    func testOpenLivestream() async throws {
+    func testOpenPlayer() async throws {
         let app = XCUIApplication()
         app.launchEnvironment = [
             "UNLEASH_URL": "https://fake.url/api/frontend",
