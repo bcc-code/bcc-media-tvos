@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/gtm-session-fetcher.git",
       "state" : {
-        "revision" : "0382ca27f22fb3494cf657d8dc356dc282cd1193",
-        "version" : "3.4.1"
+        "revision" : "a2ab612cb980066ee56d90d60d8462992c07f24b",
+        "version" : "3.5.0"
       }
     },
     {
@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
       "state" : {
-        "revision" : "f74df623bbcfd4acdca3300e6720222283b8140d",
-        "version" : "7.2.26"
+        "revision" : "1ecc4aaee251362f9f9b93d7de211822f08aaa30",
+        "version" : "7.2.29"
       }
     },
     {
