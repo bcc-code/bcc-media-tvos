@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
       "state" : {
-        "revision" : "f74df623bbcfd4acdca3300e6720222283b8140d",
-        "version" : "7.2.26"
+        "revision" : "1ecc4aaee251362f9f9b93d7de211822f08aaa30",
+        "version" : "7.2.29"
       }
     },
     {
