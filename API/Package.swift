@@ -5,9 +5,9 @@ import PackageDescription
 let package = Package(
     name: "API",
     platforms: [
-        .iOS(.v13),
-        .macOS(.v11),
-        .tvOS(.v13),
+        .iOS(.v16),
+        .macOS(.v10_14),
+        .tvOS(.v16),
         .watchOS(.v5),
     ],
     products: [
@@ -20,7 +20,6 @@ let package = Package(
         .target(
             name: "API",
             dependencies: [
-                .product(name: "Apollo", package: "apollo-ios"),
                 .product(name: "ApolloAPI", package: "apollo-ios"),
             ],
             path: "./Sources"

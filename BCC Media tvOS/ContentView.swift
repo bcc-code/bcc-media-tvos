@@ -275,6 +275,7 @@ struct ContentView: View {
             await loadSeason(item.id)
         case .playlist:
             await loadPlaylist(item.id)
+        default: break
         }
     }
 

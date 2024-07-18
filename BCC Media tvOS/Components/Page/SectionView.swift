@@ -50,66 +50,76 @@ struct SectionView: View {
 
     var body: some View {
         if let items = items {
-            if !items.isEmpty {
-                switch section.__typename! {
-                case "PosterSection":
-                    PosterSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "PosterGridSection":
-                    PosterGridSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "FeaturedSection":
-                    FeaturedSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "DefaultSection", "ListSection":
-                    DefaultSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "DefaultGridSection":
-                    DefaultGridSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "IconSection":
-                    IconSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "IconGridSection":
-                    IconGridSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "CardSection":
-                    CardSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                case "LabelSection":
-                    LabelSection(
-                        section.title,
-                        items,
-                        clickItem: clickItem
-                    )
-                default:
-                    EmptyView()
-                    // MissingContent(section.__typename ?? "unknown type")
-                }
+            if items.isEmpty {
+                EmptyView()
+            } else {
+                VStack {
+                    switch section.__typename! {
+                    case "PosterSection":
+                        PosterSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "PosterGridSection":
+                        PosterGridSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "FeaturedSection":
+                        FeaturedSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "DefaultSection", "ListSection":
+                        DefaultSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "DefaultGridSection":
+                        DefaultGridSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "IconSection":
+                        IconSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "IconGridSection":
+                        IconGridSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "CardSection":
+                        CardSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "CardListSection":
+                        CardSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    case "LabelSection":
+                        LabelSection(
+                            section.title,
+                            items,
+                            clickItem: clickItem
+                        )
+                    default:
+                        EmptyView()
+                        // MissingContent(section.__typename ?? "unknown type")
+                    }
+                }.padding(.bottom, 50)
             }
         } else {
             switch section.__typename {

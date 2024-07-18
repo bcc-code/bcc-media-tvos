@@ -5,8 +5,8 @@
 //  Created by Fredrik Vedvik on 14/03/2023.
 //
 
-import SwiftUI
 import API
+import SwiftUI
 
 struct PageDetailsSection: View {
     var title: String?
@@ -42,7 +42,7 @@ struct PageView: View {
 
     var body: some View {
         ScrollView(.vertical) {
-            LazyVStack(spacing: 50) {
+            LazyVStack(alignment: .leading) {
                 ForEach(page.sections.items.indices, id: \.self) { index in
                     SectionView(page, index, clickItem: clickItem).focusSection()
                 }
