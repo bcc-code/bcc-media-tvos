@@ -190,6 +190,13 @@ struct VideoPlayerControllerView: UIViewControllerRepresentable {
         let controller = AVPlayerViewController()
         
         controller.player = PlayerControls.current.player
+        controller.speeds = [
+            AVPlaybackSpeed(rate: 0.75, localizedName: "0.75x"),
+            AVPlaybackSpeed(rate: 1.0, localizedName: "1.0x"),
+            AVPlaybackSpeed(rate: 1.5, localizedName: "1.5x"),
+            AVPlaybackSpeed(rate: 1.75, localizedName: "1.75x"),
+            AVPlaybackSpeed(rate: 2.0, localizedName: "2.0x"),
+        ]
         
         return controller
     }
