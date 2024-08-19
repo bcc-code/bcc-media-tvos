@@ -11,6 +11,7 @@ import Authentication
 import Firebase
 import NpawPlugin
 import SwiftUI
+import Sentry
 
 let authenticationProvider = Authentication.Provider(serviceName: "bcc.media", accessGroup: "group.tv.brunstad.app.tvos", logger: { err in
     Events.trigger(ErrorOccured(error: err.localizedDescription))
@@ -23,6 +24,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
     {
         FirebaseApp.configure()
+        
+        SentrySDK.start{ options in
+            options.dsn = "https://3ffd6244935a49dab6913bdc148d8d41@o1045703.ingest.us.sentry.io/4504299662278656"
+        }
+        
         return true
     }
 }

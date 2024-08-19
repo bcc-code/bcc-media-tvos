@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "crash-reporter-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/crash-reporter-ios",
+      "state" : {
+        "revision" : "ee563535b64d9d5feacd0fa243663b2658033a19",
+        "version" : "1.0.1"
+      }
+    },
+    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
@@ -118,6 +127,15 @@
       }
     },
     {
+      "identity" : "metrics-reporter-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/metrics-reporter-ios",
+      "state" : {
+        "revision" : "c5fe7cc861a83ec75978a516c02398c2a2cb1f20",
+        "version" : "1.2.1"
+      }
+    },
+    {
       "identity" : "nanopb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/nanopb.git",
@@ -127,12 +145,48 @@
       }
     },
     {
+      "identity" : "plugin-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
+      "state" : {
+        "revision" : "1ecc4aaee251362f9f9b93d7de211822f08aaa30",
+        "version" : "7.2.29"
+      }
+    },
+    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
+      }
+    },
+    {
+      "identity" : "rudder-ios-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/rudder-ios-kit",
+      "state" : {
+        "revision" : "8a557a80cc1b0e0bc948c2b17fe0fd3809bcfd61",
+        "version" : "1.4.0"
+      }
+    },
+    {
+      "identity" : "rudder-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rudderlabs/rudder-sdk-ios",
+      "state" : {
+        "revision" : "24a8704175571208848f5febad8806169ca17a8e",
+        "version" : "1.27.0"
+      }
+    },
+    {
+      "identity" : "sentry-cocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getsentry/sentry-cocoa.git",
+      "state" : {
+        "revision" : "d2ced2d961b34573ebd2ea0567a2f1408e90f0ae",
+        "version" : "8.34.0"
       }
     },
     {
