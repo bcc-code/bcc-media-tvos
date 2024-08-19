@@ -1,4 +1,5 @@
 {
+  "originHash" : "b077ddede39033086d3051b0e2509928d2990d7c1f088898ddc3190c8edf32d1",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -181,6 +182,15 @@
       }
     },
     {
+      "identity" : "sentry-cocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getsentry/sentry-cocoa.git",
+      "state" : {
+        "revision" : "d2ced2d961b34573ebd2ea0567a2f1408e90f0ae",
+        "version" : "8.34.0"
+      }
+    },
+    {
       "identity" : "simplekeychain",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/auth0/SimpleKeychain.git",
@@ -226,5 +236,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
