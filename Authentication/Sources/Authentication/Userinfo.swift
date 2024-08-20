@@ -1,6 +1,6 @@
 
 import Auth0
-import FirebaseCrashlytics
+import Sentry
 import Foundation
 
 public func getAgeGroup(_ age: Int?) -> String {
@@ -91,8 +91,8 @@ public extension Provider {
                 "original_error": error.localizedDescription,
             ]
             let customError = NSError(domain: "tv.brunstad.app", code: 9999, userInfo: customErrorInfo)
-            // Report the custom error to Crashlytics
-            Crashlytics.crashlytics().record(error: customError)
+            // Report the custom error to Sentry
+            SentrySDK.capture(error: customError)
         }
         return nil
     }
