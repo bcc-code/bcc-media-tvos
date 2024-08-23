@@ -37,6 +37,7 @@ jobs:
           NPAW_ACCOUNT_CODE: ${{ secrets.NPAW_ACCOUNT_CODE }}
           UNLEASH_URL: ${{ vars.UNLEASH_URL }}
           UNLEASH_CLIENT_KEY: ${{ vars.UNLEASH_CLIENT_KEY }}
+          SENTRY_DSN: ${{ vars.SENTRY_DSN }}
         run: |
           bundle install
           fastlane beta --verbose
