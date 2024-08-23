@@ -15,6 +15,7 @@ public struct UserOptions {
     var name: String?
     var anonymousId: String?
     var ageGroup: String?
+    var ageGroupStart: Int?
     var bccMember: Bool?
     var gender: String?
     var countryISOCode: String?

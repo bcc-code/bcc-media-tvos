@@ -1,9 +1,9 @@
 
 import Auth0
-import Sentry
 import Foundation
+import Sentry
 
-public func getAgeGroup(_ age: Int?) -> String {
+public func getAgeGroup(_ age: Int?) -> (range: String, start: Int) {
     let breakpoints: [Int: String] = [
         9: "< 10",
         12: "10 - 12",
@@ -18,12 +18,12 @@ public func getAgeGroup(_ age: Int?) -> String {
         for key in breakpoints.keys.sorted() {
             let value = breakpoints[key]!
             if age <= key {
-                return value
+                return (range: value, start: 65)
             }
         }
-        return "65+"
+        return (range: "65+", start: 65)
     }
-    return "UNKNOWN"
+    return (range: "UNKNOWN", start: 999)
 }
 
 public extension Provider {
@@ -31,6 +31,7 @@ public extension Provider {
         public let name: String?
         public let gender: String?
         public let ageGroup: String?
+        public let ageGroupStart: Int?
         public let personId: Int?
         public let churchId: Int?
         public let countryISOCode: String?
@@ -70,10 +71,12 @@ public extension Provider {
                 age = calculateAge(from: bd)
             }
             
+            let ageGroup = getAgeGroup(age)
             let profile = Profile(
                 name: userInfo.name,
                 gender: userInfo.gender,
-                ageGroup: getAgeGroup(age),
+                ageGroup: ageGroup.range,
+                ageGroupStart: ageGroup.start,
                 personId: personId,
                 churchId: userInfo.customClaims?["https://login.bcc.no/claims/churchId"] as? Int,
                 countryISOCode: userInfo.customClaims?["https://login.bcc.no/claims/CountryIso2Code"] as? String
