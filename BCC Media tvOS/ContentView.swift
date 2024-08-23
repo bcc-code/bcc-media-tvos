@@ -12,15 +12,15 @@ import NpawPlugin
 import SwiftUI
 
 var backgroundColor: Color {
-    Color(red: 13 / 256, green: 22 / 256, blue: 35 / 256)
+    Color(red: 13 / 255, green: 22 / 255, blue: 35 / 255)
 }
 
 var cardBackgroundColor: Color {
-    Color(red: 29 / 256, green: 40 / 256, blue: 56 / 256)
+    Color(red: 29 / 255, green: 40 / 255, blue: 56 / 255)
 }
 
 var cardActiveBackgroundColor: Color {
-    Color(red: 58 / 256, green: 80 / 256, blue: 112 / 256)
+    Color(red: 58 / 255, green: 80 / 255, blue: 112 / 255)
 }
 
 enum StaticDestination: Hashable {
