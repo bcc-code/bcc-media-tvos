@@ -11,5 +11,5 @@ struct CI {
     static var npawAccountCode = "$NPAW_ACCOUNT_CODE"
     static var unleashUrl = "$UNLEASH_URL"
     static var unleashClientKey = "$UNLEASH_CLIENT_KEY"
-    static var sentryDsn = "$TVOS_SENTRY_DSN"
+    static var sentryDsn = "$SENTRY_DSN"
 }

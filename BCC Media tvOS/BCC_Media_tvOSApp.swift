@@ -26,7 +26,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         
         SentrySDK.start{ options in
-            options.dsn = ProcessInfo.processInfo.environment["TVOS_SENTRY_DSN"] ?? CI.sentryDsn
+            options.dsn = ProcessInfo.processInfo.environment["SENTRY_DSN"] ?? CI.sentryDsn
             options.tracesSampleRate = 0.5
         }
         
