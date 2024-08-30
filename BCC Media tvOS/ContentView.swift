@@ -89,12 +89,12 @@ struct ContentView: View {
             let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
             FeatureFlags.setup(unleashUrl: AppOptions.unleash.url, clientKey: AppOptions.unleash.clientKey, context: [
                 "anonymousId": id,
-                "ageGroupStart": AppOptions.user.ageGroupStart != nil ? String(AppOptions.user.ageGroupStart!) : nil,
+                "ageGroupStart": AppOptions.user.ageGroupStart != nil ? String(AppOptions.user.ageGroupStart!) : "unknown",
                 "ageGroup": AppOptions.user.ageGroup ?? "unknown",
                 "gender": AppOptions.user.gender ?? "unknown",
                 "userId": AppOptions.user.personId ?? "unknown",
                 "os": "tvos",
-                "appBuildNumber": buildNumber
+                "appBuildNumber": buildNumber ?? "unknown"
             ])
             await Events.standard.identify()
         } else {
