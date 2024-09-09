@@ -30,6 +30,10 @@ jobs:
             LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
             AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }} \
             | xcpretty
+      - name: Test analytics
+        env:
+          ANALYTICS_WEBHOOK_URL: ${{ vars.ANALYTICS_WEBHOOK_URL }}
+        run: bash ./scripts/check_analytics.sh
       - name: Run fastlane
         env:
           RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
