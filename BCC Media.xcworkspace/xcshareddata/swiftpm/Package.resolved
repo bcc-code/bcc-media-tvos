@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/abseil-cpp-binary.git",
       "state" : {
-        "revision" : "748c7837511d0e6a507737353af268484e1745e2",
-        "version" : "1.2024011601.1"
+        "revision" : "194a6706acbd25e4ef639bcaddea16e8758a3e27",
+        "version" : "1.2024011602.0"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apollographql/apollo-ios.git",
       "state" : {
-        "revision" : "8dd101dfd6c5becc658c33580e49aaac085ba327",
-        "version" : "1.13.0"
+        "revision" : "e70850751f6b21acd1c7871dbcd2cee5d6103c7e",
+        "version" : "1.15.1"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
-        "revision" : "e57841b296d04370ea23580f908881b0ccab17b9",
-        "version" : "10.28.1"
+        "revision" : "eca84fd638116dd6adb633b5a3f31cc7befcbb7d",
+        "version" : "10.29.0"
       }
     },
     {
@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rudderlabs/metrics-reporter-ios",
       "state" : {
-        "revision" : "c5fe7cc861a83ec75978a516c02398c2a2cb1f20",
-        "version" : "1.2.1"
+        "revision" : "e307fa37c6c2d2cccf787d73b5b4b5bc3f650435",
+        "version" : "2.0.0"
       }
     },
     {
@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
       "state" : {
-        "revision" : "2d4fe6eed38932645b63bceb23dad8c0cec88150",
-        "version" : "7.2.35"
+        "revision" : "43692099879fc2f34d357fccd62f3e6c70ea629e",
+        "version" : "7.2.36"
       }
     },
     {
@@ -176,8 +176,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rudderlabs/rudder-sdk-ios",
       "state" : {
-        "revision" : "27153f90086f3eb903ed7cea960d2074d1131ab1",
-        "version" : "1.28.0"
+        "revision" : "28fdbdebf170c685e6100f593557b9d2a77278d6",
+        "version" : "1.29.0"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa.git",
       "state" : {
-        "revision" : "d2ced2d961b34573ebd2ea0567a2f1408e90f0ae",
-        "version" : "8.34.0"
+        "revision" : "5575af93efb776414f243e93d6af9f6258dc539a",
+        "version" : "8.36.0"
       }
     },
     {
@@ -212,8 +212,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
-        "revision" : "9f0c76544701845ad98716f3f6a774a892152bcb",
-        "version" : "1.26.0"
+        "revision" : "edb6ed4919f7756157fe02f2552b7e3850a538e5",
+        "version" : "1.28.1"
       }
     },
     {

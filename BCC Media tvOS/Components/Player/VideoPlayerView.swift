@@ -22,7 +22,7 @@ extension NpawPluginProvider {
         options.contentCustomDimension2 = AppOptions.user.ageGroup
         options.parseManifest = true
         options.autoDetectBackground = true
-        options.userObfuscateIp = "true"
+        options.userObfuscateIp = true
         options.appReleaseVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         initialize(accountCode: AppOptions.npaw.accountCode ?? "", analyticsOptions: options, logLevel: .info)
     }
