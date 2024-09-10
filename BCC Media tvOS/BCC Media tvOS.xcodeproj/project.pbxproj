@@ -472,11 +472,11 @@
 			mainGroup = 090559902B57F22F0019FB9A;
 			packageReferences = (
 				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */,
+				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */,
 				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */,
-				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */,
-				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */,
-				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */,
+				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */,
+				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
+				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
 				09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
 				817A8CE72C05BCA300E48E23 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				81480B342C3C0CCE0023D5B2 /* XCRemoteSwiftPackageReference "plugin-ios" */,
@@ -807,7 +807,6 @@
 		};
 		81F594B82BC6ED9300A3BFC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C14E6BB92C903EEF00FB415C /* env.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -891,15 +890,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */ = {
+		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../API;
 		};
-		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */ = {
+		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Authentication;
 		};
-		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */ = {
+		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../FeatureFlags;
 		};
@@ -914,7 +913,7 @@
 				minimumVersion = 1.8.0;
 			};
 		};
-		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
+		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/Auth0.swift";
 			requirement = {
@@ -976,7 +975,7 @@
 		};
 		090559BE2B57FB600019FB9A /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */;
+			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
 			productName = Auth0;
 		};
 		09055A5F2B5807920019FB9A /* NpawPlugin */ = {
