@@ -29,8 +29,8 @@ jobs:
             -destination 'platform=tvOS Simulator,name=Apple TV,OS=16.1' \
             LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
             AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }} \
-            RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }} \
-            RUDDER_DATAPLANE_URL: ${{ secrets.RUDDER_DATAPLANE_URL }} \
+            RUDDER_WRITE_KEY=${{ secrets.RUDDER_WRITE_KEY }} \
+            RUDDER_DATAPLANE_URL=${{ secrets.RUDDER_DATAPLANE_URL }} \
             | xcpretty
       - name: Test analytics
         env:
