@@ -125,8 +125,8 @@ struct Events {
     private init() {
         let processInfo = ProcessInfo.processInfo
 
-        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITEKEY"] ?? CI.rudderWriteKey
-        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANEURL"] ?? CI.rudderDataplaneURL
+        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITE_KEY"] ?? CI.rudderWriteKey
+        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANE_URL"] ?? CI.rudderDataplaneURL
 
         let builder = RSConfigBuilder()
             .withDataPlaneUrl(AppOptions.rudder.dataPlaneUrl)
