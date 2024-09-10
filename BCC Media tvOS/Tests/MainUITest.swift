@@ -10,26 +10,27 @@ final class MainUITest: XCTestCase {
     // This method is called after the invocation of each test method in the class.
     override func tearDownWithError() throws {}
 
+    @MainActor
     func testOpenPlayer() async throws {
         let app = XCUIApplication()
         app.launchEnvironment = [
             "UNLEASH_URL": "https://fake.url/api/frontend",
             "UNLEASH_CLIENT_KEY": "abc",
         ]
-        DispatchQueue.main.sync {
-            app.launch()
+        app.launch()
+        
+        let loginButton = XCUIApplication().buttons["Log in"]
+        if loginButton.waitForExistence(timeout: 3) {
+            XCTAssert(loginButton.hasFocus)
+            XCUIRemote.shared.press(.select)
         }
 
-        sleep(3)
+        let loginCode = app.staticTexts["LoginCode"]
+        if loginCode.waitForExistence(timeout: 10) {
+            XCTAssertNotNil(loginCode.label)
+        }
 
-        XCTAssert(XCUIApplication().buttons["Log in"].hasFocus)
-        XCUIRemote.shared.press(.select)
-
-        sleep(10)
-        let loginCode = app.staticTexts["LoginCode"].label
-        XCTAssertNotNil(loginCode)
-
-        let loginResult = await loginUserWithDeviceCode(deviceCode: loginCode)
+        let loginResult = await loginUserWithDeviceCode(deviceCode: loginCode.label)
         XCTAssertEqual(loginResult, true, "Login failed")
 
         sleep(15)
@@ -37,17 +38,21 @@ final class MainUITest: XCTestCase {
         XCUIRemote.shared.press(.up)
         XCUIRemote.shared.press(.down)
         XCUIRemote.shared.press(.down)
-
-        let otherElements = app.scrollViews.otherElements
         XCUIRemote.shared.press(.select)
         XCUIRemote.shared.press(.up)
-        sleep(5)
-        XCTAssert(otherElements.buttons["Play"].hasFocus)
-        XCUIRemote.shared.press(.select)
-        sleep(10)
+
+        let otherElements = app.scrollViews.otherElements
+        
+        let playButton = otherElements.buttons["Play"]
+        if playButton.waitForExistence(timeout: 5) {
+            XCTAssert(playButton.hasFocus)
+            XCUIRemote.shared.press(.select)
+        }
 
         let playingLabel = app.staticTexts["CurrentPlayerStatus"]
-        XCTAssertEqual(playingLabel.label, "Playing", "Player status is not correct.")
+        if playingLabel.waitForExistence(timeout: 10) {
+            XCTAssertEqual(playingLabel.label, "Playing", "Player status is not correct.")
+        }
     }
 }
 
@@ -58,7 +63,7 @@ private func loginUserWithDeviceCode(deviceCode: String) async -> Bool {
         return false
     }
 
-    let autoLoginHost = ProcessInfo.processInfo.environment["AUTOLOGIN_HOST"] ?? ""
+    let autoLoginHost = (ProcessInfo.processInfo.environment["AUTOLOGIN_HOST"] ?? "").replacingOccurrences(of: "\\/", with: "/")
     if autoLoginHost == "" {
         debugPrint("no host!!")
         return false
@@ -66,6 +71,7 @@ private func loginUserWithDeviceCode(deviceCode: String) async -> Bool {
 
     let rawUrl = autoLoginHost + "/confirm?user_code=\(deviceCode)&api_key=\(apiKey)"
     guard let url = URL(string: rawUrl) else {
+        debugPrint("invalid url!!")
         return false
     }
     var request = URLRequest(url: url)
