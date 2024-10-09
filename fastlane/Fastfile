@@ -79,6 +79,12 @@ platform :ios do
         "Open beta"
       ]
     )
+    sentry_debug_files_upload(
+      auth_token: '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',
+      org_slug: 'bcc-media-sti',
+      project_slug: 'bccm-tvos',
+      include_sources: true,
+    )
   end
 
   lane :release do
@@ -100,12 +106,6 @@ platform :ios do
       postfix: "+"+current_build_number,
     )
     push_git_tags
-    sentry_debug_files_upload(
-      auth_token: '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',
-      org_slug: 'bcc-media-sti',
-      project_slug: 'bccm-tvos',
-      include_sources: true,
-    )
   end
   
 end
