@@ -91,6 +91,8 @@ class PlayerControls: ObservableObject {
             videoOptions.contentTvShow = c.showId
             videoOptions.contentSeason = c.seasonId
             videoOptions.contentResource = videoURL.absoluteString
+            videoOptions.contentLanguage = Language.toThreeLetterLanguageCode(languageCode: options.audioLanguage)
+            videoOptions.contentSubtitles = Language.toThreeLetterLanguageCode(languageCode: options.subtitleLanguage)
             
             current.adapter = NpawPluginProvider.shared!.videoBuilder()
                 .setPlayerAdapter(playerAdapter: AVPlayerAdapter(player: player))
@@ -121,13 +123,13 @@ class PlayerControls: ObservableObject {
         Task {
             let l = options.audioLanguage ?? "no"
             if await current.player.currentItem!.setAudioLanguage(l) {
-                print("Successfully set initial audio language")
+                print("Successfully set initial audio language to " + l)
             }
         }
         Task {
             let l = options.subtitleLanguage ?? "no"
             if await current.player.currentItem!.setSubtitleLanguage(l) {
-                print("Successfully set initial subtitle language")
+                print("Successfully set initial subtitle language to " + l)
             }
         }
         

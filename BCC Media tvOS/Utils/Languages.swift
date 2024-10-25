@@ -59,21 +59,45 @@ struct Language {
 
         return languages
     }
-
-    private static var languageDict: [String: String] = [:]
-
-    static func setLanguage(key: String, code: String) {
-        UserDefaults.standard.set(code, forKey: "language:\(key)")
-        languageDict[key] = code
-    }
-
-    static func getLanguage(key: String) -> String {
-        if let lang = languageDict[key] {
-            return lang
+    
+    static func toThreeLetterLanguageCode(languageCode: String?) -> String? {
+        return switch languageCode {
+        case "no":
+            "nor"
+        case "en":
+            "eng"
+        case "fr":
+            "fra"
+        case "de":
+            "deu"
+        case "hu":
+            "hun"
+        case "es":
+            "spa"
+        case "it":
+            "ita"
+        case "pl":
+            "pol"
+        case "ro":
+            "ron"
+        case "ru":
+            "rus"
+        case "sl":
+            "slv"
+        case "tr":
+            "tur"
+        case "bg":
+            "bul"
+        case "nl":
+            "nld"
+        case "da":
+            "dan"
+        case "fi":
+            "fin"
+        case "pt":
+            "por"
+        default:
+            languageCode
         }
-        if let lang = UserDefaults.standard.string(forKey: "language:\(key)") {
-            return lang
-        }
-        return Locale.current.identifier
     }
 }
