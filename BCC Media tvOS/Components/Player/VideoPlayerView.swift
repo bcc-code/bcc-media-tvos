@@ -93,6 +93,7 @@ class PlayerControls: ObservableObject {
             videoOptions.contentResource = videoURL.absoluteString
             videoOptions.contentLanguage = Language.toThreeLetterLanguageCode(languageCode: options.audioLanguage)
             videoOptions.contentSubtitles = Language.toThreeLetterLanguageCode(languageCode: options.subtitleLanguage)
+            videoOptions.contentTransactionCode = UUID().uuidString
             
             current.adapter = NpawPluginProvider.shared!.videoBuilder()
                 .setPlayerAdapter(playerAdapter: AVPlayerAdapter(player: player))
@@ -185,6 +186,15 @@ class PlayerControls: ObservableObject {
     static func expired() -> Bool {
         current.expiresAt != nil && current.expiresAt! < .now
     }
+    
+    static func triggerAnalyticsEvent() {
+        if let options = adapter?.options {
+            guard let videoId = options.contentId else { return }
+            guard let referenceId = options.contentTransactionCode else { return }
+            
+            Events.trigger(VideoPlayed(videoId: videoId, referenceId: referenceId))
+        }
+    }
 }
 
 struct VideoPlayerControllerView: UIViewControllerRepresentable {
@@ -220,6 +230,7 @@ struct VideoPlayerView: View {
                     }
                 }.onAppear {
                     PlayerControls.player.play()
+                    PlayerControls.triggerAnalyticsEvent()
                 }.onDisappear {
                     PlayerControls.stop()
                 }
