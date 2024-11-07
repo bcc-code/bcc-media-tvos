@@ -65,15 +65,13 @@ struct FeaturedSection: View {
         self.clickItem = clickItem
     }
 
-    @FocusState var liveFocused: Bool
-
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 20) {
-                    ForEach(items.indices, id: \.self) { index in
-                        FeaturedCard(item: items[index]) {
-                            await clickItem(items[index])
+                    ForEach(items) { item in
+                        FeaturedCard(item: item) {
+                            await clickItem(item)
                         }
                     }.frame(width: 800)
                 }.padding(100)

@@ -44,7 +44,7 @@ struct PageView: View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading) {
                 ForEach(page.sections.items.indices, id: \.self) { index in
-                    SectionView(page, index, clickItem: clickItem).focusSection()
+                    SectionView(page, index, clickItem: clickItem)
                 }
             }
             .padding(100)
