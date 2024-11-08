@@ -109,6 +109,18 @@ class PlaybackPaused: VideoEvent, Event {
     static var eventName = "playback_paused"
 }
 
+class VideoPlayed: Event {
+    static var eventName = "video_played"
+    
+    var videoId: String
+    var referenceId: String
+    
+    init(videoId: String, referenceId: String) {
+        self.videoId = videoId
+        self.referenceId = referenceId
+    }
+}
+
 class ErrorOccured: Event {
     static var eventName = "tvos_error"
 
