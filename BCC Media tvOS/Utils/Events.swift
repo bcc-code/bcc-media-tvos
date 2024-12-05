@@ -148,19 +148,24 @@ struct Events {
 
     public static let standard = Events()
 
+    public static var commonProperties: [String: String] {
+        return [
+            "channel": "tv",
+            "appName": "bccm-tvos",
+            "appLanguage": Locale.current.identifier,
+            "releaseVersion": getVersion()
+        ]
+    }
+    
     public static func trigger<T: Event>(_ event: T) {
         print(event)
-
         var dict = event.dictionary
-        dict["channel"] = "tv"
-        dict["appLanguage"] = Locale.current.identifier
-        dict["releaseVersion"] = getVersion()
-
+        dict.merge(commonProperties){ (_, new) in new}
         standard.client.track(T.eventName, properties: dict)
     }
 
     public static func page(_ pageCode: String) {
-        standard.client.screen(pageCode)
+        standard.client.screen(pageCode, properties: commonProperties)
     }
 
     func identify() async {

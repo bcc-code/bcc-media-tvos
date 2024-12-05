@@ -34,7 +34,7 @@ private class CustomInterceptor: ApolloInterceptor {
 
         Task {
             do {
-                request.addHeader(name: "X-Application", value: "tvos")
+                request.addHeader(name: "X-Application", value: "bccm-tvos")
                 
                 if let c = try await tokenFactory() {
                     request.addHeader(name: "Authorization", value: "Bearer " + c)
