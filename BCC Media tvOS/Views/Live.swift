@@ -40,22 +40,7 @@ struct LiveView: View {
                     Spacer()
                 }
             }
-            if flags.linkToBccLive {
-                Text("new_live_app").font(.barlowTitle)
-                Text("go_to_bcc_live_app").font(.barlow)
-                Button {
-                    let url = URL(string: "https://itunes.apple.com/app/id6476551025")
-                    
-                    UIApplication.shared.open(url!)
-                } label: {
-                    Image(uiImage: UIImage(named: "tvos_icon_large.png")!).resizable()
-                }
-                .buttonStyle(SectionItemButton(focused: newAppFocused))
-                .focused($newAppFocused)
-                .accessibilityLabel(Text("new_live_app")).frame(width: 1280/2, height: 720/2)
-            } else {
-                CalendarDay()
-            }
+            CalendarDay()
         }.frame(width: 1280)
         .onAppear {
             Events.page("live")
@@ -66,7 +51,6 @@ struct LiveView: View {
 func getFlags() -> Flags {
     let flags = Flags();
 //    flags.forceBccLive = true;
-    flags.linkToBccLive = true;
     return flags
 }
 

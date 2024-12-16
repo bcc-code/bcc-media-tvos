@@ -41,12 +41,10 @@ typealias PlayCallback = (Bool, API.GetEpisodeQuery.Data.Episode) async -> Void
 class Flags: ObservableObject {
     @Published var removeLiveTab = true
     @Published var forceBccLive = true
-    @Published var linkToBccLive = true
 
     func load() {
         removeLiveTab = FeatureFlags.has("remove-live-tab")
         forceBccLive = FeatureFlags.has("force-bcc-live")
-        linkToBccLive = FeatureFlags.has("link-to-bcc-live")
     }
 }
 
