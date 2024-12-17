@@ -13,8 +13,6 @@ struct PlayerOptions {
     var audioLanguage: String?
     var subtitleLanguage: String?
 
-    var isLive: Bool
-
     var content: Content
     struct Content {
         var title: String?
@@ -30,7 +28,6 @@ struct PlayerOptions {
         startFrom: Int = 0,
         audioLanguage: String? = nil,
         subtitleLanguage: String? = nil,
-        isLive: Bool = false,
         content: Content = .init()
     ) {
         self.title = title
@@ -38,8 +35,6 @@ struct PlayerOptions {
         self.startFrom = startFrom
         self.subtitleLanguage = subtitleLanguage ?? AppOptions.standard.subtitleLanguage
         self.audioLanguage = audioLanguage ?? AppOptions.standard.audioLanguage
-
-        self.isLive = isLive
 
         self.content = content
     }
