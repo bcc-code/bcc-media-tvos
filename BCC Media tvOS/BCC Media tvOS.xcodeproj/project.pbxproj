@@ -40,7 +40,6 @@
 		09055A2C2B57FC540019FB9A /* EpisodeViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559FF2B57FC540019FB9A /* EpisodeViewer.swift */; };
 		09055A2D2B57FC540019FB9A /* CalendarDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A002B57FC540019FB9A /* CalendarDay.swift */; };
 		09055A2E2B57FC540019FB9A /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A012B57FC540019FB9A /* LockView.swift */; };
-		09055A2F2B57FC540019FB9A /* LivePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A032B57FC540019FB9A /* LivePlayer.swift */; };
 		09055A312B57FC540019FB9A /* PlayerListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A062B57FC540019FB9A /* PlayerListener.swift */; };
 		09055A332B57FC540019FB9A /* PlayerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A082B57FC540019FB9A /* PlayerOptions.swift */; };
 		09055A342B57FC540019FB9A /* PlayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A092B57FC540019FB9A /* PlayerExtensions.swift */; };
@@ -48,7 +47,6 @@
 		09055A362B57FC540019FB9A /* FrontPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A0C2B57FC540019FB9A /* FrontPage.swift */; };
 		09055A372B57FC540019FB9A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A0D2B57FC540019FB9A /* Settings.swift */; };
 		09055A382B57FC540019FB9A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A0E2B57FC540019FB9A /* SignIn.swift */; };
-		09055A392B57FC540019FB9A /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A0F2B57FC540019FB9A /* Live.swift */; };
 		09055A3A2B57FC540019FB9A /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A102B57FC540019FB9A /* Search.swift */; };
 		09055A3C2B57FD450019FB9A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A3B2B57FD450019FB9A /* Utils.swift */; };
 		09055A4F2B57FF550019FB9A /* AppOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A482B57FF550019FB9A /* AppOptions.swift */; };
@@ -132,7 +130,6 @@
 		090559FF2B57FC540019FB9A /* EpisodeViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeViewer.swift; sourceTree = "<group>"; };
 		09055A002B57FC540019FB9A /* CalendarDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDay.swift; sourceTree = "<group>"; };
 		09055A012B57FC540019FB9A /* LockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
-		09055A032B57FC540019FB9A /* LivePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LivePlayer.swift; sourceTree = "<group>"; };
 		09055A062B57FC540019FB9A /* PlayerListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListener.swift; sourceTree = "<group>"; };
 		09055A082B57FC540019FB9A /* PlayerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerOptions.swift; sourceTree = "<group>"; };
 		09055A092B57FC540019FB9A /* PlayerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerExtensions.swift; sourceTree = "<group>"; };
@@ -140,7 +137,6 @@
 		09055A0C2B57FC540019FB9A /* FrontPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontPage.swift; sourceTree = "<group>"; };
 		09055A0D2B57FC540019FB9A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		09055A0E2B57FC540019FB9A /* SignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
-		09055A0F2B57FC540019FB9A /* Live.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Live.swift; sourceTree = "<group>"; };
 		09055A102B57FC540019FB9A /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		09055A3B2B57FD450019FB9A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		09055A482B57FF550019FB9A /* AppOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppOptions.swift; sourceTree = "<group>"; };
@@ -261,7 +257,6 @@
 				090559EC2B57FC540019FB9A /* Sections */,
 				090559FD2B57FC540019FB9A /* Episodes */,
 				090559F92B57FC540019FB9A /* Page */,
-				09055A022B57FC540019FB9A /* Live */,
 				09055A042B57FC540019FB9A /* Player */,
 				090559FC2B57FC540019FB9A /* ItemImage.swift */,
 				09055A002B57FC540019FB9A /* CalendarDay.swift */,
@@ -307,14 +302,6 @@
 			path = Episodes;
 			sourceTree = "<group>";
 		};
-		09055A022B57FC540019FB9A /* Live */ = {
-			isa = PBXGroup;
-			children = (
-				09055A032B57FC540019FB9A /* LivePlayer.swift */,
-			);
-			path = Live;
-			sourceTree = "<group>";
-		};
 		09055A042B57FC540019FB9A /* Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,7 +320,6 @@
 				09055A0C2B57FC540019FB9A /* FrontPage.swift */,
 				09055A0D2B57FC540019FB9A /* Settings.swift */,
 				09055A0E2B57FC540019FB9A /* SignIn.swift */,
-				09055A0F2B57FC540019FB9A /* Live.swift */,
 				09055A102B57FC540019FB9A /* Search.swift */,
 			);
 			path = Views;
@@ -470,11 +456,11 @@
 			mainGroup = 090559902B57F22F0019FB9A;
 			packageReferences = (
 				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */,
+				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */,
 				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */,
-				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */,
-				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */,
-				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */,
+				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */,
+				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
+				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
 				09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
 				817A8CE72C05BCA300E48E23 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				81480B342C3C0CCE0023D5B2 /* XCRemoteSwiftPackageReference "plugin-ios" */,
@@ -554,8 +540,6 @@
 				09055A362B57FC540019FB9A /* FrontPage.swift in Sources */,
 				09055A252B57FC540019FB9A /* PosterGridSection.swift in Sources */,
 				09055A222B57FC540019FB9A /* SectionItem.swift in Sources */,
-				09055A392B57FC540019FB9A /* Live.swift in Sources */,
-				09055A2F2B57FC540019FB9A /* LivePlayer.swift in Sources */,
 				09055A382B57FC540019FB9A /* SignIn.swift in Sources */,
 				0905599D2B57F22F0019FB9A /* BCC_Media_tvOSApp.swift in Sources */,
 				09055A232B57FC540019FB9A /* ProgressBar.swift in Sources */,
@@ -890,15 +874,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */ = {
+		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../API;
 		};
-		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */ = {
+		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Authentication;
 		};
-		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */ = {
+		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../FeatureFlags;
 		};
@@ -913,7 +897,7 @@
 				minimumVersion = 1.8.0;
 			};
 		};
-		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
+		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/Auth0.swift";
 			requirement = {
@@ -975,7 +959,7 @@
 		};
 		090559BE2B57FB600019FB9A /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */;
+			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
 			productName = Auth0;
 		};
 		09055A5F2B5807920019FB9A /* NpawPlugin */ = {

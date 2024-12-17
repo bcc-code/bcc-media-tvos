@@ -24,14 +24,12 @@ var cardActiveBackgroundColor: Color {
 }
 
 enum StaticDestination: Hashable {
-    case live
     case aboutUs
     case signIn
 }
 
 enum TabType: Hashable {
     case pages
-    case live
     case search
     case settings
 }
@@ -39,15 +37,7 @@ enum TabType: Hashable {
 typealias PlayCallback = (Bool, API.GetEpisodeQuery.Data.Episode) async -> Void
 
 class Flags: ObservableObject {
-    @Published var removeLiveTab = true
-    @Published var forceBccLive = true
-    @Published var linkToBccLive = true
-
-    func load() {
-        removeLiveTab = FeatureFlags.has("remove-live-tab")
-        forceBccLive = FeatureFlags.has("force-bcc-live")
-        linkToBccLive = FeatureFlags.has("link-to-bcc-live")
-    }
+    func load() {}
 }
 
 struct ContentView: View {
@@ -305,13 +295,6 @@ struct ContentView: View {
                                 .tabItem {
                                     Label("tab_home", systemImage: "house.fill").font(.barlow)
                                 }.tag(TabType.pages)
-                            if !flags.removeLiveTab && authenticated && bccMember {
-                                LiveView {
-                                    path.append(StaticDestination.live)
-                                }.tabItem {
-                                    Label("tab_live", systemImage: "video").font(.barlow)
-                                }.tag(TabType.live)
-                            }
                             SearchView(
                                 queryString: $searchQuery,
                                 clickItem: clickItem,
@@ -379,8 +362,6 @@ struct ContentView: View {
                     }
                     .navigationDestination(for: StaticDestination.self) { dest in
                         switch dest {
-                        case .live:
-                            LivePlayer()
                         case .aboutUs:
                             AboutUsView()
                         default:

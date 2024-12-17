@@ -81,7 +81,6 @@ struct ApplicationOpened: Event {
 
 class VideoEvent {
     var sessionId: String
-    var livestream: Bool
     var contentPodId: String
     var position: Int?
     var totalLength: Int
@@ -89,9 +88,8 @@ class VideoEvent {
     var fullScreen = true
     var hasVideo = true
 
-    init(sessionId: String, livestream: Bool, contentPodId: String, position: Int? = nil, totalLength: Int, videoPlayer: String = "AVPlayer", fullScreen: Bool = true, hasVideo: Bool = true) {
+    init(sessionId: String, contentPodId: String, position: Int? = nil, totalLength: Int, videoPlayer: String = "AVPlayer", fullScreen: Bool = true, hasVideo: Bool = true) {
         self.sessionId = sessionId
-        self.livestream = livestream
         self.contentPodId = contentPodId
         self.position = position
         self.totalLength = totalLength

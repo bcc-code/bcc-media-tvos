@@ -86,7 +86,6 @@ class PlayerControls: ObservableObject {
 
             let c = options.content
             videoOptions.contentId = c.id
-            videoOptions.live = options.isLive as NSNumber
             videoOptions.contentTitle = c.title
             videoOptions.contentTvShow = c.showId
             videoOptions.contentSeason = c.seasonId
