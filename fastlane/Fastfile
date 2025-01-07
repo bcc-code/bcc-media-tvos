@@ -76,7 +76,8 @@ platform :ios do
       distribute_external: true,
       changelog: "See the betatester group on telegram.",
       groups: [
-        "Open beta"
+        "Open beta",
+        "Testers"
       ]
     )
     sentry_debug_files_upload(
