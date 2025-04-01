@@ -48,6 +48,8 @@ struct SignInView: View {
             }
         }.frame(width: 1200, height: 800).onDisappear {
             cancel()
+        }.onAppear {
+            Events.page("login")
         }
     }
 }
