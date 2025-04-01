@@ -90,9 +90,11 @@ platform :ios do
   lane :release do
     current_version_number = increment_version_number_in_xcodeproj(
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+      target: "BCC Media tvOS",
     )
     current_build_number = increment_build_number_in_xcodeproj(
       xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+      target: "BCC Media tvOS",
     )
     commit_version_bump(
       message: "chore(tvos): bump version to #{current_version_number}+#{current_build_number}",
