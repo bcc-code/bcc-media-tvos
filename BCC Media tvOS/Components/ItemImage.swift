@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct ItemImage: View {
     var image: String?
@@ -23,7 +24,7 @@ struct ItemImage: View {
     var body: some View {
         GeometryReader { proxy in
             if proxy.size != .zero, let img = image {
-                AsyncImage(url: url) { phase in
+                CachedAsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
                         Rectangle().fill(cardBackgroundColor)

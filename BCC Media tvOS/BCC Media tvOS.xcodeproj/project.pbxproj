@@ -69,6 +69,7 @@
 		817A8CEA2C05BCDE00E48E23 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 817A8CE92C05BCDE00E48E23 /* GoogleService-Info.plist */; };
 		81F594BC2BC6EDC500A3BFC0 /* MainUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F594BB2BC6EDC500A3BFC0 /* MainUITest.swift */; };
 		81F828772BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F828762BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift */; };
+		C118C1A92DC4CD600010A88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = C118C1A82DC4CD600010A88B /* CachedAsyncImage */; };
 		C141D2DD2C73412200C95EF8 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = C141D2DC2C73412200C95EF8 /* Sentry */; };
 		C156BE062C74822A0005BCDA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C156BE052C74822A0005BCDA /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
@@ -174,6 +175,7 @@
 				090559BF2B57FB600019FB9A /* Auth0 in Frameworks */,
 				090559AC2B57F9810019FB9A /* API in Frameworks */,
 				09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */,
+				C118C1A92DC4CD600010A88B /* CachedAsyncImage in Frameworks */,
 				C156BE062C74822A0005BCDA /* FirebaseFirestore in Frameworks */,
 				09055A602B5807920019FB9A /* NpawPlugin in Frameworks */,
 			);
@@ -384,6 +386,7 @@
 				09DDD6C62B6BB05000E56631 /* Rudder */,
 				C141D2DC2C73412200C95EF8 /* Sentry */,
 				C156BE052C74822A0005BCDA /* FirebaseFirestore */,
+				C118C1A82DC4CD600010A88B /* CachedAsyncImage */,
 			);
 			productName = "BCC Media tvOS";
 			productReference = 090559992B57F22F0019FB9A /* BCC Media tvOS.app */;
@@ -456,15 +459,16 @@
 			mainGroup = 090559902B57F22F0019FB9A;
 			packageReferences = (
 				090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */,
+				090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */,
 				09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */,
-				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */,
-				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */,
-				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */,
+				09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */,
+				09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */,
+				09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */,
 				09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */,
 				817A8CE72C05BCA300E48E23 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				81480B342C3C0CCE0023D5B2 /* XCRemoteSwiftPackageReference "plugin-ios" */,
 				C163D4E42C733C4000B238C2 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				C118C1A72DC4CD5F0010A88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 0905599A2B57F22F0019FB9A /* Products */;
 			projectDirPath = "";
@@ -874,15 +878,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "API" */ = {
+		09055A702B594E6B0019FB9A /* XCLocalSwiftPackageReference "../API" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../API;
 		};
-		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "Authentication" */ = {
+		09055A732B594E740019FB9A /* XCLocalSwiftPackageReference "../Authentication" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Authentication;
 		};
-		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "FeatureFlags" */ = {
+		09055A762B594E7F0019FB9A /* XCLocalSwiftPackageReference "../FeatureFlags" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../FeatureFlags;
 		};
@@ -897,7 +901,7 @@
 				minimumVersion = 1.8.0;
 			};
 		};
-		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */ = {
+		090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/Auth0.swift";
 			requirement = {
@@ -933,6 +937,14 @@
 				minimumVersion = 10.26.0;
 			};
 		};
+		C118C1A72DC4CD5F0010A88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		C163D4E42C733C4000B238C2 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
@@ -959,7 +971,7 @@
 		};
 		090559BE2B57FB600019FB9A /* Auth0 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0.swift" */;
+			package = 090559BD2B57FB600019FB9A /* XCRemoteSwiftPackageReference "Auth0" */;
 			productName = Auth0;
 		};
 		09055A5F2B5807920019FB9A /* NpawPlugin */ = {
@@ -984,6 +996,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */;
 			productName = Rudder;
+		};
+		C118C1A82DC4CD600010A88B /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C118C1A72DC4CD5F0010A88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		C141D2DC2C73412200C95EF8 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
