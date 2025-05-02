@@ -6,13 +6,13 @@ on:
       - "tvos/v*"
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v2
       - name: List Xcode installations for debugging
         run: sudo ls -1 /Applications | grep "Xcode"
-      - name: Select Xcode 15.2
-        run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+      - name: Select Xcode 16.3
+        run: sudo xcode-select -s /Applications/Xcode_16.3.app/Contents/Developer
       - name: Put api key into .p8 file
         run: echo "${{ secrets.APPLE_STORE_API_KEY_RAW }}" > fastlane/api_key.p8
       - name: Put cert into .p12 file
