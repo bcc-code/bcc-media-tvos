@@ -25,11 +25,12 @@ final class MainUITest: XCTestCase {
             XCUIRemote.shared.press(.select)
         }
 
-        sleep(10)
-        let loginCode = app.staticTexts["LoginCode"].label
-        XCTAssertNotNil(loginCode)
+        let loginCode = app.staticTexts["LoginCode"]
+        if loginCode.waitForExistence(timeout: 10) {
+            XCTAssertNotNil(loginCode.label)
+        }
 
-        let loginResult = await loginUserWithDeviceCode(deviceCode: loginCode)
+        let loginResult = await loginUserWithDeviceCode(deviceCode: loginCode.label)
         XCTAssertEqual(loginResult, true, "Login failed")
 
         sleep(15)
