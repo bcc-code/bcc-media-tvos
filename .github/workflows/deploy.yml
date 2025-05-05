@@ -26,7 +26,7 @@ jobs:
           set -o pipefail && xcrun xcodebuild test \
             -workspace "./BCC Media.xcworkspace" \
             -scheme uitests \
-            -destination 'platform=tvOS Simulator,name=Apple TV,OS=16.1' \
+            -destination 'platform=tvOS Simulator,name=Apple TV,OS=17.6' \
             LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
             AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }} \
             RUDDER_WRITE_KEY=${{ secrets.RUDDER_WRITE_KEY }} \
