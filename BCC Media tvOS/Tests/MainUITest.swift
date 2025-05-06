@@ -20,11 +20,12 @@ final class MainUITest: XCTestCase {
         app.launch()
         
         let loginButton = app.buttons["Log in"]
-        if loginButton.waitForExistence(timeout: 3) {
+        if loginButton.waitForExistence(timeout: 30) {
             XCTAssert(loginButton.hasFocus)
             XCUIRemote.shared.press(.select)
         } else {
             takeScreenshot(name: "LoginButtonNotFound")
+            XCTFail("Login button not found")
         }
 
         let loginCode = app.staticTexts["LoginCode"]
@@ -32,6 +33,7 @@ final class MainUITest: XCTestCase {
             XCTAssertNotNil(loginCode.label, "LoginCode is nil")
         } else {
             takeScreenshot(name: "LoginCodeNotFound")
+            XCTFail("Login code not found")
         }
         
         print(app.debugDescription)
@@ -41,9 +43,10 @@ final class MainUITest: XCTestCase {
         XCTAssertEqual(loginResult, true, "Login failed")
         if !loginResult {
             takeScreenshot(name: "LoginFailed")
+            XCTFail("Login failed")
         }
 
-        sleep(15)
+        sleep(30)
 
         XCUIRemote.shared.press(.up)
         XCUIRemote.shared.press(.down)
@@ -57,21 +60,24 @@ final class MainUITest: XCTestCase {
         let otherElements = app.scrollViews.otherElements
         
         let playButton = otherElements.buttons["Play"]
-        if playButton.waitForExistence(timeout: 5) {
+        if playButton.waitForExistence(timeout: 30) {
             XCTAssert(playButton.hasFocus)
             XCUIRemote.shared.press(.select)
         } else {
             takeScreenshot(name: "PlayButtonNotFound")
+            XCTFail("Play button not found")
         }
 
         let playingLabel = app.staticTexts["CurrentPlayerStatus"]
-        if playingLabel.waitForExistence(timeout: 10) {
+        if playingLabel.waitForExistence(timeout: 30) {
             XCTAssertEqual(playingLabel.label, "Playing", "Player status is incorrect")
             if playingLabel.label != "Playing" {
                 takeScreenshot(name: "PlayerStatusIncorrect")
+                XCTFail("Player status is incorrect")
             }
         } else {
             takeScreenshot(name: "PlayerStatusNotFound")
+            XCTFail("Player status not found")
         }
     }
     
