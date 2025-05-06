@@ -23,15 +23,22 @@ final class MainUITest: XCTestCase {
         if loginButton.waitForExistence(timeout: 3) {
             XCTAssert(loginButton.hasFocus)
             XCUIRemote.shared.press(.select)
+        } else {
+            takeScreenshot(name: "LoginButtonNotFound")
         }
 
         let loginCode = app.staticTexts["LoginCode"]
         if loginCode.waitForExistence(timeout: 30) {
-            XCTAssertNotNil(loginCode.label)
+            XCTAssertNotNil(loginCode.label, "LoginCode is nil")
+        } else {
+            takeScreenshot(name: "LoginCodeNotFound")
         }
 
         let loginResult = await loginUserWithDeviceCode(deviceCode: loginCode.label)
         XCTAssertEqual(loginResult, true, "Login failed")
+        if !loginResult {
+            takeScreenshot(name: "LoginFailed")
+        }
 
         sleep(15)
 
@@ -47,12 +54,28 @@ final class MainUITest: XCTestCase {
         if playButton.waitForExistence(timeout: 5) {
             XCTAssert(playButton.hasFocus)
             XCUIRemote.shared.press(.select)
+        } else {
+            takeScreenshot(name: "PlayButtonNotFound")
         }
 
         let playingLabel = app.staticTexts["CurrentPlayerStatus"]
         if playingLabel.waitForExistence(timeout: 10) {
-            XCTAssertEqual(playingLabel.label, "Playing", "Player status is not correct.")
+            XCTAssertEqual(playingLabel.label, "Playing", "Player status is incorrect")
+            if playingLabel.label != "Playing" {
+                takeScreenshot(name: "PlayerStatusIncorrect")
+            }
+        } else {
+            takeScreenshot(name: "PlayerStatusNotFound")
         }
+    }
+    
+    // Utils
+    func takeScreenshot(name: String = "FailureScreenshot", lifetime: XCTAttachment.Lifetime = .keepAlways) {
+        let screenshot = XCUIScreen.main.screenshot()
+        let attachment = XCTAttachment(screenshot: screenshot)
+        attachment.name = name
+        attachment.lifetime = lifetime
+        add(attachment)
     }
 }
 
