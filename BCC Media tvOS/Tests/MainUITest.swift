@@ -69,7 +69,6 @@ final class MainUITest: XCTestCase {
         }
     }
     
-    // Utils
     func takeScreenshot(name: String = "FailureScreenshot", lifetime: XCTAttachment.Lifetime = .keepAlways) {
         let screenshot = XCUIScreen.main.screenshot()
         let attachment = XCTAttachment(screenshot: screenshot)

@@ -39,7 +39,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tvOS-test-screenshots
-          path: ./DerivedData/**/Attachments/**/*.png
+          path: DerivedData/**/Attachments/**/*.png
+      - name: List files in DerivedData
+        if: failure()
+        run: find ./DerivedData
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: tvOS-test-results
+          path: ./TestResults
       - name: Run fastlane
         env:
           RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
