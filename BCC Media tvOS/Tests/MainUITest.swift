@@ -19,7 +19,7 @@ final class MainUITest: XCTestCase {
         ]
         app.launch()
         
-        let loginButton = XCUIApplication().buttons["Log in"]
+        let loginButton = app.buttons["Log in"]
         if loginButton.waitForExistence(timeout: 3) {
             XCTAssert(loginButton.hasFocus)
             XCUIRemote.shared.press(.select)
@@ -33,6 +33,9 @@ final class MainUITest: XCTestCase {
         } else {
             takeScreenshot(name: "LoginCodeNotFound")
         }
+        
+        print(app.debugDescription)
+        takeScreenshot(name: "BeforeLogin")
 
         let loginResult = await loginUserWithDeviceCode(deviceCode: loginCode.label)
         XCTAssertEqual(loginResult, true, "Login failed")

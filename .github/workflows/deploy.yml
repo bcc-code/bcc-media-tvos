@@ -27,27 +27,17 @@ jobs:
             -workspace "./BCC Media.xcworkspace" \
             -scheme uitests \
             -destination 'platform=tvOS Simulator,name=Apple TV,OS=18.0' \
-            -derivedDataPath ./DerivedData \
-            -resultBundlePath ./TestResults \
+            -derivedDataPath './DerivedData' \
             LOGIN_API_KEY=${{ secrets.LOGIN_API_KEY }} \
             AUTOLOGIN_HOST=${{ vars.AUTOLOGIN_HOST }} \
             RUDDER_WRITE_KEY=${{ secrets.RUDDER_WRITE_KEY }} \
             RUDDER_DATAPLANE_URL=${{ secrets.RUDDER_DATAPLANE_URL }} \
             | xcpretty
       - name: Upload screenshots
-        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: tvOS-test-screenshots
-          path: DerivedData/**/Attachments/**/*.png
-      - name: List files in DerivedData
-        if: failure()
-        run: find ./DerivedData
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: tvOS-test-results
-          path: ./TestResults
+          path: DerivedData/**/Logs/Test/*.xcresult
       - name: Run fastlane
         env:
           RUDDER_WRITE_KEY: ${{ secrets.RUDDER_WRITE_KEY }}
