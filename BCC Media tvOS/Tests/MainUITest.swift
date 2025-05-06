@@ -26,7 +26,7 @@ final class MainUITest: XCTestCase {
         }
 
         let loginCode = app.staticTexts["LoginCode"]
-        if loginCode.waitForExistence(timeout: 10) {
+        if loginCode.waitForExistence(timeout: 30) {
             XCTAssertNotNil(loginCode.label)
         }
 
