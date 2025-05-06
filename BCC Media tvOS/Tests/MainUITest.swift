@@ -48,6 +48,9 @@ final class MainUITest: XCTestCase {
         XCUIRemote.shared.press(.up)
         XCUIRemote.shared.press(.down)
         XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
+        XCUIRemote.shared.press(.down)
         XCUIRemote.shared.press(.select)
         XCUIRemote.shared.press(.up)
 
