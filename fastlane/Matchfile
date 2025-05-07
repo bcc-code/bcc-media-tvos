@@ -5,6 +5,7 @@ storage_mode("git")
 type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
 app_identifier("tv.brunstad.app") # The bundle identifier of your app
+platform("tvos")
 username("apple@bcc.media") # Your Apple Developer Portal username
 
 # For all available options run `fastlane match --help`
