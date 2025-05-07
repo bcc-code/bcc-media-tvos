@@ -1,4 +1,4 @@
-git_url("https://github.com/BCC-Media/bccm-certificates")
+git_url("git@github.com:BCC-Media/bccm-certificates.git")
 
 storage_mode("git")
 
