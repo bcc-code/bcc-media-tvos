@@ -3,6 +3,8 @@ import ApolloAPI
 import Foundation
 
 public typealias TokenFactory = () async throws -> String?
+public typealias SessionIdFactory = () async throws -> String?
+public typealias SearchSessionIdFactory = () async throws -> String?
 
 public extension Client {
     func getThrowingAsync<Q: API.GraphQLQuery>(query: Q, cachePolicy: Apollo.CachePolicy = .default) async throws -> Q.Data {
@@ -61,13 +63,24 @@ public struct Client {
     }
 }
 
-public func NewClient(apiUrl: String, tokenFactory: @escaping TokenFactory) -> Client {
+public func NewClient(
+    apiUrl: String,
+    tokenFactory: @escaping TokenFactory,
+    sessionIdFactory: @escaping SessionIdFactory,
+    searchSessionIdFactory: @escaping SearchSessionIdFactory
+) -> Client {
     let apolloClientCache = InMemoryNormalizedCache()
     let store = ApolloStore(cache: apolloClientCache)
     let configuration = URLSessionConfiguration.default
 
     let client = URLSessionClient(sessionConfiguration: configuration, callbackQueue: nil)
-    let provider = NetworkInterceptorProvider(tokenFactory: tokenFactory, client: client, store: store)
+    let provider = NetworkInterceptorProvider(
+        tokenFactory: tokenFactory,
+        sessionIdFactory: sessionIdFactory,
+        searchSessionIdFactory: searchSessionIdFactory,
+        client: client,
+        store: store
+    )
 
     let url = URL(string: apiUrl)!
 

@@ -46,6 +46,11 @@ public struct AppOptions {
     private init() {}
 
     public var name: String = "tvOS"
+    
+    public var sessionId: String? {
+        Events.sessionId?.stringValue
+    }
+    public var searchSessionId: String? = UUID().uuidString
 
     public var audioLanguage: String? {
         UserDefaults.standard.string(forKey: audioLanguageKey)
