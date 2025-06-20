@@ -69,9 +69,7 @@ private class CustomInterceptor: ApolloInterceptor {
                 if let searchSessionId = try await searchSessionIdFactory?() {
                     request.addHeader(name: "X-Search-Session-ID", value: searchSessionId)
                 }
-                
-                print(request.additionalHeaders["X-Search-Session-ID"], request.additionalHeaders["X-Session-ID"])
-                
+                                
                 chain.proceedAsync(request: request,
                         response: response,
                         interceptor: self,
