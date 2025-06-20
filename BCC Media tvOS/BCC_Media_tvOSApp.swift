@@ -17,7 +17,19 @@ let authenticationProvider = Authentication.Provider(serviceName: "bcc.media", a
     Events.trigger(ErrorOccured(error: err.localizedDescription))
 })
 
-let apolloClient = API.NewClient(apiUrl: "https://api.brunstad.tv/query", tokenFactory: authenticationProvider.getAccessToken)
+func getSessionId() -> String? {
+    return AppOptions.standard.sessionId
+}
+func getSearchSessionId() -> String? {
+    return AppOptions.standard.searchSessionId
+}
+
+let apolloClient = API.NewClient(
+    apiUrl: "https://api.brunstad.tv/query",
+    tokenFactory: authenticationProvider.getAccessToken,
+    sessionIdFactory: getSessionId,
+    searchSessionIdFactory: getSearchSessionId
+)
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_: UIApplication,
