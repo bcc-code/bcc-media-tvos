@@ -113,6 +113,7 @@ struct SettingsView: View {
             Spacer()
             Text("App Version: " + getVersion()).foregroundColor(.gray)
         }.frame(maxWidth: 800)
+            .scrollClipDisabled()
             .onAppear {
                 Events.page("settings")
             }.font(.barlow)
