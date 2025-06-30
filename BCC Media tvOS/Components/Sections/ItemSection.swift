@@ -33,6 +33,8 @@ typealias SectionClickItem = (Item) async -> Void
 struct Item: Identifiable {
     var id: String
     var title: String
+    var showTitle: String?
+    var seasonTitle: String?
     var description: String
     var image: String?
     var duration: Int?
@@ -55,6 +57,17 @@ struct ItemTitle: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            if let seasonTitle = item.seasonTitle, let showTitle = item.showTitle {
+                HStack {
+                    Text(showTitle).font(.barlowCaption).foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                    Spacer()
+                    Text(seasonTitle).font(.barlowCaption).foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                }.frame(maxWidth: .infinity)
+            }
             Text(item.title).font(.barlowCaption)
         }
     }

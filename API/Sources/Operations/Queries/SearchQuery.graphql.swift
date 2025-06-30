@@ -7,7 +7,7 @@ public class SearchQuery: GraphQLQuery {
   public static let operationName: String = "Search"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query Search($query: String!, $collection: String!) { search(queryString: $query, type: $collection) { __typename result { __typename id title description image highlight url } } }"#
+      #"query Search($query: String!, $collection: String!) { search(queryString: $query, type: $collection) { __typename result { __typename id title description image highlight url ... on EpisodeSearchItem { seasonTitle showTitle } } } }"#
     ))
 
   public var query: String
@@ -71,6 +71,7 @@ public class SearchQuery: GraphQLQuery {
           .field("image", String?.self),
           .field("highlight", String?.self),
           .field("url", String.self),
+          .inlineFragment(AsEpisodeSearchItem.self),
         ] }
 
         public var id: API.ID { __data["id"] }
@@ -79,6 +80,32 @@ public class SearchQuery: GraphQLQuery {
         public var image: String? { __data["image"] }
         public var highlight: String? { __data["highlight"] }
         public var url: String { __data["url"] }
+
+        public var asEpisodeSearchItem: AsEpisodeSearchItem? { _asInlineFragment() }
+
+        /// Search.Result.AsEpisodeSearchItem
+        ///
+        /// Parent Type: `EpisodeSearchItem`
+        public struct AsEpisodeSearchItem: API.InlineFragment {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public typealias RootEntityType = SearchQuery.Data.Search.Result
+          public static var __parentType: ApolloAPI.ParentType { API.Objects.EpisodeSearchItem }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("seasonTitle", String?.self),
+            .field("showTitle", String?.self),
+          ] }
+
+          public var seasonTitle: String? { __data["seasonTitle"] }
+          public var showTitle: String? { __data["showTitle"] }
+          public var id: API.ID { __data["id"] }
+          public var title: String { __data["title"] }
+          public var description: String? { __data["description"] }
+          public var image: String? { __data["image"] }
+          public var highlight: String? { __data["highlight"] }
+          public var url: String { __data["url"] }
+        }
       }
     }
   }

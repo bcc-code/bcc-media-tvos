@@ -34,6 +34,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "SectionPagination": return API.Objects.SectionPagination
     case "AchievementGroupPagination": return API.Objects.AchievementGroupPagination
     case "AchievementPagination": return API.Objects.AchievementPagination
+    case "ContributionsPagination": return API.Objects.ContributionsPagination
     case "EpisodePagination": return API.Objects.EpisodePagination
     case "FAQCategoryPagination": return API.Objects.FAQCategoryPagination
     case "LessonPagination": return API.Objects.LessonPagination
@@ -46,6 +47,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "TaskPagination": return API.Objects.TaskPagination
     case "UserCollectionEntryPagination": return API.Objects.UserCollectionEntryPagination
     case "AchievementSection": return API.Objects.AchievementSection
+    case "AvatarSection": return API.Objects.AvatarSection
     case "CardListSection": return API.Objects.CardListSection
     case "CardSection": return API.Objects.CardSection
     case "DefaultGridSection": return API.Objects.DefaultGridSection
@@ -63,6 +65,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "ItemSectionMetadata": return API.Objects.ItemSectionMetadata
     case "SectionItem": return API.Objects.SectionItem
     case "Show": return API.Objects.Show
+    case "Chapter": return API.Objects.Chapter
     case "Episode": return API.Objects.Episode
     case "Short": return API.Objects.Short
     case "Game": return API.Objects.Game
@@ -70,6 +73,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Season": return API.Objects.Season
     case "StudyTopic": return API.Objects.StudyTopic
     case "Link": return API.Objects.Link
+    case "Person": return API.Objects.Person
     case "SearchResult": return API.Objects.SearchResult
     case "EpisodeSearchItem": return API.Objects.EpisodeSearchItem
     case "SeasonSearchItem": return API.Objects.SeasonSearchItem

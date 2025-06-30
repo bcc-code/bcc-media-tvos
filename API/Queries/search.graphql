@@ -7,6 +7,10 @@ query Search($query: String!, $collection: String!) {
             image
             highlight
             url
+            ... on EpisodeSearchItem {
+                seasonTitle
+                showTitle
+            }
         }
     }
 }

@@ -62,7 +62,7 @@ struct SearchView: View {
 
     func mapToItem(_ type: ItemType) -> ((API.SearchQuery.Data.Search.Result) -> Item) {
         func toItem(_ r: API.SearchQuery.Data.Search.Result) -> Item {
-            Item(id: r.id, title: r.title, description: r.description ?? "", image: r.image, type: type)
+            Item(id: r.id, title: r.title, showTitle: r.asEpisodeSearchItem?.showTitle, seasonTitle: r.asEpisodeSearchItem?.seasonTitle, description: r.description ?? "", image: r.image, type: type)
         }
         return toItem
     }
