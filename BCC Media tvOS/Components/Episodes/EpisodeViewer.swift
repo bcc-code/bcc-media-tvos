@@ -33,7 +33,10 @@ struct EpisodeHeader: View {
                 ).overlay(
                     LockView(locked: episode.locked)
                 )
-            }.buttonStyle(SectionItemButton(focused: isFocused)).frame(width: 1280, height: 720).focused($isFocused)
+            }
+            .buttonStyle(SectionItemButton(focused: isFocused))
+            .frame(width: 1280, height: 720)
+            .focused($isFocused)
         }
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {

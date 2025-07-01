@@ -20,6 +20,16 @@
   "defaultOptions" : {
     "environmentVariableEntries" : [
       {
+        "enabled" : false,
+        "key" : "UNLEASH_CLIENT_KEY",
+        "value" : "abc"
+      },
+      {
+        "enabled" : false,
+        "key" : "UNLEASH_URL",
+        "value" : "https:\/\/fake.url\/api\/frontend"
+      },
+      {
         "key" : "LOGIN_API_KEY",
         "value" : "$(LOGIN_API_KEY)"
       },

@@ -10,6 +10,13 @@ Open BCC Media.xcworkspace and let xcode do the magic.
 
 Go to [API](./API) and run `make gql` to create query files for the Apollo Client.
 
+# Tests
+
+To run UI tests locally, click the little "Play" button to the left of the `MainUITest` class definition.  
+This is required for the environment variables to be defined within the test scope.
+
+![Run test button](test.png)
+
 # Release
 
 ```
