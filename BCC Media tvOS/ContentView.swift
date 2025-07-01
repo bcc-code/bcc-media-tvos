@@ -338,7 +338,9 @@ struct ContentView: View {
                                                 onboarded.toggle()
                                             }
                                         }.tint(.blue).focused($focusedLogin).onAppear {
-                                            focusedLogin = true
+                                            DispatchQueue.main.async {
+                                                focusedLogin = true
+                                            }
                                         }
                                         Button("onboard_explorePublic") {
                                             withAnimation {
