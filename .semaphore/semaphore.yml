@@ -16,6 +16,7 @@ blocks:
       jobs:
         - name: tvOS UI tests
           commands:
+            - xcodebuild -downloadPlatform tvOS
             - xcrun simctl create "Apple TV" "Apple TV"
             - xcrun simctl boot "Apple TV"
             - gem install xcpretty
