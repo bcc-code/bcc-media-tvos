@@ -10,27 +10,8 @@ global_job_config:
       - checkout
       - sem-version ruby 3.2
 blocks:
-  - name: Test
-    dependencies: []
-    task:
-      jobs:
-        - name: tvOS UI tests
-          commands:
-            - xcodebuild -downloadPlatform tvOS
-            - xcrun simctl create "Apple TV" "Apple TV"
-            - xcrun simctl boot "Apple TV"
-            - gem install xcpretty
-            - |
-              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme uitests -destination 'platform=tvOS Simulator,name=Apple TV,OS=latest' -derivedDataPath ./DerivedData -resultBundlePath ./DerivedData/TestResults LOGIN_API_KEY="$LOGIN_API_KEY" AUTOLOGIN_HOST="$AUTOLOGIN_HOST" RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY" RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL" | xcpretty
-      epilogue:
-        always:
-          commands:
-            - artifact push job DerivedData/TestResults.xcresult -d test-results || true
-      secrets:
-        - name: tvos-ci
   - name: Deploy to TestFlight
-    dependencies:
-      - Test
+    dependencies: []
     run:
       when: branch = 'main'
     task:
@@ -50,5 +31,7 @@ blocks:
         - name: ios-signing-certs
         - name: tvos-ci
 promotions:
+  - name: Run UI tests
+    pipeline_file: test.yml
   - name: Promote to App Store
     pipeline_file: promote-app-store.yml

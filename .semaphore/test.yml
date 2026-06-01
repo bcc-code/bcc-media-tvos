@@ -1,0 +1,29 @@
+version: v1.0
+name: tvOS UI tests
+agent:
+  machine:
+    type: a2-standard-4
+    os_image: macos-xcode26
+blocks:
+  - name: Test
+    dependencies: []
+    task:
+      prologue:
+        commands:
+          - checkout
+          - sem-version ruby 3.2
+      jobs:
+        - name: tvOS UI tests
+          commands:
+            - xcodebuild -downloadPlatform tvOS
+            - xcrun simctl create "Apple TV" "Apple TV"
+            - xcrun simctl boot "Apple TV"
+            - gem install xcpretty
+            - |
+              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme uitests -destination 'platform=tvOS Simulator,name=Apple TV,OS=latest' -derivedDataPath ./DerivedData -resultBundlePath ./DerivedData/TestResults LOGIN_API_KEY="$LOGIN_API_KEY" AUTOLOGIN_HOST="$AUTOLOGIN_HOST" RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY" RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL" | xcpretty
+      epilogue:
+        always:
+          commands:
+            - artifact push job DerivedData/TestResults.xcresult -d test-results || true
+      secrets:
+        - name: tvos-ci
