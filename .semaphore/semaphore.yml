@@ -26,6 +26,8 @@ blocks:
         always:
           commands:
             - artifact push job DerivedData/TestResults.xcresult -d test-results || true
+      secrets:
+        - name: tvos-ci
   - name: Deploy to TestFlight
     dependencies:
       - Test
@@ -43,6 +45,10 @@ blocks:
             - echo "$BUILD_NUMBER" > /tmp/tvos_build_number
             - artifact push workflow /tmp/tvos_build_number -d tvos_build_number
             - 'bundle exec fastlane beta build_number:$BUILD_NUMBER'
+      secrets:
+        - name: bccmedia-testflight-api
+        - name: ios-signing-certs
+        - name: tvos-ci
 promotions:
   - name: Promote to App Store
     pipeline_file: promote-app-store.yml
