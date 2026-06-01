@@ -9,4 +9,9 @@ tmp/
 
 *.cer
 *.p12
+*.p8
 *.mobileprovision
+
+# Semaphore secret setup (local, never commit)
+scripts/.env.semaphore
+fastlane/.next_build_number

@@ -19,11 +19,18 @@ This is required for the environment variables to be defined within the test sco
 
 # Release
 
-```
-make release
-```
+Deploys run on **Semaphore** (`.semaphore/semaphore.yml`):
 
-Should bump version and pushes a tag for the version. A CI/CD pipeline does the rest.
+- Every push runs the tvOS UI tests.
+- Every merge to `main` builds the app and uploads it to **TestFlight** (internal +
+  Open beta). The build number is computed automatically from the latest TestFlight
+  build, so you do not need to bump it manually.
+- Releasing to the **App Store** is a manual step: from the finished `main` workflow
+  in Semaphore, trigger the **Promote to App Store** promotion
+  (`.semaphore/promote-app-store.yml`).
+
+To start a new version line, bump `MARKETING_VERSION` (e.g. via the `release`
+fastlane lane or directly in the Xcode project) and merge to `main`.
 
 # Troubleshooting
 
@@ -41,13 +48,11 @@ This will generate new code signing certificates and place it [in your Apple Dev
 
 ### After generating new certificates
 
-When new certificates are generated, you'll have to update some environment variables for the fastlane Github Action to work;
+The signing certificate is **shared** with brunstadtv-app via the `ios-signing-certs`
+Semaphore secret (the tvOS app uses the same Apple Distribution cert and bundle id
+`tv.brunstad.app`). When the cert rotates, refresh that shared secret — e.g. with
+brunstadtv-app's `scripts/refresh-ios-signing-secrets.sh` — and both apps pick it up.
+There is nothing tvOS-specific to update for signing.
 
-- **CERTIFICATE_BASE64**  
-  Export the certificate from Keychain Access and convert the contents to base64 format. You can do this by running this command and copying the output:
-
-  ```
-  cat ~/path/to/certificate.p12 | base64
-  ```
-
-  Update the secret in Github with the new base64 string.
+The app-specific `tvos-ci` secret (login / analytics / feature-flag keys) is managed
+with `scripts/setup-semaphore-secrets.sh`.
