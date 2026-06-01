@@ -10,8 +10,6 @@ blocks:
       jobs:
         - name: Promote on App Store Connect
           commands:
-            # Reuses the shared App Store Connect key (bccmedia-testflight-api), read
-            # from BCCMEDIA_* env by the fastlane lane — no key is duplicated here.
             - checkout
             - sem-version ruby 3.2
             - artifact pull workflow tvos_build_number

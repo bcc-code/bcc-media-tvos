@@ -20,37 +20,21 @@ blocks:
             - xcrun simctl create "Apple TV" "Apple TV"
             - xcrun simctl boot "Apple TV"
             - gem install xcpretty
-            - >
-              set -o pipefail && xcrun xcodebuild test
-              -workspace "BCC Media.xcworkspace"
-              -scheme uitests
-              -destination 'platform=tvOS Simulator,name=Apple TV,OS=18.0'
-              -derivedDataPath ./DerivedData
-              -resultBundlePath ./DerivedData/TestResults
-              LOGIN_API_KEY="$LOGIN_API_KEY"
-              AUTOLOGIN_HOST="$AUTOLOGIN_HOST"
-              RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY"
-              RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL"
-              | xcpretty
+            - |
+              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme uitests -destination 'platform=tvOS Simulator,name=Apple TV,OS=18.0' -derivedDataPath ./DerivedData -resultBundlePath ./DerivedData/TestResults LOGIN_API_KEY="$LOGIN_API_KEY" AUTOLOGIN_HOST="$AUTOLOGIN_HOST" RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY" RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL" | xcpretty
       epilogue:
         always:
           commands:
             - artifact push job DerivedData/TestResults.xcresult -d test-results || true
-      secrets:
-        - name: tvos-ci
   - name: Deploy to TestFlight
     dependencies:
       - Test
     run:
-      when: "branch = 'main'"
+      when: branch = 'main'
     task:
       jobs:
         - name: Build and upload to TestFlight
           commands:
-            # App Store Connect key (bccmedia-testflight-api, read from BCCMEDIA_* env
-            # by the fastlane lanes) and the signing cert (ios-signing-certs) are shared
-            # with brunstadtv-app — nothing is duplicated. Only materialize the cert .p12
-            # the beta lane imports; CERTIFICATE_PASSWORD comes from the same secret.
             - echo "$CERTIFICATE_P12_BASE64" | base64 -d > fastlane/certificate.p12
             - bundle install
             - bundle exec fastlane next_build_number
@@ -58,11 +42,7 @@ blocks:
             - test -n "$BUILD_NUMBER" && test "$BUILD_NUMBER" -gt 0
             - echo "$BUILD_NUMBER" > /tmp/tvos_build_number
             - artifact push workflow /tmp/tvos_build_number -d tvos_build_number
-            - bundle exec fastlane beta build_number:$BUILD_NUMBER
-      secrets:
-        - name: tvos-ci
-        - name: bccmedia-testflight-api
-        - name: ios-signing-certs
+            - 'bundle exec fastlane beta build_number:$BUILD_NUMBER'
 promotions:
   - name: Promote to App Store
     pipeline_file: promote-app-store.yml
