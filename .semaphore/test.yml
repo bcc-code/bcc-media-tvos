@@ -16,11 +16,11 @@ blocks:
         - name: tvOS UI tests
           commands:
             - xcodebuild -downloadPlatform tvOS
-            - xcrun simctl create "Apple TV" "Apple TV"
-            - xcrun simctl boot "Apple TV"
+            - export SIM_UDID=$(xcrun simctl create "Apple TV CI" "Apple TV")
+            - xcrun simctl boot "$SIM_UDID"
             - gem install xcpretty
             - |
-              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme uitests -destination 'platform=tvOS Simulator,name=Apple TV,OS=latest' -derivedDataPath ./DerivedData -resultBundlePath ./DerivedData/TestResults LOGIN_API_KEY="$LOGIN_API_KEY" AUTOLOGIN_HOST="$AUTOLOGIN_HOST" RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY" RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL" | xcpretty
+              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme uitests -destination "platform=tvOS Simulator,id=$SIM_UDID" -derivedDataPath ./DerivedData -resultBundlePath ./DerivedData/TestResults LOGIN_API_KEY="$LOGIN_API_KEY" AUTOLOGIN_HOST="$AUTOLOGIN_HOST" RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY" RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL" | xcpretty
       epilogue:
         always:
           commands:
