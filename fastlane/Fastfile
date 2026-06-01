@@ -41,13 +41,27 @@ platform :ios do
 
   desc "Compute the next TestFlight build number and write it to fastlane/.next_build_number"
   lane :next_build_number do
-    latest = latest_testflight_build_number(
-      api_key: asc_api_key,
-      app_identifier: "tv.brunstad.app",
-      platform: "appletvos",
-      initial_build_number: 0,
-    )
-    next_num = latest.to_i + 1
+    require "spaceship"
+    # latest_testflight_build_number switched to the App Store Connect `buildUploads`
+    # endpoint in fastlane 2.232.0, which doesn't return our existing builds — it
+    # reported build 0, so we'd ship build 1. Query the `builds` endpoint directly
+    # instead, the way the action itself did before 2.232.0.
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from(hash: asc_api_key)
+
+    app = Spaceship::ConnectAPI::App.find("tv.brunstad.app")
+    UI.user_error!("Could not find tv.brunstad.app on App Store Connect") unless app
+
+    latest_build = Spaceship::ConnectAPI.get_builds(
+      filter: {
+        app: app.id,
+        "preReleaseVersion.platform" => Spaceship::ConnectAPI::Platform.map("appletvos"),
+      },
+      sort: "-uploadedDate",
+      limit: 1,
+    ).to_models.first
+
+    latest = latest_build ? latest_build.version.to_i : 0
+    next_num = latest + 1
     UI.message "Previous TestFlight max build: #{latest}. Next: #{next_num}"
     File.write(File.join(__dir__, ".next_build_number"), next_num.to_s)
   end
