@@ -147,7 +147,7 @@
     {
       "identity" : "plugin-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://repo.plugin.npaw.com/release/plugin-ios.git",
+      "location" : "https://bitbucket.org/npaw/plugin-ios.git",
       "state" : {
         "revision" : "43692099879fc2f34d357fccd62f3e6c70ea629e",
         "version" : "7.2.36"

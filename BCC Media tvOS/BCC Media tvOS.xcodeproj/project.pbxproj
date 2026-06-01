@@ -913,7 +913,7 @@
 		};
 		09055A5E2B5807920019FB9A /* XCRemoteSwiftPackageReference "plugin-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://repo.plugin.npaw.com/release/plugin-ios.git";
+			repositoryURL = "https://bitbucket.org/npaw/plugin-ios.git";
 		};
 		09DDD6C52B6BB05000E56631 /* XCRemoteSwiftPackageReference "rudder-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -925,7 +925,7 @@
 		};
 		81480B342C3C0CCE0023D5B2 /* XCRemoteSwiftPackageReference "plugin-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://repo.plugin.npaw.com/release/plugin-ios.git";
+			repositoryURL = "https://bitbucket.org/npaw/plugin-ios.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 7.2.29;
