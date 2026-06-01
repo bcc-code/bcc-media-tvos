@@ -3,7 +3,7 @@ name: Promote tvOS to App Store
 agent:
   machine:
     type: a2-standard-4
-    os_image: macos-xcode16
+    os_image: macos-xcode26
 blocks:
   - name: Submit TestFlight build to App Store
     task:

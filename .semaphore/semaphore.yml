@@ -3,13 +3,12 @@ name: Build and deploy tvOS
 agent:
   machine:
     type: a2-standard-4
-    os_image: macos-xcode16
+    os_image: macos-xcode26
 global_job_config:
   prologue:
     commands:
       - checkout
       - sem-version ruby 3.2
-      - sudo xcode-select -s /Applications/Xcode-16.3.app
 blocks:
   - name: Test
     dependencies: []
@@ -21,7 +20,7 @@ blocks:
             - xcrun simctl boot "Apple TV"
             - gem install xcpretty
             - |
-              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme uitests -destination 'platform=tvOS Simulator,name=Apple TV,OS=18.0' -derivedDataPath ./DerivedData -resultBundlePath ./DerivedData/TestResults LOGIN_API_KEY="$LOGIN_API_KEY" AUTOLOGIN_HOST="$AUTOLOGIN_HOST" RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY" RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL" | xcpretty
+              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme uitests -destination 'platform=tvOS Simulator,name=Apple TV,OS=latest' -derivedDataPath ./DerivedData -resultBundlePath ./DerivedData/TestResults LOGIN_API_KEY="$LOGIN_API_KEY" AUTOLOGIN_HOST="$AUTOLOGIN_HOST" RUDDER_WRITE_KEY="$RUDDER_WRITE_KEY" RUDDER_DATAPLANE_URL="$RUDDER_DATAPLANE_URL" | xcpretty
       epilogue:
         always:
           commands:
