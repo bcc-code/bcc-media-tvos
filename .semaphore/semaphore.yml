@@ -19,6 +19,7 @@ blocks:
         - name: Build and upload to TestFlight
           commands:
             - echo "$CERTIFICATE_P12_BASE64" | base64 -d > fastlane/certificate.p12
+            - xcodebuild -downloadPlatform tvOS
             - bundle install
             - bundle exec fastlane next_build_number
             - export BUILD_NUMBER=$(cat fastlane/.next_build_number)

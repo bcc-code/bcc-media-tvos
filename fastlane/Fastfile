@@ -103,7 +103,8 @@ platform :ios do
     sh("cd .. && ./scripts/build.sh pre")
     begin
       build_app(
-        scheme: "BCC Media tvOS", 
+        scheme: "BCC Media tvOS",
+        destination: "generic/platform=tvOS",
         cloned_source_packages_path: "./tmp/build",
         skip_profile_detection: true,
         codesigning_identity: "Apple Distribution",
