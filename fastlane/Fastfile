@@ -98,13 +98,28 @@ platform :ios do
       REPLACED_WITH_NEW_VERSION
     ]
 
+    # App Store versions for tvOS, base fields only (versionString + appStoreState are
+    # attributes, not relationships, so no includes are needed — keeps us clear of the
+    # relationships Apple rejects).
     store_versions = app.get_app_store_versions(
       filter: { platform: platform },
       includes: nil,
-    )
-    pre_release_versions = app.get_pre_release_versions(
-      filter: { platform: platform },
-    )
+    ).select { |v| v.platform == platform }
+
+    # Latest TestFlight train marketing version. Spaceship's App model has no
+    # get_pre_release_versions here, so read it off the most recent build's
+    # preReleaseVersion (same builds query next_build_number uses). Covers the case
+    # where builds exist for a version that has no App Store version yet.
+    latest_build = Spaceship::ConnectAPI.get_builds(
+      filter: {
+        app: app.id,
+        "preReleaseVersion.platform" => platform,
+      },
+      includes: "preReleaseVersion",
+      sort: "-uploadedDate",
+      limit: 1,
+    ).to_models.first
+    train_version = latest_build&.pre_release_version&.version
 
     # State of each version string on the App Store side, so we can tell OPEN from CLOSED.
     store_state_by_version = {}
@@ -114,7 +129,7 @@ platform :ios do
 
     parse = ->(s) { s.to_s.split(".").map(&:to_i) }
 
-    all_versions = (store_versions.map(&:version_string) + pre_release_versions.map(&:version)).compact.uniq
+    all_versions = (store_versions.map(&:version_string) + [train_version]).compact.uniq
 
     if all_versions.empty?
       # First run / nothing on ASC yet — fall back to the repo value and reuse it.
