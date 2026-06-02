@@ -56,6 +56,9 @@ platform :ios do
         app: app.id,
         "preReleaseVersion.platform" => Spaceship::ConnectAPI::Platform.map("appletvos"),
       },
+      # Override the default includes ("buildBetaDetail,betaBuildMetrics"); Apple now
+      # rejects betaBuildMetrics as a relationship. We only need the base version field.
+      includes: "preReleaseVersion",
       sort: "-uploadedDate",
       limit: 1,
     ).to_models.first
