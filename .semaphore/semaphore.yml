@@ -8,7 +8,7 @@ global_job_config:
   prologue:
     commands:
       - checkout
-      - sem-version ruby 3.2
+      - sem-version ruby 3.3
 blocks:
   - name: Deploy to TestFlight
     dependencies: []
