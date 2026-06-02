@@ -26,7 +26,12 @@ blocks:
             - test -n "$BUILD_NUMBER" && test "$BUILD_NUMBER" -gt 0
             - echo "$BUILD_NUMBER" > /tmp/tvos_build_number
             - artifact push workflow /tmp/tvos_build_number -d tvos_build_number
-            - 'bundle exec fastlane beta build_number:$BUILD_NUMBER'
+            - bundle exec fastlane next_version
+            - export APP_VERSION=$(cat fastlane/.next_version)
+            - test -n "$APP_VERSION"
+            - echo "$APP_VERSION" > /tmp/tvos_app_version
+            - artifact push workflow /tmp/tvos_app_version -d tvos_app_version
+            - 'bundle exec fastlane beta build_number:$BUILD_NUMBER marketing_version:$APP_VERSION'
       secrets:
         - name: bccmedia-testflight-api
         - name: ios-signing-certs

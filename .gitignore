@@ -15,3 +15,4 @@ tmp/
 # Semaphore secret setup (local, never commit)
 scripts/.env.semaphore
 fastlane/.next_build_number
+fastlane/.next_version

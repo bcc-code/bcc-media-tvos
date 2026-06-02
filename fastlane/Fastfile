@@ -69,6 +69,79 @@ platform :ios do
     File.write(File.join(__dir__, ".next_build_number"), next_num.to_s)
   end
 
+  desc "Compute the next marketing version and write it to fastlane/.next_version"
+  lane :next_version do
+    require "spaceship"
+    # The marketing version (CFBundleShortVersionString) is no longer hand-maintained
+    # in project.pbxproj — App Store Connect is the source of truth in CI. We can keep
+    # uploading builds under one marketing version while its train is OPEN, but once
+    # that version ships to the App Store the train CLOSES (errors 90062/90186) and the
+    # next build needs a higher version. Reuse the current version while open; bump the
+    # patch component once it's closed.
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from(hash: asc_api_key)
+
+    app = Spaceship::ConnectAPI::App.find("tv.brunstad.app")
+    UI.user_error!("Could not find tv.brunstad.app on App Store Connect") unless app
+
+    platform = Spaceship::ConnectAPI::Platform.map("appletvos")
+
+    # An App Store version in any of these states locks its train against new build
+    # submissions. Editable states (PREPARE_FOR_SUBMISSION, DEVELOPER_REJECTED, …) and
+    # TestFlight-only trains stay OPEN.
+    closed_states = %w[
+      READY_FOR_SALE
+      PENDING_DEVELOPER_RELEASE
+      PENDING_APPLE_RELEASE
+      PROCESSING_FOR_APP_STORE
+      IN_REVIEW
+      WAITING_FOR_REVIEW
+      REPLACED_WITH_NEW_VERSION
+    ]
+
+    store_versions = app.get_app_store_versions(
+      filter: { platform: platform },
+      includes: nil,
+    )
+    pre_release_versions = app.get_pre_release_versions(
+      filter: { platform: platform },
+    )
+
+    # State of each version string on the App Store side, so we can tell OPEN from CLOSED.
+    store_state_by_version = {}
+    store_versions.each do |v|
+      store_state_by_version[v.version_string] = v.app_store_state
+    end
+
+    parse = ->(s) { s.to_s.split(".").map(&:to_i) }
+
+    all_versions = (store_versions.map(&:version_string) + pre_release_versions.map(&:version)).compact.uniq
+
+    if all_versions.empty?
+      # First run / nothing on ASC yet — fall back to the repo value and reuse it.
+      current = get_version_number(
+        xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+        target: "BCC Media tvOS",
+      )
+      UI.message "No versions found on App Store Connect. Falling back to repo version: #{current}"
+      File.write(File.join(__dir__, ".next_version"), current)
+      next
+    end
+
+    current = all_versions.max_by { |s| parse.call(s) }
+    state = store_state_by_version[current]
+    closed = !state.nil? && closed_states.include?(state)
+
+    if closed
+      maj, min, patch = parse.call(current)
+      next_ver = "#{maj}.#{min}.#{patch.to_i + 1}"
+    else
+      next_ver = current
+    end
+
+    UI.message "Previous marketing version: #{current} (train #{closed ? 'CLOSED' : 'OPEN'}, store state: #{state || 'none'}). Next: #{next_ver}"
+    File.write(File.join(__dir__, ".next_version"), next_ver)
+  end
+
   desc "Push a new beta build to TestFlight"
   lane :beta do |options|
     if options[:build_number]
@@ -118,6 +191,13 @@ platform :ios do
       teamid: options[:team_id],
     )
     sh("cd .. && ./scripts/build.sh pre")
+    # The marketing version is injected at build time (highest precedence) rather than
+    # committed to project.pbxproj; the repo value is only a local/dev fallback. With
+    # GENERATE_INFOPLIST_FILE=YES this lands directly in CFBundleShortVersionString.
+    xcargs = "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=6734NUF6AV"
+    if options[:marketing_version]
+      xcargs += " MARKETING_VERSION=#{options[:marketing_version]}"
+    end
     begin
       build_app(
         scheme: "BCC Media tvOS",
@@ -125,7 +205,7 @@ platform :ios do
         cloned_source_packages_path: "./tmp/build",
         skip_profile_detection: true,
         codesigning_identity: "Apple Distribution",
-        xcargs: "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=6734NUF6AV"
+        xcargs: xcargs
       )
     ensure
       sh("cd .. && ./scripts/build.sh post")
@@ -172,10 +252,16 @@ platform :ios do
   lane :promote_to_app_store do
     build_number = ENV['BUILD_NUMBER']
     UI.user_error!('BUILD_NUMBER env var is required') if build_number.to_s.empty?
-    app_version = get_version_number(
-      xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
-      target: "BCC Media tvOS",
-    )
+    # The marketing version is no longer the repo default in CI — it's computed by the
+    # beta pipeline and passed through via the APP_VERSION artifact. Fall back to the
+    # xcodeproj value only for local invocations.
+    app_version = ENV['APP_VERSION']
+    if app_version.to_s.empty?
+      app_version = get_version_number(
+        xcodeproj: "./BCC Media tvOS/BCC Media tvOS.xcodeproj",
+        target: "BCC Media tvOS",
+      )
+    end
     upload_to_app_store(
       api_key: asc_api_key,
       app_identifier: "tv.brunstad.app",
