@@ -28,18 +28,35 @@ public struct ApplicationOptions {
     var searchPageId: String?
 }
 
+// Build-time configuration: the scheme / CI environment wins, falling back to the literals in
+// `CI.swift` that `envsubst` fills in during a release build.
+//
+// Derived rather than assigned, for two reasons. Each variable name is now spelled in exactly one
+// place — `RUDDER_DATA_PLANE_URL` was misspelled in `load()` and silently shadowed the value
+// `Events` had already read correctly. And these values are available from process start rather
+// than only after whichever writer ran first: `load()` is async and gated on a network round trip,
+// so `Events.init` used to re-resolve them itself to avoid waiting for it.
+//
+// Read once — `ProcessInfo.environment` rebuilds its dictionary on every access, and nothing here
+// calls `setenv`.
+private let processEnvironment = ProcessInfo.processInfo.environment
+
+private func configValue(_ envKey: String, _ fallback: String) -> String {
+    processEnvironment[envKey] ?? fallback
+}
+
 public struct NpawOptions {
-    var accountCode: String?
+    var accountCode: String? { configValue("NPAW_ACCOUNT_CODE", CI.npawAccountCode) }
 }
 
 public struct RudderOptions {
-    var dataPlaneUrl: String = ""
-    var writeKey: String = ""
+    var dataPlaneUrl: String { configValue("RUDDER_DATAPLANE_URL", CI.rudderDataplaneURL) }
+    var writeKey: String { configValue("RUDDER_WRITE_KEY", CI.rudderWriteKey) }
 }
 
 public struct UnleashOptions {
-    var url: String = ""
-    var clientKey: String = ""
+    var url: String { configValue("UNLEASH_URL", CI.unleashUrl) }
+    var clientKey: String { configValue("UNLEASH_CLIENT_KEY", CI.unleashClientKey) }
 }
 
 public struct AppOptions {
@@ -155,13 +172,5 @@ public extension AppOptions {
         } else {
             AppOptions.user = .init()
         }
-
-        let processInfo = ProcessInfo.processInfo
-
-        AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNT_CODE"] ?? CI.npawAccountCode
-        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITE_KEY"] ?? CI.rudderWriteKey
-        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATA_PLANE_URL"] ?? CI.rudderDataplaneURL
-        AppOptions.standard.unleash.url = processInfo.environment["UNLEASH_URL"] ?? CI.unleashUrl
-        AppOptions.standard.unleash.clientKey = processInfo.environment["UNLEASH_CLIENT_KEY"] ?? CI.unleashClientKey
     }
 }

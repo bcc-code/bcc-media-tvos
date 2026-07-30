@@ -133,11 +133,9 @@ struct Events {
     private var client: RSClient
 
     private init() {
-        let processInfo = ProcessInfo.processInfo
-
-        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITE_KEY"] ?? CI.rudderWriteKey
-        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATAPLANE_URL"] ?? CI.rudderDataplaneURL
-
+        // Reads `AppOptions.rudder` directly — it resolves env/CI on access, so this no longer has
+        // to populate it first. That mattered: `AppOptions.standard.sessionId` reaches back into
+        // `Events.sessionId`, so a getter was transitively writing to `AppOptions.standard`.
         let builder = RSConfigBuilder()
             .withDataPlaneUrl(AppOptions.rudder.dataPlaneUrl)
 
