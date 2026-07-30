@@ -98,7 +98,7 @@ struct SearchView: View {
         .searchable(text: $queryString).font(.barlow)
         .onChange(of: queryString) { query in
             if query.isEmpty {
-                AppOptions.standard.searchSessionId = UUID().uuidString
+                AppOptions.searchSessionId = UUID().uuidString
             }
             Task {
                 await getResult(query)

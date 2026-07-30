@@ -33,8 +33,8 @@ struct PlayerOptions {
         self.title = title
 
         self.startFrom = startFrom
-        self.subtitleLanguage = subtitleLanguage ?? AppOptions.standard.subtitleLanguage
-        self.audioLanguage = audioLanguage ?? AppOptions.standard.audioLanguage
+        self.subtitleLanguage = subtitleLanguage ?? AppOptions.subtitleLanguage
+        self.audioLanguage = audioLanguage ?? AppOptions.audioLanguage
 
         self.content = content
     }

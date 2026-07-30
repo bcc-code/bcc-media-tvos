@@ -22,7 +22,7 @@ func getSessionId() -> String? {
     return AppOptions.standard.sessionId
 }
 func getSearchSessionId() -> String? {
-    return AppOptions.standard.searchSessionId
+    return AppOptions.searchSessionId
 }
 
 func getFeatureFlagsHeader() -> String? {

@@ -57,13 +57,37 @@ public struct UnleashOptions {
     var clientKey: String { configValue("UNLEASH_CLIENT_KEY", CI.unleashClientKey) }
 }
 
-public struct AppOptions {
+/// Process-wide configuration and user state.
+///
+/// A `final class` rather than a `struct` behind a mutable `static var`. It was always a singleton
+/// with reference semantics in practice, and the struct form had a concrete cost: `static var app` was
+/// get-only, so writers reached through `AppOptions.standard.app.…` while readers used
+/// `AppOptions.app.…` — two spellings for the same thing, on adjacent lines inside `load()`.
+public final class AppOptions {
     private init() {}
 
     public var sessionId: String? {
         Events.sessionId?.stringValue
     }
-    public var searchSessionId: String? = UUID().uuidString
+
+    /// Guarded because it is read by the Apollo interceptor on whichever thread a request is on, and
+    /// written from the main actor when the search field is cleared. The rest of the state below is
+    /// touched only from the main actor.
+    private let lock = NSLock()
+    private var storedSearchSessionId = UUID().uuidString
+
+    public var searchSessionId: String {
+        get {
+            lock.lock()
+            defer { lock.unlock() }
+            return storedSearchSessionId
+        }
+        set {
+            lock.lock()
+            defer { lock.unlock() }
+            storedSearchSessionId = newValue
+        }
+    }
 
     public var audioLanguage: String? {
         UserDefaults.standard.string(forKey: audioLanguageKey)
@@ -100,9 +124,10 @@ public struct AppOptions {
     public var unleash: UnleashOptions = .init()
 }
 
-// Implement standard things
+// Static conveniences, so call sites read `AppOptions.user` rather than `AppOptions.standard.user`.
+// Every one of these is get *and* set, so there is a single spelling for both directions.
 public extension AppOptions {
-    static var standard = AppOptions()
+    static let standard = AppOptions()
 
     static var audioLanguage: String? {
         get {
@@ -129,9 +154,22 @@ public extension AppOptions {
     }
 
     static var app: ApplicationOptions {
-        AppOptions.standard.app
+        get {
+            AppOptions.standard.app
+        } set {
+            AppOptions.standard.app = newValue
+        }
     }
 
+    static var searchSessionId: String {
+        get {
+            AppOptions.standard.searchSessionId
+        } set {
+            AppOptions.standard.searchSessionId = newValue
+        }
+    }
+
+    // Stateless — these resolve env/CI on access, so there is nothing to set.
     static var npaw: NpawOptions {
         AppOptions.standard.npaw
     }
@@ -149,7 +187,7 @@ public extension AppOptions {
             return
         }
 
-        AppOptions.standard.app.pageId = data.application.page?.id
+        AppOptions.app.pageId = data.application.page?.id
 
         if authenticationProvider.isAuthenticated() {
             let userInfo = await authenticationProvider.userInfo()
