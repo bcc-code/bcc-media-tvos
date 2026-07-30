@@ -19,7 +19,35 @@ struct EpisodeHeader: View {
 
     @FocusState var isFocused: Bool
 
-    @State var inMyList: Bool = false
+    @State private var inMyList: Bool
+
+    init(
+        episode: API.GetEpisodeQuery.Data.Episode,
+        season: API.GetEpisodeSeasonQuery.Data.Season?,
+        playCallback: @escaping PlayCallback
+    ) {
+        self.episode = episode
+        self.season = season
+        self.playCallback = playCallback
+        // Seeded here rather than from `.onAppear`. Doing it in onAppear had two costs: it tripped the
+        // `onChange` that used to drive the mutation, and it re-applied the stale fetched value on every
+        // reappearance — so coming back from the player discarded a toggle the user had just made.
+        _inMyList = State(initialValue: episode.inMyList)
+    }
+
+    /// Runs the mutation from the user's action rather than from a state change.
+    ///
+    /// `onChange(of: inMyList)` used to drive it, which meant *anything* assigning `inMyList` fired a
+    /// mutation. Opening an episode already in My List therefore re-added it, every time.
+    private func toggleMyList() {
+        inMyList.toggle()
+
+        if inMyList {
+            apolloClient.perform(mutation: API.AddEpisodeToMyListMutation(id: episode.id))
+        } else {
+            apolloClient.perform(mutation: API.RemoveEpisodeFromMyListMutation(id: API.UUID(episode.uuid)))
+        }
+    }
 
     var body: some View {
         VStack {
@@ -64,8 +92,7 @@ struct EpisodeHeader: View {
                     }.buttonStyle(.plain)
                     if authenticationProvider.isAuthenticated() {
                         Button {
-                            print("add to my list")
-                            inMyList = !inMyList
+                            toggleMyList()
                         } label: {
                             if inMyList {
                                 Image(systemName: "heart.fill")
@@ -80,16 +107,7 @@ struct EpisodeHeader: View {
                 Text(desc).font(.barlowCaption)
             }
         }.padding(.vertical, 20)
-            .onAppear {
-                inMyList = episode.inMyList
-            }
-            .onChange(of: inMyList) { _ in
-                if inMyList {
-                    apolloClient.perform(mutation: API.AddEpisodeToMyListMutation(id: episode.id))
-                } else {
-                    apolloClient.perform(mutation: API.RemoveEpisodeFromMyListMutation(id: API.UUID(episode.uuid)))
-                }
-            }.font(.barlow)
+            .font(.barlow)
     }
 }
 
