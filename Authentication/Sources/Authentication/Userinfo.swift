@@ -104,17 +104,23 @@ public extension Provider {
     }
 }
 
-public func calculateAge(from birthdate: String) -> Int? {
+/// Hoisted for the same reason as the formatters in the app target: constructing one costs far more
+/// than using it. Not a hot path — user info is fetched once and cached for five minutes — but it is
+/// the same pattern, and `DateCalculationTests` covers the behaviour either way.
+private let birthdateFormatter: ISO8601DateFormatter = {
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions = [
         .withFractionalSeconds,
         .withFullDate, // Forces 00.00.00. This is the only way to allow fractional seconds without it being *required*. See https://forums.swift.org/t/iso8601dateformatter-fails-to-parse-a-valid-iso-8601-date/22999/19
     ]
-    
-    guard let date = formatter.date(from: birthdate) else {
+    return formatter
+}()
+
+public func calculateAge(from birthdate: String) -> Int? {
+    guard let date = birthdateFormatter.date(from: birthdate) else {
         return nil
     }
-    
+
     let ageComponents = Calendar.current.dateComponents([.year], from: date, to: Date())
     return ageComponents.year
 }

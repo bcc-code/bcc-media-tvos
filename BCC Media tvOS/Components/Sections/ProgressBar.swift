@@ -10,13 +10,18 @@ import SwiftUI
 struct ProgressBar: View {
     var item: Item
 
-    func durationToString(_ duration: Int) -> String {
+    /// Hoisted out of `durationToString`, where it was built once per progress bar per body pass — so
+    /// once for every visible card on the page, on every render.
+    private static let durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.zeroFormattingBehavior = .dropLeading
+        return formatter
+    }()
 
-        return formatter.string(from: TimeInterval(duration)) ?? ""
+    func durationToString(_ duration: Int) -> String {
+        Self.durationFormatter.string(from: TimeInterval(duration)) ?? ""
     }
 
     var body: some View {

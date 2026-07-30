@@ -204,21 +204,31 @@ struct EpisodeViewer: View {
         loaded = true
     }
 
-    func toDateString(_ str: String) -> String {
+    /// Fixed-format parser for the API's publish date. `en_US_POSIX` so the device locale cannot change
+    /// how the pattern is interpreted.
+    private static let publishDateParser: DateFormatter = {
         let parser = DateFormatter()
         parser.locale = Locale(identifier: "en_US_POSIX")
         parser.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        // Show the raw value rather than trapping if the API ever returns a shape this pattern does
-        // not cover (fractional seconds, for instance).
-        guard let date = parser.date(from: str) else {
-            return str
-        }
+        return parser
+    }()
 
+    /// `.autoupdatingCurrent` rather than `.current`, which is what makes caching the instance safe —
+    /// it follows a locale change instead of freezing the one in effect at first use.
+    private static let publishDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy HH:mm"
         formatter.locale = .autoupdatingCurrent
+        return formatter
+    }()
 
-        return formatter.string(from: date)
+    func toDateString(_ str: String) -> String {
+        // Show the raw value rather than trapping if the API ever returns a shape this pattern does
+        // not cover (fractional seconds, for instance).
+        guard let date = Self.publishDateParser.date(from: str) else {
+            return str
+        }
+        return Self.publishDateFormatter.string(from: date)
     }
 
     var body: some View {
