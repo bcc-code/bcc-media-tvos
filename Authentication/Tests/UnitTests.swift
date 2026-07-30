@@ -1,4 +1,5 @@
 @testable import Authentication
+import Auth0
 import Foundation
 import XCTest
 
@@ -68,5 +69,86 @@ final class AgeGroupTests: XCTestCase {
         let result = getAgeGroup(nil)
         XCTAssertEqual(result.range, "UNKNOWN")
         XCTAssertEqual(result.start, 999)
+    }
+}
+
+/// `getAccessToken` used to treat every failure as "authentication is broken" and invoke the error
+/// handler, whose response is to revoke credentials and start a fresh sign-in. A failed *renewal* is
+/// reported the same way as a revoked refresh token, so going offline with an expired access token
+/// signed the user out of a session that would have refreshed fine moments later.
+final class ReauthenticationTests: XCTestCase {
+    private func authError(_ code: String, statusCode: Int = 403, cause: Error? = nil) -> AuthenticationError {
+        var info: [String: Any] = ["error": code]
+        if let cause = cause {
+            info["cause"] = cause
+        }
+        return AuthenticationError(info: info, statusCode: statusCode)
+    }
+
+    // MARK: - Sessions that really are gone
+
+    func testNoCredentialsRequiresSignIn() {
+        XCTAssertTrue(Provider.requiresReauthentication(CredentialsManagerError.noCredentials))
+    }
+
+    func testNoRefreshTokenRequiresSignIn() {
+        XCTAssertTrue(Provider.requiresReauthentication(CredentialsManagerError.noRefreshToken))
+    }
+
+    /// The OAuth code for a refresh token that has been revoked, expired or otherwise refused.
+    func testRefusedGrantRequiresSignIn() {
+        XCTAssertTrue(Provider.renewalIsUnrecoverable(authError("invalid_grant")))
+    }
+
+    func testLoginRequiredRequiresSignIn() {
+        XCTAssertTrue(Provider.renewalIsUnrecoverable(authError("login_required")))
+    }
+
+    // MARK: - The regression this fixes
+
+    /// The whole point: offline must not destroy the session.
+    func testNetworkFailureIsRetryable() {
+        for code: URLError.Code in [.notConnectedToInternet, .networkConnectionLost, .timedOut, .dnsLookupFailed] {
+            let error = authError("server_error", statusCode: 0, cause: URLError(code))
+            XCTAssertTrue(error.isNetworkError, "expected \(code) to read as a network error")
+            XCTAssertFalse(
+                Provider.renewalIsUnrecoverable(error),
+                "a \(code) renewal failure must not sign the user out"
+            )
+        }
+    }
+
+    /// Auth0 being down is not the user's session being gone.
+    func testServerErrorIsRetryable() {
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(authError("server_error", statusCode: 500)))
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(authError("too_many_requests", statusCode: 429)))
+    }
+
+    /// An unrecognised code defaults to retryable — mis-reading a transient failure costs the session,
+    /// mis-reading a permanent one costs one more failed request.
+    func testUnknownCodeIsRetryable() {
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(authError("something_new_from_auth0")))
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(nil))
+    }
+
+    /// Renewal succeeded and only persisting it failed, so the session is still valid.
+    func testStoreFailedIsRetryable() {
+        XCTAssertFalse(Provider.requiresReauthentication(CredentialsManagerError.storeFailed))
+    }
+
+    func testUnrelatedErrorIsRetryable() {
+        struct Unrelated: Error {}
+        XCTAssertFalse(Provider.requiresReauthentication(Unrelated()))
+        XCTAssertFalse(Provider.requiresReauthentication(URLError(.notConnectedToInternet)))
+    }
+
+    /// Documents the trap that shaped the implementation: `CredentialsManagerError.==` compares the
+    /// localized description as well as the code, and the description embeds the cause. So comparing a
+    /// real renewal failure against the causeless `.renewFailed` constant does not match, which is why
+    /// `requiresReauthentication` branches on the cause rather than on `== .renewFailed`.
+    func testRenewFailedCannotBeIdentifiedByEquality() {
+        XCTAssertNil(CredentialsManagerError.renewFailed.cause)
+        XCTAssertEqual(CredentialsManagerError.renewFailed, CredentialsManagerError.renewFailed)
+        XCTAssertNotEqual(CredentialsManagerError.renewFailed, CredentialsManagerError.noCredentials)
     }
 }
