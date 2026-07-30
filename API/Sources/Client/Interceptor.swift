@@ -6,12 +6,14 @@ internal class NetworkInterceptorProvider: DefaultInterceptorProvider {
     var sessionIdFactory: SessionIdFactory?
     var searchSessionIdFactory: SearchSessionIdFactory?
     var featureFlagsFactory: FeatureFlagsFactory?
+    var reportError: ErrorReporter
 
     init(
         tokenFactory: @escaping TokenFactory,
         sessionIdFactory: SessionIdFactory? = nil,
         searchSessionIdFactory: SearchSessionIdFactory? = nil,
         featureFlagsFactory: FeatureFlagsFactory? = nil,
+        reportError: @escaping ErrorReporter,
         client: URLSessionClient,
         store: ApolloStore
     ) {
@@ -19,6 +21,7 @@ internal class NetworkInterceptorProvider: DefaultInterceptorProvider {
         self.sessionIdFactory = sessionIdFactory
         self.searchSessionIdFactory = searchSessionIdFactory
         self.featureFlagsFactory = featureFlagsFactory
+        self.reportError = reportError
         super.init(client: client, shouldInvalidateClientOnDeinit: true, store: store)
     }
 
@@ -28,7 +31,8 @@ internal class NetworkInterceptorProvider: DefaultInterceptorProvider {
             tokenFactory: tokenFactory,
             sessionIdFactory: sessionIdFactory,
             searchSessionIdFactory: searchSessionIdFactory,
-            featureFlagsFactory: featureFlagsFactory
+            featureFlagsFactory: featureFlagsFactory,
+            reportError: reportError
         ), at: 0)
         return interceptors
     }
@@ -40,17 +44,20 @@ private class CustomInterceptor: ApolloInterceptor {
     var sessionIdFactory: SessionIdFactory?
     var searchSessionIdFactory: SearchSessionIdFactory?
     var featureFlagsFactory: FeatureFlagsFactory?
+    var reportError: ErrorReporter
 
     init(
         tokenFactory: @escaping TokenFactory,
         sessionIdFactory: SessionIdFactory? = nil,
         searchSessionIdFactory: SearchSessionIdFactory? = nil,
-        featureFlagsFactory: FeatureFlagsFactory? = nil
+        featureFlagsFactory: FeatureFlagsFactory? = nil,
+        reportError: @escaping ErrorReporter
     ) {
         self.tokenFactory = tokenFactory
         self.sessionIdFactory = sessionIdFactory
         self.searchSessionIdFactory = searchSessionIdFactory
         self.featureFlagsFactory = featureFlagsFactory
+        self.reportError = reportError
         self.id = "custom"
     }
 
@@ -87,7 +94,13 @@ private class CustomInterceptor: ApolloInterceptor {
                         interceptor: self,
                         completion: completion)
             } catch {
-                print(error)
+                // This used to only `print`, without continuing the chain or calling `completion` —
+                // so a failure to build the request hung the caller for the life of the process.
+                reportError(error)
+                chain.handleErrorAsync(error,
+                        request: request,
+                        response: response,
+                        completion: completion)
             }
         }
     }

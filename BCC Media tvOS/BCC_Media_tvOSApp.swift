@@ -29,12 +29,22 @@ func getFeatureFlagsHeader() -> String? {
     return FeatureFlagsClient.shared.headerValue
 }
 
+/// Sentry has been initialised since launch, but until now the only `capture` in the app was in
+/// `Userinfo`. GraphQL and transport errors were printed and dropped, so nothing about a failing API
+/// was visible outside a debugger.
+func reportApiError(_ error: Error) {
+    print("api error: \(error)")
+    SentrySDK.capture(error: error)
+    Events.trigger(ErrorOccured(error: error.localizedDescription))
+}
+
 let apolloClient = API.NewClient(
     apiUrl: "https://api.brunstad.tv/query",
     tokenFactory: authenticationProvider.getAccessToken,
     sessionIdFactory: getSessionId,
     searchSessionIdFactory: getSearchSessionId,
-    featureFlagsFactory: getFeatureFlagsHeader
+    featureFlagsFactory: getFeatureFlagsHeader,
+    reportError: reportApiError
 )
 
 class AppDelegate: NSObject, UIApplicationDelegate {
