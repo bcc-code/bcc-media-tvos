@@ -37,6 +37,11 @@ struct Language {
         self.display = display
     }
 
+    /// The API and the stream manifests identify Norwegian as `no`, but `nb` is the code Foundation
+    /// localizes a display name from. Load-bearing: `nb` derives the alpha-3 code `nob`, where the
+    /// backend and NPAW both expect `nor`.
+    private static let norwegianApiCode = "no"
+
     static func getAll() -> [Language] {
         var languages: [Language] = []
 
@@ -46,8 +51,8 @@ struct Language {
             let display = locale.localizedString(forLanguageCode: code.rawValue)
             var lang = Language(code.rawValue, display ?? code.rawValue)
 
-            if lang.code == "nb" {
-                lang.code = "no"
+            if code == .nb {
+                lang.code = norwegianApiCode
             }
 
             if let english = enLocale.localizedString(forLanguageCode: code.rawValue), english != display {
@@ -60,44 +65,17 @@ struct Language {
         return languages
     }
     
+    /// Replaces a hand-maintained 17-entry table, which every new entry in ``LanguageCodes`` had to be
+    /// added to or would silently fall through to its two-letter form. Verified to derive the same
+    /// value for all 17 codes the table covered.
+    ///
+    /// Only ever called with codes produced by ``getAll()``, where `nb` has already become `no` — see
+    /// ``norwegianApiCode``.
     static func toThreeLetterLanguageCode(languageCode: String?) -> String? {
-        return switch languageCode {
-        case "no":
-            "nor"
-        case "en":
-            "eng"
-        case "fr":
-            "fra"
-        case "de":
-            "deu"
-        case "hu":
-            "hun"
-        case "es":
-            "spa"
-        case "it":
-            "ita"
-        case "pl":
-            "pol"
-        case "ro":
-            "ron"
-        case "ru":
-            "rus"
-        case "sl":
-            "slv"
-        case "tr":
-            "tur"
-        case "bg":
-            "bul"
-        case "nl":
-            "nld"
-        case "da":
-            "dan"
-        case "fi":
-            "fin"
-        case "pt":
-            "por"
-        default:
-            languageCode
+        guard let languageCode = languageCode else {
+            return nil
         }
+        // Unknown codes keep their input form, as the table's `default` did.
+        return Locale.Language(identifier: languageCode).languageCode?.identifier(.alpha3) ?? languageCode
     }
 }

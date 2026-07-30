@@ -8,22 +8,19 @@
 import Foundation
 import API
 
-fileprivate let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
+/// Stream types we can play, best first.
+private let preferredStreamTypes = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
 
+/// The first stream matching the most preferred type available, falling back to any stream at all.
 func getPlayerUrl(streams: [API.GetEpisodeStreamsQuery.Data.Episode.Stream]) -> URL? {
-    var index = 0
-    var stream = streams.first(where: { $0.type == types[index] })
-    while stream == nil, (types.count - 1) > index {
-        index += 1
-        stream = streams.first(where: { $0.type == types[index] })
+    let preferred = preferredStreamTypes.lazy
+        .compactMap { type in streams.first { $0.type == type } }
+        .first
+
+    guard let stream = preferred ?? streams.first else {
+        return nil
     }
-    if stream == nil {
-        stream = streams.first
-    }
-    if let stream = stream {
-        return URL(string: stream.url)
-    }
-    return nil
+    return URL(string: stream.url)
 }
 
 class StreamUrls {

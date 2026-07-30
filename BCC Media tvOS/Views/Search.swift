@@ -57,23 +57,21 @@ struct SearchView: View {
         )
     }
 
-    func mapToItem(_ type: ItemType) -> ((API.SearchQuery.Data.Search.Result) -> Item) {
-        func toItem(_ r: API.SearchQuery.Data.Search.Result) -> Item {
-            Item(id: r.id, title: r.title, showTitle: r.asEpisodeSearchItem?.showTitle, seasonTitle: r.asEpisodeSearchItem?.seasonTitle, description: r.description ?? "", image: r.image, type: type)
+    /// Named distinctly from `mapToItems(_:sectionIndex:)` in `ItemSection.swift` — both were global to
+    /// the target under the same name, differing only in argument type.
+    func mapSearchResults(_ type: ItemType, _ results: [API.SearchQuery.Data.Search.Result]) -> [Item] {
+        results.enumerated().map { index, result in
+            Item(
+                id: result.id,
+                title: result.title,
+                showTitle: result.asEpisodeSearchItem?.showTitle,
+                seasonTitle: result.asEpisodeSearchItem?.seasonTitle,
+                description: result.description ?? "",
+                image: result.image,
+                type: type,
+                index: index
+            )
         }
-        return toItem
-    }
-
-    func mapToItems(_ type: ItemType, _ items: [API.SearchQuery.Data.Search.Result]) -> [Item] {
-        var r: [Item] = []
-
-        items.indices.forEach { index in
-            var item = mapToItem(type)(items[index])
-            item.index = index
-            r.append(item)
-        }
-
-        return r
     }
 
     var body: some View {
@@ -84,12 +82,12 @@ struct SearchView: View {
                 ScrollView(.vertical) {
                     LazyVStack {
                         if let i = showResult, i.count > 0 {
-                            DefaultSection(NSLocalizedString("common_shows", comment: ""), mapToItems(.show, i)) { item in
+                            DefaultSection(String(localized: "common_shows"), mapSearchResults(.show, i)) { item in
                                 await _clickItem(item, group: "shows")
                             }
                         }
                         if let i = episodeResult, i.count > 0 {
-                            DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), mapToItems(.episode, i)) { item in
+                            DefaultGridSection(String(localized: "common_episodes"), mapSearchResults(.episode, i)) { item in
                                 await _clickItem(item, group: "episodes")
                             }
                         }
