@@ -175,11 +175,20 @@ struct ContentView: View {
         cancelLogin = task.cancel
     }
 
-    func playCallbackWithContext(_ context: API.EpisodeContext?, progress _: Bool) -> PlayCallback {
+    /// Builds the play action handed to `EpisodeViewer`.
+    ///
+    /// `progress` was declared and then discarded (`progress _: Bool`), so the player it created always
+    /// took the default `true` — meaning a caller that asked for progress tracking to be off would
+    /// silently have got it on. It is threaded through now.
+    func playCallbackWithContext(_ context: API.EpisodeContext?, progress: Bool) -> PlayCallback {
         func cb(_ shuffle: Bool, _ episode: API.GetEpisodeQuery.Data.Episode) {
             var ctx = context ?? API.EpisodeContext()
             ctx.shuffle = .init(booleanLiteral: shuffle)
-            path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode, ctx)))
+            path.append(EpisodePlayer(
+                episode: episode,
+                next: triggerNextEpisode(episode, ctx),
+                progress: progress
+            ))
         }
         return cb
     }
