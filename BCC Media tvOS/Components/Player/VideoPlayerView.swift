@@ -56,6 +56,11 @@ class PlayerControls: ObservableObject {
     var expiresAt: Date?
 
     var timer: Timer?
+
+    /// Cleared per item in `setItem`, so rebuffering (`playing → loading → playing`) does not report a
+    /// second `playback_started`.
+    private var hasReportedStart = false
+    private var currentContentId: String?
     
     init(player: AVPlayer = AVPlayer()) {
         self.player = player
@@ -90,21 +95,69 @@ class PlayerControls: ObservableObject {
 
     /// Main thread only — call via `publishStatus()` / `setError(_:)`.
     private func recomputeStatus() {
+        let previous = status
+
         if error != nil {
             status = .error
+        } else {
+            switch player.timeControlStatus {
+            case .playing:
+                status = .playing
+            // Only reachable once `play()` has been called, so this is buffering, not pre-roll.
+            case .waitingToPlayAtSpecifiedRate:
+                status = .loading
+            case .paused:
+                status = .idle
+            @unknown default:
+                status = .idle
+            }
+        }
+
+        guard status != previous else {
             return
         }
-        switch player.timeControlStatus {
-        case .playing:
-            status = .playing
-        // Only reachable once `play()` has been called, so this is buffering, not pre-roll.
-        case .waitingToPlayAtSpecifiedRate:
-            status = .loading
-        case .paused:
-            status = .idle
-        @unknown default:
-            status = .idle
+        reportPlaybackTransition(from: previous, to: status)
+    }
+
+    /// `playback_started` once per item, `playback_paused` whenever a playing item stops. Both event
+    /// types existed but were never triggered.
+    ///
+    /// End of playback also lands here as `playing → idle`, so it reports a pause — there is no
+    /// `playback_ended` event to send instead.
+    private func reportPlaybackTransition(from previous: PlaybackStatus, to current: PlaybackStatus) {
+        let sessionId = Events.sessionId?.stringValue ?? ""
+        let contentId = currentContentId ?? ""
+        let position = Self.seconds(player.currentTime())
+        let totalLength = Self.seconds(player.currentItem?.duration) ?? 0
+
+        switch (previous, current) {
+        case (_, .playing) where !hasReportedStart:
+            hasReportedStart = true
+            Events.trigger(PlaybackStarted(
+                sessionId: sessionId,
+                contentPodId: contentId,
+                position: position,
+                totalLength: totalLength
+            ))
+        case (.playing, .idle):
+            Events.trigger(PlaybackPaused(
+                sessionId: sessionId,
+                contentPodId: contentId,
+                position: position,
+                totalLength: totalLength
+            ))
+        default:
+            break
         }
+    }
+
+    /// nil for a time that is indefinite or not yet known — `CMTime.seconds` is NaN for a live stream,
+    /// which would otherwise crash on conversion to `Int`.
+    private static func seconds(_ time: CMTime?) -> Int? {
+        guard let time = time, time.isNumeric, time.seconds.isFinite else {
+            return nil
+        }
+        return Int(time.seconds)
     }
 
     /// `@Published` writes have to land on the main thread, and KVO delivers on whichever thread
@@ -120,6 +173,8 @@ class PlayerControls: ObservableObject {
     static func setItem(_ videoURL: URL, _ options: PlayerOptions = .init(), _ listener: PlayerListener = PlayerListener { _ in }) {
         let playerItem = AVPlayerItem(url: videoURL)
         current.setError(nil)
+        current.hasReportedStart = false
+        current.currentContentId = options.content.id
         current.currentItemObservers = [
             playerItem.observe(\.error, options: [.new]) { item, _ in
                 debugPrint("bccc: playeritem error")

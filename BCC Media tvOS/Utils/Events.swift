@@ -32,20 +32,6 @@ struct SectionClicked: Event {
     var pageCode: String
 }
 
-struct AudioonlyClicked: Event {
-    static let eventName = "audioonly_clicked"
-
-    var audioOnly: Bool
-}
-
-struct CalendardayClicked: Event {
-    static let eventName = "calendarday_clicked"
-
-    var pageCode: String
-    var calendarView: String
-    var calendarDate: String
-}
-
 struct SearchPerformed: Event {
     static let eventName = "search_performed"
 

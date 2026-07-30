@@ -44,8 +44,21 @@ struct SettingsView: View {
             UserDefaults.standard.setValue(value, forKey: key)
         }
         apolloClient.clearCache() {
-            
+
         }
+    }
+
+    /// Read the persisted value *before* `setLanguage` overwrites it — the `@State` already holds the
+    /// new one by the time `onChange` runs.
+    ///
+    /// Note `LanguageChanged` carries no field distinguishing audio from subtitles, so both changes
+    /// produce indistinguishable events downstream.
+    func reportLanguageChange(from previous: String?, to value: String) {
+        Events.trigger(LanguageChanged(
+            pageCode: "settings",
+            languageFrom: previous ?? "none",
+            languageTo: value
+        ))
     }
 
     @State var logoutPopup = false
@@ -60,7 +73,9 @@ struct SettingsView: View {
                             Text(language.display.capitalizedSentence).tag(language.code)
                         }
                     }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
+                        let previous = AppOptions.audioLanguage
                         setLanguage("audioLanguage", value)
+                        reportLanguageChange(from: previous, to: value)
                     }
                     Picker("settings_subtitles", selection: $subtitleLanguage) {
                         Text("common_none").tag("none")
@@ -70,7 +85,9 @@ struct SettingsView: View {
                             }.tag(language.code)
                         }
                     }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
+                        let previous = AppOptions.subtitleLanguage
                         setLanguage("subtitleLanguage", value)
+                        reportLanguageChange(from: previous, to: value)
                     }
                 }
                 Section(header: Text("settings_account")) {
