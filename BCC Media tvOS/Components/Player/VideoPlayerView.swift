@@ -61,6 +61,9 @@ class PlayerControls: ObservableObject {
     /// second `playback_started`.
     private var hasReportedStart = false
     private var currentContentId: String?
+
+    /// Where to resume from, applied once the item reports `.readyToPlay`. See `setItem`.
+    private var pendingSeek: CMTime?
     
     init(player: AVPlayer = AVPlayer()) {
         self.player = player
@@ -170,20 +173,59 @@ class PlayerControls: ObservableObject {
         }
     }
     
+    /// Releases everything tied to the item that is being replaced.
+    ///
+    /// Without this, `setItem` added an `AVPlayerItemDidPlayToEndTime` observer and scheduled a repeating
+    /// `Timer` on every call while never removing the previous ones, so end-of-item callbacks and
+    /// progress ticks accumulated once per item played. Auto-advancing through a playlist compounded it.
+    private static func releaseCurrentItem() {
+        current.timer?.invalidate()
+        current.timer = nil
+
+        // `object: nil` because the item this listener was registered against may already be gone.
+        if let listener = current.listener {
+            NotificationCenter.default.removeObserver(
+                listener,
+                name: .AVPlayerItemDidPlayToEndTime,
+                object: nil
+            )
+        }
+        current.listener = nil
+        current.currentItemObservers = []
+    }
+
     static func setItem(_ videoURL: URL, _ options: PlayerOptions = .init(), _ listener: PlayerListener = PlayerListener { _ in }) {
+        releaseCurrentItem()
+
         let playerItem = AVPlayerItem(url: videoURL)
         current.setError(nil)
         current.hasReportedStart = false
         current.currentContentId = options.content.id
+        current.pendingSeek = options.startFrom != 0
+            ? CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100)
+            : nil
+
         current.currentItemObservers = [
             playerItem.observe(\.error, options: [.new]) { item, _ in
                 debugPrint("bccc: playeritem error")
                 current.setError(item.error)
             },
+            // Resume once the item is actually ready. Seeking straight after `replaceCurrentItem`
+            // targets an item with no loaded timebase, and the seek is commonly dropped — which is why
+            // resuming from saved progress only worked sometimes.
+            playerItem.observe(\.status, options: [.new, .initial]) { item, _ in
+                guard item.status == .readyToPlay, let target = current.pendingSeek else {
+                    return
+                }
+                current.pendingSeek = nil
+                item.seek(to: target, completionHandler: nil)
+            },
         ]
         current.player.replaceCurrentItem(with: playerItem)
         current.player.currentItem?.externalMetadata = createMetadataItems(options)
-        if NpawPluginProvider.shared?.accountCode != "" {
+        // `shared?.accountCode != ""` was true when `shared` was nil, and the body then force-unwrapped
+        // it — so NPAW being uninitialised trapped here instead of skipping the block.
+        if let npaw = NpawPluginProvider.shared, npaw.accountCode != "" {
             current.adapter?.destroy()
 
             let videoOptions = VideoOptions()
@@ -198,16 +240,13 @@ class PlayerControls: ObservableObject {
             videoOptions.contentSubtitles = Language.toThreeLetterLanguageCode(languageCode: options.subtitleLanguage)
             videoOptions.contentTransactionCode = UUID().uuidString
             
-            current.adapter = NpawPluginProvider.shared!.videoBuilder()
+            current.adapter = npaw.videoBuilder()
                 .setPlayerAdapter(playerAdapter: AVPlayerAdapter(player: player))
                 .setOptions(options: videoOptions)
                 .build()
         }
-        
-        if options.startFrom != 0 {
-            current.player.seek(to: CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100))
-        }
-        
+
+
         NotificationCenter.default.addObserver(
             listener,
             selector: #selector(listener.playerDidFinishPlaying),
@@ -283,7 +322,9 @@ class PlayerControls: ObservableObject {
         player.pause()
         player.replaceCurrentItem(with: nil)
         adapter?.destroy()
-        current.timer?.invalidate()
+        current.adapter = nil
+        // Was only invalidating the timer, leaving the listener registered with NotificationCenter.
+        releaseCurrentItem()
     }
     
     static func expired() -> Bool {
