@@ -82,12 +82,12 @@ struct SearchView: View {
                 ScrollView(.vertical) {
                     LazyVStack {
                         if let i = showResult, i.count > 0 {
-                            DefaultSection(String(localized: "common_shows"), mapSearchResults(.show, i)) { item in
+                            ItemRow(String(localized: "common_shows"), mapSearchResults(.show, i), shape: .landscape) { item in
                                 await _clickItem(item, group: "shows")
                             }
                         }
                         if let i = episodeResult, i.count > 0 {
-                            DefaultGridSection(String(localized: "common_episodes"), mapSearchResults(.episode, i)) { item in
+                            ItemGrid(String(localized: "common_episodes"), mapSearchResults(.episode, i), shape: .landscape) { item in
                                 await _clickItem(item, group: "episodes")
                             }
                         }

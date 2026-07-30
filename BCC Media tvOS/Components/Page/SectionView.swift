@@ -56,15 +56,17 @@ struct SectionView: View {
                 VStack {
                     switch section.__typename! {
                     case "PosterSection":
-                        PosterSection(
+                        ItemRow(
                             section.title,
                             items,
+                            shape: .poster,
                             clickItem: clickItem
                         )
                     case "PosterGridSection":
-                        PosterGridSection(
+                        ItemGrid(
                             section.title,
                             items,
+                            shape: .poster,
                             clickItem: clickItem
                         )
                     case "FeaturedSection":
@@ -74,15 +76,17 @@ struct SectionView: View {
                             clickItem: clickItem
                         )
                     case "DefaultSection", "ListSection":
-                        DefaultSection(
+                        ItemRow(
                             section.title,
                             items,
+                            shape: .landscape,
                             clickItem: clickItem
                         )
                     case "DefaultGridSection":
-                        DefaultGridSection(
+                        ItemGrid(
                             section.title,
                             items,
+                            shape: .landscape,
                             clickItem: clickItem
                         )
                     case "IconSection":
@@ -97,13 +101,8 @@ struct SectionView: View {
                             items,
                             clickItem: clickItem
                         )
-                    case "CardSection":
-                        CardSection(
-                            section.title,
-                            items,
-                            clickItem: clickItem
-                        )
-                    case "CardListSection":
+                    // Both render identically; they were two arms calling the same view.
+                    case "CardSection", "CardListSection":
                         CardSection(
                             section.title,
                             items,

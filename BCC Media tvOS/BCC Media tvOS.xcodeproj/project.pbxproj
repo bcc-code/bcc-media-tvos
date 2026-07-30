@@ -22,15 +22,11 @@
 		09055A192B57FC540019FB9A /* Barlow-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090559E82B57FC540019FB9A /* Barlow-Medium.ttf */; };
 		09055A1A2B57FC540019FB9A /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090559E92B57FC540019FB9A /* Barlow-Regular.ttf */; };
 		09055A1C2B57FC540019FB9A /* FeaturedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559ED2B57FC540019FB9A /* FeaturedSection.swift */; };
-		09055A1D2B57FC540019FB9A /* DefaultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559EE2B57FC540019FB9A /* DefaultSection.swift */; };
-		09055A1E2B57FC540019FB9A /* PosterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559EF2B57FC540019FB9A /* PosterSection.swift */; };
 		09055A1F2B57FC540019FB9A /* LabelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F02B57FC540019FB9A /* LabelSection.swift */; };
 		09055A202B57FC540019FB9A /* IconGridSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F12B57FC540019FB9A /* IconGridSection.swift */; };
-		09055A212B57FC540019FB9A /* DefaultGridSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F22B57FC540019FB9A /* DefaultGridSection.swift */; };
 		09055A222B57FC540019FB9A /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F32B57FC540019FB9A /* SectionItem.swift */; };
 		09055A232B57FC540019FB9A /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F42B57FC540019FB9A /* ProgressBar.swift */; };
 		09055A242B57FC540019FB9A /* CardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F52B57FC540019FB9A /* CardSection.swift */; };
-		09055A252B57FC540019FB9A /* PosterGridSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F62B57FC540019FB9A /* PosterGridSection.swift */; };
 		09055A262B57FC540019FB9A /* IconSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F72B57FC540019FB9A /* IconSection.swift */; };
 		09055A272B57FC540019FB9A /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559F82B57FC540019FB9A /* ItemSection.swift */; };
 		09055A282B57FC540019FB9A /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090559FA2B57FC540019FB9A /* SectionView.swift */; };
@@ -112,15 +108,11 @@
 		090559E82B57FC540019FB9A /* Barlow-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Medium.ttf"; sourceTree = "<group>"; };
 		090559E92B57FC540019FB9A /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
 		090559ED2B57FC540019FB9A /* FeaturedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedSection.swift; sourceTree = "<group>"; };
-		090559EE2B57FC540019FB9A /* DefaultSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSection.swift; sourceTree = "<group>"; };
-		090559EF2B57FC540019FB9A /* PosterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterSection.swift; sourceTree = "<group>"; };
 		090559F02B57FC540019FB9A /* LabelSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelSection.swift; sourceTree = "<group>"; };
 		090559F12B57FC540019FB9A /* IconGridSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconGridSection.swift; sourceTree = "<group>"; };
-		090559F22B57FC540019FB9A /* DefaultGridSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGridSection.swift; sourceTree = "<group>"; };
 		090559F32B57FC540019FB9A /* SectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		090559F42B57FC540019FB9A /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		090559F52B57FC540019FB9A /* CardSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSection.swift; sourceTree = "<group>"; };
-		090559F62B57FC540019FB9A /* PosterGridSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterGridSection.swift; sourceTree = "<group>"; };
 		090559F72B57FC540019FB9A /* IconSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSection.swift; sourceTree = "<group>"; };
 		090559F82B57FC540019FB9A /* ItemSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
 		090559FA2B57FC540019FB9A /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
@@ -268,15 +260,11 @@
 			isa = PBXGroup;
 			children = (
 				090559ED2B57FC540019FB9A /* FeaturedSection.swift */,
-				090559EE2B57FC540019FB9A /* DefaultSection.swift */,
-				090559EF2B57FC540019FB9A /* PosterSection.swift */,
 				090559F02B57FC540019FB9A /* LabelSection.swift */,
 				090559F12B57FC540019FB9A /* IconGridSection.swift */,
-				090559F22B57FC540019FB9A /* DefaultGridSection.swift */,
 				090559F32B57FC540019FB9A /* SectionItem.swift */,
 				090559F42B57FC540019FB9A /* ProgressBar.swift */,
 				090559F52B57FC540019FB9A /* CardSection.swift */,
-				090559F62B57FC540019FB9A /* PosterGridSection.swift */,
 				090559F72B57FC540019FB9A /* IconSection.swift */,
 				090559F82B57FC540019FB9A /* ItemSection.swift */,
 			);
@@ -529,18 +517,15 @@
 				09055A532B57FF550019FB9A /* Font.swift in Sources */,
 				B6761C9ABE9890B3FECE4EEC /* Theme.swift in Sources */,
 				09055A3C2B57FD450019FB9A /* Utils.swift in Sources */,
-				09055A212B57FC540019FB9A /* DefaultGridSection.swift in Sources */,
 				09055A272B57FC540019FB9A /* ItemSection.swift in Sources */,
 				09055A2A2B57FC540019FB9A /* ItemImage.swift in Sources */,
 				09055A502B57FF550019FB9A /* Languages.swift in Sources */,
 				09055A312B57FC540019FB9A /* PlayerListener.swift in Sources */,
 				81F828772BC7E6C500F1D35C /* InvisibleAVPlayerStatusIndicator.swift in Sources */,
 				09055A262B57FC540019FB9A /* IconSection.swift in Sources */,
-				09055A1D2B57FC540019FB9A /* DefaultSection.swift in Sources */,
 				09055A2C2B57FC540019FB9A /* EpisodeViewer.swift in Sources */,
 				09055A1C2B57FC540019FB9A /* FeaturedSection.swift in Sources */,
 				09055A362B57FC540019FB9A /* FrontPage.swift in Sources */,
-				09055A252B57FC540019FB9A /* PosterGridSection.swift in Sources */,
 				09055A222B57FC540019FB9A /* SectionItem.swift in Sources */,
 				09055A382B57FC540019FB9A /* SignIn.swift in Sources */,
 				0905599D2B57F22F0019FB9A /* BCC_Media_tvOSApp.swift in Sources */,
@@ -550,7 +535,6 @@
 				09055A242B57FC540019FB9A /* CardSection.swift in Sources */,
 				09055A2B2B57FC540019FB9A /* EpisodePlayer.swift in Sources */,
 				09055A342B57FC540019FB9A /* PlayerExtensions.swift in Sources */,
-				09055A1E2B57FC540019FB9A /* PosterSection.swift in Sources */,
 				09055A352B57FC540019FB9A /* AboutUs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
