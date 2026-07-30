@@ -65,9 +65,7 @@ public final class Provider {
     /// foreground and after every auth change. Appending meant one token failure fanned out into one
     /// sign-in flow per foreground since launch — each of which revokes credentials first.
     public func registerErrorCallback(_ cb: @escaping () -> Void) {
-        lock.lock()
-        defer { lock.unlock() }
-        errorHandler = cb
+        lock.withLock { errorHandler = cb }
     }
 
     public func getAccessToken() async -> String? {
@@ -84,11 +82,13 @@ public final class Provider {
                 return nil
             }
 
-            // Copied out and the lock released before calling: the handler re-enters app code, which
-            // is free to register a new one.
-            lock.lock()
-            let handler = errorHandler
-            lock.unlock()
+            // Copied out and the lock released before calling: the handler re-enters app code, which is
+            // free to register a new one.
+            //
+            // `withLock` rather than `lock()` / `unlock()` because those are unavailable from an async
+            // context — the compiler cannot see that this critical section contains no suspension point,
+            // and it is a hard error in the Swift 6 language mode.
+            let handler = lock.withLock { errorHandler }
             handler?()
         }
         return nil
