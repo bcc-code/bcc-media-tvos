@@ -44,21 +44,18 @@ class StreamUrls {
     
     public init(streams: [API.GetEpisodeStreamsQuery.Data.Episode.Stream]) {
         _default = getPlayerUrl(streams: streams)
-        
+
         for stream in streams {
-            if stream.type != API.StreamType.hlsCmaf {
+            // A malformed url used to trap here. Skipping the stream instead just means that language
+            // is not offered, and `_default` still plays.
+            guard stream.type == API.StreamType.hlsCmaf,
+                  let language = stream.videoLanguage,
+                  urls[language] == nil,
+                  let url = URL(string: stream.url)
+            else {
                 continue
             }
-            if stream.videoLanguage == nil {
-                continue
-            }
-            let l = stream.videoLanguage!
-            
-            if urls.keys.contains(l) {
-                continue
-            }
-        
-            urls[l] = URL(string: stream.url)!
+            urls[language] = url
         }
     }
 }

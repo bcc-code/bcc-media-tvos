@@ -16,7 +16,7 @@ struct ProgressBar: View {
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.zeroFormattingBehavior = .dropLeading
 
-        return formatter.string(from: TimeInterval(duration))!
+        return formatter.string(from: TimeInterval(duration)) ?? ""
     }
 
     var body: some View {

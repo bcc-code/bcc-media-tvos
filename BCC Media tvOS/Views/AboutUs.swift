@@ -18,7 +18,9 @@ struct AboutUsView: View {
         VStack(alignment: .leading, spacing: 40) {
             Spacer()
             VStack(alignment: .leading, spacing: 40) {
-                Image(uiImage: UIImage(named: "LogoBanner.png")!)
+                // The asset is named "LogoBanner"; the ".png" suffix matched nothing, so the force
+                // unwrap here was almost certainly trapping whenever this screen was opened.
+                Image("LogoBanner")
                     .resizable()
                     .frame(width: 970, height: 346)
                 Text("aboutUs_description")

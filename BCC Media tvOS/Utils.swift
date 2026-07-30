@@ -14,5 +14,5 @@ public func getQRCodeData(text: String) -> Data? {
     let transform = CGAffineTransform(scaleX: 10, y: 10)
     let scaledCIImage = ciimage.transformed(by: transform)
     let uiimage = UIImage(ciImage: scaledCIImage)
-    return uiimage.pngData()!
+    return uiimage.pngData()
 }

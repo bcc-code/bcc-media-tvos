@@ -184,7 +184,11 @@ struct EpisodeViewer: View {
         let parser = DateFormatter()
         parser.locale = Locale(identifier: "en_US_POSIX")
         parser.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let date = parser.date(from: str)!
+        // Show the raw value rather than trapping if the API ever returns a shape this pattern does
+        // not cover (fractional seconds, for instance).
+        guard let date = parser.date(from: str) else {
+            return str
+        }
 
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy HH:mm"

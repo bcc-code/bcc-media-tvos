@@ -114,29 +114,20 @@ struct ContentView: View {
     }
 
     private func getPathsFromUrl(_ url: URL) async {
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-
-        let parts = components.path.split(separator: "/")
-        if parts.count == 0 {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            print("ignoring unparseable deep link: \(url)")
             return
         }
 
-        if parts[0] == "episode" {
-            if parts[1] != "" {
-                let str = parts[1]
-
-                var play = false
-                if let queryItems = components.queryItems {
-                    for q in queryItems {
-                        if q.name == "play" {
-                            play = true
-                            break
-                        }
-                    }
-                }
-                await loadEpisode(String(str), play: play)
-            }
+        // `count >= 2` is the fix: the id was read unconditionally once the first component matched,
+        // so a link of just `…://episode` was an index-out-of-range.
+        let parts = components.path.split(separator: "/")
+        guard parts.count >= 2, parts[0] == "episode" else {
+            return
         }
+
+        let play = components.queryItems?.contains { $0.name == "play" } ?? false
+        await loadEpisode(String(parts[1]), play: play)
     }
 
     func authStateUpdate() {
@@ -246,10 +237,12 @@ struct ContentView: View {
     }
 
     func loadPlaylist(_ id: String) async {
-        guard let data = await apolloClient.getAsync(query: API.GetFirstEpisodeInPlaylistQuery(id: id)) else {
+        guard let data = await apolloClient.getAsync(query: API.GetFirstEpisodeInPlaylistQuery(id: id)),
+              let first = data.playlist.items.items.first
+        else {
             return
         }
-        await loadEpisode(data.playlist.items.items[0].id, context: .init(.init(collectionId: .null, playlistId: .init(stringLiteral: id), shuffle: .null, cursor: .null)))
+        await loadEpisode(first.id, context: .init(.init(collectionId: .null, playlistId: .init(stringLiteral: id), shuffle: .null, cursor: .null)))
     }
 
     func loadShow(_ id: String) async {
@@ -353,10 +346,10 @@ struct ContentView: View {
                             }.tag(TabType.settings)
                         }.disabled(!authenticated && !onboarded).font(.barlow)
                         if !authenticated && !onboarded {
-                            Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea().focusable(false)
+                            Image("OnboardBackground").resizable().ignoresSafeArea().focusable(false)
                             ZStack {
                                 HStack {
-                                    Image(uiImage: UIImage(named: "OnboardArt")!)
+                                    Image("OnboardArt")
                                     VStack(alignment: .leading) {
                                         Spacer()
                                         VStack(alignment: .leading) {

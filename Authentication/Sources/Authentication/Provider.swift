@@ -29,8 +29,12 @@ public final class Provider {
     }
     
     private static func getConfigFromPlist() -> Options? {
-        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "Auth0", ofType: "plist")!)
-        guard let data = try? Data(contentsOf: url) else {
+        // Returning nil rather than trapping also makes `Provider` constructible in a SwiftPM test
+        // bundle, where `Bundle.main` is the test runner and has no Auth0.plist.
+        guard let path = Bundle.main.path(forResource: "Auth0", ofType: "plist") else {
+            return nil
+        }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
             return nil
         }
         guard let plist = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [String: String] else {

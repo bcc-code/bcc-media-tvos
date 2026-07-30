@@ -27,8 +27,8 @@ struct SignInView: View {
     var body: some View {
         HStack {
             VStack {
-                if let img = getQRCodeData(text: verificationUriComplete) {
-                    Image(uiImage: UIImage(data: img)!).resizable().frame(width: 512, height: 512).cornerRadius(10).shadow(radius: 20)
+                if let img = getQRCodeData(text: verificationUriComplete), let qr = UIImage(data: img) {
+                    Image(uiImage: qr).resizable().frame(width: 512, height: 512).cornerRadius(10).shadow(radius: 20)
                 }
                 Text("signIn_scanWithPhone").foregroundColor(.gray)
             }
