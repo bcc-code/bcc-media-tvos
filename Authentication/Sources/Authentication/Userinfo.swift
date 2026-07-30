@@ -4,26 +4,24 @@ import Foundation
 import Sentry
 
 public func getAgeGroup(_ age: Int?) -> (range: String, start: Int) {
-    let breakpoints: [Int: String] = [
-        9: "< 10",
-        12: "10 - 12",
-        18: "13 - 18",
-        25: "19 - 25",
-        36: "26 - 36",
-        50: "37 - 50",
-        64: "51 - 64",
+    // upperBound is inclusive; start is the first age in the band.
+    let bands: [(upperBound: Int, range: String, start: Int)] = [
+        (9, "< 10", 0),
+        (12, "10 - 12", 10),
+        (18, "13 - 18", 13),
+        (25, "19 - 25", 19),
+        (36, "26 - 36", 26),
+        (50, "37 - 50", 37),
+        (64, "51 - 64", 51),
     ]
-    
-    if let age = age {
-        for key in breakpoints.keys.sorted() {
-            let value = breakpoints[key]!
-            if age <= key {
-                return (range: value, start: 65)
-            }
-        }
-        return (range: "65+", start: 65)
+
+    guard let age = age else {
+        return (range: "UNKNOWN", start: 999)
     }
-    return (range: "UNKNOWN", start: 999)
+    for band in bands where age <= band.upperBound {
+        return (range: band.range, start: band.start)
+    }
+    return (range: "65+", start: 65)
 }
 
 public extension Provider {

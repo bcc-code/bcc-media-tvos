@@ -8,6 +8,7 @@
 
 import API
 import Authentication
+import FeatureFlags
 import Firebase
 import NpawPlugin
 import SwiftUI
@@ -24,11 +25,16 @@ func getSearchSessionId() -> String? {
     return AppOptions.standard.searchSessionId
 }
 
+func getFeatureFlagsHeader() -> String? {
+    return FeatureFlagsClient.shared.headerValue
+}
+
 let apolloClient = API.NewClient(
     apiUrl: "https://api.brunstad.tv/query",
     tokenFactory: authenticationProvider.getAccessToken,
     sessionIdFactory: getSessionId,
-    searchSessionIdFactory: getSearchSessionId
+    searchSessionIdFactory: getSearchSessionId,
+    featureFlagsFactory: getFeatureFlagsHeader
 )
 
 class AppDelegate: NSObject, UIApplicationDelegate {

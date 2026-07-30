@@ -5,17 +5,20 @@ internal class NetworkInterceptorProvider: DefaultInterceptorProvider {
     var tokenFactory: TokenFactory
     var sessionIdFactory: SessionIdFactory?
     var searchSessionIdFactory: SearchSessionIdFactory?
+    var featureFlagsFactory: FeatureFlagsFactory?
 
     init(
         tokenFactory: @escaping TokenFactory,
         sessionIdFactory: SessionIdFactory? = nil,
         searchSessionIdFactory: SearchSessionIdFactory? = nil,
+        featureFlagsFactory: FeatureFlagsFactory? = nil,
         client: URLSessionClient,
         store: ApolloStore
     ) {
         self.tokenFactory = tokenFactory
         self.sessionIdFactory = sessionIdFactory
         self.searchSessionIdFactory = searchSessionIdFactory
+        self.featureFlagsFactory = featureFlagsFactory
         super.init(client: client, shouldInvalidateClientOnDeinit: true, store: store)
     }
 
@@ -24,7 +27,8 @@ internal class NetworkInterceptorProvider: DefaultInterceptorProvider {
         interceptors.insert(CustomInterceptor(
             tokenFactory: tokenFactory,
             sessionIdFactory: sessionIdFactory,
-            searchSessionIdFactory: searchSessionIdFactory
+            searchSessionIdFactory: searchSessionIdFactory,
+            featureFlagsFactory: featureFlagsFactory
         ), at: 0)
         return interceptors
     }
@@ -35,15 +39,18 @@ private class CustomInterceptor: ApolloInterceptor {
     var tokenFactory: TokenFactory
     var sessionIdFactory: SessionIdFactory?
     var searchSessionIdFactory: SearchSessionIdFactory?
+    var featureFlagsFactory: FeatureFlagsFactory?
 
     init(
         tokenFactory: @escaping TokenFactory,
         sessionIdFactory: SessionIdFactory? = nil,
-        searchSessionIdFactory: SearchSessionIdFactory? = nil
+        searchSessionIdFactory: SearchSessionIdFactory? = nil,
+        featureFlagsFactory: FeatureFlagsFactory? = nil
     ) {
         self.tokenFactory = tokenFactory
         self.sessionIdFactory = sessionIdFactory
         self.searchSessionIdFactory = searchSessionIdFactory
+        self.featureFlagsFactory = featureFlagsFactory
         self.id = "custom"
     }
 
@@ -69,7 +76,12 @@ private class CustomInterceptor: ApolloInterceptor {
                 if let searchSessionId = try await searchSessionIdFactory?() {
                     request.addHeader(name: "X-Search-Session-ID", value: searchSessionId)
                 }
-                                
+                // Lets the backend evaluate the same flags we resolved. Omitted until Unleash has
+                // answered, so the first requests after launch carry no flags.
+                if let featureFlags = featureFlagsFactory?(), !featureFlags.isEmpty {
+                    request.addHeader(name: "X-Feature-Flags", value: featureFlags)
+                }
+
                 chain.proceedAsync(request: request,
                         response: response,
                         interceptor: self,

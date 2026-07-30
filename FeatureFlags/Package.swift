@@ -6,7 +6,9 @@ import PackageDescription
 let package = Package(
     name: "FeatureFlags",
     platforms: [
-        .tvOS(.v16)
+        .tvOS(.v16),
+        // Not shipped anywhere; lets `swift test` run the suite on the host.
+        .macOS(.v13)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -15,7 +17,7 @@ let package = Package(
             targets: ["FeatureFlags"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Unleash/unleash-proxy-client-swift", from: "1.1.0")
+        .package(url: "https://github.com/Unleash/unleash-proxy-client-swift", from: "2.5.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -25,6 +27,10 @@ let package = Package(
             dependencies: [
                 .product(name: "UnleashProxyClientSwift", package: "unleash-proxy-client-swift")
             ]
+        ),
+        .testTarget(
+            name: "FeatureFlagsTests",
+            dependencies: ["FeatureFlags"]
         ),
     ]
 )

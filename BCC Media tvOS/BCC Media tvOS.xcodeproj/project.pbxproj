@@ -61,7 +61,6 @@
 		09055A622B580A6B0019FB9A /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A612B580A6B0019FB9A /* VideoPlayerView.swift */; };
 		09055A6B2B59247A0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A6A2B59247A0019FB9A /* FeatureFlags */; };
 		09055A6D2B593FE90019FB9A /* CI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A6C2B593FE90019FB9A /* CI.swift */; };
-		09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A772B594E7F0019FB9A /* FeatureFlags */; };
 		09055A7E2B5956AA0019FB9A /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 09055A7D2B5956AA0019FB9A /* ApolloAPI */; };
 		09DDD6C72B6BB05000E56631 /* Rudder in Frameworks */ = {isa = PBXBuildFile; productRef = 09DDD6C62B6BB05000E56631 /* Rudder */; };
 		7E31D57B2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */; };
@@ -174,7 +173,6 @@
 				C141D2DD2C73412200C95EF8 /* Sentry in Frameworks */,
 				090559BF2B57FB600019FB9A /* Auth0 in Frameworks */,
 				090559AC2B57F9810019FB9A /* API in Frameworks */,
-				09055A782B594E7F0019FB9A /* FeatureFlags in Frameworks */,
 				C118C1A92DC4CD600010A88B /* CachedAsyncImage in Frameworks */,
 				C156BE062C74822A0005BCDA /* FirebaseFirestore in Frameworks */,
 				09055A602B5807920019FB9A /* NpawPlugin in Frameworks */,
@@ -982,10 +980,6 @@
 			productName = NpawPlugin;
 		};
 		09055A6A2B59247A0019FB9A /* FeatureFlags */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FeatureFlags;
-		};
-		09055A772B594E7F0019FB9A /* FeatureFlags */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureFlags;
 		};

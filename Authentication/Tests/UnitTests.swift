@@ -32,3 +32,41 @@ final class DateCalculationTests: XCTestCase {
         XCTAssertNil(calculateAge(from: "invalid-date-string"), "Invalid date string should return nil")
     }
 }
+
+final class AgeGroupTests: XCTestCase {
+    /// `start` used to be hardcoded to 65 for every band, so a 42-year-old reported
+    /// ageGroup "37 - 50" alongside ageGroupStart 65.
+    func testStartMatchesTheRange() {
+        let cases: [(age: Int, range: String, start: Int)] = [
+            (0, "< 10", 0),
+            (9, "< 10", 0),
+            (10, "10 - 12", 10),
+            (12, "10 - 12", 10),
+            (13, "13 - 18", 13),
+            (18, "13 - 18", 13),
+            (19, "19 - 25", 19),
+            (25, "19 - 25", 19),
+            (26, "26 - 36", 26),
+            (36, "26 - 36", 26),
+            (37, "37 - 50", 37),
+            (42, "37 - 50", 37),
+            (50, "37 - 50", 37),
+            (51, "51 - 64", 51),
+            (64, "51 - 64", 51),
+            (65, "65+", 65),
+            (99, "65+", 65),
+        ]
+
+        for expected in cases {
+            let result = getAgeGroup(expected.age)
+            XCTAssertEqual(result.range, expected.range, "wrong range for age \(expected.age)")
+            XCTAssertEqual(result.start, expected.start, "wrong start for age \(expected.age)")
+        }
+    }
+
+    func testUnknownAge() {
+        let result = getAgeGroup(nil)
+        XCTAssertEqual(result.range, "UNKNOWN")
+        XCTAssertEqual(result.start, 999)
+    }
+}

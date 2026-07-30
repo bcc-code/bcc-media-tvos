@@ -5,6 +5,11 @@ import Foundation
 public typealias TokenFactory = () async throws -> String?
 public typealias SessionIdFactory = () async throws -> String?
 public typealias SearchSessionIdFactory = () async throws -> String?
+/// Value for the `X-Feature-Flags` header, or nil to omit it.
+///
+/// Deliberately neither async nor throwing: the interceptor's `catch` swallows errors without
+/// continuing the request chain, so a throwing factory here would hang requests.
+public typealias FeatureFlagsFactory = () -> String?
 
 public extension Client {
     func getThrowingAsync<Q: API.GraphQLQuery>(query: Q, cachePolicy: Apollo.CachePolicy = .default) async throws -> Q.Data {
@@ -67,7 +72,8 @@ public func NewClient(
     apiUrl: String,
     tokenFactory: @escaping TokenFactory,
     sessionIdFactory: @escaping SessionIdFactory,
-    searchSessionIdFactory: @escaping SearchSessionIdFactory
+    searchSessionIdFactory: @escaping SearchSessionIdFactory,
+    featureFlagsFactory: FeatureFlagsFactory? = nil
 ) -> Client {
     let apolloClientCache = InMemoryNormalizedCache()
     let store = ApolloStore(cache: apolloClientCache)
@@ -78,6 +84,7 @@ public func NewClient(
         tokenFactory: tokenFactory,
         sessionIdFactory: sessionIdFactory,
         searchSessionIdFactory: searchSessionIdFactory,
+        featureFlagsFactory: featureFlagsFactory,
         client: client,
         store: store
     )

@@ -36,10 +36,6 @@ enum TabType: Hashable {
 
 typealias PlayCallback = (Bool, API.GetEpisodeQuery.Data.Episode) async -> Void
 
-class Flags: ObservableObject {
-    func load() {}
-}
-
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var frontPageId: String? = nil
@@ -49,8 +45,6 @@ struct ContentView: View {
 
     @State var loading = false
     @Environment(\.scenePhase) private var scenePhase
-
-    @StateObject var flags = Flags()
 
     func load() async {
         frontPageId = nil
@@ -63,35 +57,49 @@ struct ContentView: View {
         }
         NpawPluginProvider.setup()
         if let id = AppOptions.user.anonymousId {
-            FeatureFlags.onLoad {
-                DispatchQueue.main.sync {
-                    flags.load()
-                }
-                withAnimation {
-                    loaded = true
-                }
-            }
-            FeatureFlags.onUpdate {
-                DispatchQueue.main.sync {
-                    flags.load()
-                }
-            }
-            let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
-            FeatureFlags.setup(unleashUrl: AppOptions.unleash.url, clientKey: AppOptions.unleash.clientKey, context: [
-                "anonymousId": id,
-                "ageGroupStart": AppOptions.user.ageGroupStart != nil ? String(AppOptions.user.ageGroupStart!) : "unknown",
-                "ageGroup": AppOptions.user.ageGroup ?? "unknown",
-                "gender": AppOptions.user.gender ?? "unknown",
-                "userId": AppOptions.user.personId ?? "unknown",
-                "os": "tvos",
-                "appBuildNumber": buildNumber ?? "unknown"
-            ])
+            setupFeatureFlags(anonymousId: id)
             await Events.standard.identify()
         } else {
-            withAnimation {
-                loaded = true
-            }
+            print("[Unleash] skipped — no anonymousId, flags stay off while signed out")
         }
+        // Never gate the UI on Unleash: it used to only unblock from the Unleash callback, so every
+        // launch waited for that request to finish or time out.
+        withAnimation {
+            loaded = true
+        }
+    }
+
+    private func setupFeatureFlags(anonymousId: String) {
+        // Only send keys we actually know. "unknown" sentinels break Unleash constraints, and a
+        // shared fake userId puts every user without a personId in the same rollout bucket.
+        var context = [
+            "anonymousId": anonymousId,
+            // Stickiness falls back to sessionId when there is no userId, keeping gradual rollouts
+            // stable per device for signed-in users without a personId.
+            "sessionId": anonymousId,
+            "os": "tvos"
+        ]
+        if let personId = AppOptions.user.personId {
+            context["userId"] = personId
+        }
+        if let ageGroup = AppOptions.user.ageGroup {
+            context["ageGroup"] = ageGroup
+        }
+        if let ageGroupStart = AppOptions.user.ageGroupStart {
+            context["ageGroupStart"] = String(ageGroupStart)
+        }
+        if let gender = AppOptions.user.gender {
+            context["gender"] = gender
+        }
+        if let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+            context["appBuildNumber"] = buildNumber
+        }
+
+        FeatureFlagsClient.shared.setup(
+            unleashUrl: AppOptions.unleash.url,
+            clientKey: AppOptions.unleash.clientKey,
+            context: context
+        )
     }
 
     private func viewCallback(_ id: String, context: API.EpisodeContext? = nil) async {
@@ -379,7 +387,6 @@ struct ContentView: View {
             .task {
                 await load()
             }
-            .environmentObject(flags)
             .onOpenURL(perform: { url in
                 loading = true
                 Task {

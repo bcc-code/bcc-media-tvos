@@ -144,8 +144,12 @@ public extension AppOptions {
             AppOptions.user.name = userInfo?.name
             AppOptions.user.anonymousId = data.me.analytics.anonymousId
             AppOptions.user.ageGroup = userInfo?.ageGroup
+            AppOptions.user.ageGroupStart = userInfo?.ageGroupStart
+            AppOptions.user.gender = userInfo?.gender
             AppOptions.user.bccMember = data.me.bccMember
-            AppOptions.user.personId = userInfo?.personId?.formatted()
+            // Not .formatted() — that applies locale grouping, so 19254 became "19 254" (with a
+            // non-breaking space) and the Unleash userId changed with the device language.
+            AppOptions.user.personId = userInfo?.personId.map(String.init)
             AppOptions.user.countryISOCode = userInfo?.countryISOCode
             AppOptions.user.churchId = userInfo?.churchId?.formatted()
         } else {
