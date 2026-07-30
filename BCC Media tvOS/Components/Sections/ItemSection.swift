@@ -48,6 +48,15 @@ struct Item: Identifiable {
     var sectionIndex = 0
 }
 
+extension View {
+    /// Stable identity for UI tests. `mapToItems` already stamps every item with its section and
+    /// position, and the type is included because a test needs to pick a card that leads to an
+    /// episode — a page or study topic opens a subpage with no player.
+    func sectionItemIdentifier(_ item: Item) -> some View {
+        accessibilityIdentifier("SectionItem-\(item.type.rawValue)-\(item.sectionIndex)-\(item.index)")
+    }
+}
+
 struct ItemTitle: View {
     var item: Item
 

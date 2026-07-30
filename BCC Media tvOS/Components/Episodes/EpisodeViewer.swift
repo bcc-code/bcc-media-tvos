@@ -36,6 +36,9 @@ struct EpisodeHeader: View {
             }
             .buttonStyle(SectionItemButton(focused: isFocused))
             .frame(width: 1280, height: 720)
+            // Was found via buttons["Play"], which only worked because SF Symbols gives `play.fill`
+            // an implicit "Play" label.
+            .accessibilityIdentifier("PlayEpisode")
             .focused($isFocused)
         }
         VStack(alignment: .leading, spacing: 10) {

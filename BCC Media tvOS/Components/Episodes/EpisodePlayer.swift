@@ -100,6 +100,10 @@ struct EpisodePlayer: View {
                             } label: {
                                 Text("original").padding(20).frame(maxWidth: .infinity)
                             }.buttonStyle(.card).frame(width: .infinity)
+                                // The label is localized; the UI test needs a stable handle to get
+                                // past this picker, since the player is not created until a language
+                                // is chosen.
+                                .accessibilityIdentifier("VideoLanguage-original")
                             ForEach(languages, id: \.code) { lang in
                                 Button {
                                     setLanguage(language: lang.code)

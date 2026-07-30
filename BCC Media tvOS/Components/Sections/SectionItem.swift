@@ -92,6 +92,7 @@ struct SectionItemCard: View {
                 }
                 .buttonStyle(SectionItemButton(focused: isFocused))
                 .accessibilityLabel(item.title)
+                .sectionItemIdentifier(item)
                 .focused($isFocused)
                 ItemTitle(item)
             }.frame(width: width)

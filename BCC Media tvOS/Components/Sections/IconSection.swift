@@ -45,6 +45,7 @@ struct IconSectionItem: View {
                     )
             }
             .buttonStyle(SectionItemButton(focused: isFocused))
+            .sectionItemIdentifier(item)
             .focused($isFocused)
             .accessibilityLabel(item.title)
             .accessibilityHint(item.title)

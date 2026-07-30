@@ -47,7 +47,9 @@ private struct CardSectionItem: View {
                     .overlay(
                         LoadingOverlay(loading)
                     )
-            }.buttonStyle(SectionItemButton(focused: isFocused)).focused($isFocused)
+            }.buttonStyle(SectionItemButton(focused: isFocused))
+                .sectionItemIdentifier(item)
+                .focused($isFocused)
         }.frame(width: 400)
     }
 }
