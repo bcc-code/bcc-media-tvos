@@ -3,15 +3,11 @@ import Auth0
 import Foundation
 import SimpleKeychain
 
-class Callbacks {
-    var callbacks: [() -> Void] = []
-    
-    func append(_ cb: @escaping () -> Void) {
-        callbacks.append(cb)
-    }
-}
-
-public struct Provider {
+/// A class rather than a struct because it owns mutable state that outlives any one call —
+/// `errorHandler` is registered from the UI and read from whichever thread a failing request lands
+/// on. As a struct it could only mutate that state by smuggling it through a reference type, which
+/// is exactly what the `Callbacks` box used to do.
+public final class Provider {
     public var logger: (Error) -> Void = { error in
         print(error)
     }
@@ -57,16 +53,21 @@ public struct Provider {
         credentialsManager.hasValid() || credentialsManager.canRenew()
     }
     
-    private var logoutCallbacks = Callbacks()
-    
-    public func registerLogoutCallback(_ cb: @escaping () -> Void) {
-        logoutCallbacks.append(cb)
-    }
-    
-    private var errorCallbacks = Callbacks()
-    
+    /// Guards `errorHandler`: it is registered from the main actor, but read on whichever thread a
+    /// failing request happens to be on. Same idiom as `FeatureFlagsClient`.
+    private let lock = NSLock()
+    private var errorHandler: (() -> Void)?
+
+    /// Registers the handler invoked when the access token cannot be produced, **replacing** any
+    /// previous one.
+    ///
+    /// It replaces rather than accumulates because `ContentView.load()` registers on launch, on every
+    /// foreground and after every auth change. Appending meant one token failure fanned out into one
+    /// sign-in flow per foreground since launch — each of which revokes credentials first.
     public func registerErrorCallback(_ cb: @escaping () -> Void) {
-        errorCallbacks.append(cb)
+        lock.lock()
+        defer { lock.unlock() }
+        errorHandler = cb
     }
 
     public func getAccessToken() async -> String? {
@@ -76,10 +77,13 @@ public struct Provider {
             }
         } catch {
             logger(error)
-            
-            for cb in errorCallbacks.callbacks {
-                cb()
-            }
+
+            // Copied out and the lock released before calling: the handler re-enters app code, which
+            // is free to register a new one.
+            lock.lock()
+            let handler = errorHandler
+            lock.unlock()
+            handler?()
         }
         return nil
     }
@@ -90,9 +94,6 @@ public struct Provider {
         } catch {
             print(error)
             _ = credentialsManager.clear()
-        }
-        for cb in logoutCallbacks.callbacks {
-            cb()
         }
         return true
     }

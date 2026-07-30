@@ -52,8 +52,13 @@ struct ContentView: View {
         await AppOptions.load()
         frontPageId = AppOptions.app.pageId
         bccMember = AppOptions.user.bccMember == true
+        // Hopped to the main actor because this fires from whichever thread a failing request is on,
+        // and `startSignIn` touches `@State` and the navigation path. With this, all three
+        // `startSignIn` call sites are main-isolated.
         authenticationProvider.registerErrorCallback {
-            startSignIn()
+            Task { @MainActor in
+                startSignIn()
+            }
         }
         NpawPluginProvider.setup()
         if let id = AppOptions.user.anonymousId {
@@ -154,21 +159,38 @@ struct ContentView: View {
     }
 
     @State var cancelLogin: (() -> Void)? = nil
+    @State private var signingIn = false
+
+    /// Called by the two sign-in buttons and by the auth error handler. The handler fires once per
+    /// failing request and several can fail together, so this has to be a no-op while a flow is
+    /// already running — every flow starts by revoking credentials.
     func startSignIn() {
-        let task = Task {
+        guard !signingIn else {
+            print("sign-in already in progress, ignoring")
+            return
+        }
+        signingIn = true
+
+        let task = Task { @MainActor in
+            defer { signingIn = false }
+
             _ = await authenticationProvider.logout()
 
             await authenticationProvider.login { code in
-                path.append(
-                    SignInView(
-                        cancel: {
-                            cancelLogin?()
-                        },
-                        verificationUri: code.verificationUri,
-                        verificationUriComplete: code.verificationUriComplete,
-                        code: code.userCode
+                // `login` is a non-isolated async function, so its synchronous callback runs on the
+                // generic executor — this needs its own hop before touching `path`.
+                Task { @MainActor in
+                    path.append(
+                        SignInView(
+                            cancel: {
+                                cancelLogin?()
+                            },
+                            verificationUri: code.verificationUri,
+                            verificationUriComplete: code.verificationUriComplete,
+                            code: code.userCode
+                        )
                     )
-                )
+                }
             }
             authStateUpdate()
         }
