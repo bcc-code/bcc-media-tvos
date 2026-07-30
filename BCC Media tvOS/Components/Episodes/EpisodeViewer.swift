@@ -294,7 +294,7 @@ struct EpisodeViewer: View {
             .task {
                 await load()
             }
-            .onChange(of: seasonId) { id in
+            .onChange(of: seasonId) { _, id in
                 print(id)
                 if !id.isEmpty {
                     Task {

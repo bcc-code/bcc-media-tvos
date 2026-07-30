@@ -395,7 +395,7 @@ struct ContentView: View {
                     onboarded = true
                     loading = false
                 }
-            }).onChange(of: scenePhase) { phase in
+            }).onChange(of: scenePhase) { _, phase in
                 // Launch delivers `.active` too, which ran a second `load()` alongside `.task` — two
                 // concurrent GetSetupQuery + userInfo round trips racing to write the same global
                 // `AppOptions.standard`. `loaded` is only set at the end of a completed load and is

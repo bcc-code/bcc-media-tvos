@@ -366,8 +366,8 @@ struct VideoPlayerView: View {
     var body: some View {
         ZStack {
             VideoPlayerControllerView().ignoresSafeArea()
-                .onChange(of: fullscreen) { v in
-                    if v {
+                .onChange(of: fullscreen) { _, isFullscreen in
+                    if isFullscreen {
                         PlayerControls.unmute()
                     } else {
                         PlayerControls.mute()

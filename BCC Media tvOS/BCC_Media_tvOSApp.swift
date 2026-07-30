@@ -76,7 +76,7 @@ struct BCC_Media_tvOSApp: App {
             ContentView().onAppear {
                 // Initialize rudder SDK
                 _ = Events.standard
-            }.onChange(of: scenePhase) { phase in
+            }.onChange(of: scenePhase) { _, phase in
                 switch phase {
                 case .background:
                     print("in background")

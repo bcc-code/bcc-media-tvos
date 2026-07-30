@@ -90,7 +90,7 @@ struct SettingsView: View {
                         ForEach(Language.getAll(), id: \.code) { language in
                             Text(language.display.capitalizedSentence).tag(language.code)
                         }
-                    }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
+                    }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { _, value in
                         applyLanguage(value, to: .audio)
                     }
                     Picker("settings_subtitles", selection: $subtitleLanguage) {
@@ -100,7 +100,7 @@ struct SettingsView: View {
                                 Text(language.display.capitalizedSentence)
                             }.tag(language.code)
                         }
-                    }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
+                    }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { _, value in
                         applyLanguage(value, to: .subtitles)
                     }
                 }
