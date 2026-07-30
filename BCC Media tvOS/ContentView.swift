@@ -46,6 +46,10 @@ struct ContentView: View {
     @State var loading = false
     @Environment(\.scenePhase) private var scenePhase
 
+    /// `@MainActor` because it writes view state (`frontPageId`, `bccMember`, `loaded`) and animates.
+    /// It also makes `loaded` usable as a guard in the `scenePhase` observer: the check and the set
+    /// cannot interleave.
+    @MainActor
     func load() async {
         frontPageId = nil
         try? await Task.sleep(for: .seconds(1))
@@ -418,14 +422,16 @@ struct ContentView: View {
                     loading = false
                 }
             }).onChange(of: scenePhase) { phase in
-                switch phase {
-                case .active:
-                    print("reload")
-                    Task {
-                        await load()
-                    }
-                default:
-                    print("do nothing")
+                // Launch delivers `.active` too, which ran a second `load()` alongside `.task` — two
+                // concurrent GetSetupQuery + userInfo round trips racing to write the same global
+                // `AppOptions.standard`. `loaded` is only set at the end of a completed load and is
+                // never reset, so it distinguishes a real return to the foreground from that initial
+                // activation.
+                guard phase == .active, loaded else {
+                    return
+                }
+                Task {
+                    await load()
                 }
             }
     }
