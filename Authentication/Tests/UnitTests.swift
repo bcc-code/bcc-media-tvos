@@ -152,3 +152,30 @@ final class ReauthenticationTests: XCTestCase {
         XCTAssertNotEqual(CredentialsManagerError.renewFailed, CredentialsManagerError.noCredentials)
     }
 }
+
+/// The device-code poll loop treated every non-`authorization_pending` error as fatal, including
+/// `slow_down` — which RFC 8628 defines as "poll less often", not "give up". A sign-in the user could
+/// still have completed was abandoned instead.
+final class DeviceCodePollTests: XCTestCase {
+    func testPendingKeepsWaiting() {
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: "authorization_pending"), .keepWaiting)
+    }
+
+    /// The regression this fixes.
+    func testSlowDownBacksOffInsteadOfGivingUp() {
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: "slow_down"), .slowDown)
+        XCTAssertNotEqual(Provider.pollOutcome(forErrorCode: "slow_down"), .stop)
+    }
+
+    func testTerminalErrorsStop() {
+        for code in ["expired_token", "access_denied", "invalid_grant", "invalid_client"] {
+            XCTAssertEqual(Provider.pollOutcome(forErrorCode: code), .stop, "expected \(code) to stop")
+        }
+    }
+
+    /// An unrecognised code stops rather than polling forever against a code that may be dead.
+    func testUnknownCodeStops() {
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: "something_new"), .stop)
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: ""), .stop)
+    }
+}

@@ -89,6 +89,27 @@ extension Provider {
         return try JSONDecoder().decode(DeviceTokenRequestResponse.self, from: data)
     }
 
+    /// What to do about an error from the device-code token endpoint.
+    ///
+    /// Internal so it can be tested — the loop below needs a live `URLSession`, but this is the part
+    /// that was wrong.
+    enum PollOutcome: Equatable {
+        /// The user has not finished authorising yet.
+        case keepWaiting
+        /// The server is asking us to poll less often. RFC 8628 says add 5 seconds to the interval.
+        case slowDown
+        /// Terminal — the code expired, was denied, or something unrecognised came back.
+        case stop
+    }
+
+    static func pollOutcome(forErrorCode code: String) -> PollOutcome {
+        switch code {
+        case "authorization_pending": .keepWaiting
+        case "slow_down": .slowDown
+        default: .stop
+        }
+    }
+
     private func listenToResolve(deviceToken: DeviceTokenRequestResponse) async -> Credentials? {
         do {
             let tokenRequest = GetTokenRequest(deviceCode: deviceToken.deviceCode, clientId: options.client_id)
@@ -96,35 +117,54 @@ extension Provider {
             var request = URLRequest(url: URL(string: "https://\(options.domain)/oauth/token")!,
                                      cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
                                      timeoutInterval: 10.0)
-            
+
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "content-type")
             request.httpBody = try JSONEncoder().encode(tokenRequest)
 
-            var creds: Credentials? = nil
+            // The code is only valid for `expiresIn` seconds. Polling past that burns requests against
+            // a code Auth0 has already discarded, and the loop had no other stopping condition.
+            let deadline = Date().addingTimeInterval(TimeInterval(deviceToken.expiresIn))
+            var interval = deviceToken.interval
 
-            while true, !Task.isCancelled {
+            while !Task.isCancelled, Date() < deadline {
                 let (data, response) = try await URLSession.shared.data(for: request)
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode == 200 {
-                        creds = try JSONDecoder().decode(Credentials.self, from: data)
-                        break
-                    }
-                    let err = try JSONDecoder().decode(FailedTokenRetrieval.self, from: data)
-                    print(err)
-                    if err.error != "authorization_pending" {
-                        break
-                    }
-                    print("Waiting to retry")
-                    try await Task.sleep(nanoseconds: UInt64(deviceToken.interval * Double(NSEC_PER_SEC)))
-                    continue
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    return nil
                 }
-                break
+                if httpResponse.statusCode == 200 {
+                    return try JSONDecoder().decode(Credentials.self, from: data)
+                }
+
+                let failure = try JSONDecoder().decode(FailedTokenRetrieval.self, from: data)
+                switch Provider.pollOutcome(forErrorCode: failure.error) {
+                case .keepWaiting:
+                    break
+                case .slowDown:
+                    // Was treated as fatal, abandoning a sign-in the user could still have completed.
+                    interval += 5
+                case .stop:
+                    logger(DeviceCodeError(code: failure.error, detail: failure.error_description))
+                    return nil
+                }
+
+                try await Task.sleep(nanoseconds: UInt64(interval * Double(NSEC_PER_SEC)))
             }
 
-            return creds
+            return nil
         } catch {
             return nil
         }
+    }
+}
+
+/// A terminal failure from the device-code token endpoint, so it can go through `Provider.logger`
+/// rather than only being printed.
+struct DeviceCodeError: Error, CustomStringConvertible {
+    let code: String
+    let detail: String
+
+    var description: String {
+        "device code rejected: \(code) — \(detail)"
     }
 }
