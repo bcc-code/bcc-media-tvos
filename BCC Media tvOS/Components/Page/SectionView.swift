@@ -12,20 +12,26 @@ struct SectionView: View {
 
     private var _clickItem: ClickItem
 
-    var metadata: API.ItemSectionFragment.Metadata?
-    var items: [Item]?
-
     init(_ page: API.GetPageQuery.Data.Page, _ index: Int, clickItem: @escaping ClickItem) {
         self.page = page
         self.index = index
 
         section = page.sections.items[index]
         _clickItem = clickItem
+    }
 
-        if let itemSection = section.asItemSection {
-            metadata = itemSection.metadata
-            items = mapToItems(itemSection.items, sectionIndex: index)
-        }
+    private var metadata: API.ItemSectionFragment.Metadata? {
+        section.asItemSection?.metadata
+    }
+
+    /// Computed rather than mapped in `init`.
+    ///
+    /// SwiftUI re-creates view values on every parent body evaluation, so mapping here meant every
+    /// section on the page re-built its whole `[Item]` array each time — inside a `LazyVStack` whose
+    /// entire purpose is to avoid work for rows nobody is looking at. As a computed property the cost
+    /// is paid only by sections that actually render, and `body` binds it once with `if let`.
+    private var items: [Item]? {
+        section.asItemSection.map { mapToItems($0.items, sectionIndex: index) }
     }
 
     func clickItem(item: Item) async {
@@ -54,7 +60,9 @@ struct SectionView: View {
                 EmptyView()
             } else {
                 VStack {
-                    switch section.__typename! {
+                    // `__typename!` before — reaching here implies it is set, but the unwrap was load
+                    // bearing on that inference rather than on anything enforced.
+                    switch section.__typename ?? "" {
                     case "PosterSection":
                         ItemRow(
                             section.title,
