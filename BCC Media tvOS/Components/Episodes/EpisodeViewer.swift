@@ -47,7 +47,7 @@ struct EpisodeHeader: View {
                     Text(episode.title).font(.barlowTitle)
                     HStack(spacing: 5) {
                         Text(episode.ageRating).font(.barlow).padding([.horizontal], 10).padding(.vertical, 5).background(
-                            Rectangle().foregroundColor(cardBackgroundColor)).cornerRadius(10)
+                            Rectangle().foregroundColor(Color.cardBackground)).cornerRadius(10)
                         if let s = season {
                             Text(s.show.title).font(.barlow).foregroundColor(.blue)
                         }
@@ -137,7 +137,7 @@ struct EpisodeListItem: View {
                 }.padding(20)
                 Spacer()
             }.frame(maxWidth: .infinity)
-                .background(active ? cardActiveBackgroundColor : cardBackgroundColor)
+                .background(active ? Color.cardActiveBackground : Color.cardBackground)
         }.buttonStyle(SectionItemButton(focused: isFocused))
             .padding(.zero)
             .focused($isFocused)

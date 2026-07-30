@@ -36,7 +36,7 @@ private struct CardSectionItem: View {
                         Text(item.description).font(.barlowCaption).foregroundColor(.gray)
                     }.padding(.horizontal, 20).padding(.bottom, 10)
                     Spacer()
-                }.background(cardBackgroundColor).frame(width: 400).cornerRadius(10)
+                }.background(Color.cardBackground).frame(width: 400).cornerRadius(10)
                     .overlay(
                         LockView(locked: item.locked)
                     )

@@ -10,9 +10,12 @@ import SwiftUI
 struct AboutUsView: View {
     @Environment(\.dismiss) private var dismiss
 
-    var contactString = NSLocalizedString("aboutUs_contact", comment: "")
-    var privacyPolicyString = NSLocalizedString("aboutUs_privacyPolicy", comment: "")
-    var termsOfUseString = NSLocalizedString("aboutUs_termsOfUse", comment: "")
+    // Computed rather than stored, and `String(localized:)` rather than `NSLocalizedString`, to match
+    // the rest of the app. As stored properties these resolved when the view value was created rather
+    // than when the body runs, and they showed up in the memberwise initialiser.
+    private var contactString: String { String(localized: "aboutUs_contact") }
+    private var privacyPolicyString: String { String(localized: "aboutUs_privacyPolicy") }
+    private var termsOfUseString: String { String(localized: "aboutUs_termsOfUse") }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {

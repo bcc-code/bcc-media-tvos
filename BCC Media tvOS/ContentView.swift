@@ -11,18 +11,6 @@ import FeatureFlags
 import NpawPlugin
 import SwiftUI
 
-var backgroundColor: Color {
-    Color(red: 13 / 255, green: 22 / 255, blue: 35 / 255)
-}
-
-var cardBackgroundColor: Color {
-    Color(red: 29 / 255, green: 40 / 255, blue: 56 / 255)
-}
-
-var cardActiveBackgroundColor: Color {
-    Color(red: 58 / 255, green: 80 / 255, blue: 112 / 255)
-}
-
 enum StaticDestination: Hashable {
     case aboutUs
 }
@@ -306,7 +294,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            backgroundColor.ignoresSafeArea()
+            Color.appBackground.ignoresSafeArea()
             if loaded {
                 NavigationStack(path: $path) {
                     ZStack {

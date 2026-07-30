@@ -27,7 +27,7 @@ struct ItemImage: View {
                 CachedAsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
-                        Rectangle().fill(cardBackgroundColor)
+                        Rectangle().fill(Color.cardBackground)
                     case let .success(image):
                         image.transition(.opacity)
                     case .failure:
