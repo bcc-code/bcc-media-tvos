@@ -117,7 +117,6 @@ struct SectionView: View {
                         )
                     default:
                         EmptyView()
-                        // MissingContent(section.__typename ?? "unknown type")
                     }
                 }.padding(.bottom, 50)
             }
@@ -131,26 +130,7 @@ struct SectionView: View {
                 EmptyView()
             default:
                 EmptyView()
-                // MissingContent(section.__typename ?? "unknown type")
             }
         }
-    }
-}
-
-struct MissingContent: View {
-    var annotation: String
-
-    init(_ annotation: String) {
-        self.annotation = annotation
-    }
-
-    var body: some View {
-        Button {
-            print("oopsi")
-        } label: {
-            Text("Oops. Seems there is some missing content here. Work in progress.")
-            Text(annotation).foregroundColor(.gray)
-        }
-        .buttonStyle(.plain)
     }
 }

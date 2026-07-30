@@ -25,7 +25,6 @@ var cardActiveBackgroundColor: Color {
 
 enum StaticDestination: Hashable {
     case aboutUs
-    case signIn
 }
 
 enum TabType: Hashable {
@@ -39,21 +38,19 @@ typealias PlayCallback = (Bool, API.GetEpisodeQuery.Data.Episode) async -> Void
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var frontPageId: String? = nil
-    @State var bccMember = false
 
     @State var loaded = false
 
     @State var loading = false
     @Environment(\.scenePhase) private var scenePhase
 
-    /// `@MainActor` because it writes view state (`frontPageId`, `bccMember`, `loaded`) and animates.
+    /// `@MainActor` because it writes view state (`frontPageId`, `loaded`) and animates.
     /// It also makes `loaded` usable as a guard in the `scenePhase` observer: the check and the set
     /// cannot interleave.
     @MainActor
     func load() async {
         await AppOptions.load()
         frontPageId = AppOptions.app.pageId
-        bccMember = AppOptions.user.bccMember == true
         // Hopped to the main actor because this fires from whichever thread a failing request is on,
         // and `startSignIn` touches `@State` and the navigation path. With this, all three
         // `startSignIn` call sites are main-isolated.
@@ -305,8 +302,6 @@ struct ContentView: View {
 
     @State var onboarded = authenticationProvider.isAuthenticated()
 
-    @State var playEpisode: API.GetEpisodeQuery.Data.Episode? = nil
-
     @FocusState var focusedLogin
 
     var body: some View {
@@ -322,20 +317,13 @@ struct ContentView: View {
                                 }.tag(TabType.pages)
                             SearchView(
                                 queryString: $searchQuery,
-                                clickItem: clickItem,
-                                playCallback: playCallbackWithContext(nil, progress: true)
+                                clickItem: clickItem
                             ).tabItem {
                                 Label("tab_search", systemImage: "magnifyingglass").font(.barlow)
                             }.tag(TabType.search)
                             SettingsView(
                                 path: $path,
                                 authenticated: authenticated,
-                                onSave: {
-                                    authenticated = authenticationProvider.isAuthenticated()
-                                    Task {
-                                        await load()
-                                    }
-                                },
                                 signIn: startSignIn,
                                 logout: logout,
                                 name: AppOptions.user.name,
@@ -391,8 +379,6 @@ struct ContentView: View {
                         switch dest {
                         case .aboutUs:
                             AboutUsView()
-                        default:
-                            EmptyView()
                         }
                     }
                     .navigationDestination(for: EpisodePlayer.self) { player in

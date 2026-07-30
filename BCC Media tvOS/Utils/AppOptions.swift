@@ -16,7 +16,6 @@ public struct UserOptions {
     var anonymousId: String?
     var ageGroup: String?
     var ageGroupStart: Int?
-    var bccMember: Bool?
     var gender: String?
     var countryISOCode: String?
     var personId: String?
@@ -25,7 +24,6 @@ public struct UserOptions {
 
 public struct ApplicationOptions {
     var pageId: String?
-    var searchPageId: String?
 }
 
 // Build-time configuration: the scheme / CI environment wins, falling back to the literals in
@@ -62,8 +60,6 @@ public struct UnleashOptions {
 public struct AppOptions {
     private init() {}
 
-    public var name: String = "tvOS"
-    
     public var sessionId: String? {
         Events.sessionId?.stringValue
     }
@@ -154,7 +150,6 @@ public extension AppOptions {
         }
 
         AppOptions.standard.app.pageId = data.application.page?.id
-        AppOptions.standard.app.searchPageId = data.application.searchPage?.id
 
         if authenticationProvider.isAuthenticated() {
             let userInfo = await authenticationProvider.userInfo()
@@ -163,7 +158,6 @@ public extension AppOptions {
             AppOptions.user.ageGroup = userInfo?.ageGroup
             AppOptions.user.ageGroupStart = userInfo?.ageGroupStart
             AppOptions.user.gender = userInfo?.gender
-            AppOptions.user.bccMember = data.me.bccMember
             // Not .formatted() — that applies locale grouping, so 19254 became "19 254" (with a
             // non-breaking space) and the Unleash userId changed with the device language.
             AppOptions.user.personId = userInfo?.personId.map(String.init)

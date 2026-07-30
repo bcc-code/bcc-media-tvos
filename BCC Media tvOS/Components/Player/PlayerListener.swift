@@ -18,10 +18,6 @@ class PlayerListener {
         self.expireCallback = expireCallback
     }
 
-    func onStateUpdate(state: PlaybackState) {
-        stateCallback(state)
-    }
-
     func onEnd() {
         endCallback()
     }

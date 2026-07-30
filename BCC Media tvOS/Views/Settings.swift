@@ -19,14 +19,9 @@ extension String {
 }
 
 struct SettingsView: View {
-    @State var token = ""
-    @State var verificationUri = ""
-    @State var verificationUriComplete = ""
-
     @Binding var path: NavigationPath
 
     var authenticated: Bool
-    var onSave: () -> Void
 
     var signIn: () -> Void
     var logout: () -> Void
@@ -141,6 +136,6 @@ struct SettingsView_Preview: PreviewProvider {
     @State static var path: NavigationPath = .init()
 
     static var previews: some View {
-        SettingsView(path: $path, authenticated: false, onSave: {}, signIn: {}, logout: {}, name: nil, loading: false)
+        SettingsView(path: $path, authenticated: false, signIn: {}, logout: {}, name: nil, loading: false)
     }
 }

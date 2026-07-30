@@ -15,9 +15,6 @@ struct SearchView: View {
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
 
     var clickItem: ClickItem
-    var playCallback: PlayCallback
-
-    var searchPage: API.GetPageQuery.Data.Page? = nil
 
     private func _clickItem(_ item: Item, group: String) async {
         Events.trigger(SearchresultClicked(
@@ -120,8 +117,6 @@ struct SearchView_Preview: PreviewProvider {
 
     static var previews: some View {
         SearchView(queryString: $query) { _, _ in
-
-        } playCallback: { _, _ in
         }
     }
 }

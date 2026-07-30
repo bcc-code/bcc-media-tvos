@@ -12,24 +12,6 @@ public typealias SearchSessionIdFactory = () async throws -> String?
 public typealias FeatureFlagsFactory = () -> String?
 
 public extension Client {
-    func getThrowingAsync<Q: API.GraphQLQuery>(query: Q, cachePolicy: Apollo.CachePolicy = .default) async throws -> Q.Data {
-        return try await withCheckedThrowingContinuation { c in
-            self.apollo.fetch(query: query, cachePolicy: cachePolicy) { result in
-                switch result {
-                case let .success(data):
-                    if let data = data.data {
-                        c.resume(returning: data)
-                    }
-                    if let errors = data.errors {
-                        print(errors)
-                    }
-                case let .failure(err):
-                    c.resume(throwing: err)
-                }
-            }
-        }
-    }
-
     func getAsync<Q: GraphQLQuery>(query: Q, cachePolicy: Apollo.CachePolicy = .fetchIgnoringCacheCompletely) async -> Q.Data? {
         return await withCheckedContinuation { c in
             self.apollo.fetch(query: query, cachePolicy: cachePolicy) { result in
@@ -40,6 +22,10 @@ public extension Client {
                         c.resume(returning: nil)
                     } else if let data = data.data {
                         c.resume(returning: data)
+                    } else {
+                        // Neither data nor errors: without this the continuation was never resumed and
+                        // the caller hung for the life of the process.
+                        c.resume(returning: nil)
                     }
                 case let .failure(err):
                     print(err)
