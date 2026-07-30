@@ -8,13 +8,28 @@ global_job_config:
   prologue:
     commands:
       - checkout
-      - sem-version ruby 3.3
 blocks:
-  - name: Deploy to TestFlight
+  # Runs on every branch, and gates the deploy. Host-platform tests only: no simulator and no
+  # `xcodebuild -downloadPlatform tvOS`, which is what makes this ~2 minutes rather than the UI suite's
+  # simulator boot, real device-code login and video playback.
+  - name: Unit tests
     dependencies: []
+    task:
+      jobs:
+        - name: swift test
+          commands:
+            - (cd FeatureFlags && swift test)
+            - (cd Authentication && swift test)
+  - name: Deploy to TestFlight
+    dependencies:
+      - Unit tests
     run:
       when: branch = 'main'
     task:
+      prologue:
+        commands:
+          # Only the deploy needs Ruby; keeping it out of the global prologue keeps the test block lean.
+          - sem-version ruby 3.3
       jobs:
         - name: Build and upload to TestFlight
           commands:
