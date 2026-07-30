@@ -170,6 +170,12 @@ struct EpisodeViewer: View {
         if loaded {
             return
         }
+        // The Picker only emits a `.season` tag for episodes, so for anything else the default
+        // selection matched no tag and the segmented control rendered with nothing active. Corrected
+        // before the first `await`, so there is no window where the selection is invalid.
+        if episode.type != .episode {
+            tab = .details
+        }
         let data = await apolloClient.getAsync(query: API.GetEpisodeContextQuery(id: episode.id, context: context != nil ? .init(context!) : .null))
         if let c = data?.episode.context?.asContextCollection?.items?.items {
             items = c

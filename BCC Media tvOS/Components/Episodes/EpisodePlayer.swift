@@ -110,7 +110,7 @@ struct EpisodePlayer: View {
                                 setLanguage(language: nil)
                             } label: {
                                 Text("original").padding(20).frame(maxWidth: .infinity)
-                            }.buttonStyle(.card).frame(width: .infinity)
+                            }.buttonStyle(.card)
                                 // The label is localized; the UI test needs a stable handle to get
                                 // past this picker, since the player is not created until a language
                                 // is chosen.
@@ -120,7 +120,7 @@ struct EpisodePlayer: View {
                                     setLanguage(language: lang.code)
                                 } label: {
                                     Text(lang.display.capitalizedSentence).padding(20).frame(maxWidth: .infinity)
-                                }.buttonStyle(.card).frame(width: .infinity)
+                                }.buttonStyle(.card)
                             }
                         }.frame(width: 400)
                     }
