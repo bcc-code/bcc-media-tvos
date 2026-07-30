@@ -22,12 +22,21 @@ struct FrontPage: View {
 
     var body: some View {
         ZStack {
-            if pageId != nil, let page = page {
+            if let page = page {
                 PageView(page, clickItem: clickItem)
             }
-        }.task {
-            if let pageId = pageId {
-                page = await getPage(pageId)
+        }
+        // Keyed on `pageId`, so the page is re-fetched when it changes — plain `.task` runs once per
+        // view identity, which meant signing in kept showing the anonymous front page even though
+        // `GetSetupQuery` had returned a different id.
+        .task(id: pageId) {
+            guard let pageId = pageId else {
+                page = nil
+                return
+            }
+            // Keep the last good page on a failed refresh rather than blanking the screen.
+            if let fetched = await getPage(pageId) {
+                page = fetched
             }
         }
     }

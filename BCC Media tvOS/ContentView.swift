@@ -51,8 +51,6 @@ struct ContentView: View {
     /// cannot interleave.
     @MainActor
     func load() async {
-        frontPageId = nil
-        try? await Task.sleep(for: .seconds(1))
         await AppOptions.load()
         frontPageId = AppOptions.app.pageId
         bccMember = AppOptions.user.bccMember == true
