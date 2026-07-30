@@ -28,15 +28,25 @@ extension NpawPluginProvider {
     }
 }
 
+/// Playback state, as exposed to SwiftUI and to the `CurrentPlayerStatus` accessibility probe the
+/// UI test reads. The raw value *is* the accessibility label, so there is no mapping to keep in
+/// sync — the `if error / if playing / if loading` chain this replaces is what let an inverted
+/// boolean surface as a wrong label.
+enum PlaybackStatus: String {
+    case idle = "Idle"
+    case loading = "Loading"
+    case playing = "Playing"
+    case error = "Error"
+}
+
 class PlayerControls: ObservableObject {
     var player = AVPlayer()
     var currentUrl: URL?
     
     var adapter: NpawPlugin.VideoAdapter?
     
-    var loading = false
-    var playing = false
-    var error: Error?
+    @Published private(set) var status: PlaybackStatus = .idle
+    @Published private(set) var error: Error?
     
     private var listener: PlayerListener?
     
@@ -51,30 +61,69 @@ class PlayerControls: ObservableObject {
         self.player = player
         
         observers = [
-            player.observe(\.status, options: [.new]) { item, _ in
-                self.loading = item.status != .readyToPlay
+            // `timeControlStatus` already distinguishes playing / buffering / paused, which is what
+            // the two booleans here were trying to encode — one of them against the wrong case.
+            // `\.status` is no longer observed: readiness shows up as `.waitingToPlayAtSpecifiedRate`
+            // and failure as `player.error`.
+            player.observe(\.timeControlStatus, options: [.new, .initial]) { [weak self] _, _ in
+                self?.publishStatus()
             },
-            player.observe(\.timeControlStatus, options: [.new]) { item, _ in
-                self.playing = item.timeControlStatus != .playing
-            },
-            player.observe(\.error, options: [.new]) { item, _ in
-                debugPrint("bccm: error occured: \(item.error?.localizedDescription ?? "nil")")
-                DispatchQueue.main.async {
-                    self.error = item.error
-                }
+            player.observe(\.error, options: [.new]) { [weak self] player, _ in
+                debugPrint("bccm: error occured: \(player.error?.localizedDescription ?? "nil")")
+                self?.setError(player.error)
             },
         ]
+    }
+
+    /// Errors arrive from both `AVPlayer` and the current `AVPlayerItem`, so both route through here
+    /// and the published state is written in exactly one place.
+    func setError(_ error: Error?) {
+        onMain { [weak self] in
+            self?.error = error
+            self?.recomputeStatus()
+        }
+    }
+
+    private func publishStatus() {
+        onMain { [weak self] in self?.recomputeStatus() }
+    }
+
+    /// Main thread only — call via `publishStatus()` / `setError(_:)`.
+    private func recomputeStatus() {
+        if error != nil {
+            status = .error
+            return
+        }
+        switch player.timeControlStatus {
+        case .playing:
+            status = .playing
+        // Only reachable once `play()` has been called, so this is buffering, not pre-roll.
+        case .waitingToPlayAtSpecifiedRate:
+            status = .loading
+        case .paused:
+            status = .idle
+        @unknown default:
+            status = .idle
+        }
+    }
+
+    /// `@Published` writes have to land on the main thread, and KVO delivers on whichever thread
+    /// changed the value. Same shape as `FeatureFlagsClient.refreshToggles`.
+    private func onMain(_ work: @escaping () -> Void) {
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.async(execute: work)
+        }
     }
     
     static func setItem(_ videoURL: URL, _ options: PlayerOptions = .init(), _ listener: PlayerListener = PlayerListener { _ in }) {
         let playerItem = AVPlayerItem(url: videoURL)
-        current.error = nil
+        current.setError(nil)
         current.currentItemObservers = [
             playerItem.observe(\.error, options: [.new]) { item, _ in
                 debugPrint("bccc: playeritem error")
-                DispatchQueue.main.async {
-                    current.error = item.error
-                }
+                current.setError(item.error)
             },
         ]
         current.player.replaceCurrentItem(with: playerItem)
