@@ -65,7 +65,23 @@ struct ApplicationOpened: Event {
     var coldStart: Bool
 }
 
-class VideoEvent {
+// Structs, not a shared `VideoEvent` superclass. These were subclasses of a plain (non-Encodable)
+// `VideoEvent`, and `Event` requires `Encodable` — so Swift synthesised an encoder covering only each
+// subclass's *own* stored properties, of which there were none. Both events serialised as `{}` and
+// reached Rudder carrying nothing but `commonProperties`: no session, content id, position or duration.
+//
+// Making `VideoEvent` conform to `Encodable` would fix today's symptom but leave the trap armed — add
+// one stored property to a subclass later and Swift synthesises a fresh `encode(to:)` that covers only
+// that property and never calls `super`, silently dropping the inherited fields again. A struct cannot
+// be subclassed, so the failure mode is gone rather than postponed. It also matches every other event
+// in this file.
+//
+// The duplicated field list is deliberate: this is a wire format, and the two events are independently
+// versioned by whatever consumes them.
+
+struct PlaybackStarted: Event {
+    static let eventName = "playback_started"
+
     var sessionId: String
     var contentPodId: String
     var position: Int?
@@ -73,46 +89,36 @@ class VideoEvent {
     var videoPlayer = "AVPlayer"
     var fullScreen = true
     var hasVideo = true
-
-    init(sessionId: String, contentPodId: String, position: Int? = nil, totalLength: Int, videoPlayer: String = "AVPlayer", fullScreen: Bool = true, hasVideo: Bool = true) {
-        self.sessionId = sessionId
-        self.contentPodId = contentPodId
-        self.position = position
-        self.totalLength = totalLength
-        self.videoPlayer = videoPlayer
-        self.fullScreen = fullScreen
-        self.hasVideo = hasVideo
-    }
 }
 
-class PlaybackStarted: VideoEvent, Event {
-    static var eventName = "playback_started"
+struct PlaybackPaused: Event {
+    static let eventName = "playback_paused"
+
+    var sessionId: String
+    var contentPodId: String
+    var position: Int?
+    var totalLength: Int
+    var videoPlayer = "AVPlayer"
+    var fullScreen = true
+    var hasVideo = true
 }
 
-class PlaybackPaused: VideoEvent, Event {
-    static var eventName = "playback_paused"
-}
+// These two encoded correctly — they declare their own fields and conform directly, so nothing was
+// hidden in a non-Encodable superclass. Converted anyway so that "every Event is a struct" holds as an
+// invariant: that is the property making the empty-payload bug above structurally impossible rather than
+// merely absent today. The memberwise initialisers match the explicit ones they replace.
 
-class VideoPlayed: Event {
-    static var eventName = "video_played"
-    
+struct VideoPlayed: Event {
+    static let eventName = "video_played"
+
     var videoId: String
     var referenceId: String
-    
-    init(videoId: String, referenceId: String) {
-        self.videoId = videoId
-        self.referenceId = referenceId
-    }
 }
 
-class ErrorOccured: Event {
-    static var eventName = "tvos_error"
+struct ErrorOccured: Event {
+    static let eventName = "tvos_error"
 
     var error: String
-
-    init(error: String) {
-        self.error = error
-    }
 }
 
 struct Events {
