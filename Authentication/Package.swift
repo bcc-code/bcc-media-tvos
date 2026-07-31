@@ -35,12 +35,16 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "UnitTests",
+            // Prefixed like FeatureFlagsTests and APITests: target names have to be unique across the
+            // whole package graph, so a plain "UnitTests" here collides with any sibling that wants it.
+            name: "AuthenticationTests",
             dependencies: [
                 "Authentication",
                 // The reauthentication tests construct Auth0's own error types.
                 .product(name: "Auth0", package: "auth0.swift")
-            ]
+            ],
+            // Explicit because the sources sit directly in Tests/, not Tests/AuthenticationTests/.
+            path: "Tests"
         )
     ]
 )

@@ -35,17 +35,17 @@ public extension Client {
         return await withCheckedContinuation { c in
             self.apollo.fetch(query: query, cachePolicy: cachePolicy) { result in
                 switch result {
-                case let .success(data):
-                    if let errors = data.errors {
+                case let .success(response):
+                    if let errors = response.errors {
                         self.reportError(GraphQLResponseError(errors: errors))
-                        c.resume(returning: nil)
-                    } else if let data = data.data {
-                        c.resume(returning: data)
-                    } else {
-                        // Neither data nor errors: without this the continuation was never resumed and
-                        // the caller hung for the life of the process.
-                        c.resume(returning: nil)
                     }
+                    // A response may legally carry both `data` and `errors` — a nullable field's
+                    // resolver failed while the rest resolved. Apollo leaves `data` nil only when it
+                    // could not build a valid model at all, so hand back what it parsed rather than
+                    // discarding the whole response. Resuming here on every path also keeps the fix
+                    // for the case that used to resume nowhere and hang the caller for the life of
+                    // the process.
+                    c.resume(returning: response.data)
                 case let .failure(err):
                     self.reportError(err)
                     c.resume(returning: nil)

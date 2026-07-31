@@ -20,6 +20,7 @@ blocks:
           commands:
             - (cd FeatureFlags && swift test)
             - (cd Authentication && swift test)
+            - (cd API && swift test)
   - name: Deploy to TestFlight
     dependencies:
       - Unit tests
