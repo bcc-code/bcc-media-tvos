@@ -15,6 +15,12 @@ struct FrontPage: View {
     
     @State var page: API.GetPageQuery.Data.Page?
 
+    /// Which `pageId` the page currently on screen was fetched for.
+    ///
+    /// Tracked rather than read back off `page.id`, so this cannot be fooled if the API ever answers
+    /// a request for one id with a page carrying another.
+    @State private var loadedPageId: String?
+
     init(pageId: String?, clickItem: @escaping ClickItem) {
         self.pageId = pageId
         self.clickItem = clickItem
@@ -32,11 +38,27 @@ struct FrontPage: View {
         .task(id: pageId) {
             guard let pageId = pageId else {
                 page = nil
+                loadedPageId = nil
                 return
             }
-            // Keep the last good page on a failed refresh rather than blanking the screen.
+            // A *different* page has to go before the fetch, not after it. Signing out changes the id,
+            // and on a shared TV the previous user's personalised page would otherwise stay on screen
+            // — visible and clickable — for as long as the new fetch takes, and permanently if it
+            // fails.
+            if loadedPageId != pageId {
+                page = nil
+                loadedPageId = nil
+            }
+            // The same page is left up while it re-fetches, so returning to this tab does not blank it
+            // and a failed refresh keeps the last good page rather than nothing.
             if let fetched = await getPage(pageId) {
+                // `getAsync` does not observe cancellation, so a slow response for the id this task
+                // replaced still arrives and would put the old page back. Same race `Search` guards.
+                guard !Task.isCancelled else {
+                    return
+                }
                 page = fetched
+                loadedPageId = pageId
             }
         }
     }
