@@ -53,7 +53,7 @@ blocks:
         - name: ios-signing-certs
         - name: tvos-ci
 promotions:
-  - name: Run UI tests
+  - name: Run tests
     pipeline_file: test.yml
   - name: Promote to App Store
     pipeline_file: promote-app-store.yml

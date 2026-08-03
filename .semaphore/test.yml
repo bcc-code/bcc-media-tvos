@@ -1,10 +1,29 @@
 version: v1.0
-name: tvOS UI tests
+name: tvOS tests
 agent:
   machine:
     type: a2-standard-4
     os_image: macos-xcode26
 blocks:
+  - name: Unit tests
+    dependencies: []
+    task:
+      prologue:
+        commands:
+          - checkout
+      jobs:
+        # Pure-logic tests: no app launch, no network, no secrets. Here rather than in the
+        # deploy-gating block because the app target only builds for tvOS, so this needs the
+        # platform download and a booted simulator. The package tests, which need neither, stay
+        # in semaphore.yml as `swift test`.
+        - name: App target unit tests
+          commands:
+            - xcodebuild -downloadPlatform tvOS
+            - export SIM_UDID=$(xcrun simctl create "Apple TV CI unit" "Apple TV")
+            - xcrun simctl boot "$SIM_UDID"
+            - gem install xcpretty
+            - |
+              set -o pipefail && xcrun xcodebuild test -workspace "BCC Media.xcworkspace" -scheme unittests -destination "platform=tvOS Simulator,id=$SIM_UDID" -derivedDataPath ./DerivedData | xcpretty
   - name: Test
     dependencies: []
     task:
