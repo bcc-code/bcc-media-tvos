@@ -57,13 +57,18 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "UNLEASH_URL"
-            value = "https://nonexisting.bcc.media"
+            value = "https://unleash-server-prod-t5xl3eo6wq-ez.a.run.app/api/frontend"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "UNLEASH_CLIENT_KEY"
-            value = "dev"
+            value = "*:production.d9eb81b114976b9cc29b156390b779828bd690825d602b1231b5158a"
             isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "UNLEASH_DEBUG"
+            value = "1"
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "RUDDER_WRITE_KEY"

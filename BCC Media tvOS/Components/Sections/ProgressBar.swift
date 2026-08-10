@@ -10,26 +10,35 @@ import SwiftUI
 struct ProgressBar: View {
     var item: Item
 
-    func durationToString(_ duration: Int) -> String {
+    /// Hoisted out of `durationToString`, where it was built once per progress bar per body pass — so
+    /// once for every visible card on the page, on every render.
+    private static let durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.zeroFormattingBehavior = .dropLeading
+        return formatter
+    }()
 
-        return formatter.string(from: TimeInterval(duration))!
+    func durationToString(_ duration: Int) -> String {
+        Self.durationFormatter.string(from: TimeInterval(duration)) ?? ""
     }
 
     var body: some View {
         HStack(spacing: 2) {
             if let duration = item.duration {
-                if let progress = item.progress {
+                // `duration > 0` guards a division by zero: the fraction became NaN, and a NaN frame
+                // width is a SwiftUI layout error. Clamped as well, so progress past the end — which the
+                // API does return — cannot overflow the bar.
+                if let progress = item.progress, duration > 0 {
+                    let fraction = min(max(Double(progress) / Double(duration), 0), 1)
                     ZStack {
                         GeometryReader { reader in
                             Color(uiColor: .black)
                                 .frame(width: reader.size.width)
                                 .opacity(0.5)
                             Color(uiColor: .white)
-                                .frame(width: reader.size.width * CGFloat(Float(progress) / Float(duration)))
+                                .frame(width: reader.size.width * fraction)
                                 .cornerRadius(5)
                         }
                     }

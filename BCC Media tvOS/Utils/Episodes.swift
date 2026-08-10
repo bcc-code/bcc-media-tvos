@@ -8,22 +8,19 @@
 import Foundation
 import API
 
-fileprivate let types = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
+/// Stream types we can play, best first.
+private let preferredStreamTypes = [API.StreamType.hlsCmaf, API.StreamType.hlsTs, API.StreamType.dash]
 
+/// The first stream matching the most preferred type available, falling back to any stream at all.
 func getPlayerUrl(streams: [API.GetEpisodeStreamsQuery.Data.Episode.Stream]) -> URL? {
-    var index = 0
-    var stream = streams.first(where: { $0.type == types[index] })
-    while stream == nil, (types.count - 1) > index {
-        index += 1
-        stream = streams.first(where: { $0.type == types[index] })
+    let preferred = preferredStreamTypes.lazy
+        .compactMap { type in streams.first { $0.type == type } }
+        .first
+
+    guard let stream = preferred ?? streams.first else {
+        return nil
     }
-    if stream == nil {
-        stream = streams.first
-    }
-    if let stream = stream {
-        return URL(string: stream.url)
-    }
-    return nil
+    return URL(string: stream.url)
 }
 
 class StreamUrls {
@@ -44,21 +41,18 @@ class StreamUrls {
     
     public init(streams: [API.GetEpisodeStreamsQuery.Data.Episode.Stream]) {
         _default = getPlayerUrl(streams: streams)
-        
+
         for stream in streams {
-            if stream.type != API.StreamType.hlsCmaf {
+            // A malformed url used to trap here. Skipping the stream instead just means that language
+            // is not offered, and `_default` still plays.
+            guard stream.type == API.StreamType.hlsCmaf,
+                  let language = stream.videoLanguage,
+                  urls[language] == nil,
+                  let url = URL(string: stream.url)
+            else {
                 continue
             }
-            if stream.videoLanguage == nil {
-                continue
-            }
-            let l = stream.videoLanguage!
-            
-            if urls.keys.contains(l) {
-                continue
-            }
-        
-            urls[l] = URL(string: stream.url)!
+            urls[language] = url
         }
     }
 }

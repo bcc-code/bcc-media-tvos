@@ -48,6 +48,15 @@ struct Item: Identifiable {
     var sectionIndex = 0
 }
 
+extension View {
+    /// Stable identity for UI tests. `mapToItems` already stamps every item with its section and
+    /// position, and the type is included because a test needs to pick a card that leads to an
+    /// episode — a page or study topic opens a subpage with no player.
+    func sectionItemIdentifier(_ item: Item) -> some View {
+        accessibilityIdentifier("SectionItem-\(item.type.rawValue)-\(item.sectionIndex)-\(item.index)")
+    }
+}
+
 struct ItemTitle: View {
     var item: Item
 
@@ -136,6 +145,95 @@ func mapToItems(_ items: API.ItemSectionFragment.Items, sectionIndex: Int) -> [I
     }
 
     return result
+}
+
+/// The two card shapes the item sections use. Same width, different height — that was the only thing
+/// separating `PosterSection` from `DefaultSection`, and `PosterGridSection` from `DefaultGridSection`.
+enum CardShape {
+    /// 16:9 thumbnail, for episodes and pages.
+    case landscape
+    /// Tall artwork, for shows and seasons.
+    case poster
+
+    var size: CGSize {
+        switch self {
+        case .landscape: CGSize(width: 400, height: 225)
+        case .poster: CGSize(width: 400, height: 600)
+        }
+    }
+}
+
+/// A horizontally scrolling row of item cards.
+///
+/// The `.padding(100)` / `.padding(-100)` pair is load-bearing: it gives the scroll view enough inset
+/// for a focused card's scale and border to render without being clipped, then pulls the whole thing
+/// back so the layout is unaffected. Four copies of this existed.
+struct ItemRow: View {
+    var title: String?
+    var items: [Item]
+    var shape: CardShape
+    var clickItem: SectionClickItem
+
+    init(_ title: String?, _ items: [Item], shape: CardShape, clickItem: @escaping SectionClickItem) {
+        self.title = title
+        self.items = items
+        self.shape = shape
+        self.clickItem = clickItem
+    }
+
+    var body: some View {
+        VStack {
+            if let title = title {
+                SectionTitle(title)
+            }
+            ScrollView(.horizontal) {
+                LazyHStack(alignment: .top, spacing: 20) {
+                    ForEach(items) { item in
+                        SectionItemCard(item, width: shape.size.width, height: shape.size.height) {
+                            await clickItem(item)
+                        }
+                    }
+                }.padding(100)
+            }.padding(-100)
+        }
+    }
+}
+
+/// A vertically scrolling four-column grid of item cards.
+struct ItemGrid: View {
+    var title: String?
+    var items: [Item]
+    var shape: CardShape
+    var clickItem: SectionClickItem
+
+    init(_ title: String?, _ items: [Item], shape: CardShape, clickItem: @escaping SectionClickItem) {
+        self.title = title
+        self.items = items
+        self.shape = shape
+        self.clickItem = clickItem
+    }
+
+    private static let columns = Array(
+        repeating: GridItem(.flexible(), alignment: .top),
+        count: 4
+    )
+
+    var body: some View {
+        VStack {
+            if let title = title {
+                SectionTitle(title)
+            }
+            ScrollView(.vertical) {
+                LazyVGrid(columns: Self.columns, spacing: 20) {
+                    ForEach(items) { item in
+                        SectionItemCard(item, width: shape.size.width, height: shape.size.height) {
+                            await clickItem(item)
+                        }
+                    }
+                }.padding(100)
+            }.padding(-100)
+        }
+    }
 }
 
 struct LoadingOverlay: View {

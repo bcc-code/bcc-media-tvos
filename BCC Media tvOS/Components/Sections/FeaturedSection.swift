@@ -50,6 +50,7 @@ struct FeaturedCard: View {
         }
         .buttonStyle(FeaturedButton(focused: isFocused))
         .padding(0)
+        .sectionItemIdentifier(item)
         .focused($isFocused)
     }
 }

@@ -15,19 +15,23 @@ struct ItemImage: View {
         self.image = image
     }
     
-    @State var url: URL? = nil
-
-    func getImg(_ img: String, _ size: CGSize) -> URL? {
-        URL(string: img + "?w=\(Int(size.width))&h=\(Int(size.height))&fit=crop&crop=faces")
+    /// The image host resizes from query parameters, so the URL depends on the laid-out size.
+    private func url(for source: String, size: CGSize) -> URL? {
+        URL(string: source + "?w=\(Int(size.width))&h=\(Int(size.height))&fit=crop&crop=faces")
     }
 
     var body: some View {
         GeometryReader { proxy in
-            if proxy.size != .zero, let img = image {
-                CachedAsyncImage(url: url) { phase in
+            if proxy.size != .zero, let source = image {
+                // Computed inline rather than written into `@State` from `.onAppear`. That left the
+                // first pass rendering `CachedAsyncImage(url: nil)` — a wasted render and a delayed
+                // fetch — and because `onAppear` does not run again, a later size change never
+                // produced a correctly-sized URL. The value is a pure function of the source and the
+                // laid-out size, so it needed no state at all.
+                CachedAsyncImage(url: url(for: source, size: proxy.size)) { phase in
                     switch phase {
                     case .empty:
-                        Rectangle().fill(cardBackgroundColor)
+                        Rectangle().fill(Color.cardBackground)
                     case let .success(image):
                         image.transition(.opacity)
                     case .failure:
@@ -37,8 +41,6 @@ struct ItemImage: View {
                     @unknown default:
                         EmptyView()
                     }
-                }.onAppear {
-                    url = getImg(img, proxy.size)
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }

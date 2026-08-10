@@ -20,25 +20,34 @@ struct SignInView: View {
         return str
     }
 
-    var localizedGotoString = NSLocalizedString("signIn_orGoToAndEnterCode", comment: "")
+    private var localizedGotoString: String { String(localized: "signIn_orGoToAndEnterCode") }
+
+    /// The sign-in sentence carries two placeholders: `$url`, inlined here, and `$code`, shown on its
+    /// own below — so everything from `$code` onwards is dropped deliberately.
+    ///
+    /// Previously `split(separator: "$url")[1]`, which trapped if a translator dropped `$url`. This is
+    /// the login screen, so that crash would have been unrecoverable for the affected locale.
+    private var gotoText: Text {
+        let aroundUrl = localizedGotoString.splitAroundPlaceholder("$url")
+        let beforeCode = aroundUrl.after.splitAroundPlaceholder("$code").before
+        return Text(aroundUrl.before)
+            + Text(getSimpleUri()).foregroundColor(.blue)
+            + Text(beforeCode)
+    }
 
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         HStack {
             VStack {
-                if let img = getQRCodeData(text: verificationUriComplete) {
-                    Image(uiImage: UIImage(data: img)!).resizable().frame(width: 512, height: 512).cornerRadius(10).shadow(radius: 20)
+                if let img = getQRCodeData(text: verificationUriComplete), let qr = UIImage(data: img) {
+                    Image(uiImage: qr).resizable().frame(width: 512, height: 512).cornerRadius(10).shadow(radius: 20)
                 }
                 Text("signIn_scanWithPhone").foregroundColor(.gray)
             }
             Spacer().frame(width: 50)
             VStack {
-                Group {
-                    Text(localizedGotoString.split(separator: "$url")[0]) +
-                        Text(getSimpleUri()).foregroundColor(.blue) +
-                        Text(localizedGotoString.split(separator: "$url")[1].split(separator: "$code")[0])
-                }
+                gotoText
                 Spacer().frame(height: 30)
                 Text(code).accessibilityIdentifier("LoginCode").accessibilityLabel(code).font(.barlowTitle)
                 Spacer().frame(height: 100)

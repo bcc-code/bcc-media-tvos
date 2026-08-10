@@ -239,8 +239,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Unleash/unleash-proxy-client-swift",
       "state" : {
-        "revision" : "4578bb9cca31fc60ba45a07b6f608b9ed666512c",
-        "version" : "1.2.1"
+        "revision" : "b03036b40dca2793b90ce7bddbb5184b8aa7dd04",
+        "version" : "2.5.0"
       }
     }
   ],

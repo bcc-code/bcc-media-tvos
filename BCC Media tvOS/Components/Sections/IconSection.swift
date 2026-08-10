@@ -36,7 +36,7 @@ struct IconSectionItem: View {
                     .frame(width: 180, height: 180)
                     .cornerRadius(10)
                     .padding(20)
-                    .background(cardBackgroundColor)
+                    .background(Color.cardBackground)
                     .overlay(
                         LockView(locked: item.locked)
                     )
@@ -45,6 +45,7 @@ struct IconSectionItem: View {
                     )
             }
             .buttonStyle(SectionItemButton(focused: isFocused))
+            .sectionItemIdentifier(item)
             .focused($isFocused)
             .accessibilityLabel(item.title)
             .accessibilityHint(item.title)

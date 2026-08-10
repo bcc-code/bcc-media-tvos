@@ -5,17 +5,23 @@ internal class NetworkInterceptorProvider: DefaultInterceptorProvider {
     var tokenFactory: TokenFactory
     var sessionIdFactory: SessionIdFactory?
     var searchSessionIdFactory: SearchSessionIdFactory?
+    var featureFlagsFactory: FeatureFlagsFactory?
+    var reportError: ErrorReporter
 
     init(
         tokenFactory: @escaping TokenFactory,
         sessionIdFactory: SessionIdFactory? = nil,
         searchSessionIdFactory: SearchSessionIdFactory? = nil,
+        featureFlagsFactory: FeatureFlagsFactory? = nil,
+        reportError: @escaping ErrorReporter,
         client: URLSessionClient,
         store: ApolloStore
     ) {
         self.tokenFactory = tokenFactory
         self.sessionIdFactory = sessionIdFactory
         self.searchSessionIdFactory = searchSessionIdFactory
+        self.featureFlagsFactory = featureFlagsFactory
+        self.reportError = reportError
         super.init(client: client, shouldInvalidateClientOnDeinit: true, store: store)
     }
 
@@ -24,7 +30,9 @@ internal class NetworkInterceptorProvider: DefaultInterceptorProvider {
         interceptors.insert(CustomInterceptor(
             tokenFactory: tokenFactory,
             sessionIdFactory: sessionIdFactory,
-            searchSessionIdFactory: searchSessionIdFactory
+            searchSessionIdFactory: searchSessionIdFactory,
+            featureFlagsFactory: featureFlagsFactory,
+            reportError: reportError
         ), at: 0)
         return interceptors
     }
@@ -35,15 +43,21 @@ private class CustomInterceptor: ApolloInterceptor {
     var tokenFactory: TokenFactory
     var sessionIdFactory: SessionIdFactory?
     var searchSessionIdFactory: SearchSessionIdFactory?
+    var featureFlagsFactory: FeatureFlagsFactory?
+    var reportError: ErrorReporter
 
     init(
         tokenFactory: @escaping TokenFactory,
         sessionIdFactory: SessionIdFactory? = nil,
-        searchSessionIdFactory: SearchSessionIdFactory? = nil
+        searchSessionIdFactory: SearchSessionIdFactory? = nil,
+        featureFlagsFactory: FeatureFlagsFactory? = nil,
+        reportError: @escaping ErrorReporter
     ) {
         self.tokenFactory = tokenFactory
         self.sessionIdFactory = sessionIdFactory
         self.searchSessionIdFactory = searchSessionIdFactory
+        self.featureFlagsFactory = featureFlagsFactory
+        self.reportError = reportError
         self.id = "custom"
     }
 
@@ -69,13 +83,24 @@ private class CustomInterceptor: ApolloInterceptor {
                 if let searchSessionId = try await searchSessionIdFactory?() {
                     request.addHeader(name: "X-Search-Session-ID", value: searchSessionId)
                 }
-                                
+                // Lets the backend evaluate the same flags we resolved. Omitted until Unleash has
+                // answered, so the first requests after launch carry no flags.
+                if let featureFlags = featureFlagsFactory?(), !featureFlags.isEmpty {
+                    request.addHeader(name: "X-Feature-Flags", value: featureFlags)
+                }
+
                 chain.proceedAsync(request: request,
                         response: response,
                         interceptor: self,
                         completion: completion)
             } catch {
-                print(error)
+                // This used to only `print`, without continuing the chain or calling `completion` —
+                // so a failure to build the request hung the caller for the life of the process.
+                reportError(error)
+                chain.handleErrorAsync(error,
+                        request: request,
+                        response: response,
+                        completion: completion)
             }
         }
     }

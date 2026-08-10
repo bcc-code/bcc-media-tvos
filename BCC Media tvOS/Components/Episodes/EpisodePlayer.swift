@@ -44,16 +44,23 @@ struct EpisodePlayer: View {
             return
         }
         query = data
-        urls = StreamUrls(streams: data.episode.streams)
-        if urls!.languages.isEmpty {
-            setUrl(url: getPlayerUrl(streams: data.episode.streams)!)
+        let streamUrls = StreamUrls(streams: data.episode.streams)
+        urls = streamUrls
+
+        if streamUrls.languages.isEmpty {
+            // `get(language: nil)` returns the same default `getPlayerUrl` picks — `StreamUrls.init`
+            // already called it — so this drops a duplicate computation along with the unwrap.
+            guard let url = streamUrls.get(language: nil) else {
+                print("no playable stream for episode \(episode.id)")
+                dismiss()
+                return
+            }
+            setUrl(url: url)
             return
         }
-        for l in Language.getAll() {
-            if urls!.languages.contains(l.code) {
-                languages.append(l)
-            }
-        }
+        // Assigned rather than appended: `languages` is @State, so appending would accumulate if
+        // this ever ran twice.
+        languages = Language.getAll().filter { streamUrls.languages.contains($0.code) }
         showLanguageSelector = true
     }
 
@@ -80,7 +87,11 @@ struct EpisodePlayer: View {
 
     func setLanguage(language: String?) {
         showLanguageSelector = false
-        let url = urls!.get(language: language)!
+        guard let url = urls?.get(language: language) else {
+            print("no stream for language \(language ?? "original") on episode \(episode.id)")
+            dismiss()
+            return
+        }
         setUrl(url: url)
     }
 
@@ -99,13 +110,17 @@ struct EpisodePlayer: View {
                                 setLanguage(language: nil)
                             } label: {
                                 Text("original").padding(20).frame(maxWidth: .infinity)
-                            }.buttonStyle(.card).frame(width: .infinity)
+                            }.buttonStyle(.card)
+                                // The label is localized; the UI test needs a stable handle to get
+                                // past this picker, since the player is not created until a language
+                                // is chosen.
+                                .accessibilityIdentifier("VideoLanguage-original")
                             ForEach(languages, id: \.code) { lang in
                                 Button {
                                     setLanguage(language: lang.code)
                                 } label: {
                                     Text(lang.display.capitalizedSentence).padding(20).frame(maxWidth: .infinity)
-                                }.buttonStyle(.card).frame(width: .infinity)
+                                }.buttonStyle(.card)
                             }
                         }.frame(width: 400)
                     }

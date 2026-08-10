@@ -1,4 +1,5 @@
 @testable import Authentication
+import Auth0
 import Foundation
 import XCTest
 
@@ -30,5 +31,151 @@ final class DateCalculationTests: XCTestCase {
 
         // Test case with an invalid date
         XCTAssertNil(calculateAge(from: "invalid-date-string"), "Invalid date string should return nil")
+    }
+}
+
+final class AgeGroupTests: XCTestCase {
+    /// `start` used to be hardcoded to 65 for every band, so a 42-year-old reported
+    /// ageGroup "37 - 50" alongside ageGroupStart 65.
+    func testStartMatchesTheRange() {
+        let cases: [(age: Int, range: String, start: Int)] = [
+            (0, "< 10", 0),
+            (9, "< 10", 0),
+            (10, "10 - 12", 10),
+            (12, "10 - 12", 10),
+            (13, "13 - 18", 13),
+            (18, "13 - 18", 13),
+            (19, "19 - 25", 19),
+            (25, "19 - 25", 19),
+            (26, "26 - 36", 26),
+            (36, "26 - 36", 26),
+            (37, "37 - 50", 37),
+            (42, "37 - 50", 37),
+            (50, "37 - 50", 37),
+            (51, "51 - 64", 51),
+            (64, "51 - 64", 51),
+            (65, "65+", 65),
+            (99, "65+", 65),
+        ]
+
+        for expected in cases {
+            let result = getAgeGroup(expected.age)
+            XCTAssertEqual(result.range, expected.range, "wrong range for age \(expected.age)")
+            XCTAssertEqual(result.start, expected.start, "wrong start for age \(expected.age)")
+        }
+    }
+
+    func testUnknownAge() {
+        let result = getAgeGroup(nil)
+        XCTAssertEqual(result.range, "UNKNOWN")
+        XCTAssertEqual(result.start, 999)
+    }
+}
+
+/// `getAccessToken` used to treat every failure as "authentication is broken" and invoke the error
+/// handler, whose response is to revoke credentials and start a fresh sign-in. A failed *renewal* is
+/// reported the same way as a revoked refresh token, so going offline with an expired access token
+/// signed the user out of a session that would have refreshed fine moments later.
+final class ReauthenticationTests: XCTestCase {
+    private func authError(_ code: String, statusCode: Int = 403, cause: Error? = nil) -> AuthenticationError {
+        var info: [String: Any] = ["error": code]
+        if let cause = cause {
+            info["cause"] = cause
+        }
+        return AuthenticationError(info: info, statusCode: statusCode)
+    }
+
+    // MARK: - Sessions that really are gone
+
+    func testNoCredentialsRequiresSignIn() {
+        XCTAssertTrue(Provider.requiresReauthentication(CredentialsManagerError.noCredentials))
+    }
+
+    func testNoRefreshTokenRequiresSignIn() {
+        XCTAssertTrue(Provider.requiresReauthentication(CredentialsManagerError.noRefreshToken))
+    }
+
+    /// The OAuth code for a refresh token that has been revoked, expired or otherwise refused.
+    func testRefusedGrantRequiresSignIn() {
+        XCTAssertTrue(Provider.renewalIsUnrecoverable(authError("invalid_grant")))
+    }
+
+    func testLoginRequiredRequiresSignIn() {
+        XCTAssertTrue(Provider.renewalIsUnrecoverable(authError("login_required")))
+    }
+
+    // MARK: - The regression this fixes
+
+    /// The whole point: offline must not destroy the session.
+    func testNetworkFailureIsRetryable() {
+        for code: URLError.Code in [.notConnectedToInternet, .networkConnectionLost, .timedOut, .dnsLookupFailed] {
+            let error = authError("server_error", statusCode: 0, cause: URLError(code))
+            XCTAssertTrue(error.isNetworkError, "expected \(code) to read as a network error")
+            XCTAssertFalse(
+                Provider.renewalIsUnrecoverable(error),
+                "a \(code) renewal failure must not sign the user out"
+            )
+        }
+    }
+
+    /// Auth0 being down is not the user's session being gone.
+    func testServerErrorIsRetryable() {
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(authError("server_error", statusCode: 500)))
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(authError("too_many_requests", statusCode: 429)))
+    }
+
+    /// An unrecognised code defaults to retryable — mis-reading a transient failure costs the session,
+    /// mis-reading a permanent one costs one more failed request.
+    func testUnknownCodeIsRetryable() {
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(authError("something_new_from_auth0")))
+        XCTAssertFalse(Provider.renewalIsUnrecoverable(nil))
+    }
+
+    /// Renewal succeeded and only persisting it failed, so the session is still valid.
+    func testStoreFailedIsRetryable() {
+        XCTAssertFalse(Provider.requiresReauthentication(CredentialsManagerError.storeFailed))
+    }
+
+    func testUnrelatedErrorIsRetryable() {
+        struct Unrelated: Error {}
+        XCTAssertFalse(Provider.requiresReauthentication(Unrelated()))
+        XCTAssertFalse(Provider.requiresReauthentication(URLError(.notConnectedToInternet)))
+    }
+
+    /// Documents the trap that shaped the implementation: `CredentialsManagerError.==` compares the
+    /// localized description as well as the code, and the description embeds the cause. So comparing a
+    /// real renewal failure against the causeless `.renewFailed` constant does not match, which is why
+    /// `requiresReauthentication` branches on the cause rather than on `== .renewFailed`.
+    func testRenewFailedCannotBeIdentifiedByEquality() {
+        XCTAssertNil(CredentialsManagerError.renewFailed.cause)
+        XCTAssertEqual(CredentialsManagerError.renewFailed, CredentialsManagerError.renewFailed)
+        XCTAssertNotEqual(CredentialsManagerError.renewFailed, CredentialsManagerError.noCredentials)
+    }
+}
+
+/// The device-code poll loop treated every non-`authorization_pending` error as fatal, including
+/// `slow_down` — which RFC 8628 defines as "poll less often", not "give up". A sign-in the user could
+/// still have completed was abandoned instead.
+final class DeviceCodePollTests: XCTestCase {
+    func testPendingKeepsWaiting() {
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: "authorization_pending"), .keepWaiting)
+    }
+
+    /// The regression this fixes.
+    func testSlowDownBacksOffInsteadOfGivingUp() {
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: "slow_down"), .slowDown)
+        XCTAssertNotEqual(Provider.pollOutcome(forErrorCode: "slow_down"), .stop)
+    }
+
+    func testTerminalErrorsStop() {
+        for code in ["expired_token", "access_denied", "invalid_grant", "invalid_client"] {
+            XCTAssertEqual(Provider.pollOutcome(forErrorCode: code), .stop, "expected \(code) to stop")
+        }
+    }
+
+    /// An unrecognised code stops rather than polling forever against a code that may be dead.
+    func testUnknownCodeStops() {
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: "something_new"), .stop)
+        XCTAssertEqual(Provider.pollOutcome(forErrorCode: ""), .stop)
     }
 }

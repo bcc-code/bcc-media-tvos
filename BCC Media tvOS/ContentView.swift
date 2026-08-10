@@ -11,21 +11,8 @@ import FeatureFlags
 import NpawPlugin
 import SwiftUI
 
-var backgroundColor: Color {
-    Color(red: 13 / 255, green: 22 / 255, blue: 35 / 255)
-}
-
-var cardBackgroundColor: Color {
-    Color(red: 29 / 255, green: 40 / 255, blue: 56 / 255)
-}
-
-var cardActiveBackgroundColor: Color {
-    Color(red: 58 / 255, green: 80 / 255, blue: 112 / 255)
-}
-
 enum StaticDestination: Hashable {
     case aboutUs
-    case signIn
 }
 
 enum TabType: Hashable {
@@ -36,62 +23,75 @@ enum TabType: Hashable {
 
 typealias PlayCallback = (Bool, API.GetEpisodeQuery.Data.Episode) async -> Void
 
-class Flags: ObservableObject {
-    func load() {}
-}
-
 struct ContentView: View {
     @State var authenticated = authenticationProvider.isAuthenticated()
     @State var frontPageId: String? = nil
-    @State var bccMember = false
 
     @State var loaded = false
 
     @State var loading = false
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var flags = Flags()
-
+    /// `@MainActor` because it writes view state (`frontPageId`, `loaded`) and animates.
+    /// It also makes `loaded` usable as a guard in the `scenePhase` observer: the check and the set
+    /// cannot interleave.
+    @MainActor
     func load() async {
-        frontPageId = nil
-        try? await Task.sleep(for: .seconds(1))
         await AppOptions.load()
         frontPageId = AppOptions.app.pageId
-        bccMember = AppOptions.user.bccMember == true
+        // Hopped to the main actor because this fires from whichever thread a failing request is on,
+        // and `startSignIn` touches `@State` and the navigation path. With this, all three
+        // `startSignIn` call sites are main-isolated.
         authenticationProvider.registerErrorCallback {
-            startSignIn()
+            Task { @MainActor in
+                startSignIn()
+            }
         }
         NpawPluginProvider.setup()
         if let id = AppOptions.user.anonymousId {
-            FeatureFlags.onLoad {
-                DispatchQueue.main.sync {
-                    flags.load()
-                }
-                withAnimation {
-                    loaded = true
-                }
-            }
-            FeatureFlags.onUpdate {
-                DispatchQueue.main.sync {
-                    flags.load()
-                }
-            }
-            let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
-            FeatureFlags.setup(unleashUrl: AppOptions.unleash.url, clientKey: AppOptions.unleash.clientKey, context: [
-                "anonymousId": id,
-                "ageGroupStart": AppOptions.user.ageGroupStart != nil ? String(AppOptions.user.ageGroupStart!) : "unknown",
-                "ageGroup": AppOptions.user.ageGroup ?? "unknown",
-                "gender": AppOptions.user.gender ?? "unknown",
-                "userId": AppOptions.user.personId ?? "unknown",
-                "os": "tvos",
-                "appBuildNumber": buildNumber ?? "unknown"
-            ])
+            setupFeatureFlags(anonymousId: id)
             await Events.standard.identify()
         } else {
-            withAnimation {
-                loaded = true
-            }
+            print("[Unleash] skipped — no anonymousId, flags stay off while signed out")
         }
+        // Never gate the UI on Unleash: it used to only unblock from the Unleash callback, so every
+        // launch waited for that request to finish or time out.
+        withAnimation {
+            loaded = true
+        }
+    }
+
+    private func setupFeatureFlags(anonymousId: String) {
+        // Only send keys we actually know. "unknown" sentinels break Unleash constraints, and a
+        // shared fake userId puts every user without a personId in the same rollout bucket.
+        var context = [
+            "anonymousId": anonymousId,
+            // Stickiness falls back to sessionId when there is no userId, keeping gradual rollouts
+            // stable per device for signed-in users without a personId.
+            "sessionId": anonymousId,
+            "os": "tvos"
+        ]
+        if let personId = AppOptions.user.personId {
+            context["userId"] = personId
+        }
+        if let ageGroup = AppOptions.user.ageGroup {
+            context["ageGroup"] = ageGroup
+        }
+        if let ageGroupStart = AppOptions.user.ageGroupStart {
+            context["ageGroupStart"] = String(ageGroupStart)
+        }
+        if let gender = AppOptions.user.gender {
+            context["gender"] = gender
+        }
+        if let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+            context["appBuildNumber"] = buildNumber
+        }
+
+        FeatureFlagsClient.shared.setup(
+            unleashUrl: AppOptions.unleash.url,
+            clientKey: AppOptions.unleash.clientKey,
+            context: context
+        )
     }
 
     private func viewCallback(_ id: String, context: API.EpisodeContext? = nil) async {
@@ -99,29 +99,20 @@ struct ContentView: View {
     }
 
     private func getPathsFromUrl(_ url: URL) async {
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-
-        let parts = components.path.split(separator: "/")
-        if parts.count == 0 {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            print("ignoring unparseable deep link: \(url)")
             return
         }
 
-        if parts[0] == "episode" {
-            if parts[1] != "" {
-                let str = parts[1]
-
-                var play = false
-                if let queryItems = components.queryItems {
-                    for q in queryItems {
-                        if q.name == "play" {
-                            play = true
-                            break
-                        }
-                    }
-                }
-                await loadEpisode(String(str), play: play)
-            }
+        // `count >= 2` is the fix: the id was read unconditionally once the first component matched,
+        // so a link of just `…://episode` was an index-out-of-range.
+        let parts = components.path.split(separator: "/")
+        guard parts.count >= 2, parts[0] == "episode" else {
+            return
         }
+
+        let play = components.queryItems?.contains { $0.name == "play" } ?? false
+        await loadEpisode(String(parts[1]), play: play)
     }
 
     func authStateUpdate() {
@@ -146,32 +137,58 @@ struct ContentView: View {
     }
 
     @State var cancelLogin: (() -> Void)? = nil
+    @State private var signingIn = false
+
+    /// Called by the two sign-in buttons and by the auth error handler. The handler fires once per
+    /// failing request and several can fail together, so this has to be a no-op while a flow is
+    /// already running — every flow starts by revoking credentials.
     func startSignIn() {
-        let task = Task {
+        guard !signingIn else {
+            print("sign-in already in progress, ignoring")
+            return
+        }
+        signingIn = true
+
+        let task = Task { @MainActor in
+            defer { signingIn = false }
+
             _ = await authenticationProvider.logout()
 
             await authenticationProvider.login { code in
-                path.append(
-                    SignInView(
-                        cancel: {
-                            cancelLogin?()
-                        },
-                        verificationUri: code.verificationUri,
-                        verificationUriComplete: code.verificationUriComplete,
-                        code: code.userCode
+                // `login` is a non-isolated async function, so its synchronous callback runs on the
+                // generic executor — this needs its own hop before touching `path`.
+                Task { @MainActor in
+                    path.append(
+                        SignInView(
+                            cancel: {
+                                cancelLogin?()
+                            },
+                            verificationUri: code.verificationUri,
+                            verificationUriComplete: code.verificationUriComplete,
+                            code: code.userCode
+                        )
                     )
-                )
+                }
             }
             authStateUpdate()
         }
         cancelLogin = task.cancel
     }
 
-    func playCallbackWithContext(_ context: API.EpisodeContext?, progress _: Bool) -> PlayCallback {
+    /// Builds the play action handed to `EpisodeViewer`.
+    ///
+    /// `progress` was declared and then discarded (`progress _: Bool`), so the player it created always
+    /// took the default `true` — meaning a caller that asked for progress tracking to be off would
+    /// silently have got it on. It is threaded through now.
+    func playCallbackWithContext(_ context: API.EpisodeContext?, progress: Bool) -> PlayCallback {
         func cb(_ shuffle: Bool, _ episode: API.GetEpisodeQuery.Data.Episode) {
             var ctx = context ?? API.EpisodeContext()
             ctx.shuffle = .init(booleanLiteral: shuffle)
-            path.append(EpisodePlayer(episode: episode, next: triggerNextEpisode(episode, ctx)))
+            path.append(EpisodePlayer(
+                episode: episode,
+                next: triggerNextEpisode(episode, ctx),
+                progress: progress
+            ))
         }
         return cb
     }
@@ -214,10 +231,12 @@ struct ContentView: View {
     }
 
     func loadPlaylist(_ id: String) async {
-        guard let data = await apolloClient.getAsync(query: API.GetFirstEpisodeInPlaylistQuery(id: id)) else {
+        guard let data = await apolloClient.getAsync(query: API.GetFirstEpisodeInPlaylistQuery(id: id)),
+              let first = data.playlist.items.items.first
+        else {
             return
         }
-        await loadEpisode(data.playlist.items.items[0].id, context: .init(.init(collectionId: .null, playlistId: .init(stringLiteral: id), shuffle: .null, cursor: .null)))
+        await loadEpisode(first.id, context: .init(.init(collectionId: .null, playlistId: .init(stringLiteral: id), shuffle: .null, cursor: .null)))
     }
 
     func loadShow(_ id: String) async {
@@ -280,13 +299,11 @@ struct ContentView: View {
 
     @State var onboarded = authenticationProvider.isAuthenticated()
 
-    @State var playEpisode: API.GetEpisodeQuery.Data.Episode? = nil
-
     @FocusState var focusedLogin
 
     var body: some View {
         ZStack {
-            backgroundColor.ignoresSafeArea()
+            Color.appBackground.ignoresSafeArea()
             if loaded {
                 NavigationStack(path: $path) {
                     ZStack {
@@ -297,20 +314,13 @@ struct ContentView: View {
                                 }.tag(TabType.pages)
                             SearchView(
                                 queryString: $searchQuery,
-                                clickItem: clickItem,
-                                playCallback: playCallbackWithContext(nil, progress: true)
+                                clickItem: clickItem
                             ).tabItem {
                                 Label("tab_search", systemImage: "magnifyingglass").font(.barlow)
                             }.tag(TabType.search)
                             SettingsView(
                                 path: $path,
                                 authenticated: authenticated,
-                                onSave: {
-                                    authenticated = authenticationProvider.isAuthenticated()
-                                    Task {
-                                        await load()
-                                    }
-                                },
                                 signIn: startSignIn,
                                 logout: logout,
                                 name: AppOptions.user.name,
@@ -321,10 +331,10 @@ struct ContentView: View {
                             }.tag(TabType.settings)
                         }.disabled(!authenticated && !onboarded).font(.barlow)
                         if !authenticated && !onboarded {
-                            Image(uiImage: UIImage(named: "OnboardBackground")!).resizable().ignoresSafeArea().focusable(false)
+                            Image("OnboardBackground").resizable().ignoresSafeArea().focusable(false)
                             ZStack {
                                 HStack {
-                                    Image(uiImage: UIImage(named: "OnboardArt")!)
+                                    Image("OnboardArt")
                                     VStack(alignment: .leading) {
                                         Spacer()
                                         VStack(alignment: .leading) {
@@ -366,8 +376,6 @@ struct ContentView: View {
                         switch dest {
                         case .aboutUs:
                             AboutUsView()
-                        default:
-                            EmptyView()
                         }
                     }
                     .navigationDestination(for: EpisodePlayer.self) { player in
@@ -379,7 +387,6 @@ struct ContentView: View {
             .task {
                 await load()
             }
-            .environmentObject(flags)
             .onOpenURL(perform: { url in
                 loading = true
                 Task {
@@ -388,15 +395,17 @@ struct ContentView: View {
                     onboarded = true
                     loading = false
                 }
-            }).onChange(of: scenePhase) { phase in
-                switch phase {
-                case .active:
-                    print("reload")
-                    Task {
-                        await load()
-                    }
-                default:
-                    print("do nothing")
+            }).onChange(of: scenePhase) { _, phase in
+                // Launch delivers `.active` too, which ran a second `load()` alongside `.task` — two
+                // concurrent GetSetupQuery + userInfo round trips racing to write the same global
+                // `AppOptions.standard`. `loaded` is only set at the end of a completed load and is
+                // never reset, so it distinguishes a real return to the foreground from that initial
+                // activation.
+                guard phase == .active, loaded else {
+                    return
+                }
+                Task {
+                    await load()
                 }
             }
     }

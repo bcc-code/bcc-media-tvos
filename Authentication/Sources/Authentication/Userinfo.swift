@@ -4,26 +4,24 @@ import Foundation
 import Sentry
 
 public func getAgeGroup(_ age: Int?) -> (range: String, start: Int) {
-    let breakpoints: [Int: String] = [
-        9: "< 10",
-        12: "10 - 12",
-        18: "13 - 18",
-        25: "19 - 25",
-        36: "26 - 36",
-        50: "37 - 50",
-        64: "51 - 64",
+    // upperBound is inclusive; start is the first age in the band.
+    let bands: [(upperBound: Int, range: String, start: Int)] = [
+        (9, "< 10", 0),
+        (12, "10 - 12", 10),
+        (18, "13 - 18", 13),
+        (25, "19 - 25", 19),
+        (36, "26 - 36", 26),
+        (50, "37 - 50", 37),
+        (64, "51 - 64", 51),
     ]
-    
-    if let age = age {
-        for key in breakpoints.keys.sorted() {
-            let value = breakpoints[key]!
-            if age <= key {
-                return (range: value, start: 65)
-            }
-        }
-        return (range: "65+", start: 65)
+
+    guard let age = age else {
+        return (range: "UNKNOWN", start: 999)
     }
-    return (range: "UNKNOWN", start: 999)
+    for band in bands where age <= band.upperBound {
+        return (range: band.range, start: band.start)
+    }
+    return (range: "65+", start: 65)
 }
 
 public extension Provider {
@@ -106,17 +104,23 @@ public extension Provider {
     }
 }
 
-public func calculateAge(from birthdate: String) -> Int? {
+/// Hoisted for the same reason as the formatters in the app target: constructing one costs far more
+/// than using it. Not a hot path — user info is fetched once and cached for five minutes — but it is
+/// the same pattern, and `DateCalculationTests` covers the behaviour either way.
+private let birthdateFormatter: ISO8601DateFormatter = {
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions = [
         .withFractionalSeconds,
         .withFullDate, // Forces 00.00.00. This is the only way to allow fractional seconds without it being *required*. See https://forums.swift.org/t/iso8601dateformatter-fails-to-parse-a-valid-iso-8601-date/22999/19
     ]
-    
-    guard let date = formatter.date(from: birthdate) else {
+    return formatter
+}()
+
+public func calculateAge(from birthdate: String) -> Int? {
+    guard let date = birthdateFormatter.date(from: birthdate) else {
         return nil
     }
-    
+
     let ageComponents = Calendar.current.dateComponents([.year], from: date, to: Date())
     return ageComponents.year
 }

@@ -34,7 +34,7 @@ struct LabelSection: View {
                             Text(item.title)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
-                                .background(cardBackgroundColor)
+                                .background(Color.cardBackground)
                                 .cornerRadius(10).overlay(
                                     LockView(locked: item.locked)
                                 )

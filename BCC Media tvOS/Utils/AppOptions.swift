@@ -16,7 +16,6 @@ public struct UserOptions {
     var anonymousId: String?
     var ageGroup: String?
     var ageGroupStart: Int?
-    var bccMember: Bool?
     var gender: String?
     var countryISOCode: String?
     var personId: String?
@@ -25,32 +24,70 @@ public struct UserOptions {
 
 public struct ApplicationOptions {
     var pageId: String?
-    var searchPageId: String?
+}
+
+// Build-time configuration: the scheme / CI environment wins, falling back to the literals in
+// `CI.swift` that `envsubst` fills in during a release build.
+//
+// Derived rather than assigned, for two reasons. Each variable name is now spelled in exactly one
+// place — `RUDDER_DATA_PLANE_URL` was misspelled in `load()` and silently shadowed the value
+// `Events` had already read correctly. And these values are available from process start rather
+// than only after whichever writer ran first: `load()` is async and gated on a network round trip,
+// so `Events.init` used to re-resolve them itself to avoid waiting for it.
+//
+// Read once — `ProcessInfo.environment` rebuilds its dictionary on every access, and nothing here
+// calls `setenv`.
+private let processEnvironment = ProcessInfo.processInfo.environment
+
+private func configValue(_ envKey: String, _ fallback: String) -> String {
+    processEnvironment[envKey] ?? fallback
 }
 
 public struct NpawOptions {
-    var accountCode: String?
+    var accountCode: String? { configValue("NPAW_ACCOUNT_CODE", CI.npawAccountCode) }
 }
 
 public struct RudderOptions {
-    var dataPlaneUrl: String = ""
-    var writeKey: String = ""
+    var dataPlaneUrl: String { configValue("RUDDER_DATAPLANE_URL", CI.rudderDataplaneURL) }
+    var writeKey: String { configValue("RUDDER_WRITE_KEY", CI.rudderWriteKey) }
 }
 
 public struct UnleashOptions {
-    var url: String = ""
-    var clientKey: String = ""
+    var url: String { configValue("UNLEASH_URL", CI.unleashUrl) }
+    var clientKey: String { configValue("UNLEASH_CLIENT_KEY", CI.unleashClientKey) }
 }
 
-public struct AppOptions {
+/// Process-wide configuration and user state.
+///
+/// A `final class` rather than a `struct` behind a mutable `static var`. It was always a singleton
+/// with reference semantics in practice, and the struct form had a concrete cost: `static var app` was
+/// get-only, so writers reached through `AppOptions.standard.app.…` while readers used
+/// `AppOptions.app.…` — two spellings for the same thing, on adjacent lines inside `load()`.
+public final class AppOptions {
     private init() {}
 
-    public var name: String = "tvOS"
-    
     public var sessionId: String? {
         Events.sessionId?.stringValue
     }
-    public var searchSessionId: String? = UUID().uuidString
+
+    /// Guarded because it is read by the Apollo interceptor on whichever thread a request is on, and
+    /// written from the main actor when the search field is cleared. The rest of the state below is
+    /// touched only from the main actor.
+    private let lock = NSLock()
+    private var storedSearchSessionId = UUID().uuidString
+
+    public var searchSessionId: String {
+        get {
+            lock.lock()
+            defer { lock.unlock() }
+            return storedSearchSessionId
+        }
+        set {
+            lock.lock()
+            defer { lock.unlock() }
+            storedSearchSessionId = newValue
+        }
+    }
 
     public var audioLanguage: String? {
         UserDefaults.standard.string(forKey: audioLanguageKey)
@@ -87,9 +124,10 @@ public struct AppOptions {
     public var unleash: UnleashOptions = .init()
 }
 
-// Implement standard things
+// Static conveniences, so call sites read `AppOptions.user` rather than `AppOptions.standard.user`.
+// Every one of these is get *and* set, so there is a single spelling for both directions.
 public extension AppOptions {
-    static var standard = AppOptions()
+    static let standard = AppOptions()
 
     static var audioLanguage: String? {
         get {
@@ -116,9 +154,22 @@ public extension AppOptions {
     }
 
     static var app: ApplicationOptions {
-        AppOptions.standard.app
+        get {
+            AppOptions.standard.app
+        } set {
+            AppOptions.standard.app = newValue
+        }
     }
 
+    static var searchSessionId: String {
+        get {
+            AppOptions.standard.searchSessionId
+        } set {
+            AppOptions.standard.searchSessionId = newValue
+        }
+    }
+
+    // Stateless — these resolve env/CI on access, so there is nothing to set.
     static var npaw: NpawOptions {
         AppOptions.standard.npaw
     }
@@ -136,28 +187,22 @@ public extension AppOptions {
             return
         }
 
-        AppOptions.standard.app.pageId = data.application.page?.id
-        AppOptions.standard.app.searchPageId = data.application.searchPage?.id
+        AppOptions.app.pageId = data.application.page?.id
 
         if authenticationProvider.isAuthenticated() {
             let userInfo = await authenticationProvider.userInfo()
             AppOptions.user.name = userInfo?.name
             AppOptions.user.anonymousId = data.me.analytics.anonymousId
             AppOptions.user.ageGroup = userInfo?.ageGroup
-            AppOptions.user.bccMember = data.me.bccMember
-            AppOptions.user.personId = userInfo?.personId?.formatted()
+            AppOptions.user.ageGroupStart = userInfo?.ageGroupStart
+            AppOptions.user.gender = userInfo?.gender
+            // Not .formatted() — that applies locale grouping, so 19254 became "19 254" (with a
+            // non-breaking space) and the Unleash userId changed with the device language.
+            AppOptions.user.personId = userInfo?.personId.map(String.init)
             AppOptions.user.countryISOCode = userInfo?.countryISOCode
             AppOptions.user.churchId = userInfo?.churchId?.formatted()
         } else {
             AppOptions.user = .init()
         }
-
-        let processInfo = ProcessInfo.processInfo
-
-        AppOptions.standard.npaw.accountCode = processInfo.environment["NPAW_ACCOUNT_CODE"] ?? CI.npawAccountCode
-        AppOptions.standard.rudder.writeKey = processInfo.environment["RUDDER_WRITE_KEY"] ?? CI.rudderWriteKey
-        AppOptions.standard.rudder.dataPlaneUrl = processInfo.environment["RUDDER_DATA_PLANE_URL"] ?? CI.rudderDataplaneURL
-        AppOptions.standard.unleash.url = processInfo.environment["UNLEASH_URL"] ?? CI.unleashUrl
-        AppOptions.standard.unleash.clientKey = processInfo.environment["UNLEASH_CLIENT_KEY"] ?? CI.unleashClientKey
     }
 }

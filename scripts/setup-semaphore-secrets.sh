@@ -77,6 +77,19 @@ ENV_FILE="$REPO_ROOT/scripts/.env.semaphore"
 if [ -f "$ENV_FILE" ]; then
   echo "==> Sourcing values from $ENV_FILE"
   set -a; . "$ENV_FILE"; set +a
+  # Keys we don't consume are normal — fastlane reads some of them. But a misspelled one also
+  # lands here and then degrades silently to an interactive prompt below (NPAW_ACCOUT_CODE did
+  # exactly that), so list them and let the reader spot the near-miss.
+  unused=""
+  for key in $(sed -n 's/^[[:space:]]*\([A-Za-z_][A-Za-z0-9_]*\)=.*/\1/p' "$ENV_FILE"); do
+    case " ${PLAIN_VARS[*]} " in
+      *" $key "*) ;;
+      *) unused="$unused $key" ;;
+    esac
+  done
+  if [ -n "$unused" ]; then
+    echo "      not used by this script:$unused"
+  fi
 fi
 
 # --- map every env var already defined by another secret (for reuse) ---------
@@ -140,6 +153,11 @@ for var in "${PLAIN_VARS[@]}"; do
   NEEDED_NAMES+=("$var")
   if [ -n "$cur" ]; then
     CREATE_ARGS+=( -e "$var=$cur" ); echo "  $var: from environment"; continue
+  fi
+  # Say why we're about to ask. Without this a typo'd key in the env file is indistinguishable
+  # from a value that was never stored, and the prompt looks routine.
+  if [ -f "$ENV_FILE" ]; then
+    echo "  $var: not set by $ENV_FILE or the environment — check the key spelling" >&2
   fi
   if [ "$PRINT_ONLY" -eq 1 ]; then echo "  $var: (would prompt)"; continue; fi
   read -r -p "  enter value for $var: " val

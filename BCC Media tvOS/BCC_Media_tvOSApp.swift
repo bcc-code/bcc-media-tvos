@@ -8,6 +8,7 @@
 
 import API
 import Authentication
+import FeatureFlags
 import Firebase
 import NpawPlugin
 import SwiftUI
@@ -21,14 +22,29 @@ func getSessionId() -> String? {
     return AppOptions.standard.sessionId
 }
 func getSearchSessionId() -> String? {
-    return AppOptions.standard.searchSessionId
+    return AppOptions.searchSessionId
+}
+
+func getFeatureFlagsHeader() -> String? {
+    return FeatureFlagsClient.shared.headerValue
+}
+
+/// Sentry has been initialised since launch, but until now the only `capture` in the app was in
+/// `Userinfo`. GraphQL and transport errors were printed and dropped, so nothing about a failing API
+/// was visible outside a debugger.
+func reportApiError(_ error: Error) {
+    print("api error: \(error)")
+    SentrySDK.capture(error: error)
+    Events.trigger(ErrorOccured(error: error.localizedDescription))
 }
 
 let apolloClient = API.NewClient(
     apiUrl: "https://api.brunstad.tv/query",
     tokenFactory: authenticationProvider.getAccessToken,
     sessionIdFactory: getSessionId,
-    searchSessionIdFactory: getSearchSessionId
+    searchSessionIdFactory: getSearchSessionId,
+    featureFlagsFactory: getFeatureFlagsHeader,
+    reportError: reportApiError
 )
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -60,7 +76,7 @@ struct BCC_Media_tvOSApp: App {
             ContentView().onAppear {
                 // Initialize rudder SDK
                 _ = Events.standard
-            }.onChange(of: scenePhase) { phase in
+            }.onChange(of: scenePhase) { _, phase in
                 switch phase {
                 case .background:
                     print("in background")

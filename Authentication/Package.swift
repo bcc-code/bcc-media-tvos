@@ -6,7 +6,12 @@ import PackageDescription
 let package = Package(
     name: "Authentication",
     platforms: [
-        .tvOS(.v16)
+        .tvOS(.v16),
+        // The app only ships for tvOS, but without a macOS floor the host build resolves to the
+        // default 10.13 and fails against Auth0's macOS 11 requirement — which meant `swift build`
+        // and `swift test` could not run here at all, so this package's tests never executed.
+        // 12 rather than 11 because the source uses `Date.now`. Host-only; nothing ships for macOS.
+        .macOS(.v12)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -30,8 +35,16 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "UnitTests",
-            dependencies: ["Authentication"]
+            // Prefixed like FeatureFlagsTests and APITests: target names have to be unique across the
+            // whole package graph, so a plain "UnitTests" here collides with any sibling that wants it.
+            name: "AuthenticationTests",
+            dependencies: [
+                "Authentication",
+                // The reauthentication tests construct Auth0's own error types.
+                .product(name: "Auth0", package: "auth0.swift")
+            ],
+            // Explicit because the sources sit directly in Tests/, not Tests/AuthenticationTests/.
+            path: "Tests"
         )
     ]
 )

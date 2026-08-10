@@ -28,15 +28,25 @@ extension NpawPluginProvider {
     }
 }
 
+/// Playback state, as exposed to SwiftUI and to the `CurrentPlayerStatus` accessibility probe the
+/// UI test reads. The raw value *is* the accessibility label, so there is no mapping to keep in
+/// sync — the `if error / if playing / if loading` chain this replaces is what let an inverted
+/// boolean surface as a wrong label.
+enum PlaybackStatus: String {
+    case idle = "Idle"
+    case loading = "Loading"
+    case playing = "Playing"
+    case error = "Error"
+}
+
 class PlayerControls: ObservableObject {
     var player = AVPlayer()
     var currentUrl: URL?
     
     var adapter: NpawPlugin.VideoAdapter?
     
-    var loading = false
-    var playing = false
-    var error: Error?
+    @Published private(set) var status: PlaybackStatus = .idle
+    @Published private(set) var error: Error?
     
     private var listener: PlayerListener?
     
@@ -46,40 +56,176 @@ class PlayerControls: ObservableObject {
     var expiresAt: Date?
 
     var timer: Timer?
+
+    /// Cleared per item in `setItem`, so rebuffering (`playing → loading → playing`) does not report a
+    /// second `playback_started`.
+    private var hasReportedStart = false
+    private var currentContentId: String?
+
+    /// Where to resume from, applied once the item reports `.readyToPlay`. See `setItem`.
+    private var pendingSeek: CMTime?
     
     init(player: AVPlayer = AVPlayer()) {
         self.player = player
         
         observers = [
-            player.observe(\.status, options: [.new]) { item, _ in
-                self.loading = item.status != .readyToPlay
+            // `timeControlStatus` already distinguishes playing / buffering / paused, which is what
+            // the two booleans here were trying to encode — one of them against the wrong case.
+            // `\.status` is no longer observed: readiness shows up as `.waitingToPlayAtSpecifiedRate`
+            // and failure as `player.error`.
+            player.observe(\.timeControlStatus, options: [.new, .initial]) { [weak self] _, _ in
+                self?.publishStatus()
             },
-            player.observe(\.timeControlStatus, options: [.new]) { item, _ in
-                self.playing = item.timeControlStatus != .playing
-            },
-            player.observe(\.error, options: [.new]) { item, _ in
-                debugPrint("bccm: error occured: \(item.error?.localizedDescription ?? "nil")")
-                DispatchQueue.main.async {
-                    self.error = item.error
-                }
+            player.observe(\.error, options: [.new]) { [weak self] player, _ in
+                debugPrint("bccm: error occured: \(player.error?.localizedDescription ?? "nil")")
+                self?.setError(player.error)
             },
         ]
     }
+
+    /// Errors arrive from both `AVPlayer` and the current `AVPlayerItem`, so both route through here
+    /// and the published state is written in exactly one place.
+    func setError(_ error: Error?) {
+        onMain { [weak self] in
+            self?.error = error
+            self?.recomputeStatus()
+        }
+    }
+
+    private func publishStatus() {
+        onMain { [weak self] in self?.recomputeStatus() }
+    }
+
+    /// Main thread only — call via `publishStatus()` / `setError(_:)`.
+    private func recomputeStatus() {
+        let previous = status
+
+        if error != nil {
+            status = .error
+        } else {
+            switch player.timeControlStatus {
+            case .playing:
+                status = .playing
+            // Only reachable once `play()` has been called, so this is buffering, not pre-roll.
+            case .waitingToPlayAtSpecifiedRate:
+                status = .loading
+            case .paused:
+                status = .idle
+            @unknown default:
+                status = .idle
+            }
+        }
+
+        guard status != previous else {
+            return
+        }
+        reportPlaybackTransition(from: previous, to: status)
+    }
+
+    /// `playback_started` once per item, `playback_paused` whenever a playing item stops. Both event
+    /// types existed but were never triggered.
+    ///
+    /// End of playback also lands here as `playing → idle`, so it reports a pause — there is no
+    /// `playback_ended` event to send instead.
+    private func reportPlaybackTransition(from previous: PlaybackStatus, to current: PlaybackStatus) {
+        let sessionId = Events.sessionId?.stringValue ?? ""
+        let contentId = currentContentId ?? ""
+        let position = Self.seconds(player.currentTime())
+        let totalLength = Self.seconds(player.currentItem?.duration) ?? 0
+
+        switch (previous, current) {
+        case (_, .playing) where !hasReportedStart:
+            hasReportedStart = true
+            Events.trigger(PlaybackStarted(
+                sessionId: sessionId,
+                contentPodId: contentId,
+                position: position,
+                totalLength: totalLength
+            ))
+        case (.playing, .idle):
+            Events.trigger(PlaybackPaused(
+                sessionId: sessionId,
+                contentPodId: contentId,
+                position: position,
+                totalLength: totalLength
+            ))
+        default:
+            break
+        }
+    }
+
+    /// nil for a time that is indefinite or not yet known — `CMTime.seconds` is NaN for a live stream,
+    /// which would otherwise crash on conversion to `Int`.
+    private static func seconds(_ time: CMTime?) -> Int? {
+        guard let time = time, time.isNumeric, time.seconds.isFinite else {
+            return nil
+        }
+        return Int(time.seconds)
+    }
+
+    /// `@Published` writes have to land on the main thread, and KVO delivers on whichever thread
+    /// changed the value. Same shape as `FeatureFlagsClient.refreshToggles`.
+    private func onMain(_ work: @escaping () -> Void) {
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.async(execute: work)
+        }
+    }
     
+    /// Releases everything tied to the item that is being replaced.
+    ///
+    /// Without this, `setItem` added an `AVPlayerItemDidPlayToEndTime` observer and scheduled a repeating
+    /// `Timer` on every call while never removing the previous ones, so end-of-item callbacks and
+    /// progress ticks accumulated once per item played. Auto-advancing through a playlist compounded it.
+    private static func releaseCurrentItem() {
+        current.timer?.invalidate()
+        current.timer = nil
+
+        // `object: nil` because the item this listener was registered against may already be gone.
+        if let listener = current.listener {
+            NotificationCenter.default.removeObserver(
+                listener,
+                name: .AVPlayerItemDidPlayToEndTime,
+                object: nil
+            )
+        }
+        current.listener = nil
+        current.currentItemObservers = []
+    }
+
     static func setItem(_ videoURL: URL, _ options: PlayerOptions = .init(), _ listener: PlayerListener = PlayerListener { _ in }) {
+        releaseCurrentItem()
+
         let playerItem = AVPlayerItem(url: videoURL)
-        current.error = nil
+        current.setError(nil)
+        current.hasReportedStart = false
+        current.currentContentId = options.content.id
+        current.pendingSeek = options.startFrom != 0
+            ? CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100)
+            : nil
+
         current.currentItemObservers = [
             playerItem.observe(\.error, options: [.new]) { item, _ in
                 debugPrint("bccc: playeritem error")
-                DispatchQueue.main.async {
-                    current.error = item.error
+                current.setError(item.error)
+            },
+            // Resume once the item is actually ready. Seeking straight after `replaceCurrentItem`
+            // targets an item with no loaded timebase, and the seek is commonly dropped — which is why
+            // resuming from saved progress only worked sometimes.
+            playerItem.observe(\.status, options: [.new, .initial]) { item, _ in
+                guard item.status == .readyToPlay, let target = current.pendingSeek else {
+                    return
                 }
+                current.pendingSeek = nil
+                item.seek(to: target, completionHandler: nil)
             },
         ]
         current.player.replaceCurrentItem(with: playerItem)
         current.player.currentItem?.externalMetadata = createMetadataItems(options)
-        if NpawPluginProvider.shared?.accountCode != "" {
+        // `shared?.accountCode != ""` was true when `shared` was nil, and the body then force-unwrapped
+        // it — so NPAW being uninitialised trapped here instead of skipping the block.
+        if let npaw = NpawPluginProvider.shared, npaw.accountCode != "" {
             current.adapter?.destroy()
 
             let videoOptions = VideoOptions()
@@ -94,16 +240,13 @@ class PlayerControls: ObservableObject {
             videoOptions.contentSubtitles = Language.toThreeLetterLanguageCode(languageCode: options.subtitleLanguage)
             videoOptions.contentTransactionCode = UUID().uuidString
             
-            current.adapter = NpawPluginProvider.shared!.videoBuilder()
+            current.adapter = npaw.videoBuilder()
                 .setPlayerAdapter(playerAdapter: AVPlayerAdapter(player: player))
                 .setOptions(options: videoOptions)
                 .build()
         }
-        
-        if options.startFrom != 0 {
-            current.player.seek(to: CMTimeMakeWithSeconds(Double(options.startFrom), preferredTimescale: 100))
-        }
-        
+
+
         NotificationCenter.default.addObserver(
             listener,
             selector: #selector(listener.playerDidFinishPlaying),
@@ -179,7 +322,9 @@ class PlayerControls: ObservableObject {
         player.pause()
         player.replaceCurrentItem(with: nil)
         adapter?.destroy()
-        current.timer?.invalidate()
+        current.adapter = nil
+        // Was only invalidating the timer, leaving the listener registered with NotificationCenter.
+        releaseCurrentItem()
     }
     
     static func expired() -> Bool {
@@ -221,8 +366,8 @@ struct VideoPlayerView: View {
     var body: some View {
         ZStack {
             VideoPlayerControllerView().ignoresSafeArea()
-                .onChange(of: fullscreen) { v in
-                    if v {
+                .onChange(of: fullscreen) { _, isFullscreen in
+                    if isFullscreen {
                         PlayerControls.unmute()
                     } else {
                         PlayerControls.mute()

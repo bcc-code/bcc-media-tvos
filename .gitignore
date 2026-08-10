@@ -6,6 +6,8 @@ BCC Media tvOS.app.dSYM.zip
 BCC Media tvOS.ipa
 BCC Media tvOS/Localization/.crowdin_token
 tmp/
+# Where CI and the local xcodebuild invocations point -derivedDataPath.
+DerivedData/
 
 *.cer
 *.p12

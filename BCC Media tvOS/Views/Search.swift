@@ -15,9 +15,6 @@ struct SearchView: View {
     @State var showResult: [API.SearchQuery.Data.Search.Result]? = nil
 
     var clickItem: ClickItem
-    var playCallback: PlayCallback
-
-    var searchPage: API.GetPageQuery.Data.Page? = nil
 
     private func _clickItem(_ item: Item, group: String) async {
         Events.trigger(SearchresultClicked(
@@ -30,53 +27,74 @@ struct SearchView: View {
         await clickItem(item, nil)
     }
 
-    func getResult(_ query: String) async {
-        if query == "" {
+    /// How long the query has to stay unchanged before it is sent.
+    ///
+    /// Every keystroke used to fire two GraphQL queries immediately. Typing on a remote is slow enough
+    /// that this collapses most of them without being noticeable.
+    private static let debounce = Duration.milliseconds(300)
+
+    /// Runs from `.task(id: queryString)`, which cancels the previous run whenever the query changes.
+    ///
+    /// `@MainActor` because it writes `@State`. The previous version assigned to `episodeResult` and
+    /// `showResult` from inside `withTaskGroup` child tasks, so two child tasks wrote view state off
+    /// the main actor, and the `SearchPerformed` count read those properties right after the group —
+    /// racing whichever assignment happened to land.
+    @MainActor
+    private func search(for query: String) async {
+        guard !query.isEmpty else {
+            // A cleared field starts a new search session.
+            AppOptions.searchSessionId = UUID().uuidString
             episodeResult = nil
             showResult = nil
             return
         }
 
-        let start = Date.now
-        await withTaskGroup(of: Void.self) { group in
-            group.addTask {
-                guard let data = await apolloClient.getAsync(query: API.SearchQuery(query: query, collection: "episode")) else {
-                    return
-                }
-                episodeResult = data.search.result
-            }
-            group.addTask {
-                guard let data = await apolloClient.getAsync(query: API.SearchQuery(query: query, collection: "show")) else {
-                    return
-                }
-                showResult = data.search.result
-            }
+        do {
+            try await Task.sleep(for: Self.debounce)
+        } catch {
+            // Cancelled during the debounce: a newer query arrived, so this one is not worth sending.
+            return
         }
+
+        let start = Date.now
+        // `async let` rather than a task group: two fixed requests whose values come back to the caller,
+        // instead of two child tasks writing into shared state.
+        async let episodeRequest = apolloClient.getAsync(query: API.SearchQuery(query: query, collection: "episode"))
+        async let showRequest = apolloClient.getAsync(query: API.SearchQuery(query: query, collection: "show"))
+        let (episodeData, showData) = await (episodeRequest, showRequest)
+
+        // A slow response for an older query could otherwise overwrite a newer one's results.
+        guard !Task.isCancelled else {
+            return
+        }
+
+        let episodes = episodeData?.search.result
+        let shows = showData?.search.result
+        episodeResult = episodes
+        showResult = shows
+
         Events.trigger(SearchPerformed(
             searchText: query,
             searchLatency: Date.now.timeIntervalSince(start),
-            searchResultCount: (episodeResult?.count ?? 0) + (showResult?.count ?? 0)
-        )
-        )
+            searchResultCount: (episodes?.count ?? 0) + (shows?.count ?? 0)
+        ))
     }
 
-    func mapToItem(_ type: ItemType) -> ((API.SearchQuery.Data.Search.Result) -> Item) {
-        func toItem(_ r: API.SearchQuery.Data.Search.Result) -> Item {
-            Item(id: r.id, title: r.title, showTitle: r.asEpisodeSearchItem?.showTitle, seasonTitle: r.asEpisodeSearchItem?.seasonTitle, description: r.description ?? "", image: r.image, type: type)
+    /// Named distinctly from `mapToItems(_:sectionIndex:)` in `ItemSection.swift` — both were global to
+    /// the target under the same name, differing only in argument type.
+    func mapSearchResults(_ type: ItemType, _ results: [API.SearchQuery.Data.Search.Result]) -> [Item] {
+        results.enumerated().map { index, result in
+            Item(
+                id: result.id,
+                title: result.title,
+                showTitle: result.asEpisodeSearchItem?.showTitle,
+                seasonTitle: result.asEpisodeSearchItem?.seasonTitle,
+                description: result.description ?? "",
+                image: result.image,
+                type: type,
+                index: index
+            )
         }
-        return toItem
-    }
-
-    func mapToItems(_ type: ItemType, _ items: [API.SearchQuery.Data.Search.Result]) -> [Item] {
-        var r: [Item] = []
-
-        items.indices.forEach { index in
-            var item = mapToItem(type)(items[index])
-            item.index = index
-            r.append(item)
-        }
-
-        return r
     }
 
     var body: some View {
@@ -87,12 +105,12 @@ struct SearchView: View {
                 ScrollView(.vertical) {
                     LazyVStack {
                         if let i = showResult, i.count > 0 {
-                            DefaultSection(NSLocalizedString("common_shows", comment: ""), mapToItems(.show, i)) { item in
+                            ItemRow(String(localized: "common_shows"), mapSearchResults(.show, i), shape: .landscape) { item in
                                 await _clickItem(item, group: "shows")
                             }
                         }
                         if let i = episodeResult, i.count > 0 {
-                            DefaultGridSection(NSLocalizedString("common_episodes", comment: ""), mapToItems(.episode, i)) { item in
+                            ItemGrid(String(localized: "common_episodes"), mapSearchResults(.episode, i), shape: .landscape) { item in
                                 await _clickItem(item, group: "episodes")
                             }
                         }
@@ -101,13 +119,10 @@ struct SearchView: View {
             }
         }
         .searchable(text: $queryString).font(.barlow)
-        .onChange(of: queryString) { query in
-            if query.isEmpty {
-                AppOptions.standard.searchSessionId = UUID().uuidString
-            }
-            Task {
-                await getResult(query)
-            }
+        // Keyed on the query, so SwiftUI cancels the in-flight search when it changes. The previous
+        // `onChange` spawned an unstructured Task per keystroke with nothing cancelling the last one.
+        .task(id: queryString) {
+            await search(for: queryString)
         }
         .onAppear {
             Events.page("search")
@@ -120,8 +135,6 @@ struct SearchView_Preview: PreviewProvider {
 
     static var previews: some View {
         SearchView(queryString: $query) { _, _ in
-
-        } playCallback: { _, _ in
         }
     }
 }

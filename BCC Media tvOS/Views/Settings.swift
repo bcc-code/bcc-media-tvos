@@ -19,14 +19,9 @@ extension String {
 }
 
 struct SettingsView: View {
-    @State var token = ""
-    @State var verificationUri = ""
-    @State var verificationUriComplete = ""
-
     @Binding var path: NavigationPath
 
     var authenticated: Bool
-    var onSave: () -> Void
 
     var signIn: () -> Void
     var logout: () -> Void
@@ -34,18 +29,54 @@ struct SettingsView: View {
     var name: String?
     var loading: Bool
 
-    @State var audioLanguage = AppOptions.standard.audioLanguage ?? "none"
-    @State var subtitleLanguage = AppOptions.standard.subtitleLanguage ?? "none"
+    /// The Picker tag for "no preference". `AppOptions` stores that as an absent value, not as a string.
+    private static let noSelection = "none"
 
-    func setLanguage(_ key: String, _ value: String) {
-        if value == "none" {
-            UserDefaults.standard.removeObject(forKey: key)
-        } else {
-            UserDefaults.standard.setValue(value, forKey: key)
+    @State var audioLanguage = AppOptions.audioLanguage ?? SettingsView.noSelection
+    @State var subtitleLanguage = AppOptions.subtitleLanguage ?? SettingsView.noSelection
+
+    /// Applies a language change through `AppOptions` and reports it.
+    ///
+    /// This used to write `UserDefaults` directly with its own copies of the `"audioLanguage"` /
+    /// `"subtitleLanguage"` key strings, duplicating `AppOptions.setAudioLanguage` /
+    /// `setSubtitleLanguage` — whose key constants are `private` precisely so nobody does that. Two
+    /// write paths to one key is how they drift.
+    ///
+    /// The previous value has to be read before the write: `@State` already holds the new one by the
+    /// time `onChange` runs. Note `LanguageChanged` has no field separating audio from subtitles, so
+    /// both pickers produce indistinguishable events downstream.
+    enum LanguageSetting {
+        case audio
+        case subtitles
+
+        var stored: String? {
+            get {
+                switch self {
+                case .audio: AppOptions.audioLanguage
+                case .subtitles: AppOptions.subtitleLanguage
+                }
+            }
+            nonmutating set {
+                switch self {
+                case .audio: AppOptions.audioLanguage = newValue
+                case .subtitles: AppOptions.subtitleLanguage = newValue
+                }
+            }
         }
-        apolloClient.clearCache() {
-            
-        }
+    }
+
+    func applyLanguage(_ value: String, to setting: LanguageSetting) {
+        let previous = setting.stored
+        setting.stored = value == SettingsView.noSelection ? nil : value
+
+        Events.trigger(LanguageChanged(
+            pageCode: "settings",
+            languageFrom: previous ?? SettingsView.noSelection,
+            languageTo: value
+        ))
+
+        // Cached responses embed the selected languages.
+        apolloClient.clearCache {}
     }
 
     @State var logoutPopup = false
@@ -55,22 +86,22 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("common_settings")) {
                     Picker("settings_audioLanguage", selection: $audioLanguage) {
-                        Text("common_none").tag("none")
+                        Text("common_none").tag(SettingsView.noSelection)
                         ForEach(Language.getAll(), id: \.code) { language in
                             Text(language.display.capitalizedSentence).tag(language.code)
                         }
-                    }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { value in
-                        setLanguage("audioLanguage", value)
+                    }.pickerStyle(.navigationLink).onChange(of: audioLanguage) { _, value in
+                        applyLanguage(value, to: .audio)
                     }
                     Picker("settings_subtitles", selection: $subtitleLanguage) {
-                        Text("common_none").tag("none")
+                        Text("common_none").tag(SettingsView.noSelection)
                         ForEach(Language.getAll(), id: \.code) { language in
                             HStack {
                                 Text(language.display.capitalizedSentence)
                             }.tag(language.code)
                         }
-                    }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { value in
-                        setLanguage("subtitleLanguage", value)
+                    }.pickerStyle(.navigationLink).onChange(of: subtitleLanguage) { _, value in
+                        applyLanguage(value, to: .subtitles)
                     }
                 }
                 Section(header: Text("settings_account")) {
@@ -124,6 +155,6 @@ struct SettingsView_Preview: PreviewProvider {
     @State static var path: NavigationPath = .init()
 
     static var previews: some View {
-        SettingsView(path: $path, authenticated: false, onSave: {}, signIn: {}, logout: {}, name: nil, loading: false)
+        SettingsView(path: $path, authenticated: false, signIn: {}, logout: {}, name: nil, loading: false)
     }
 }

@@ -19,7 +19,35 @@ struct EpisodeHeader: View {
 
     @FocusState var isFocused: Bool
 
-    @State var inMyList: Bool = false
+    @State private var inMyList: Bool
+
+    init(
+        episode: API.GetEpisodeQuery.Data.Episode,
+        season: API.GetEpisodeSeasonQuery.Data.Season?,
+        playCallback: @escaping PlayCallback
+    ) {
+        self.episode = episode
+        self.season = season
+        self.playCallback = playCallback
+        // Seeded here rather than from `.onAppear`. Doing it in onAppear had two costs: it tripped the
+        // `onChange` that used to drive the mutation, and it re-applied the stale fetched value on every
+        // reappearance — so coming back from the player discarded a toggle the user had just made.
+        _inMyList = State(initialValue: episode.inMyList)
+    }
+
+    /// Runs the mutation from the user's action rather than from a state change.
+    ///
+    /// `onChange(of: inMyList)` used to drive it, which meant *anything* assigning `inMyList` fired a
+    /// mutation. Opening an episode already in My List therefore re-added it, every time.
+    private func toggleMyList() {
+        inMyList.toggle()
+
+        if inMyList {
+            apolloClient.perform(mutation: API.AddEpisodeToMyListMutation(id: episode.id))
+        } else {
+            apolloClient.perform(mutation: API.RemoveEpisodeFromMyListMutation(id: API.UUID(episode.uuid)))
+        }
+    }
 
     var body: some View {
         VStack {
@@ -36,6 +64,9 @@ struct EpisodeHeader: View {
             }
             .buttonStyle(SectionItemButton(focused: isFocused))
             .frame(width: 1280, height: 720)
+            // Was found via buttons["Play"], which only worked because SF Symbols gives `play.fill`
+            // an implicit "Play" label.
+            .accessibilityIdentifier("PlayEpisode")
             .focused($isFocused)
         }
         VStack(alignment: .leading, spacing: 10) {
@@ -44,7 +75,7 @@ struct EpisodeHeader: View {
                     Text(episode.title).font(.barlowTitle)
                     HStack(spacing: 5) {
                         Text(episode.ageRating).font(.barlow).padding([.horizontal], 10).padding(.vertical, 5).background(
-                            Rectangle().foregroundColor(cardBackgroundColor)).cornerRadius(10)
+                            Rectangle().foregroundColor(Color.cardBackground)).cornerRadius(10)
                         if let s = season {
                             Text(s.show.title).font(.barlow).foregroundColor(.blue)
                         }
@@ -61,8 +92,7 @@ struct EpisodeHeader: View {
                     }.buttonStyle(.plain)
                     if authenticationProvider.isAuthenticated() {
                         Button {
-                            print("add to my list")
-                            inMyList = !inMyList
+                            toggleMyList()
                         } label: {
                             if inMyList {
                                 Image(systemName: "heart.fill")
@@ -77,16 +107,7 @@ struct EpisodeHeader: View {
                 Text(desc).font(.barlowCaption)
             }
         }.padding(.vertical, 20)
-            .onAppear {
-                inMyList = episode.inMyList
-            }
-            .onChange(of: inMyList) { _ in
-                if inMyList {
-                    apolloClient.perform(mutation: API.AddEpisodeToMyListMutation(id: episode.id))
-                } else {
-                    apolloClient.perform(mutation: API.RemoveEpisodeFromMyListMutation(id: API.UUID(episode.uuid)))
-                }
-            }.font(.barlow)
+            .font(.barlow)
     }
 }
 
@@ -134,7 +155,7 @@ struct EpisodeListItem: View {
                 }.padding(20)
                 Spacer()
             }.frame(maxWidth: .infinity)
-                .background(active ? cardActiveBackgroundColor : cardBackgroundColor)
+                .background(active ? Color.cardActiveBackground : Color.cardBackground)
         }.buttonStyle(SectionItemButton(focused: isFocused))
             .padding(.zero)
             .focused($isFocused)
@@ -167,6 +188,12 @@ struct EpisodeViewer: View {
         if loaded {
             return
         }
+        // The Picker only emits a `.season` tag for episodes, so for anything else the default
+        // selection matched no tag and the segmented control rendered with nothing active. Corrected
+        // before the first `await`, so there is no window where the selection is invalid.
+        if episode.type != .episode {
+            tab = .details
+        }
         let data = await apolloClient.getAsync(query: API.GetEpisodeContextQuery(id: episode.id, context: context != nil ? .init(context!) : .null))
         if let c = data?.episode.context?.asContextCollection?.items?.items {
             items = c
@@ -177,17 +204,31 @@ struct EpisodeViewer: View {
         loaded = true
     }
 
-    func toDateString(_ str: String) -> String {
+    /// Fixed-format parser for the API's publish date. `en_US_POSIX` so the device locale cannot change
+    /// how the pattern is interpreted.
+    private static let publishDateParser: DateFormatter = {
         let parser = DateFormatter()
         parser.locale = Locale(identifier: "en_US_POSIX")
         parser.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let date = parser.date(from: str)!
+        return parser
+    }()
 
+    /// `.autoupdatingCurrent` rather than `.current`, which is what makes caching the instance safe —
+    /// it follows a locale change instead of freezing the one in effect at first use.
+    private static let publishDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy HH:mm"
         formatter.locale = .autoupdatingCurrent
+        return formatter
+    }()
 
-        return formatter.string(from: date)
+    func toDateString(_ str: String) -> String {
+        // Show the raw value rather than trapping if the API ever returns a shape this pattern does
+        // not cover (fractional seconds, for instance).
+        guard let date = Self.publishDateParser.date(from: str) else {
+            return str
+        }
+        return Self.publishDateFormatter.string(from: date)
     }
 
     var body: some View {
@@ -253,7 +294,7 @@ struct EpisodeViewer: View {
             .task {
                 await load()
             }
-            .onChange(of: seasonId) { id in
+            .onChange(of: seasonId) { _, id in
                 print(id)
                 if !id.isEmpty {
                     Task {

@@ -25,33 +25,11 @@ extension AVPlayerItem {
         return false
     }
 
-    private func getMediaSelectionGroup(characteristic: AVMediaCharacteristic) async -> String? {
-        do {
-            if let group = try await asset.loadMediaSelectionGroup(for: characteristic),
-               let selectedOption = currentMediaSelection.selectedMediaOption(in: group),
-               let languageCode = selectedOption.extendedLanguageTag
-            {
-                return languageCode
-            }
-        } catch {
-            print(error)
-        }
-        return nil
-    }
-
     func setAudioLanguage(_ audioLanguage: String) async -> Bool {
         await setMediaSelectionGroup(audioLanguage, characteristic: .audible)
     }
 
     func setSubtitleLanguage(_ subtitleLanguage: String) async -> Bool {
         await setMediaSelectionGroup(subtitleLanguage, characteristic: .legible)
-    }
-
-    func getSelectedAudioLanguage() async -> String? {
-        await getMediaSelectionGroup(characteristic: .audible)
-    }
-
-    func getSelectedSubtitleLanguage() async -> String? {
-        await getMediaSelectionGroup(characteristic: .legible)
     }
 }
