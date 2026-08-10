@@ -99,20 +99,10 @@ struct ContentView: View {
     }
 
     private func getPathsFromUrl(_ url: URL) async {
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            print("ignoring unparseable deep link: \(url)")
+        guard let link = parseEpisodeDeepLink(url) else {
             return
         }
-
-        // `count >= 2` is the fix: the id was read unconditionally once the first component matched,
-        // so a link of just `…://episode` was an index-out-of-range.
-        let parts = components.path.split(separator: "/")
-        guard parts.count >= 2, parts[0] == "episode" else {
-            return
-        }
-
-        let play = components.queryItems?.contains { $0.name == "play" } ?? false
-        await loadEpisode(String(parts[1]), play: play)
+        await loadEpisode(link.episodeId, play: link.play)
     }
 
     func authStateUpdate() {
