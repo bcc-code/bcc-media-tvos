@@ -45,6 +45,15 @@
 		09055A3A2B57FC540019FB9A /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A102B57FC540019FB9A /* Search.swift */; };
 		09055A3C2B57FD450019FB9A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A3B2B57FD450019FB9A /* Utils.swift */; };
 		09055A4F2B57FF550019FB9A /* AppOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A482B57FF550019FB9A /* AppOptions.swift */; };
+		A1D5E70000000000000000F1 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5E70000000000000000F0 /* DeepLink.swift */; };
+		A1D5E70000000000000000C1 /* DeepLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5E70000000000000000B1 /* DeepLinkTests.swift */; };
+		A1D5E70000000000000000C2 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5E70000000000000000B2 /* UtilsTests.swift */; };
+		A1D5E70000000000000000C3 /* StreamUrlsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5E70000000000000000B3 /* StreamUrlsTests.swift */; };
+		A1D5E70000000000000000C4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A3B2B57FD450019FB9A /* Utils.swift */; };
+		A1D5E70000000000000000C5 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5E70000000000000000F0 /* DeepLink.swift */; };
+		A1D5E70000000000000000C6 /* Episodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A4A2B57FF550019FB9A /* Episodes.swift */; };
+		A1D5E70000000000000000E1 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = A1D5E70000000000000000D1 /* API */; };
+		A1D5E70000000000000000E2 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = A1D5E70000000000000000D2 /* ApolloAPI */; };
 		09055A502B57FF550019FB9A /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A492B57FF550019FB9A /* Languages.swift */; };
 		09055A512B57FF550019FB9A /* Episodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A4A2B57FF550019FB9A /* Episodes.swift */; };
 		09055A522B57FF550019FB9A /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09055A4B2B57FF550019FB9A /* Events.swift */; };
@@ -133,6 +142,12 @@
 		09055A482B57FF550019FB9A /* AppOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppOptions.swift; sourceTree = "<group>"; };
 		09055A492B57FF550019FB9A /* Languages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		09055A4A2B57FF550019FB9A /* Episodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episodes.swift; sourceTree = "<group>"; };
+		A1D5E70000000000000000F0 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
+		A1D5E70000000000000000A2 /* unittests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unittests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1D5E70000000000000000B0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A1D5E70000000000000000B1 /* DeepLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkTests.swift; sourceTree = "<group>"; };
+		A1D5E70000000000000000B2 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
+		A1D5E70000000000000000B3 /* StreamUrlsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamUrlsTests.swift; sourceTree = "<group>"; };
 		09055A4B2B57FF550019FB9A /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		09055A4C2B57FF550019FB9A /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		9EA50F32E608D1EE9F6FB092 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -178,6 +193,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1D5E70000000000000000A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1D5E70000000000000000E1 /* API in Frameworks */,
+				A1D5E70000000000000000E2 /* ApolloAPI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -187,6 +211,7 @@
 				817A8CE92C05BCDE00E48E23 /* GoogleService-Info.plist */,
 				7E31D57A2BE13D6B00A3A7C5 /* PrivacyInfo.xcprivacy */,
 				81F594AC2BC6ED6E00A3BFC0 /* Tests */,
+				A1D5E70000000000000000A9 /* UnitTests */,
 				09055A5D2B58064E0019FB9A /* BCC Media tvOS.entitlements */,
 				090559E62B57FC540019FB9A /* Fonts */,
 				090559EB2B57FC540019FB9A /* Components */,
@@ -211,6 +236,7 @@
 			children = (
 				090559992B57F22F0019FB9A /* BCC Media tvOS.app */,
 				81F594B12BC6ED9300A3BFC0 /* uitests.xctest */,
+				A1D5E70000000000000000A2 /* unittests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				09055A482B57FF550019FB9A /* AppOptions.swift */,
+				A1D5E70000000000000000F0 /* DeepLink.swift */,
 				09055A4A2B57FF550019FB9A /* Episodes.swift */,
 				09055A4B2B57FF550019FB9A /* Events.swift */,
 				09055A4C2B57FF550019FB9A /* Font.swift */,
@@ -343,6 +370,17 @@
 				81F594BA2BC6EDC500A3BFC0 /* uitests-Bridging-Header.h */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		A1D5E70000000000000000A9 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1D5E70000000000000000B0 /* README.md */,
+				A1D5E70000000000000000B1 /* DeepLinkTests.swift */,
+				A1D5E70000000000000000B3 /* StreamUrlsTests.swift */,
+				A1D5E70000000000000000B2 /* UtilsTests.swift */,
+			);
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,6 +434,27 @@
 			productReference = 81F594B12BC6ED9300A3BFC0 /* uitests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		A1D5E70000000000000000A1 /* unittests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1D5E70000000000000000A3 /* Build configuration list for PBXNativeTarget "unittests" */;
+			buildPhases = (
+				A1D5E70000000000000000A6 /* Sources */,
+				A1D5E70000000000000000A7 /* Frameworks */,
+				A1D5E70000000000000000A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = unittests;
+			packageProductDependencies = (
+				A1D5E70000000000000000D1 /* API */,
+				A1D5E70000000000000000D2 /* ApolloAPI */,
+			);
+			productName = unittests;
+			productReference = A1D5E70000000000000000A2 /* unittests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -415,6 +474,10 @@
 						CreatedOnToolsVersion = 15.2;
 						LastSwiftMigration = 1520;
 						TestTargetID = 090559982B57F22F0019FB9A;
+					};
+					A1D5E70000000000000000A1 = {
+						DevelopmentTeam = 6734NUF6AV;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -462,6 +525,7 @@
 			targets = (
 				090559982B57F22F0019FB9A /* BCC Media tvOS */,
 				81F594B02BC6ED9300A3BFC0 /* uitests */,
+				A1D5E70000000000000000A1 /* unittests */,
 			);
 		};
 /* End PBXProject section */
@@ -492,6 +556,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1D5E70000000000000000A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -512,6 +583,7 @@
 				0905599F2B57F22F0019FB9A /* ContentView.swift in Sources */,
 				09055A282B57FC540019FB9A /* SectionView.swift in Sources */,
 				09055A4F2B57FF550019FB9A /* AppOptions.swift in Sources */,
+				A1D5E70000000000000000F1 /* DeepLink.swift in Sources */,
 				09055A202B57FC540019FB9A /* IconGridSection.swift in Sources */,
 				09055A542B57FF550019FB9A /* Loaders.swift in Sources */,
 				09055A532B57FF550019FB9A /* Font.swift in Sources */,
@@ -544,6 +616,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				81F594BC2BC6EDC500A3BFC0 /* MainUITest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1D5E70000000000000000A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1D5E70000000000000000C1 /* DeepLinkTests.swift in Sources */,
+				A1D5E70000000000000000C3 /* StreamUrlsTests.swift in Sources */,
+				A1D5E70000000000000000C2 /* UtilsTests.swift in Sources */,
+				A1D5E70000000000000000C5 /* DeepLink.swift in Sources */,
+				A1D5E70000000000000000C6 /* Episodes.swift in Sources */,
+				A1D5E70000000000000000C4 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,6 +912,45 @@
 			};
 			name = Release;
 		};
+		A1D5E70000000000000000A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6734NUF6AV;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.unittests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = appletvos;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.6;
+			};
+			name = Debug;
+		};
+		A1D5E70000000000000000A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6734NUF6AV;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = tv.brunstad.app.unittests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = appletvos;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.6;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -853,6 +977,15 @@
 			buildConfigurations = (
 				81F594B82BC6ED9300A3BFC0 /* Debug */,
 				81F594B92BC6ED9300A3BFC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1D5E70000000000000000A3 /* Build configuration list for PBXNativeTarget "unittests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1D5E70000000000000000A4 /* Debug */,
+				A1D5E70000000000000000A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -989,6 +1122,15 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 817A8CE72C05BCA300E48E23 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		A1D5E70000000000000000D1 /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
+		};
+		A1D5E70000000000000000D2 /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 090559B02B57FB560019FB9A /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
