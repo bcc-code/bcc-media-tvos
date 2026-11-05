@@ -10,6 +10,7 @@ import API
 import FeatureFlags
 import NpawPlugin
 import SwiftUI
+import UIKit
 
 enum StaticDestination: Hashable {
     case aboutUs
@@ -102,7 +103,7 @@ struct ContentView: View {
         guard let link = parseEpisodeDeepLink(url) else {
             return
         }
-        await loadEpisode(link.episodeId, play: link.play)
+        await loadEpisode(link.episodeId, play: link.play, followOverride: false)
     }
 
     func authStateUpdate() {
@@ -197,13 +198,16 @@ struct ContentView: View {
                 ctx.cursor = .init(stringLiteral: data.episode.cursor)
                 print(ctx)
                 try? await Task.sleep(for: .seconds(0.5))
-                await loadEpisode(data.episode.next[0].id, play: true, context: ctx, progress: false)
+                await loadEpisode(data.episode.next[0].id, play: true, context: ctx, progress: false, followOverride: false)
             }
         }
         return trigger
     }
 
-    func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true) async {
+    /// Opens an episode, or — when `followOverride` is set and the episode carries an `overrideUrl` —
+    /// whatever that URL points to instead. Autoplay-next and incoming deep links pass `false`: the
+    /// player shouldn't jump into another app, and an explicit link to an episode should land on it.
+    func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true, followOverride: Bool = true) async {
         let ctx = API.EpisodeContext(
             collectionId: context?.collectionId ?? .null,
             playlistId: context?.playlistId ?? .null,
@@ -212,6 +216,19 @@ struct ContentView: View {
         )
         guard let data = await apolloClient.getAsync(query: API.GetEpisodeQuery(id: id, context: .init(ctx)), cachePolicy: .fetchIgnoringCacheData) else {
             return
+        }
+        if followOverride, let target = resolveEpisodeOverride(data.episode.overrideUrl, currentEpisodeId: id) {
+            switch target {
+            case let .episode(link):
+                // Follow just one hop, so overrides pointing at each other can't loop.
+                await loadEpisode(link.episodeId, play: link.play, followOverride: false)
+                return
+            case let .external(url):
+                if await UIApplication.shared.open(url) {
+                    return
+                }
+                print("could not open override url \(url), showing the episode instead")
+            }
         }
         if play {
             path.append(EpisodePlayer(episode: data.episode, next: triggerNextEpisode(data.episode, ctx), progress: progress))

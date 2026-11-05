@@ -35,3 +35,54 @@ func parseEpisodeDeepLink(_ url: URL) -> EpisodeDeepLink? {
     let play = components.queryItems?.contains { $0.name == "play" } == true
     return EpisodeDeepLink(episodeId: String(parts[1]), play: play)
 }
+
+/// Where tapping an episode with an `overrideUrl` should take the user instead of its own page.
+enum EpisodeOverride: Equatable {
+    /// One of our own episode links — navigate inside the app.
+    case episode(EpisodeDeepLink)
+    /// Anything else — hand it to tvOS to open in whichever app handles it.
+    case external(URL)
+}
+
+/// Our custom URL scheme, as registered in `BCC-Media-tvOS-Info.plist`.
+private let appUrlScheme = "bcc.media"
+
+private func isOwnUrl(_ url: URL) -> Bool {
+    guard let scheme = url.scheme?.lowercased() else {
+        return false
+    }
+    if scheme == appUrlScheme {
+        return true
+    }
+    guard scheme == "http" || scheme == "https", let host = url.host?.lowercased() else {
+        return false
+    }
+    return host == "bcc.media" || host.hasSuffix(".bcc.media")
+}
+
+/// Decides what to do with an episode's `overrideUrl`.
+///
+/// Returns `nil` — show the episode as usual — when there is nothing sensible to follow: no or a
+/// blank value, a string that isn't a URL, one of our own links that isn't an episode link, a link
+/// back to the same episode, or a web URL (tvOS has no browser to open it in).
+func resolveEpisodeOverride(_ raw: String?, currentEpisodeId: String) -> EpisodeOverride? {
+    guard let trimmed = raw?.trimmingCharacters(in: .whitespacesAndNewlines),
+          !trimmed.isEmpty,
+          let url = URL(string: trimmed),
+          let scheme = url.scheme?.lowercased()
+    else {
+        return nil
+    }
+
+    if isOwnUrl(url) {
+        guard let link = parseEpisodeDeepLink(url), link.episodeId != currentEpisodeId else {
+            return nil
+        }
+        return .episode(link)
+    }
+
+    if scheme == "http" || scheme == "https" {
+        return nil
+    }
+    return .external(url)
+}
