@@ -11,6 +11,7 @@ query GetEpisode($id: ID!, $context: EpisodeContext) {
     description
     progress
     locked
+    overrideUrl
     inMyList
     cursor
     next {

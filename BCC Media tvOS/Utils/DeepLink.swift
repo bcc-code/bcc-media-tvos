@@ -35,3 +35,54 @@ func parseEpisodeDeepLink(_ url: URL) -> EpisodeDeepLink? {
     let play = components.queryItems?.contains { $0.name == "play" } == true
     return EpisodeDeepLink(episodeId: String(parts[1]), play: play)
 }
+
+/// Where tapping an episode with an `overrideUrl` should take the user instead of its own page.
+enum EpisodeOverride: Equatable {
+    /// One of our own episode links — navigate inside the app.
+    case episode(EpisodeDeepLink)
+    /// Anything else — hand it to tvOS to open in whichever app handles it.
+    case external(URL)
+}
+
+/// Our custom URL scheme, as registered in `BCC-Media-tvOS-Info.plist`.
+private let appUrlScheme = "bcc.media"
+
+private func isOwnUrl(_ url: URL) -> Bool {
+    guard let scheme = url.scheme?.lowercased() else {
+        return false
+    }
+    if scheme == appUrlScheme {
+        return true
+    }
+    guard scheme == "http" || scheme == "https", let host = url.host?.lowercased() else {
+        return false
+    }
+    return host == "bcc.media" || host.hasSuffix(".bcc.media")
+}
+
+/// Decides what to do with an episode's `overrideUrl`.
+///
+/// Matches the other platforms: relative paths (`/episode/<id>`) and our own links stay in the app;
+/// any other absolute URL is handed to the OS, which opens whichever app claims it (tvOS has no
+/// browser, so if nothing does, the caller falls back to the episode page).
+///
+/// Returns `nil` — show the episode as usual — for no or a blank value, a string that isn't a URL,
+/// one of our own links that isn't an episode link, or a link back to the same episode.
+func resolveEpisodeOverride(_ raw: String?, currentEpisodeId: String) -> EpisodeOverride? {
+    guard let trimmed = raw?.trimmingCharacters(in: .whitespacesAndNewlines),
+          !trimmed.isEmpty,
+          let url = URL(string: trimmed)
+    else {
+        return nil
+    }
+
+    // No scheme means a path relative to our own app/site.
+    if url.scheme == nil || isOwnUrl(url) {
+        guard let link = parseEpisodeDeepLink(url), link.episodeId != currentEpisodeId else {
+            return nil
+        }
+        return .episode(link)
+    }
+
+    return .external(url)
+}

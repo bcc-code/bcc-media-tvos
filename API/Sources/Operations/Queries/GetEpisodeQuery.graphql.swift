@@ -7,7 +7,7 @@ public class GetEpisodeQuery: GraphQLQuery {
   public static let operationName: String = "GetEpisode"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query GetEpisode($id: ID!, $context: EpisodeContext) { episode(id: $id, context: $context) { __typename id uuid type title originalTitle image ageRating publishDate description progress locked inMyList cursor next { __typename id } season { __typename id title show { __typename id title } } } }"#
+      #"query GetEpisode($id: ID!, $context: EpisodeContext) { episode(id: $id, context: $context) { __typename id uuid type title originalTitle image ageRating publishDate description progress locked overrideUrl inMyList cursor next { __typename id } season { __typename id title show { __typename id title } } } }"#
     ))
 
   public var id: ID
@@ -61,6 +61,7 @@ public class GetEpisodeQuery: GraphQLQuery {
         .field("description", String.self),
         .field("progress", Int?.self),
         .field("locked", Bool.self),
+        .field("overrideUrl", String?.self),
         .field("inMyList", Bool.self),
         .field("cursor", String.self),
         .field("next", [Next].self),
@@ -78,6 +79,7 @@ public class GetEpisodeQuery: GraphQLQuery {
       public var description: String { __data["description"] }
       public var progress: Int? { __data["progress"] }
       public var locked: Bool { __data["locked"] }
+      public var overrideUrl: String? { __data["overrideUrl"] }
       public var inMyList: Bool { __data["inMyList"] }
       public var cursor: String { __data["cursor"] }
       /// Should probably be used asynchronously, and retrieved separately from the episode, as it can be slow in some cases (a few db requests can occur)
