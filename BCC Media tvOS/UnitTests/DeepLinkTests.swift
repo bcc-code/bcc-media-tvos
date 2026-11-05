@@ -103,9 +103,17 @@ final class EpisodeOverrideTests: XCTestCase {
         XCTAssertNil(resolve("bcc.media:///page/frontpage"))
     }
 
-    /// tvOS has no browser, so a foreign web link can't be opened anywhere.
-    func testForeignWebLinkIsIgnored() {
-        XCTAssertNil(resolve("https://example.com/episode/5"))
+    func testRelativeEpisodePathIsRoutedInternally() {
+        XCTAssertEqual(resolve("/episode/5?play"), .episode(EpisodeDeepLink(episodeId: "5", play: true)))
+    }
+
+    func testRelativeNonEpisodePathIsIgnored() {
+        XCTAssertNil(resolve("/page/frontpage"))
+    }
+
+    /// Handed to the OS, which opens it if an app claims the link (universal links).
+    func testForeignWebLinkIsOpenedExternally() {
+        XCTAssertEqual(resolve("https://example.com/episode/5"), .external(URL(string: "https://example.com/episode/5")!))
     }
 
     func testOtherSchemesAreOpenedExternally() {

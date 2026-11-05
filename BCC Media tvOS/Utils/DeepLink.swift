@@ -62,27 +62,27 @@ private func isOwnUrl(_ url: URL) -> Bool {
 
 /// Decides what to do with an episode's `overrideUrl`.
 ///
-/// Returns `nil` — show the episode as usual — when there is nothing sensible to follow: no or a
-/// blank value, a string that isn't a URL, one of our own links that isn't an episode link, a link
-/// back to the same episode, or a web URL (tvOS has no browser to open it in).
+/// Matches the other platforms: relative paths (`/episode/<id>`) and our own links stay in the app;
+/// any other absolute URL is handed to the OS, which opens whichever app claims it (tvOS has no
+/// browser, so if nothing does, the caller falls back to the episode page).
+///
+/// Returns `nil` — show the episode as usual — for no or a blank value, a string that isn't a URL,
+/// one of our own links that isn't an episode link, or a link back to the same episode.
 func resolveEpisodeOverride(_ raw: String?, currentEpisodeId: String) -> EpisodeOverride? {
     guard let trimmed = raw?.trimmingCharacters(in: .whitespacesAndNewlines),
           !trimmed.isEmpty,
-          let url = URL(string: trimmed),
-          let scheme = url.scheme?.lowercased()
+          let url = URL(string: trimmed)
     else {
         return nil
     }
 
-    if isOwnUrl(url) {
+    // No scheme means a path relative to our own app/site.
+    if url.scheme == nil || isOwnUrl(url) {
         guard let link = parseEpisodeDeepLink(url), link.episodeId != currentEpisodeId else {
             return nil
         }
         return .episode(link)
     }
 
-    if scheme == "http" || scheme == "https" {
-        return nil
-    }
     return .external(url)
 }
