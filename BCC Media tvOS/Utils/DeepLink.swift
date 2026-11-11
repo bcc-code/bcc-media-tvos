@@ -35,3 +35,43 @@ func parseEpisodeDeepLink(_ url: URL) -> EpisodeDeepLink? {
     let play = components.queryItems?.contains { $0.name == "play" } == true
     return EpisodeDeepLink(episodeId: String(parts[1]), play: play)
 }
+
+enum EpisodeOverride: Equatable {
+    case episode(EpisodeDeepLink)
+    case external(URL)
+}
+
+private let appUrlScheme = "bcc.media"
+
+private func isOwnUrl(_ url: URL) -> Bool {
+    guard let scheme = url.scheme?.lowercased() else {
+        return false
+    }
+    if scheme == appUrlScheme {
+        return true
+    }
+    guard scheme == "http" || scheme == "https", let host = url.host?.lowercased() else {
+        return false
+    }
+    return host == "bcc.media" || host.hasSuffix(".bcc.media")
+}
+
+/// Returns nil when the episode itself should be shown.
+func resolveEpisodeOverride(_ raw: String?, currentEpisodeId: String) -> EpisodeOverride? {
+    guard let trimmed = raw?.trimmingCharacters(in: .whitespacesAndNewlines),
+          !trimmed.isEmpty,
+          let url = URL(string: trimmed)
+    else {
+        return nil
+    }
+
+    // No scheme means a path relative to our own app/site.
+    if url.scheme == nil || isOwnUrl(url) {
+        guard let link = parseEpisodeDeepLink(url), link.episodeId != currentEpisodeId else {
+            return nil
+        }
+        return .episode(link)
+    }
+
+    return .external(url)
+}

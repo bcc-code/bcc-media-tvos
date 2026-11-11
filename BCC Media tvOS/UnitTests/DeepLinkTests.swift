@@ -72,3 +72,49 @@ final class DeepLinkTests: XCTestCase {
         XCTAssertNil(parse("bcc.media://episode/1234"))
     }
 }
+
+final class EpisodeOverrideTests: XCTestCase {
+    private func resolve(_ raw: String?, current: String = "1") -> EpisodeOverride? {
+        resolveEpisodeOverride(raw, currentEpisodeId: current)
+    }
+
+    func testMissingOrBlankValueIsIgnored() {
+        XCTAssertNil(resolve(nil))
+        XCTAssertNil(resolve(""))
+        XCTAssertNil(resolve("   \n"))
+    }
+
+    func testAppSchemeEpisodeLinkIsRoutedInternally() {
+        XCTAssertEqual(resolve("bcc.media:///episode/5?play"), .episode(EpisodeDeepLink(episodeId: "5", play: true)))
+    }
+
+    func testOwnWebEpisodeLinkIsRoutedInternally() {
+        XCTAssertEqual(resolve("https://bcc.media/episode/5"), .episode(EpisodeDeepLink(episodeId: "5", play: false)))
+        XCTAssertEqual(resolve(" https://app.bcc.media/episode/5 "), .episode(EpisodeDeepLink(episodeId: "5", play: false)))
+    }
+
+    func testLinkToTheSameEpisodeIsIgnored() {
+        XCTAssertNil(resolve("bcc.media:///episode/1", current: "1"))
+    }
+
+    func testOwnNonEpisodeLinkIsIgnored() {
+        XCTAssertNil(resolve("https://bcc.media/page/frontpage"))
+        XCTAssertNil(resolve("bcc.media:///page/frontpage"))
+    }
+
+    func testRelativeEpisodePathIsRoutedInternally() {
+        XCTAssertEqual(resolve("/episode/5?play"), .episode(EpisodeDeepLink(episodeId: "5", play: true)))
+    }
+
+    func testRelativeNonEpisodePathIsIgnored() {
+        XCTAssertNil(resolve("/page/frontpage"))
+    }
+
+    func testForeignWebLinkIsOpenedExternally() {
+        XCTAssertEqual(resolve("https://example.com/episode/5"), .external(URL(string: "https://example.com/episode/5")!))
+    }
+
+    func testOtherSchemesAreOpenedExternally() {
+        XCTAssertEqual(resolve("someapp://watch/42"), .external(URL(string: "someapp://watch/42")!))
+    }
+}
