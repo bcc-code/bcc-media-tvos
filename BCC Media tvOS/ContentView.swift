@@ -204,9 +204,7 @@ struct ContentView: View {
         return trigger
     }
 
-    /// Opens an episode, or — when `followOverride` is set and the episode carries an `overrideUrl` —
-    /// whatever that URL points to instead. Autoplay-next and incoming deep links pass `false`: the
-    /// player shouldn't jump into another app, and an explicit link to an episode should land on it.
+    /// followOverride is off for autoplay-next and incoming deep links, which must land on the episode itself.
     func loadEpisode(_ id: String, play: Bool = false, context: API.EpisodeContext? = nil, progress: Bool = true, followOverride: Bool = true) async {
         let ctx = API.EpisodeContext(
             collectionId: context?.collectionId ?? .null,

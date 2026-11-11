@@ -73,7 +73,6 @@ final class DeepLinkTests: XCTestCase {
     }
 }
 
-/// Covers resolveEpisodeOverride in Utils/DeepLink.swift.
 final class EpisodeOverrideTests: XCTestCase {
     private func resolve(_ raw: String?, current: String = "1") -> EpisodeOverride? {
         resolveEpisodeOverride(raw, currentEpisodeId: current)
@@ -111,7 +110,6 @@ final class EpisodeOverrideTests: XCTestCase {
         XCTAssertNil(resolve("/page/frontpage"))
     }
 
-    /// Handed to the OS, which opens it if an app claims the link (universal links).
     func testForeignWebLinkIsOpenedExternally() {
         XCTAssertEqual(resolve("https://example.com/episode/5"), .external(URL(string: "https://example.com/episode/5")!))
     }
